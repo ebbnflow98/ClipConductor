@@ -620,7 +620,7 @@ void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)///////////////////////
 void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////////////////////////////////////////////////////////////////////
 {
     cout<<"dragEvent"<<endl;
-    cout<<"hey"<<endl;
+
     if(dragInfo.files.size() > 0)
     {
         for(int m=0;m<dragInfo.files.size();m++)
