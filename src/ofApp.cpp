@@ -687,7 +687,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==rippleXSlider)rippleX=(e.target->getValue());
     else if(e.target==rippleRateSlider)
     {
-        if(rippleSync==false)rippleRate=(e.target->getValue()*1000);
+        if(rippleSync==false)rippleRate=(e.target->getValue());
     }
     else if(e.target==invertSlider)invertMacro=(e.target->getValue());
     
