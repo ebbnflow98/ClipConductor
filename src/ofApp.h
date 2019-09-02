@@ -29,6 +29,7 @@ public:
             path="";
             size=63;
         }
+        
         void load(string loadPath)
         {
             if(loadPath.find(".mov")!=string::npos) which=true;
@@ -67,10 +68,10 @@ public:
         {
             if(which)video.setSpeed(speed);
         }
-        string getError()
+        bool getError()
         {
-            if(which)return(video.getError());
-            else return "I don't know why you'd need to get this error to be honest";
+            return false;
+    
         }
         string getPath()
         {
@@ -146,7 +147,6 @@ public:
     ofxMidiTimecodeFrame frame; //< timecode frame data, ie. H M S frame rate
     bool tempo=1,triplet=false;
     int tempoCount=24, tempoDivisionValues[4]={48,24,16,6}, tempoDivisionValuesTriplet[4]={32,12,8,4};
-    //    float velocity;
     float pitch=NULL, bpm=20, bps=NULL, videoSpeed2=1;
     ofxMidiClock clock;
     int tempoDivision=1;

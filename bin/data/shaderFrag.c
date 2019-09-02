@@ -13,6 +13,7 @@ uniform float speed;
 
 uniform float rippleMacro;
 uniform vec2 rippleXY;
+uniform float rippleRate;
 
 uniform float kaleidioscopeMacro;
 uniform int ksectors;
@@ -42,12 +43,14 @@ vec4 Filter(vec4 color, float filterMacro, vec4 filterRGB)
     return color;
 }
 
-vec2 Ripple(vec2 pos, vec2 rippleXY, float rippleMacro)
+vec2 Ripple(vec2 pos, vec2 rippleXY, float rippleRate, float rippleMacro)
 {
     float amp=sin(pos.x *.03);
-    pos.x+=sin(time*2.0)*amp*50.0*rippleMacro*rippleXY.x;
-    pos.y+=sin(time*2.0)*amp*50.0*rippleMacro*rippleXY.y;
-
+    pos.x+=sin(time)*amp*50.0*rippleMacro*rippleXY.x;
+    pos.y+=sin(time)*amp*50.0*rippleMacro*rippleXY.y;
+//    pos.x+=sin(time)*amp*50.0*rippleMacro*rippleXY.x;
+//    pos.y+=sin(time)*amp*50.0*rippleMacro*rippleXY.y;
+    
     return pos;
 }
 
@@ -69,7 +72,7 @@ void main()
 {
     vec2 pos=gl_TexCoord[0].xy;
     
-    pos=Ripple(pos,rippleXY,rippleMacro);
+    pos=Ripple(pos,rippleXY,rippleRate, rippleRate, rippleMacro);
     pos=Kaleidoscope(pos, kcenter, screenCenter, ksectors, kangleRad, kaleidioscopeMacro);
     
     vec4 color=texture2DRect(texture0,pos);

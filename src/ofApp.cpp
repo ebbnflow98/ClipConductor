@@ -11,7 +11,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
-    shader.load("shaderVert.c","shaderFrag.c" );
+    shader.load("shaderVert.c","shaderFrag.c");
     if(snaves==0) fbo.allocate(ofGetWidth(), ofGetHeight());
 
     ofLog()<<(char*)glGetString(GL_VERSION);
@@ -79,7 +79,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         rippleSyncToggle=rippleFolder->addToggle("Sync");
         rippleXSlider=rippleFolder->addSlider("X", 0.0, 1.0,rippleX);
         rippleYSlider=rippleFolder->addSlider("Y", 0.0, 1.0,rippleY);
-        rippleRateSlider=rippleFolder->addSlider("Rate",.1, 300,rippleRate);
+        rippleRateSlider=rippleFolder->addSlider("Rate",0.1, 300.00,rippleRate);
         
         filterFolder=gui->addFolder("Filter");
         filterSlider=filterFolder->addSlider("Filter",0.0,1.0,filterMacro);
@@ -462,7 +462,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
         }
         
     }
-
+       
 //-Background changing with tempo (via MIDI clock)-----------------------------
     if (msg.status==MIDI_TIME_CLOCK && snaves==1)
     {
@@ -471,7 +471,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
         tempoCount=tempoCount+1;
         bpm+=(clock.getBpm()-bpm)/5;
     }
-}
+    }
 }
 void ofApp::midiNoteOff(int pitch)
 {
@@ -730,17 +730,22 @@ bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
     if(result.bSuccess)
     {
         cout<<"new movie path:"<<result.getName()<<endl<<"player array: "<<player[i].getPath()<<endl;
+        if(player[i].getError())
+        {
+//            bool d = (player[i].video.getError().length());
+            //warning dialogue, "you've selected an incompatible file type";
+        }
         player[i].video.setPixelFormat(OF_PIXELS_RGBA);
         player[i].load(result.getPath());
+    
         scrollVideos->getItemAtIndex(i)->setLabel(result.getName());
         player[i].setLoopState(OF_LOOP_NORMAL);
         return true;
     }
-    
     else return false;
 }
 
-bool ofApp::loadSettings()/////////////////////////////////////////////////////////////////////////////////////////////
+bool ofApp::loadSettings()///////////////////////////////////////////////////////////////////////////////////////////
 {
     ofFileDialogResult result = ofSystemLoadDialog("Load file");
     cout << "  load  ";
