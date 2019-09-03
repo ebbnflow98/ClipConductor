@@ -25,24 +25,22 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     //--GUI setup--------------------------------------------------
     if(snaves==0)
     {
-        gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
+        gui = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui->setAutoDraw(true);
-//        scrollVideosGui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
-        scrollVideos = new ofxDatGuiScrollView("Videos",10);
-        scrollVideoTitle= new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
-        scrollVideoTitle->setAutoDraw(true);
-        
-        
-        scrollVideos->setVisible(true);
-        scrollVideos->setAutoDraw(true);
-        gui->addFRM();
+        gui2= new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+        gui2->setAutoDraw(true);
+//        gui->addFRM();
         clear=false;
         
-        scrollVideoTitle->addLabel("VIDEOS");
-        scrollVideoTitle->setPosition(gui->getWidth(),0);
+        gui2->addLabel("VIDEOS");
+        clearToggle = gui2->addToggle("Clear");
+        gui2->addButton("Clear All");
+        gui2->setPosition(gui->getWidth(),0);
+        gui2->addBreak();
+        gui2->addBreak();
         for(int i=0;i<max_videos;i++)
         {
-            scrollVideos->add(videoOptions[i]);
+            videoButtons[i]=(gui2->addButton(videoOptions[i]));
             cout<<"scroll videos"+ofToString(i)<<endl;
         }
         
@@ -50,16 +48,12 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui->addButton("Load"); 
         gui->addDropdown("MIDI Port:", midiIn.getInPortList());
         
-        gui->addBreak();
-        gui->addBreak();
-        
         backgroundFolder=gui->addFolder("Background");
         backgroundSwitchToggle=backgroundFolder->addToggle("Background Switch");
         bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
         bgColor2ColorPicker=backgroundFolder->addColorPicker("BG Color 2", bgColor2);
         tempoDivisionSlider=backgroundFolder->addSlider("Tempo Division",1,3,1);
         tripletButton=backgroundFolder->addToggle("Triplet");
-        cout<<"here 0"<<endl;
     
         gui->addLabel("FX");
         fxWetSlider = gui->addSlider("FX Wet",0.0,1.0,fxWet);
@@ -95,24 +89,16 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         xSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
         ySlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
         
-        cout<<"here 1"<<endl;
-
         gui->addBreak();
         gui->addBreak();
-        
-        clearToggle = scrollVideoTitle->addToggle("Clear");
-        scrollVideoTitle->addButton("Clear All");
-        cout<<"here 2"<<endl;
-        guiPosition=gui->getPosition();
-        scrollVideos->setPosition(gui->getWidth(),scrollVideoTitle->getHeight());
         
         gui->onButtonEvent(this, &ofApp::onButtonEvent);
         gui->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
         gui->onSliderEvent(this, &ofApp::onSliderEvent);
         gui->onToggleEvent(this, &ofApp::onToggleEvent);
-        scrollVideos->onScrollViewEvent(this, &ofApp::onScrollViewEvent);
         gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
-        scrollVideoTitle->onToggleEvent(this, &ofApp::onToggleEvent);
+        gui2->onToggleEvent(this, &ofApp::onToggleEvent);
+        gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
         tempoDivisionSlider->setPrecision(0);
@@ -127,13 +113,9 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         ofxDatGuiThemeEvanFlip *flip = new ofxDatGuiThemeEvanFlip;
         
         gui->setTheme(theme);
-        scrollVideos->setTheme(flip);
-        scrollVideoTitle->setTheme(theme);
+        gui2->setTheme(flip);
         gui->draw();
-        scrollVideos->draw();
-        scrollVideoTitle->draw();
-        guiWindowSize.x=gui->getWidth()+scrollVideos->getWidth();
-        
+        gui2->draw();
         ofBackground(theme->color.guiBackground);
     }
     snaves=1;
@@ -141,7 +123,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
 
 ofPoint ofApp::windowSize()/////////////////////////////////////////////////////////////////////
 {
-    ofPoint Windowsize(gui->getWidth()+scrollVideos->getWidth(),gui->getHeight()*1.5);
+    ofPoint Windowsize(gui->getWidth()+gui2->getWidth(),gui->getHeight()*1.5);
     ofSetWindowShape(Windowsize.x, Windowsize.y);
     return Windowsize;
 }
@@ -180,7 +162,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
         }
     }
     else ofBackground(bgColor1);
-                         
+    
     fbo.begin();
     ofClear(0,0,0,0);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
@@ -196,7 +178,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
         if(player[i].drawImage==false)player[i].stop();
         if(player[i].drawImage && videoCount<4)
         {
-            cout<<"videoOff: "<<videoOff<<endl;
+//            cout<<"videoOff: "<<videoOff<<endl;
             if (videoSync==true)
             {
                 bps=(bpm/60);
@@ -464,13 +446,13 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
     }
        
 //-Background changing with tempo (via MIDI clock)-----------------------------
-    if (msg.status==MIDI_TIME_CLOCK && snaves==1)
-    {
-        if (triplet==0) if(tempoCount%(tempoDivisionValues[tempoDivision])==0) (tempo=!tempo);
-        if(triplet==1) if(tempoCount%(tempoDivisionValuesTriplet[tempoDivision])==0) (tempo=!tempo);
-        tempoCount=tempoCount+1;
-        bpm+=(clock.getBpm()-bpm)/5;
-    }
+        if (msg.status==MIDI_TIME_CLOCK && snaves==1)
+        {
+            if (triplet==0) if(tempoCount%(tempoDivisionValues[tempoDivision])==0) (tempo=!tempo);
+            if(triplet==1) if(tempoCount%(tempoDivisionValuesTriplet[tempoDivision])==0) (tempo=!tempo);
+            tempoCount=tempoCount+1;
+            bpm+=(clock.getBpm()-bpm)/5;
+        }
     }
 }
 void ofApp::midiNoteOff(int pitch)
@@ -600,22 +582,22 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)///////////////////////////
     midiPort((e.target->getSelected())->getIndex());
 }
 
-void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)//////////////////////////////////////////////////////////////
-{
-    int iLabel=(e.target->getIndex());
-    if(clear==true)
-    {
-        if(player[iLabel].isLoaded()) player[iLabel].close();
-        clear=false;
-        clearToggle->setBackgroundColor(ofColor::black);
-        clearToggle->setLabelColor(ofColor::white);
-        e.target->setLabel(ofToString(iLabel));
-    }
-    else
-    {                                               cout<<"option selected:"<<e.target->getLabel()<<endl;
-        loadMovie(iLabel);
-    }
-}
+//void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)//////////////////////////////////////////////////////////////
+//{
+//    int iLabel=(e.target->getIndex());
+//    if(clear==true)
+//    {
+//        if(player[iLabel].isLoaded()) player[iLabel].close();
+//        clear=false;
+//        clearToggle->setBackgroundColor(ofColor::black);
+//        clearToggle->setLabelColor(ofColor::white);
+//        e.target->setLabel(ofToString(iLabel));
+//    }
+//    else
+//    {                                               cout<<"option selected:"<<e.target->getLabel()<<endl;
+//        loadMovie(iLabel);
+//    }
+//}
 
 void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////////////////////////////////////////////////////////////////////
 {
@@ -639,7 +621,7 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////
                     cout<<"new movie path:"<<ofFilePath::getFileName(dragInfo.files[m])<<endl<<"player array: "<<dragInfo.files[m]<<endl;
                     player[i].video.setPixelFormat(OF_PIXELS_RGBA);
                     player[i].load(dragInfo.files[m]);
-                    scrollVideos->getItemAtIndex(i)->setLabel(ofFilePath::getFileName(dragInfo.files[m]));
+                    videoButtons[i]->setLabel(ofFilePath::getFileName(dragInfo.files[m]));
                     player[i].setLoopState(OF_LOOP_NORMAL);
         }
     }
@@ -649,7 +631,25 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)///////////////////////////////
 {
     if(e.target->is("Save")) saveSettings();
     else if(e.target->is("Load")) loadSettings();
-    else if(e.target->is("Clear All")) clearAllVideos();             cout << "onButtonEvent: " << e.target->getLabel() << endl;
+    
+}
+
+void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)
+{
+    if(e.target->is("Clear All")) clearAllVideos();             cout << "onButtonEvent: " << e.target->getLabel() << endl;
+    int iLabel=(stoi(e.target->getLabel()))-1;
+    if(clear==true)
+    {
+        if(player[iLabel].isLoaded()) player[iLabel].close();
+        clear=false;
+        clearToggle->setBackgroundColor(ofColor::black);
+        clearToggle->setLabelColor(ofColor::white);
+        e.target->setLabel(ofToString(iLabel));
+    }
+    else
+    {                                               cout<<"option selected:"<<e.target->getLabel()<<endl;
+        loadMovie(iLabel);
+    }
 }
 
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////////////////////////////////
@@ -657,7 +657,6 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////
     if (e.target->is("Triplet"))triplet=!triplet;
     else if (e.target->is("Background Switch"))backgroundSwitch=!backgroundSwitch;
     else if (e.target->is("Video Sync"))videoSync=!videoSync;
-//    else if (e.target==rippleSyncToggle)rippleRate=;
     
     else if(e.target->is("Clear")) clear=!clear;
     
@@ -718,7 +717,7 @@ void ofApp::clearAllVideos()////////////////////////////////////////////////////
 {
     for(int i=0;i<max_videos;i++)
     {
-        ofxDatGuiButton *e=scrollVideos->getItemAtIndex(i);
+        ofxDatGuiButton *e=videoButtons[i];
         if(player[i].isLoaded()) player[i].close();
         e->setLabel(ofToString(i+1));
     }
@@ -738,7 +737,7 @@ bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
         player[i].video.setPixelFormat(OF_PIXELS_RGBA);
         player[i].load(result.getPath());
     
-        scrollVideos->getItemAtIndex(i)->setLabel(result.getName());
+        videoButtons[i]->setLabel(result.getName());
         player[i].setLoopState(OF_LOOP_NORMAL);
         return true;
     }

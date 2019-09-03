@@ -23,8 +23,6 @@ public:
         {
             full=false;
             which=NULL;
-//            video=NULL;
-//            picture=NULL;
             drawImage=NULL;
             path="";
             size=63;
@@ -115,7 +113,6 @@ public:
     
     void clearAllVideos();
     void midiNoteOff(int pitch);
-    void onScrollViewEvent(ofxDatGuiScrollViewEvent e);
     void onButtonEvent(ofxDatGuiButtonEvent e);
     void onSliderEvent(ofxDatGuiSliderEvent e);
     void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
@@ -126,6 +123,8 @@ public:
     bool loadSettings();
     bool saveSettings();
     void exitGui(ofEventArgs & args);
+    void onButtonEventGui2(ofxDatGuiButtonEvent e);
+
     //------------------------------------------------------------------------
     ofFbo fbo;
     ofShader shader;
@@ -138,7 +137,7 @@ public:
     int videoDivision=1, videoOff=0;
     
     bool sustain=false;
-
+    
     int playerFromMessage=0;
     // ---------------------------------MIDI---------------------------------
     ofxMidiTimecode timecode; //< timecode message parser
@@ -161,16 +160,17 @@ public:
     
     //GUI..........................................----------
     ofxDatGui* gui;
+    ofxDatGui* gui2;
     bool clear=false, clearAll=false;//, invertColors=false;
-    ofxDatGuiFolder *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *videoFolder, *backgroundFolder;
+    ofxDatGuiFolder *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletButton;
     ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *fxWetSlider, *videoSpeedSlider;
     
-    ofxDatGuiScrollView *scrollVideos;
-    ofxDatGui* scrollVideoTitle;
+    ofxDatGuiFolder *videoFolder;
+//    ofxDatGuiScrollView *scrollVideos;
     string videoOptions[25]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"};
-    ofxDatGuiScrollViewItem *videoButtons[25];
-    
+    ofxDatGuiButton *videoButtons[25];
+
     ofPoint guiPosition;
     ofPoint windowSize();
     
