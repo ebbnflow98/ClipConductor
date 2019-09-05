@@ -4,6 +4,7 @@
 #include "ofxHapPlayer.h"
 #include "ofxXmlSettings.h"
 #include "ofxDatGui.h"
+#include <HapInAVFoundation>
 
 class ofApp : public ofBaseApp,
 public ofxMidiListener
