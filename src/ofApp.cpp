@@ -737,6 +737,7 @@ bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
         player[i].setLoopState(OF_LOOP_NORMAL);
         return true;
     }
+    
     else return false;
 }
 
