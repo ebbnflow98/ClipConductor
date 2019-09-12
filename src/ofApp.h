@@ -4,7 +4,6 @@
 #include "ofxHapPlayer.h"
 #include "ofxXmlSettings.h"
 #include "ofxDatGui.h"
-#include <HapInAVFoundation>
 
 class ofApp : public ofBaseApp,
 public ofxMidiListener
@@ -29,22 +28,40 @@ public:
             size=63;
         }
         
-        void load(string loadPath)
+        bool load(string loadPath)
         {
-            if(loadPath.find(".mov")!=string::npos) which=true;
-            else if(loadPath.find(".png")!=string::npos) which=false;
-            else which=NULL;
+            if(loadPath.find(".mov")!=string::npos)
+                which=true;
+            if(loadPath.find(".png")!=string::npos)
+                which=false;
+            if(loadPath.find(".jpg")!=string::npos)
+                which=false;
+            if(loadPath.find(".jpeg")!=string::npos)
+                which=false;
+            else
+            {
+                cout<<"load failed; which=NULL \n";
+                ofSystemAlertDialog("Load failed. File type not supported.");
+                close();
+                return false;
+            }
             
             if(which)video.load(loadPath);
             else if(!which)ofLoadImage(picture,loadPath);
-            else
+            
+            if(which)
             {
-                cout<<"load failed; which=NULL";
-                close();
+                if (!video.getHapAvailable())
+                {
+                    cout<<"load failed; video is not HAP encoded. \n";
+                    ofSystemAlertDialog("Load failed. Video file is not HAP encoded.");
+                    return false; //for now, till HAP converter works.
+                }
             }
             path=loadPath;
             full=true;
             cout<<"path:"<<path<<endl;
+            return true;
         }
         void play()
         {
@@ -66,11 +83,6 @@ public:
         void setSpeed(float speed)
         {
             if(which)video.setSpeed(speed);
-        }
-        bool getError()
-        {
-            return false;
-    
         }
         string getPath()
         {

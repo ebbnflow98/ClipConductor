@@ -618,11 +618,13 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////
                 }
             if(brake==true) break;
             }
-                    cout<<"new movie path:"<<ofFilePath::getFileName(dragInfo.files[m])<<endl<<"player array: "<<dragInfo.files[m]<<endl;
-                    player[i].video.setPixelFormat(OF_PIXELS_RGBA);
-                    player[i].load(dragInfo.files[m]);
-                    videoButtons[i]->setLabel(ofFilePath::getFileName(dragInfo.files[m]));
-                    player[i].setLoopState(OF_LOOP_NORMAL);
+                cout<<"new movie path:"<<ofFilePath::getFileName(dragInfo.files[m])<<endl<<"player array: "<<dragInfo.files[m]<<endl;
+                player[i].video.setPixelFormat(OF_PIXELS_RGBA);
+                if(player[i].load(dragInfo.files[m]))
+            {
+                videoButtons[i]->setLabel(ofFilePath::getFileName(dragInfo.files[m]));
+                player[i].setLoopState(OF_LOOP_NORMAL);
+            }
         }
     }
 }
@@ -637,7 +639,8 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)///////////////////////////////
 void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)
 {
     if(e.target->is("Clear All")) clearAllVideos();             cout << "onButtonEvent: " << e.target->getLabel() << endl;
-    int iLabel=(stoi(e.target->getLabel()))-1;
+    int iLabel=stoi(e.target->getName());
+    iLabel-=1;
     if(clear==true)
     {
         if(player[iLabel].isLoaded()) player[iLabel].close();
@@ -710,7 +713,6 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)/////////////////////
         bgColor2Green=e.color.g;
         bgColor2Blue=e.color.b;
     }
-    
 }
 
 void ofApp::clearAllVideos()//////////////////////////////////////////////////////////////
@@ -726,17 +728,11 @@ void ofApp::clearAllVideos()////////////////////////////////////////////////////
 bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
 {                                                                           cout << "loading videos" << endl;
     ofFileDialogResult result = ofSystemLoadDialog("Load file");
+    
     if(result.bSuccess)
     {
-        cout<<"new movie path:"<<result.getName()<<endl<<"player array: "<<player[i].getPath()<<endl;
-        if(player[i].getError())
-        {
-//            bool d = (player[i].video.getError().length());
-            //warning dialogue, "you've selected an incompatible file type";
-        }
-        player[i].video.setPixelFormat(OF_PIXELS_RGBA);
-        player[i].load(result.getPath());
-    
+        if (!player[i].load(result.getPath())) return false;
+        cout<<"hay \n";
         videoButtons[i]->setLabel(result.getName());
         player[i].setLoopState(OF_LOOP_NORMAL);
         return true;
@@ -777,11 +773,13 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
             tempoDivision=xmlSettings.getValue("xmlSettings:gui:tempoDivision", 1);
             videoDivision=xmlSettings.getValue("xmlSettings:color:videoDivision", 1);
             
+            ofSystemAlertDialog("File loaded successfully.");
             return true;
         }
         else
         {
             cout<<"  file did not load!  "<<endl;;
+            ofSystemAlertDialog("File failed to load.");
             return false;
         }
     }
@@ -824,11 +822,13 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:gui:tempoDivision", tempoDivision);
         xmlSettings.setValue("xmlSettings:color:videoDivision", videoDivision);
         
+        ofSystemAlertDialog("Save successful.");
         return true;
     }
     else
     {
         cout<<"save failed"<<endl;
+        ofSystemAlertDialog("Save failed.");
         return false;
     }
     return false;
