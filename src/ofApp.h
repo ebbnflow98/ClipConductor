@@ -30,14 +30,17 @@ public:
         
         bool load(string loadPath)
         {
+            cout<<"load \n";
             if(loadPath.find(".mov")!=string::npos)
                 which=true;
-            if(loadPath.find(".png")!=string::npos)
+            else if(loadPath.find(".MOV")!=string::npos)
+                which=true;
+            else if (loadPath.find(".png")!=string::npos)
                 which=false;
-            if(loadPath.find(".jpg")!=string::npos)
+            else if(loadPath.find(".jpg")!=string::npos)
                 which=false;
-            if(loadPath.find(".jpeg")!=string::npos)
-                which=false;
+            else if(loadPath.find(".jpeg")!=string::npos)
+            { which=false;}
             else
             {
                 cout<<"load failed; which=NULL \n";
@@ -46,18 +49,26 @@ public:
                 return false;
             }
             
-            if(which)video.load(loadPath);
-            else if(!which)ofLoadImage(picture,loadPath);
             
             if(which)
             {
-                if (!video.getHapAvailable())
+                video.videoIsntHap=false;
+                video.load(loadPath);
+                while(!video.isLoaded())
+                {
+                    cout<<"\\"<< endl << "|"<<endl<<"/"<<endl<<"–"<<endl;
+                    if(video.videoIsntHap==true) break;
+                }
+                bool balls=(video.isLoaded());
+                if (video.videoIsntHap)
                 {
                     cout<<"load failed; video is not HAP encoded. \n";
                     ofSystemAlertDialog("Load failed. Video file is not HAP encoded.");
-                    return false; //for now, till HAP converter works.
+                    return false;  //for now, till HAP converter works.
                 }
             }
+            else if(!which)ofLoadImage(picture,loadPath);
+            
             path=loadPath;
             full=true;
             cout<<"path:"<<path<<endl;
@@ -65,6 +76,7 @@ public:
         }
         void play()
         {
+            cout<<"play \n";
             if(which)video.play();
         }
         void stop()
@@ -73,6 +85,7 @@ public:
         }
         void draw(int x, int y, int width, int height)
         {
+            cout<<"draw\n";
             if(which)video.draw(x,y,width,height);
             else picture.draw(x,y,width, height);
         }

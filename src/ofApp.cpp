@@ -15,7 +15,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     if(snaves==0) fbo.allocate(ofGetWidth(), ofGetHeight());
 
     ofLog()<<(char*)glGetString(GL_VERSION);
-    //---MIDI Setup-----------------------------------------------------
+//---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
     midiIn.listInPorts(); // print input ports
     midiIn.openPort(0);
@@ -135,7 +135,7 @@ void ofApp::exitGui(ofEventArgs &args)//////////////////////////////////////////
 void ofApp::update()////////////////////////////////////////////////////////////////////////////
 {
     //--Tempo update--------------------------------
-//    cout << "update"<< endl;
+//                                                                          cout << "update"<< endl;
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
     {
         ofLog() << "timecode stopped";
@@ -145,6 +145,7 @@ void ofApp::update()////////////////////////////////////////////////////////////
 
 void ofApp::draw()///////////////////////////////////////////////////////////////////
 {
+//                                                                          cout<<"draw \n";
     if (backgroundSwitch==1)
 //    {
 //        if (bg==0)
@@ -168,7 +169,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
 //--Draw Video---------------------------------
-//    cout<<"video to draw: "<<imageToDraw<<endl;
+//                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     ofSetColor(255,fxWet);
@@ -178,14 +179,13 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
         if(player[i].drawImage==false)player[i].stop();
         if(player[i].drawImage && videoCount<4)
         {
-//            cout<<"videoOff: "<<videoOff<<endl;
             if (videoSync==true)
             {
                 bps=(bpm/60);
                 videoSpeed=(((player[imageToDraw].video.getDuration())/bps)*videoDivision);
                 player[i].setSpeed(videoSpeed/2);
                 player[i].play();
-                cout<<"image to draw"<<imageToDraw<<endl;
+//                                                                      cout<<"image to draw"<<imageToDraw<<endl;
             }
             else
             {
@@ -278,7 +278,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 case 84: playerFromMessage=24; break;
                 default: break;
             }
-        videoCount+=1;                                              cout<<"videoCount: "<<videoCount<<endl;
+        videoCount+=1;
+//                                                                        cout<<"videoCount: "<<videoCount<<endl;
         player[playerFromMessage].size=msg.velocity;
         player[playerFromMessage].drawImage=true;
         player[playerFromMessage].size=ofMap(player[playerFromMessage].size, 0, 127, 0.0, 2.0);
@@ -500,7 +501,8 @@ void ofApp::exit()//////////////////////////////////////////////////////////////
 }
 
 void ofApp::keyPressed(int key)////////////////////////////////////////////////////////////////////////////////
-{                                                    cout<<"key pressed: "<<key<<endl;
+{
+//                                                                    cout<<"key pressed: "<<key<<endl;
     switch (key)
     {
         case '1': playerFromMessage=0; break;
@@ -536,7 +538,8 @@ void ofApp::keyPressed(int key)/////////////////////////////////////////////////
 }
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key)
-{                                                              cout<<"Key Released"<<endl;
+{
+//                                                                            cout<<"Key Released"<<endl;
     switch (key)
     {
         case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
@@ -582,23 +585,6 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)///////////////////////////
     midiPort((e.target->getSelected())->getIndex());
 }
 
-//void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)//////////////////////////////////////////////////////////////
-//{
-//    int iLabel=(e.target->getIndex());
-//    if(clear==true)
-//    {
-//        if(player[iLabel].isLoaded()) player[iLabel].close();
-//        clear=false;
-//        clearToggle->setBackgroundColor(ofColor::black);
-//        clearToggle->setLabelColor(ofColor::white);
-//        e.target->setLabel(ofToString(iLabel));
-//    }
-//    else
-//    {                                               cout<<"option selected:"<<e.target->getLabel()<<endl;
-//        loadMovie(iLabel);
-//    }
-//}
-
 void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////////////////////////////////////////////////////////////////////
 {
     if(dragInfo.files.size() > 0)
@@ -633,12 +619,12 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)///////////////////////////////
 {
     if(e.target->is("Save")) saveSettings();
     else if(e.target->is("Load")) loadSettings();
-    
 }
 
-void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)
+void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)/////////////////////////////////////////////////////////////
 {
-    if(e.target->is("Clear All")) clearAllVideos();             cout << "onButtonEvent: " << e.target->getLabel() << endl;
+//                                                            cout << "onButtonEvent: " << e.target->getLabel() << endl;
+    if(e.target->is("Clear All")) clearAllVideos();
     int iLabel=stoi(e.target->getName());
     iLabel-=1;
     if(clear==true)
@@ -650,7 +636,8 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)
         e.target->setLabel(ofToString(iLabel));
     }
     else
-    {                                               cout<<"option selected:"<<e.target->getLabel()<<endl;
+    {
+//                                                            cout<<"option selected:"<<e.target->getLabel()<<endl;
         loadMovie(iLabel);
     }
 }
@@ -698,7 +685,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////
 {
-    cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
+//                                        cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
     if (e.target->is("BG Color 1"))
     {
         bgColor1=(e.color);
@@ -726,8 +713,9 @@ void ofApp::clearAllVideos()////////////////////////////////////////////////////
 }
 
 bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
-{                                                                           cout << "loading videos" << endl;
-    ofFileDialogResult result = ofSystemLoadDialog("Load file");
+{
+//                                                                    cout << "loading videos" << endl;
+    ofFileDialogResult result = ofSystemLoadDialog("Load file \n");
     
     if(result.bSuccess)
     {
@@ -744,7 +732,7 @@ bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
 bool ofApp::loadSettings()///////////////////////////////////////////////////////////////////////////////////////////
 {
     ofFileDialogResult result = ofSystemLoadDialog("Load file");
-    cout << "  load  ";
+    cout << "load settings \n";
     if(result.bSuccess)
     {
         string loadPath = result.getPath();
@@ -779,8 +767,8 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
         }
         else
         {
-            cout<<"  file did not load!  "<<endl;;
-            ofSystemAlertDialog("File failed to load.");
+            cout<<"  file did not load!  \n"<<endl;;
+            ofSystemAlertDialog("File failed to load.\n");
             return false;
         }
     }
@@ -789,11 +777,11 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
 
 bool ofApp::saveSettings()/////////////////////////////////////////////////////////////////////////////////////////////
 {
-    cout << "save" << endl;
+//                                                                          cout << "save settings" << endl;
     ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
     if(result.bSuccess)
     {
-        cout << "save success" << endl;
+        cout << "save success \n" << endl;
         for(int i = 0; i <max_videos; i++)
         {
             xmlSettings.addValue("xmlSettings:media:which"+ofToString(i),player[i].which);
@@ -813,7 +801,7 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:color:bgColor2Red", bgColor2Red);
         xmlSettings.setValue("xmlSettings:color:bgColor2Green", bgColor2Green);
         xmlSettings.setValue("xmlSettings:color:bgColor2Blue", bgColor2Blue);
-        cout << "save out" << endl;
+//                                                                                        cout << "save out" << endl;
         xmlSettings.save(result.getPath());
         
         xmlSettings.setValue("xmlSettings:gui:videoSync", videoSync);
@@ -823,13 +811,13 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:gui:tempoDivision", tempoDivision);
         xmlSettings.setValue("xmlSettings:color:videoDivision", videoDivision);
         
-        ofSystemAlertDialog("Save successful.");
+        ofSystemAlertDialog("Save successful. \n");
         return true;
     }
     else
     {
-        cout<<"save failed"<<endl;
-        ofSystemAlertDialog("Save failed.");
+//                                                                                    cout<<"save failed"<<endl;
+        ofSystemAlertDialog("Save failed. \n");
         return false;
     }
     return false;
