@@ -76,7 +76,7 @@ public:
         }
         void play()
         {
-            cout<<"play \n";
+//            cout<<"play \n";
             if(which)video.play();
         }
         void stop()
@@ -85,7 +85,7 @@ public:
         }
         void draw(int x, int y, int width, int height)
         {
-            cout<<"draw\n";
+//            cout<<"draw\n";
             if(which)video.draw(x,y,width,height);
             else picture.draw(x,y,width, height);
         }
@@ -132,8 +132,8 @@ public:
     void exit();
     
     void newMidiMessage(ofxMidiMessage& eventArgs);
-    void keyPressed(int key);
-    void keyReleased(int key);
+    void keyPressed(ofKeyEventArgs & args);
+    void keyReleased(ofKeyEventArgs & args);
     bool loadMovie(int i);
     bool midiPort(int midiPortOption);
     
@@ -164,7 +164,7 @@ public:
     
     bool sustain=false;
     
-    int playerFromMessage=0;
+    int playerFromMidiMessage=0;
     // ---------------------------------MIDI---------------------------------
     ofxMidiTimecode timecode; //< timecode message parser
     bool timecodeRunning = false; //< is the timecode sync running?
@@ -188,12 +188,11 @@ public:
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false;//, invertColors=false;
-    ofxDatGuiFolder *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder;
+    ofxDatGuiFolder *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletButton;
     ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *fxWetSlider, *videoSpeedSlider;
     
     ofxDatGuiFolder *videoFolder;
-//    ofxDatGuiScrollView *scrollVideos;
     string videoOptions[25]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"};
     ofxDatGuiButton *videoButtons[25];
 
@@ -201,6 +200,9 @@ public:
     ofPoint windowSize();
     
     float fxWet=255;
+    
+    int pixelateMacro=0;
+    ofxDatGuiSlider *pixelateSlider;
     
     float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidioscopeAngle=0.0, kaleidioscopeSectors=1;
     ofxDatGuiSlider *kaleidoscopeSlider, *angleSlider, *xSlider, *ySlider, *sectorSlider;

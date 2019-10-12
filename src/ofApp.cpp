@@ -8,7 +8,7 @@ int snaves=0;
 void ofApp::setup()////////////////////////////////////////////////////////////
 {
     
-    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
+//    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
     shader.load("shaderVert.c","shaderFrag.c");
@@ -41,7 +41,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         for(int i=0;i<max_videos;i++)
         {
             videoButtons[i]=(gui2->addButton(videoOptions[i]));
-            cout<<"scroll videos"+ofToString(i)<<endl;
+//            cout<<"scroll videos"+ofToString(i)<<endl;
         }
         
         gui->addButton("Save");
@@ -89,6 +89,10 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         xSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
         ySlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
         
+        pixelateFolder=gui->addFolder("Pixelate");
+        pixelateSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
+        
+        
         gui->addBreak();
         gui->addBreak();
         
@@ -101,6 +105,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
+        pixelateSlider->setPrecision(0);
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         tripletButton->setChecked(triplet);
@@ -208,6 +213,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     float time = ofGetElapsedTimef();
     
     shader.setUniform1f("time", time);
+    shader.setUniform2f("resolution", ofGetWidth(),ofGetHeight());
     
     shader.setUniform1f("filterMacro", filterMacro);
     shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,filterAlpha);
@@ -225,6 +231,8 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     if(kaleidoscopeMacro<.5) shader.setUniform2f("screenCenter",0,0);
     else shader.setUniform2f("screenCenter",0.5*ofGetWidth(),0.5*ofGetHeight());
     
+    shader.setUniform1i("pixelateMacro", pixelateMacro);
+    
     ofSetColor(255, 255, 255);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     fbo.draw(0,0,ofGetWidth(),ofGetHeight());
@@ -240,49 +248,51 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
     {
         midiMessages.push_back(msg); // add the latest message to the message queue
         while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
-        
-        cout<<"msg.channel: "<<msg.channel<<endl;
+//        cout<<"msg.channel: "<<msg.channel<<endl;
         
         pitch=(msg.pitch);
-        
-            cout<<"midi note channel 2, pitch: "<<msg.pitch<<endl;
-        
+//            cout<<"midi note channel 2, pitch: "<<msg.pitch<<endl;
+
         if(sustain)midiNoteOff(msg.pitch);
         
-            switch (msg.pitch)
-            {
-                case 60: playerFromMessage=0; break;
-                case 61: playerFromMessage=1; break;
-                case 62: playerFromMessage=2; break;
-                case 63: playerFromMessage=3; break;
-                case 64: playerFromMessage=4; break;
-                case 65: playerFromMessage=5; break;
-                case 66: playerFromMessage=6; break;
-                case 67: playerFromMessage=7; break;
-                case 68: playerFromMessage=8; break;
-                case 69: playerFromMessage=9; break;
-                case 70: playerFromMessage=10; break;
-                case 71: playerFromMessage=11; break;
-                case 72: playerFromMessage=12; break;
-                case 73: playerFromMessage=13; break;
-                case 74: playerFromMessage=14; break;
-                case 75: playerFromMessage=15; break;
-                case 76: playerFromMessage=16; break;
-                case 77: playerFromMessage=17; break;
-                case 78: playerFromMessage=18; break;
-                case 79: playerFromMessage=19; break;
-                case 80: playerFromMessage=20; break;
-                case 81: playerFromMessage=21; break;
-                case 82: playerFromMessage=22; break;
-                case 83: playerFromMessage=23; break;
-                case 84: playerFromMessage=24; break;
-                default: break;
-            }
-        videoCount+=1;
+        if(msg.pitch>=60 && msg.pitch<=84)
+        {
+            playerFromMidiMessage=(msg.pitch-60);
+//            switch (msg.pitch)
+//            {
+//                case 60: playerFromMidiMessage=0; break;
+//                case 61: playerFromMidiMessage=1; break;
+//                case 62: playerFromMidiMessage=2; break;
+//                case 63: playerFromMidiMessage=3; break;
+//                case 64: playerFromMidiMessage=4; break;
+//                case 65: playerFromMidiMessage=5; break;
+//                case 66: playerFromMidiMessage=6; break;
+//                case 67: playerFromMidiMessage=7; break;
+//                case 68: playerFromMidiMessage=8; break;
+//                case 69: playerFromMidiMessage=9; break;
+//                case 70: playerFromMidiMessage=10; break;
+//                case 71: playerFromMidiMessage=11; break;
+//                case 72: playerFromMidiMessage=12; break;
+//                case 73: playerFromMidiMessage=13; break;
+//                case 74: playerFromMidiMessage=14; break;
+//                case 75: playerFromMidiMessage=15; break;
+//                case 76: playerFromMidiMessage=16; break;
+//                case 77: playerFromMidiMessage=17; break;
+//                case 78: playerFromMidiMessage=18; break;
+//                case 79: playerFromMidiMessage=19; break;
+//                case 80: playerFromMidiMessage=20; break;
+//                case 81: playerFromMidiMessage=21; break;
+//                case 82: playerFromMidiMessage=22; break;
+//                case 83: playerFromMidiMessage=23; break;
+//                case 84: playerFromMidiMessage=24; break;
+//                default: break;
+//            }
+            videoCount+=1;
 //                                                                        cout<<"videoCount: "<<videoCount<<endl;
-        player[playerFromMessage].size=msg.velocity;
-        player[playerFromMessage].drawImage=true;
-        player[playerFromMessage].size=ofMap(player[playerFromMessage].size, 0, 127, 0.0, 2.0);
+            player[playerFromMidiMessage].size=msg.velocity;
+            player[playerFromMidiMessage].drawImage=true;
+            player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
+        }
     }
     
     if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
@@ -442,6 +452,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                 bgColor2ColorPicker->setColor(bgColor2);
                 break;
+            case 56:
+                pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
+                pixelateSlider->setValue(pixelateMacro);
         }
         
     }
@@ -458,36 +471,40 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
 }
 void ofApp::midiNoteOff(int pitch)
 {
-    switch (pitch)
-    {
-        case 60: player[0].drawImage=false; break;
-        case 61: player[1].drawImage=false; break;
-        case 62: player[2].drawImage=false; break;
-        case 63: player[3].drawImage=false; break;
-        case 64: player[4].drawImage=false; break;
-        case 65: player[5].drawImage=false; break;
-        case 66: player[6].drawImage=false; break;
-        case 67: player[7].drawImage=false; break;
-        case 68: player[8].drawImage=false; break;
-        case 69: player[9].drawImage=false; break;
-        case 70: player[10].drawImage=false; break;
-        case 71: player[11].drawImage=false; break;
-        case 72: player[12].drawImage=false; break;
-        case 73: player[13].drawImage=false; break;
-        case 74: player[14].drawImage=false; break;
-        case 75: player[15].drawImage=false; break;
-        case 76: player[16].drawImage=false; break;
-        case 77: player[17].drawImage=false; break;
-        case 78: player[18].drawImage=false; break;
-        case 79: player[19].drawImage=false; break;
-        case 80: player[20].drawImage=false; break;
-        case 81: player[21].drawImage=false; break;
-        case 82: player[22].drawImage=false; break;
-        case 83: player[23].drawImage=false; break;
-        case 84: player[24].drawImage=false; break;
-        default: break;
-    }
+        player[pitch-60].drawImage==false;
+        player[pitch-60].stop();
+        player[pitch-60].firstFrame();
+//    switch (pitch)
+//    {
+//        case 60: player[0].drawImage=false; break;
+//        case 61: player[1].drawImage=false; break;
+//        case 62: player[2].drawImage=false; break;
+//        case 63: player[3].drawImage=false; break;
+//        case 64: player[4].drawImage=false; break;
+//        case 65: player[5].drawImage=false; break;
+//        case 66: player[6].drawImage=false; break;
+//        case 67: player[7].drawImage=false; break;
+//        case 68: player[8].drawImage=false; break;
+//        case 69: player[9].drawImage=false; break;
+//        case 70: player[10].drawImage=false; break;
+//        case 71: player[11].drawImage=false; break;
+//        case 72: player[12].drawImage=false; break;
+//        case 73: player[13].drawImage=false; break;
+//        case 74: player[14].drawImage=false; break;
+//        case 75: player[15].drawImage=false; break;
+//        case 76: player[16].drawImage=false; break;
+//        case 77: player[17].drawImage=false; break;
+//        case 78: player[18].drawImage=false; break;
+//        case 79: player[19].drawImage=false; break;
+//        case 80: player[20].drawImage=false; break;
+//        case 81: player[21].drawImage=false; break;
+//        case 82: player[22].drawImage=false; break;
+//        case 83: player[23].drawImage=false; break;
+//        case 84: player[24].drawImage=false; break;
+//        default: break;
+//    }
 }
+
 void ofApp::exit()//////////////////////////////////////////////////////////////////////////////////////////////
 {
     midiIn.closePort();
@@ -500,46 +517,48 @@ void ofApp::exit()//////////////////////////////////////////////////////////////
     }
 }
 
-void ofApp::keyPressed(int key)////////////////////////////////////////////////////////////////////////////////
+void ofApp::keyPressed(ofKeyEventArgs & args)//////////////////////////////////////////////////
 {
 //                                                                    cout<<"key pressed: "<<key<<endl;
+    int key = args.key;
     switch (key)
     {
-        case '1': playerFromMessage=0; break;
-        case '2': playerFromMessage=1; break;
-        case '3': playerFromMessage=2; break;
-        case '4': playerFromMessage=3; break;
-        case '5': playerFromMessage=4; break;
-        case '6': playerFromMessage=5; break;
-        case '7': playerFromMessage=6; break;
-        case '8': playerFromMessage=7; break;
-        case '9': playerFromMessage=8; break;
-        case '0': playerFromMessage=9; break;
-        case 'q': playerFromMessage=10; break;
-        case 'w': playerFromMessage=11; break;
-        case 'e': playerFromMessage=12; break;
-        case 'r': playerFromMessage=13; break;
-        case 't': playerFromMessage=14; break;
-        case 'y': playerFromMessage=15; break;
-        case 'u': playerFromMessage=16; break;
-        case 'i': playerFromMessage=17; break;
-        case 'o': playerFromMessage=18; break;
-        case 'p': playerFromMessage=19; break;
-        case 'a': playerFromMessage=20; break;
-        case 's': playerFromMessage=21; break;
-        case 'd': playerFromMessage=22; break;
-        case 'f': playerFromMessage=23; break;
-        case 'g': playerFromMessage=24; break;
+        case '1': playerFromMidiMessage=0; break;
+        case '2': playerFromMidiMessage=1; break;
+        case '3': playerFromMidiMessage=2; break;
+        case '4': playerFromMidiMessage=3; break;
+        case '5': playerFromMidiMessage=4; break;
+        case '6': playerFromMidiMessage=5; break;
+        case '7': playerFromMidiMessage=6; break;
+        case '8': playerFromMidiMessage=7; break;
+        case '9': playerFromMidiMessage=8; break;
+        case '0': playerFromMidiMessage=9; break;
+        case 'q': playerFromMidiMessage=10; break;
+        case 'w': playerFromMidiMessage=11; break;
+        case 'e': playerFromMidiMessage=12; break;
+        case 'r': playerFromMidiMessage=13; break;
+        case 't': playerFromMidiMessage=14; break;
+        case 'y': playerFromMidiMessage=15; break;
+        case 'u': playerFromMidiMessage=16; break;
+        case 'i': playerFromMidiMessage=17; break;
+        case 'o': playerFromMidiMessage=18; break;
+        case 'p': playerFromMidiMessage=19; break;
+        case 'a': playerFromMidiMessage=20; break;
+        case 's': playerFromMidiMessage=21; break;
+        case 'd': playerFromMidiMessage=22; break;
+        case 'f': playerFromMidiMessage=23; break;
+        case 'g': playerFromMidiMessage=24; break;
         default: break;
     }
-    player[playerFromMessage].drawImage=true;
-    player[playerFromMessage].size=127;
-    player[playerFromMessage].size=ofMap(player[playerFromMessage].size, 0, 127, 0.0, 2.0);
+    player[playerFromMidiMessage].drawImage=true;
+    player[playerFromMidiMessage].size=127;
+    player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
 }
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key)
+void ofApp::keyReleased(ofKeyEventArgs & args)
 {
 //                                                                            cout<<"Key Released"<<endl;
+    int key=args.key;
     switch (key)
     {
         case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
@@ -681,6 +700,8 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==invertSlider)invertMacro=(e.target->getValue());
     
     else if(e.target==videoSpeedSlider)videoSpeed2=(e.target->getValue());
+    
+    else if(e.target==pixelateSlider)pixelateMacro=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////

@@ -1,4 +1,7 @@
+#ifdef GL_ES
 #version 120
+precision mediump float;
+#endif
 #extension GL_ARB_texture_rectangle : enable
 #extension GL_EXT_gpu_shader4 : enable
 #define PI (3.14159265358979323846)
@@ -10,6 +13,7 @@ uniform float invertMacro;
 
 uniform float time;
 uniform float speed;
+uniform vec2 resolution;
 
 uniform float rippleMacro;
 uniform vec2 rippleXY;
@@ -23,6 +27,8 @@ uniform vec2 screenCenter;
 
 uniform vec4 filterRGB;
 uniform float filterMacro;
+
+uniform int pixelateMacro;
 
 
 vec4 Invert(vec4 color,float invertMacro)
@@ -65,18 +71,36 @@ vec2 Kaleidoscope(vec2 pos, vec2 kcenter, vec2 screenCenter, float ksectors, flo
     return u;
 }
 
+vec2 Pixelate(vec2 pos, int pixelateMacro)
+{
+//    vec2 pos = gl_TexCoord[0].xy;
+    int pixelation = pixelateMacro;
+  //  if(pixelation==0.) return pos;
+    vec2 pixelationSection = (resolution/float(pixelation));
+    vec2 difference= floor(mod(pos, pixelationSection));
+    pos-=difference;
+    return pos;
+//    gl_FragColor = texture2DRect(tex0,pos);
+}
+
 void main()
 {
     vec2 pos=gl_TexCoord[0].xy;
     
     pos=Ripple(pos,rippleXY, rippleRate, rippleMacro);
     pos=Kaleidoscope(pos, kcenter, screenCenter, ksectors, kangleRad, kaleidioscopeMacro);
+
+//    pos=Pixelate(pos,pixelateMacro);
+    int pixelationSection = pixelateMacro;
+//    vec2 pixelationSection = (resolution/float(pixelation));
+    vec2 difference= floor(mod(pos, pixelationSection));
+    pos-=difference;
     
-    vec4 color=texture2DRect(texture0,pos);
+//    vec4 color=texture2DRect(texture0,pos);
     
-    if(filterMacro!=0.0)color=Filter(color,filterMacro,filterRGB);
+//    if(filterMacro!=0.0)color=Filter(color,filterMacro,filterRGB);
     
-    if(invertMacro!=0.0)color=Invert(color,invertMacro);
+//    if(invertMacro!=0.0)color=Invert(color,invertMacro);
     
-    gl_FragColor=color;
+//    gl_FragColor=color;
 }
