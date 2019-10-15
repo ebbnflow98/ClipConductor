@@ -49,7 +49,6 @@ public:
                 return false;
             }
             
-            
             if(which)
             {
                 video.videoIsntHap=false;
@@ -164,6 +163,8 @@ public:
     
     bool sustain=false;
     
+    bool command=false;
+    
     int playerFromMidiMessage=0;
     // ---------------------------------MIDI---------------------------------
     ofxMidiTimecode timecode; //< timecode message parser
@@ -188,9 +189,11 @@ public:
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false;//, invertColors=false;
-    ofxDatGuiFolder *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder; //Folders for FX GUI elements.
+//    ofxDatGuiFolder *ledFolder, *asciiFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletButton;
-    ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *fxWetSlider, *videoSpeedSlider;
+    
+    ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *videoSpeedSlider;
     
     ofxDatGuiFolder *videoFolder;
     string videoOptions[25]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"};
@@ -199,10 +202,23 @@ public:
     ofPoint guiPosition;
     ofPoint windowSize();
     
-    float fxWet=255;
+    float fxMacro=1.0;
+    ofxDatGuiSlider *fxMacroSlider;
+    
+//    float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
+//    bool asciiInvert=false;
+//    ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
+//    ofxDatGuiToggle *asciiInvertToggle;
+//    ofTexture font;
+    
+//    float ledMacro=0.0, ledDotDistance=0.0;
+//    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider;
     
     int pixelateMacro=0;
     ofxDatGuiSlider *pixelateSlider;
+    
+    int fullhouseMacro=0;
+    ofxDatGuiSlider *fullhouseSlider;
     
     float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidioscopeAngle=0.0, kaleidioscopeSectors=1;
     ofxDatGuiSlider *kaleidoscopeSlider, *angleSlider, *xSlider, *ySlider, *sectorSlider;

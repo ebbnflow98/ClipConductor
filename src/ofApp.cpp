@@ -13,7 +13,6 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     ofBackground(ofColor::black);
     shader.load("shaderVert.c","shaderFrag.c");
     if(snaves==0) fbo.allocate(ofGetWidth(), ofGetHeight());
-
     ofLog()<<(char*)glGetString(GL_VERSION);
 //---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
@@ -56,7 +55,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         tripletButton=backgroundFolder->addToggle("Triplet");
     
         gui->addLabel("FX");
-        fxWetSlider = gui->addSlider("FX Wet",0.0,1.0,fxWet);
+        fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
         videoFolder=gui->addFolder("Video Controls");
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
@@ -80,7 +79,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
         filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
         filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
-        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
+//        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
 
         kaleidioscopeFolder=gui->addFolder("Kaleidioscope");
         kaleidoscopeSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
@@ -92,6 +91,19 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         pixelateFolder=gui->addFolder("Pixelate");
         pixelateSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
         
+        fullhouseFolder=gui->addFolder("Fullhouse");
+        fullhouseSlider=fullhouseFolder->addSlider("Fullhouse", 1, 50, fullhouseMacro);
+        
+//        asciiFolder=gui->addFolder("Ascii");
+//        asciiMacroSlider=asciiFolder->addSlider("ASCII", 0.0,1.0,asciiMacro);
+//        asciiInvertToggle=asciiFolder->addToggle("ASCII Invert", asciiInvert);
+//        asciiImageContrastSlider=asciiFolder->addSlider("Image Contrast", 0.0, 1.0,asciiImageContrast);
+//        asciiImageGainSlider=asciiFolder->addSlider("Image Gain", 0.0,1.0,asciiImageGain);
+//        asciiDotDistanceSlider=asciiFolder->addSlider("Dot Distance", 0.0, 1.0,asciiDotDistance);
+//
+//        ledFolder=gui->addFolder("Led");
+//        ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
+//        ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
         
         gui->addBreak();
         gui->addBreak();
@@ -106,6 +118,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
         pixelateSlider->setPrecision(0);
+        fullhouseSlider->setPrecision(0);
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         tripletButton->setChecked(triplet);
@@ -122,6 +135,8 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui->draw();
         gui2->draw();
         ofBackground(theme->color.guiBackground);
+//        if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
+//        else cout<<"font not loaded"<<endl;
     }
     snaves=1;
 }
@@ -176,8 +191,8 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 //--Draw Video---------------------------------
 //                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    ofSetColor(255,fxWet);
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
+//    ofSetColor(255,fxMacro);
     
     for(int i=0;i<max_videos;i++)
     {
@@ -212,11 +227,13 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     shader.begin();
     float time = ofGetElapsedTimef();
     
+    shader.setUniform1f("fxMacro", fxMacro);
+    
     shader.setUniform1f("time", time);
     shader.setUniform2f("resolution", ofGetWidth(),ofGetHeight());
     
     shader.setUniform1f("filterMacro", filterMacro);
-    shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,filterAlpha);
+    shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
     
     shader.setUniform1f("invertMacro", invertMacro);
     
@@ -233,8 +250,20 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     
     shader.setUniform1i("pixelateMacro", pixelateMacro);
     
-    ofSetColor(255, 255, 255);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    shader.setUniform1i("fullhouseMacro", fullhouseMacro);
+    
+//    shader.setUniform1f("asciiMacro", asciiMacro);
+//    shader.setUniform1f("asciiDotDistance", asciiDotDistance);
+//    shader.setUniform1f("asciiImageGain", asciiImageGain);
+//    shader.setUniform1f("asciiImageContrast", asciiImageContrast);
+//    shader.setUniform1i("asciiInvert", int(asciiInvert));
+//    shader.setUniformTexture("font", font, 8);
+//
+//    shader.setUniform1f("ledMacro", ledMacro);
+//    shader.setUniform1f("ledDotDistance", ledDotDistance);
+    
+    //ofSetColor(255, 255, 255);
+   // glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     fbo.draw(0,0,ofGetWidth(),ofGetHeight());
     shader.end();
 }
@@ -315,8 +344,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 break;
             case 64: if(msg.value>63)sustain=true; else sustain=false;
             case 15:
-                fxWet=ofMap(msg.value,0, 127, 0.0, 1.0);
-                fxWetSlider->setValue(fxWet);
+                fxMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                fxMacroSlider->setValue(fxMacro);
                 break;
             case 16:
                 videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
@@ -397,9 +426,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
                 filterBlueSlider->setValue(filterBlue);
                 break;
-            case 35:
-                filterAlpha=ofMap(msg.value,0, 127, 0, 1.0);
-                filterAlphaSlider->setValue(filterAlpha);
+//            case 35:
+//                filterAlpha=ofMap(msg.value,0, 127, 0, 1.0);
+//                filterAlphaSlider->setValue(filterAlpha);
                 break;
                 
             case 40:
@@ -455,8 +484,31 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
             case 56:
                 pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
                 pixelateSlider->setValue(pixelateMacro);
+            case 57:
+                fullhouseMacro=ofMap(msg.value,0,127,1,50);
+                fullhouseSlider->setValue(fullhouseMacro);
+//            case 60:
+//                asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
+//                asciiMacroSlider->setValue(asciiMacro);
+//                break;
+//            case 61:
+//                asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                asciiDotDistanceSlider->setValue(asciiDotDistance);
+//                break;
+//            case 62:
+//                asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                asciiImageGainSlider->setValue(asciiImageGain);
+//                break;
+//            case 63:
+//                asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
+//                asciiImageContrastSlider->setValue(asciiImageContrast);
+//                break;
+//            case 65:
+//                if(msg.value>63) asciiInvert=true;
+//                else asciiInvert=false;
+//                asciiInvertToggle->setChecked(asciiInvert);
+//                break;
         }
-        
     }
        
 //-Background changing with tempo (via MIDI clock)-----------------------------
@@ -521,6 +573,8 @@ void ofApp::keyPressed(ofKeyEventArgs & args)///////////////////////////////////
 {
 //                                                                    cout<<"key pressed: "<<key<<endl;
     int key = args.key;
+    if(key==OF_KEY_COMMAND) command=true;
+    
     switch (key)
     {
         case '1': playerFromMidiMessage=0; break;
@@ -559,6 +613,8 @@ void ofApp::keyReleased(ofKeyEventArgs & args)
 {
 //                                                                            cout<<"Key Released"<<endl;
     int key=args.key;
+    
+    
     switch (key)
     {
         case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
@@ -670,13 +726,15 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////
     else if(e.target->is("Clear")) clear=!clear;
     
     else if(e.target==rippleSyncToggle)rippleRate=bpm*60;
+    
+//    else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
 }
 
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//////////////////////////////////////////////////////////////
 {
     if(e.target==tempoDivisionSlider)tempoDivision=(e.target->getValue());
     if(e.target==videoDivisionSlider)videoDivision=(e.target->getValue());
-    if(e.target==fxWetSlider)fxWet=(e.target->getValue());
+    if(e.target==fxMacroSlider)fxMacro=(e.target->getValue());
     
     else if(e.target==kaleidoscopeSlider)kaleidoscopeMacro = (e.target->getValue());
     else if(e.target==angleSlider)kaleidioscopeAngle=(e.target->getValue());
@@ -688,7 +746,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==filterRedSlider)filterRed=(e.target->getValue());
     else if(e.target==filterBlueSlider)filterBlue=(e.target->getValue());
     else if(e.target==filterGreenSlider)filterGreen=(e.target->getValue());
-    else if(e.target==filterAlphaSlider)filterAlpha=(e.target->getValue());
+//    else if(e.target==filterAlphaSlider)filterAlpha=(e.target->getValue());
     
     else if(e.target==rippleSlider)rippleMacro=(e.target->getValue());
     else if(e.target==rippleYSlider)rippleY=(e.target->getValue());
@@ -702,6 +760,16 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==videoSpeedSlider)videoSpeed2=(e.target->getValue());
     
     else if(e.target==pixelateSlider)pixelateMacro=(e.target->getValue());
+    
+    else if(e.target==fullhouseSlider)fullhouseMacro=(e.target->getValue());
+    
+//    else if(e.target==asciiMacroSlider)asciiMacro=(e.target->getValue());
+//    else if(e.target==asciiImageGainSlider)asciiImageGain=(e.target->getValue());
+//    else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
+//    else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
+//
+//    else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
+//    else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////
