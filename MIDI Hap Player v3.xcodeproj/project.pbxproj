@@ -10,7 +10,6 @@
 		0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */; };
 		1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
-		20DA138C2320D83A00D790D2 /* HapInAVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DA138B2320D83A00D790D2 /* HapInAVFoundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		29CCE522B929F684F4AFA9CD /* AudioParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E60382E18C61C222D07D5878 /* AudioParameters.cpp */; };
 		2C41A3B3370C4274289C315A /* AudioDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CBEFB52B9BADF58A104DB7F3 /* AudioDecoder.cpp */; };
 		3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712B183BC00EBFFB1EEA5AB8 /* ofxRtMidiOut.cpp */; };
@@ -68,7 +67,6 @@
 		1CD0FCD17CF81253541710C9 /* AudioResampler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = AudioResampler.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/AudioResampler.h; sourceTree = SOURCE_ROOT; };
 		20181D082342562B006CED21 /* ofApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofApp.h; sourceTree = "<group>"; };
 		208298154B11456DCD0BE131 /* ofxRtMidiIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxRtMidiIn.h; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiIn.h; sourceTree = SOURCE_ROOT; };
-		20DA138B2320D83A00D790D2 /* HapInAVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HapInAVFoundation.framework; path = ../../../../../../../../Library/Frameworks/HapInAVFoundation.framework; sourceTree = "<group>"; };
 		20DCEA8322CFF1CC008E9F9B /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		21E1E3071CB7B11914428B62 /* ofxDatGuiThemes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxDatGuiThemes.h; path = ../../../addons/ofxDatGui/src/themes/ofxDatGuiThemes.h; sourceTree = SOURCE_ROOT; };
 		26490D7CC31EF7D6ED5F925A /* ofxDatGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxDatGui.cpp; path = ../../../addons/ofxDatGui/src/ofxDatGui.cpp; sourceTree = SOURCE_ROOT; };
@@ -326,7 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				631702104AFC104323A9EB79 /* CoreMIDI.framework in Frameworks */,
-				20DA138C2320D83A00D790D2 /* HapInAVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +368,6 @@
 		20DCEA8222CFF1CC008E9F9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				20DA138B2320D83A00D790D2 /* HapInAVFoundation.framework */,
 				20DCEA8322CFF1CC008E9F9B /* AVKit.framework */,
 			);
 			name = Frameworks;
