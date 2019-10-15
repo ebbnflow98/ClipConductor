@@ -8,14 +8,13 @@ int snaves=0;
 void ofApp::setup()////////////////////////////////////////////////////////////
 {
     
-    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
+//    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
     shader.load("shaderVert.c","shaderFrag.c");
     if(snaves==0) fbo.allocate(ofGetWidth(), ofGetHeight());
-
     ofLog()<<(char*)glGetString(GL_VERSION);
-    //---MIDI Setup-----------------------------------------------------
+//---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
     midiIn.listInPorts(); // print input ports
     midiIn.openPort(0);
@@ -41,7 +40,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         for(int i=0;i<max_videos;i++)
         {
             videoButtons[i]=(gui2->addButton(videoOptions[i]));
-            cout<<"scroll videos"+ofToString(i)<<endl;
+//            cout<<"scroll videos"+ofToString(i)<<endl;
         }
         
         gui->addButton("Save");
@@ -56,7 +55,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         tripletButton=backgroundFolder->addToggle("Triplet");
     
         gui->addLabel("FX");
-        fxWetSlider = gui->addSlider("FX Wet",0.0,1.0,fxWet);
+        fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
         videoFolder=gui->addFolder("Video Controls");
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
@@ -80,7 +79,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
         filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
         filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
-        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
+//        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
 
         kaleidioscopeFolder=gui->addFolder("Kaleidioscope");
         kaleidoscopeSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
@@ -88,6 +87,23 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         angleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
         xSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
         ySlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
+        
+        pixelateFolder=gui->addFolder("Pixelate");
+        pixelateSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
+        
+        fullhouseFolder=gui->addFolder("Fullhouse");
+        fullhouseSlider=fullhouseFolder->addSlider("Fullhouse", 1, 50, fullhouseMacro);
+        
+//        asciiFolder=gui->addFolder("Ascii");
+//        asciiMacroSlider=asciiFolder->addSlider("ASCII", 0.0,1.0,asciiMacro);
+//        asciiInvertToggle=asciiFolder->addToggle("ASCII Invert", asciiInvert);
+//        asciiImageContrastSlider=asciiFolder->addSlider("Image Contrast", 0.0, 1.0,asciiImageContrast);
+//        asciiImageGainSlider=asciiFolder->addSlider("Image Gain", 0.0,1.0,asciiImageGain);
+//        asciiDotDistanceSlider=asciiFolder->addSlider("Dot Distance", 0.0, 1.0,asciiDotDistance);
+//
+//        ledFolder=gui->addFolder("Led");
+//        ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
+//        ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
         
         gui->addBreak();
         gui->addBreak();
@@ -101,6 +117,8 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
+        pixelateSlider->setPrecision(0);
+        fullhouseSlider->setPrecision(0);
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         tripletButton->setChecked(triplet);
@@ -117,6 +135,8 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui->draw();
         gui2->draw();
         ofBackground(theme->color.guiBackground);
+//        if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
+//        else cout<<"font not loaded"<<endl;
     }
     snaves=1;
 }
@@ -135,7 +155,7 @@ void ofApp::exitGui(ofEventArgs &args)//////////////////////////////////////////
 void ofApp::update()////////////////////////////////////////////////////////////////////////////
 {
     //--Tempo update--------------------------------
-//    cout << "update"<< endl;
+//                                                                          cout << "update"<< endl;
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
     {
         ofLog() << "timecode stopped";
@@ -145,6 +165,7 @@ void ofApp::update()////////////////////////////////////////////////////////////
 
 void ofApp::draw()///////////////////////////////////////////////////////////////////
 {
+//                                                                          cout<<"draw \n";
     if (backgroundSwitch==1)
 //    {
 //        if (bg==0)
@@ -168,24 +189,23 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
 //--Draw Video---------------------------------
-//    cout<<"video to draw: "<<imageToDraw<<endl;
+//                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    ofSetColor(255,fxWet);
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
+//    ofSetColor(255,fxMacro);
     
     for(int i=0;i<max_videos;i++)
     {
         if(player[i].drawImage==false)player[i].stop();
         if(player[i].drawImage && videoCount<4)
         {
-//            cout<<"videoOff: "<<videoOff<<endl;
             if (videoSync==true)
             {
                 bps=(bpm/60);
                 videoSpeed=(((player[imageToDraw].video.getDuration())/bps)*videoDivision);
                 player[i].setSpeed(videoSpeed/2);
                 player[i].play();
-                cout<<"image to draw"<<imageToDraw<<endl;
+//                                                                      cout<<"image to draw"<<imageToDraw<<endl;
             }
             else
             {
@@ -207,10 +227,13 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     shader.begin();
     float time = ofGetElapsedTimef();
     
+    shader.setUniform1f("fxMacro", fxMacro);
+    
     shader.setUniform1f("time", time);
+    shader.setUniform2f("resolution", ofGetWidth(),ofGetHeight());
     
     shader.setUniform1f("filterMacro", filterMacro);
-    shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,filterAlpha);
+    shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
     
     shader.setUniform1f("invertMacro", invertMacro);
     
@@ -225,8 +248,22 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     if(kaleidoscopeMacro<.5) shader.setUniform2f("screenCenter",0,0);
     else shader.setUniform2f("screenCenter",0.5*ofGetWidth(),0.5*ofGetHeight());
     
-    ofSetColor(255, 255, 255);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    shader.setUniform1i("pixelateMacro", pixelateMacro);
+    
+    shader.setUniform1i("fullhouseMacro", fullhouseMacro);
+    
+//    shader.setUniform1f("asciiMacro", asciiMacro);
+//    shader.setUniform1f("asciiDotDistance", asciiDotDistance);
+//    shader.setUniform1f("asciiImageGain", asciiImageGain);
+//    shader.setUniform1f("asciiImageContrast", asciiImageContrast);
+//    shader.setUniform1i("asciiInvert", int(asciiInvert));
+//    shader.setUniformTexture("font", font, 8);
+//
+//    shader.setUniform1f("ledMacro", ledMacro);
+//    shader.setUniform1f("ledDotDistance", ledDotDistance);
+    
+    //ofSetColor(255, 255, 255);
+   // glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     fbo.draw(0,0,ofGetWidth(),ofGetHeight());
     shader.end();
 }
@@ -240,48 +277,51 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
     {
         midiMessages.push_back(msg); // add the latest message to the message queue
         while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
-        
-        cout<<"msg.channel: "<<msg.channel<<endl;
+//        cout<<"msg.channel: "<<msg.channel<<endl;
         
         pitch=(msg.pitch);
-        
-            cout<<"midi note channel 2, pitch: "<<msg.pitch<<endl;
-        
+//            cout<<"midi note channel 2, pitch: "<<msg.pitch<<endl;
+
         if(sustain)midiNoteOff(msg.pitch);
         
-            switch (msg.pitch)
-            {
-                case 60: playerFromMessage=0; break;
-                case 61: playerFromMessage=1; break;
-                case 62: playerFromMessage=2; break;
-                case 63: playerFromMessage=3; break;
-                case 64: playerFromMessage=4; break;
-                case 65: playerFromMessage=5; break;
-                case 66: playerFromMessage=6; break;
-                case 67: playerFromMessage=7; break;
-                case 68: playerFromMessage=8; break;
-                case 69: playerFromMessage=9; break;
-                case 70: playerFromMessage=10; break;
-                case 71: playerFromMessage=11; break;
-                case 72: playerFromMessage=12; break;
-                case 73: playerFromMessage=13; break;
-                case 74: playerFromMessage=14; break;
-                case 75: playerFromMessage=15; break;
-                case 76: playerFromMessage=16; break;
-                case 77: playerFromMessage=17; break;
-                case 78: playerFromMessage=18; break;
-                case 79: playerFromMessage=19; break;
-                case 80: playerFromMessage=20; break;
-                case 81: playerFromMessage=21; break;
-                case 82: playerFromMessage=22; break;
-                case 83: playerFromMessage=23; break;
-                case 84: playerFromMessage=24; break;
-                default: break;
-            }
-        videoCount+=1;                                              cout<<"videoCount: "<<videoCount<<endl;
-        player[playerFromMessage].size=msg.velocity;
-        player[playerFromMessage].drawImage=true;
-        player[playerFromMessage].size=ofMap(player[playerFromMessage].size, 0, 127, 0.0, 2.0);
+        if(msg.pitch>=60 && msg.pitch<=84)
+        {
+            playerFromMidiMessage=(msg.pitch-60);
+//            switch (msg.pitch)
+//            {
+//                case 60: playerFromMidiMessage=0; break;
+//                case 61: playerFromMidiMessage=1; break;
+//                case 62: playerFromMidiMessage=2; break;
+//                case 63: playerFromMidiMessage=3; break;
+//                case 64: playerFromMidiMessage=4; break;
+//                case 65: playerFromMidiMessage=5; break;
+//                case 66: playerFromMidiMessage=6; break;
+//                case 67: playerFromMidiMessage=7; break;
+//                case 68: playerFromMidiMessage=8; break;
+//                case 69: playerFromMidiMessage=9; break;
+//                case 70: playerFromMidiMessage=10; break;
+//                case 71: playerFromMidiMessage=11; break;
+//                case 72: playerFromMidiMessage=12; break;
+//                case 73: playerFromMidiMessage=13; break;
+//                case 74: playerFromMidiMessage=14; break;
+//                case 75: playerFromMidiMessage=15; break;
+//                case 76: playerFromMidiMessage=16; break;
+//                case 77: playerFromMidiMessage=17; break;
+//                case 78: playerFromMidiMessage=18; break;
+//                case 79: playerFromMidiMessage=19; break;
+//                case 80: playerFromMidiMessage=20; break;
+//                case 81: playerFromMidiMessage=21; break;
+//                case 82: playerFromMidiMessage=22; break;
+//                case 83: playerFromMidiMessage=23; break;
+//                case 84: playerFromMidiMessage=24; break;
+//                default: break;
+//            }
+            videoCount+=1;
+//                                                                        cout<<"videoCount: "<<videoCount<<endl;
+            player[playerFromMidiMessage].size=msg.velocity;
+            player[playerFromMidiMessage].drawImage=true;
+            player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
+        }
     }
     
     if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
@@ -304,8 +344,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 break;
             case 64: if(msg.value>63)sustain=true; else sustain=false;
             case 15:
-                fxWet=ofMap(msg.value,0, 127, 0.0, 1.0);
-                fxWetSlider->setValue(fxWet);
+                fxMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                fxMacroSlider->setValue(fxMacro);
                 break;
             case 16:
                 videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
@@ -386,9 +426,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
                 filterBlueSlider->setValue(filterBlue);
                 break;
-            case 35:
-                filterAlpha=ofMap(msg.value,0, 127, 0, 1.0);
-                filterAlphaSlider->setValue(filterAlpha);
+//            case 35:
+//                filterAlpha=ofMap(msg.value,0, 127, 0, 1.0);
+//                filterAlphaSlider->setValue(filterAlpha);
                 break;
                 
             case 40:
@@ -441,8 +481,34 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                 bgColor2ColorPicker->setColor(bgColor2);
                 break;
+            case 56:
+                pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
+                pixelateSlider->setValue(pixelateMacro);
+            case 57:
+                fullhouseMacro=ofMap(msg.value,0,127,1,50);
+                fullhouseSlider->setValue(fullhouseMacro);
+//            case 60:
+//                asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
+//                asciiMacroSlider->setValue(asciiMacro);
+//                break;
+//            case 61:
+//                asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                asciiDotDistanceSlider->setValue(asciiDotDistance);
+//                break;
+//            case 62:
+//                asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                asciiImageGainSlider->setValue(asciiImageGain);
+//                break;
+//            case 63:
+//                asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
+//                asciiImageContrastSlider->setValue(asciiImageContrast);
+//                break;
+//            case 65:
+//                if(msg.value>63) asciiInvert=true;
+//                else asciiInvert=false;
+//                asciiInvertToggle->setChecked(asciiInvert);
+//                break;
         }
-        
     }
        
 //-Background changing with tempo (via MIDI clock)-----------------------------
@@ -457,36 +523,40 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
 }
 void ofApp::midiNoteOff(int pitch)
 {
-    switch (pitch)
-    {
-        case 60: player[0].drawImage=false; break;
-        case 61: player[1].drawImage=false; break;
-        case 62: player[2].drawImage=false; break;
-        case 63: player[3].drawImage=false; break;
-        case 64: player[4].drawImage=false; break;
-        case 65: player[5].drawImage=false; break;
-        case 66: player[6].drawImage=false; break;
-        case 67: player[7].drawImage=false; break;
-        case 68: player[8].drawImage=false; break;
-        case 69: player[9].drawImage=false; break;
-        case 70: player[10].drawImage=false; break;
-        case 71: player[11].drawImage=false; break;
-        case 72: player[12].drawImage=false; break;
-        case 73: player[13].drawImage=false; break;
-        case 74: player[14].drawImage=false; break;
-        case 75: player[15].drawImage=false; break;
-        case 76: player[16].drawImage=false; break;
-        case 77: player[17].drawImage=false; break;
-        case 78: player[18].drawImage=false; break;
-        case 79: player[19].drawImage=false; break;
-        case 80: player[20].drawImage=false; break;
-        case 81: player[21].drawImage=false; break;
-        case 82: player[22].drawImage=false; break;
-        case 83: player[23].drawImage=false; break;
-        case 84: player[24].drawImage=false; break;
-        default: break;
-    }
+        player[pitch-60].drawImage==false;
+        player[pitch-60].stop();
+        player[pitch-60].firstFrame();
+//    switch (pitch)
+//    {
+//        case 60: player[0].drawImage=false; break;
+//        case 61: player[1].drawImage=false; break;
+//        case 62: player[2].drawImage=false; break;
+//        case 63: player[3].drawImage=false; break;
+//        case 64: player[4].drawImage=false; break;
+//        case 65: player[5].drawImage=false; break;
+//        case 66: player[6].drawImage=false; break;
+//        case 67: player[7].drawImage=false; break;
+//        case 68: player[8].drawImage=false; break;
+//        case 69: player[9].drawImage=false; break;
+//        case 70: player[10].drawImage=false; break;
+//        case 71: player[11].drawImage=false; break;
+//        case 72: player[12].drawImage=false; break;
+//        case 73: player[13].drawImage=false; break;
+//        case 74: player[14].drawImage=false; break;
+//        case 75: player[15].drawImage=false; break;
+//        case 76: player[16].drawImage=false; break;
+//        case 77: player[17].drawImage=false; break;
+//        case 78: player[18].drawImage=false; break;
+//        case 79: player[19].drawImage=false; break;
+//        case 80: player[20].drawImage=false; break;
+//        case 81: player[21].drawImage=false; break;
+//        case 82: player[22].drawImage=false; break;
+//        case 83: player[23].drawImage=false; break;
+//        case 84: player[24].drawImage=false; break;
+//        default: break;
+//    }
 }
+
 void ofApp::exit()//////////////////////////////////////////////////////////////////////////////////////////////
 {
     midiIn.closePort();
@@ -499,44 +569,52 @@ void ofApp::exit()//////////////////////////////////////////////////////////////
     }
 }
 
-void ofApp::keyPressed(int key)////////////////////////////////////////////////////////////////////////////////
-{                                                    cout<<"key pressed: "<<key<<endl;
+void ofApp::keyPressed(ofKeyEventArgs & args)//////////////////////////////////////////////////
+{
+//                                                                    cout<<"key pressed: "<<key<<endl;
+    int key = args.key;
+    if(key==OF_KEY_COMMAND) command=true;
+    
     switch (key)
     {
-        case '1': playerFromMessage=0; break;
-        case '2': playerFromMessage=1; break;
-        case '3': playerFromMessage=2; break;
-        case '4': playerFromMessage=3; break;
-        case '5': playerFromMessage=4; break;
-        case '6': playerFromMessage=5; break;
-        case '7': playerFromMessage=6; break;
-        case '8': playerFromMessage=7; break;
-        case '9': playerFromMessage=8; break;
-        case '0': playerFromMessage=9; break;
-        case 'q': playerFromMessage=10; break;
-        case 'w': playerFromMessage=11; break;
-        case 'e': playerFromMessage=12; break;
-        case 'r': playerFromMessage=13; break;
-        case 't': playerFromMessage=14; break;
-        case 'y': playerFromMessage=15; break;
-        case 'u': playerFromMessage=16; break;
-        case 'i': playerFromMessage=17; break;
-        case 'o': playerFromMessage=18; break;
-        case 'p': playerFromMessage=19; break;
-        case 'a': playerFromMessage=20; break;
-        case 's': playerFromMessage=21; break;
-        case 'd': playerFromMessage=22; break;
-        case 'f': playerFromMessage=23; break;
-        case 'g': playerFromMessage=24; break;
+        case '1': playerFromMidiMessage=0; break;
+        case '2': playerFromMidiMessage=1; break;
+        case '3': playerFromMidiMessage=2; break;
+        case '4': playerFromMidiMessage=3; break;
+        case '5': playerFromMidiMessage=4; break;
+        case '6': playerFromMidiMessage=5; break;
+        case '7': playerFromMidiMessage=6; break;
+        case '8': playerFromMidiMessage=7; break;
+        case '9': playerFromMidiMessage=8; break;
+        case '0': playerFromMidiMessage=9; break;
+        case 'q': playerFromMidiMessage=10; break;
+        case 'w': playerFromMidiMessage=11; break;
+        case 'e': playerFromMidiMessage=12; break;
+        case 'r': playerFromMidiMessage=13; break;
+        case 't': playerFromMidiMessage=14; break;
+        case 'y': playerFromMidiMessage=15; break;
+        case 'u': playerFromMidiMessage=16; break;
+        case 'i': playerFromMidiMessage=17; break;
+        case 'o': playerFromMidiMessage=18; break;
+        case 'p': playerFromMidiMessage=19; break;
+        case 'a': playerFromMidiMessage=20; break;
+        case 's': playerFromMidiMessage=21; break;
+        case 'd': playerFromMidiMessage=22; break;
+        case 'f': playerFromMidiMessage=23; break;
+        case 'g': playerFromMidiMessage=24; break;
         default: break;
     }
-    player[playerFromMessage].drawImage=true;
-    player[playerFromMessage].size=127;
-    player[playerFromMessage].size=ofMap(player[playerFromMessage].size, 0, 127, 0.0, 2.0);
+    player[playerFromMidiMessage].drawImage=true;
+    player[playerFromMidiMessage].size=127;
+    player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
 }
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key)
-{                                                              cout<<"Key Released"<<endl;
+void ofApp::keyReleased(ofKeyEventArgs & args)
+{
+//                                                                            cout<<"Key Released"<<endl;
+    int key=args.key;
+    
+    
     switch (key)
     {
         case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
@@ -582,23 +660,6 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)///////////////////////////
     midiPort((e.target->getSelected())->getIndex());
 }
 
-//void ofApp::onScrollViewEvent(ofxDatGuiScrollViewEvent e)//////////////////////////////////////////////////////////////
-//{
-//    int iLabel=(e.target->getIndex());
-//    if(clear==true)
-//    {
-//        if(player[iLabel].isLoaded()) player[iLabel].close();
-//        clear=false;
-//        clearToggle->setBackgroundColor(ofColor::black);
-//        clearToggle->setLabelColor(ofColor::white);
-//        e.target->setLabel(ofToString(iLabel));
-//    }
-//    else
-//    {                                               cout<<"option selected:"<<e.target->getLabel()<<endl;
-//        loadMovie(iLabel);
-//    }
-//}
-
 void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////////////////////////////////////////////////////////////////////
 {
     if(dragInfo.files.size() > 0)
@@ -618,11 +679,13 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////
                 }
             if(brake==true) break;
             }
-                    cout<<"new movie path:"<<ofFilePath::getFileName(dragInfo.files[m])<<endl<<"player array: "<<dragInfo.files[m]<<endl;
-                    player[i].video.setPixelFormat(OF_PIXELS_RGBA);
-                    player[i].load(dragInfo.files[m]);
-                    videoButtons[i]->setLabel(ofFilePath::getFileName(dragInfo.files[m]));
-                    player[i].setLoopState(OF_LOOP_NORMAL);
+                cout<<"new movie path:"<<ofFilePath::getFileName(dragInfo.files[m])<<endl<<"player array: "<<dragInfo.files[m]<<endl;
+                player[i].video.setPixelFormat(OF_PIXELS_RGBA);
+                if(player[i].load(dragInfo.files[m]))
+            {
+                videoButtons[i]->setLabel(ofFilePath::getFileName(dragInfo.files[m]));
+                player[i].setLoopState(OF_LOOP_NORMAL);
+            }
         }
     }
 }
@@ -631,13 +694,14 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)///////////////////////////////
 {
     if(e.target->is("Save")) saveSettings();
     else if(e.target->is("Load")) loadSettings();
-    
 }
 
-void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)
+void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)/////////////////////////////////////////////////////////////
 {
-    if(e.target->is("Clear All")) clearAllVideos();             cout << "onButtonEvent: " << e.target->getLabel() << endl;
-    int iLabel=(stoi(e.target->getLabel()))-1;
+//                                                            cout << "onButtonEvent: " << e.target->getLabel() << endl;
+    if(e.target->is("Clear All")) clearAllVideos();
+    int iLabel=stoi(e.target->getName());
+    iLabel-=1;
     if(clear==true)
     {
         if(player[iLabel].isLoaded()) player[iLabel].close();
@@ -647,7 +711,8 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)
         e.target->setLabel(ofToString(iLabel));
     }
     else
-    {                                               cout<<"option selected:"<<e.target->getLabel()<<endl;
+    {
+//                                                            cout<<"option selected:"<<e.target->getLabel()<<endl;
         loadMovie(iLabel);
     }
 }
@@ -661,13 +726,15 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////
     else if(e.target->is("Clear")) clear=!clear;
     
     else if(e.target==rippleSyncToggle)rippleRate=bpm*60;
+    
+//    else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
 }
 
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//////////////////////////////////////////////////////////////
 {
     if(e.target==tempoDivisionSlider)tempoDivision=(e.target->getValue());
     if(e.target==videoDivisionSlider)videoDivision=(e.target->getValue());
-    if(e.target==fxWetSlider)fxWet=(e.target->getValue());
+    if(e.target==fxMacroSlider)fxMacro=(e.target->getValue());
     
     else if(e.target==kaleidoscopeSlider)kaleidoscopeMacro = (e.target->getValue());
     else if(e.target==angleSlider)kaleidioscopeAngle=(e.target->getValue());
@@ -679,7 +746,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==filterRedSlider)filterRed=(e.target->getValue());
     else if(e.target==filterBlueSlider)filterBlue=(e.target->getValue());
     else if(e.target==filterGreenSlider)filterGreen=(e.target->getValue());
-    else if(e.target==filterAlphaSlider)filterAlpha=(e.target->getValue());
+//    else if(e.target==filterAlphaSlider)filterAlpha=(e.target->getValue());
     
     else if(e.target==rippleSlider)rippleMacro=(e.target->getValue());
     else if(e.target==rippleYSlider)rippleY=(e.target->getValue());
@@ -691,11 +758,23 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==invertSlider)invertMacro=(e.target->getValue());
     
     else if(e.target==videoSpeedSlider)videoSpeed2=(e.target->getValue());
+    
+    else if(e.target==pixelateSlider)pixelateMacro=(e.target->getValue());
+    
+    else if(e.target==fullhouseSlider)fullhouseMacro=(e.target->getValue());
+    
+//    else if(e.target==asciiMacroSlider)asciiMacro=(e.target->getValue());
+//    else if(e.target==asciiImageGainSlider)asciiImageGain=(e.target->getValue());
+//    else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
+//    else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
+//
+//    else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
+//    else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////
 {
-    cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
+//                                        cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
     if (e.target->is("BG Color 1"))
     {
         bgColor1=(e.color);
@@ -710,7 +789,6 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)/////////////////////
         bgColor2Green=e.color.g;
         bgColor2Blue=e.color.b;
     }
-    
 }
 
 void ofApp::clearAllVideos()//////////////////////////////////////////////////////////////
@@ -724,30 +802,26 @@ void ofApp::clearAllVideos()////////////////////////////////////////////////////
 }
 
 bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
-{                                                                           cout << "loading videos" << endl;
-    ofFileDialogResult result = ofSystemLoadDialog("Load file");
+{
+//                                                                    cout << "loading videos" << endl;
+    ofFileDialogResult result = ofSystemLoadDialog("Load file \n");
+    
     if(result.bSuccess)
     {
-        cout<<"new movie path:"<<result.getName()<<endl<<"player array: "<<player[i].getPath()<<endl;
-        if(player[i].getError())
-        {
-//            bool d = (player[i].video.getError().length());
-            //warning dialogue, "you've selected an incompatible file type";
-        }
-        player[i].video.setPixelFormat(OF_PIXELS_RGBA);
-        player[i].load(result.getPath());
-    
+        if (!player[i].load(result.getPath())) return false;
+        cout<<"hay \n";
         videoButtons[i]->setLabel(result.getName());
         player[i].setLoopState(OF_LOOP_NORMAL);
         return true;
     }
+    
     else return false;
 }
 
 bool ofApp::loadSettings()///////////////////////////////////////////////////////////////////////////////////////////
 {
     ofFileDialogResult result = ofSystemLoadDialog("Load file");
-    cout << "  load  ";
+    cout << "load settings \n";
     if(result.bSuccess)
     {
         string loadPath = result.getPath();
@@ -777,11 +851,13 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
             tempoDivision=xmlSettings.getValue("xmlSettings:gui:tempoDivision", 1);
             videoDivision=xmlSettings.getValue("xmlSettings:color:videoDivision", 1);
             
+            ofSystemAlertDialog("File loaded successfully.");
             return true;
         }
         else
         {
-            cout<<"  file did not load!  "<<endl;;
+            cout<<"  file did not load!  \n"<<endl;;
+            ofSystemAlertDialog("File failed to load.\n");
             return false;
         }
     }
@@ -790,11 +866,11 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
 
 bool ofApp::saveSettings()/////////////////////////////////////////////////////////////////////////////////////////////
 {
-    cout << "save" << endl;
+//                                                                          cout << "save settings" << endl;
     ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
     if(result.bSuccess)
     {
-        cout << "save success" << endl;
+        cout << "save success \n" << endl;
         for(int i = 0; i <max_videos; i++)
         {
             xmlSettings.addValue("xmlSettings:media:which"+ofToString(i),player[i].which);
@@ -814,7 +890,7 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:color:bgColor2Red", bgColor2Red);
         xmlSettings.setValue("xmlSettings:color:bgColor2Green", bgColor2Green);
         xmlSettings.setValue("xmlSettings:color:bgColor2Blue", bgColor2Blue);
-        cout << "save out" << endl;
+//                                                                                        cout << "save out" << endl;
         xmlSettings.save(result.getPath());
         
         xmlSettings.setValue("xmlSettings:gui:videoSync", videoSync);
@@ -824,11 +900,13 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:gui:tempoDivision", tempoDivision);
         xmlSettings.setValue("xmlSettings:color:videoDivision", videoDivision);
         
+        ofSystemAlertDialog("Save successful. \n");
         return true;
     }
     else
     {
-        cout<<"save failed"<<endl;
+//                                                                                    cout<<"save failed"<<endl;
+        ofSystemAlertDialog("Save failed. \n");
         return false;
     }
     return false;

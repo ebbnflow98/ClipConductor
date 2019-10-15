@@ -4,11 +4,11 @@ A MIDI-triggered VJ app for DIY musicians.
 VIDI (v1.1) by Evan Douglas Peters
 With VIDI, you can control performance visuals from inside your DAW via MIDI messages. 
 
--Create a blank MIDI track and route the output to your IAC driver (tips on setting up your IAC driver here). 
-![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/download/io.png)
+-Create a blank MIDI track and route the output to your IAC driver (tips on setting up your IAC driver [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)). 
+![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/readMe%20Resources/io.png)
 
 -Open VIDI, and load videos into the array by clicking on one of the slots in the scroll menu. Make sure that you've converted your videos to HAP .mov files (see TIPS section below).
-![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/download/gui.png)
+![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/readMe%20Resources/gui.png)
 
 -In your MIDI track, draw notes into a scene to trigger the videos and FX.
 -Pitches 60-85 trigger videos.

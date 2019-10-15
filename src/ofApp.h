@@ -4,7 +4,6 @@
 #include "ofxHapPlayer.h"
 #include "ofxXmlSettings.h"
 #include "ofxDatGui.h"
-#include <HapInAVFoundation>
 
 class ofApp : public ofBaseApp,
 public ofxMidiListener
@@ -29,25 +28,54 @@ public:
             size=63;
         }
         
-        void load(string loadPath)
+        bool load(string loadPath)
         {
-            if(loadPath.find(".mov")!=string::npos) which=true;
-            else if(loadPath.find(".png")!=string::npos) which=false;
-            else which=NULL;
-            
-            if(which)video.load(loadPath);
-            else if(!which)ofLoadImage(picture,loadPath);
+            cout<<"load \n";
+            if(loadPath.find(".mov")!=string::npos)
+                which=true;
+            else if(loadPath.find(".MOV")!=string::npos)
+                which=true;
+            else if (loadPath.find(".png")!=string::npos)
+                which=false;
+            else if(loadPath.find(".jpg")!=string::npos)
+                which=false;
+            else if(loadPath.find(".jpeg")!=string::npos)
+            { which=false;}
             else
             {
-                cout<<"load failed; which=NULL";
+                cout<<"load failed; which=NULL \n";
+                ofSystemAlertDialog("Load failed. File type not supported.");
                 close();
+                return false;
             }
+            
+            if(which)
+            {
+                video.videoIsntHap=false;
+                video.load(loadPath);
+                while(!video.isLoaded())
+                {
+                    cout<<"\\"<< endl << "|"<<endl<<"/"<<endl<<"–"<<endl;
+                    if(video.videoIsntHap==true) break;
+                }
+                bool balls=(video.isLoaded());
+                if (video.videoIsntHap)
+                {
+                    cout<<"load failed; video is not HAP encoded. \n";
+                    ofSystemAlertDialog("Load failed. Video file is not HAP encoded.");
+                    return false;  //for now, till HAP converter works.
+                }
+            }
+            else if(!which)ofLoadImage(picture,loadPath);
+            
             path=loadPath;
             full=true;
             cout<<"path:"<<path<<endl;
+            return true;
         }
         void play()
         {
+//            cout<<"play \n";
             if(which)video.play();
         }
         void stop()
@@ -56,6 +84,7 @@ public:
         }
         void draw(int x, int y, int width, int height)
         {
+//            cout<<"draw\n";
             if(which)video.draw(x,y,width,height);
             else picture.draw(x,y,width, height);
         }
@@ -66,11 +95,6 @@ public:
         void setSpeed(float speed)
         {
             if(which)video.setSpeed(speed);
-        }
-        bool getError()
-        {
-            return false;
-    
         }
         string getPath()
         {
@@ -107,8 +131,8 @@ public:
     void exit();
     
     void newMidiMessage(ofxMidiMessage& eventArgs);
-    void keyPressed(int key);
-    void keyReleased(int key);
+    void keyPressed(ofKeyEventArgs & args);
+    void keyReleased(ofKeyEventArgs & args);
     bool loadMovie(int i);
     bool midiPort(int midiPortOption);
     
@@ -139,7 +163,9 @@ public:
     
     bool sustain=false;
     
-    int playerFromMessage=0;
+    bool command=false;
+    
+    int playerFromMidiMessage=0;
     // ---------------------------------MIDI---------------------------------
     ofxMidiTimecode timecode; //< timecode message parser
     bool timecodeRunning = false; //< is the timecode sync running?
@@ -163,19 +189,36 @@ public:
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false;//, invertColors=false;
-    ofxDatGuiFolder *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder; //Folders for FX GUI elements.
+//    ofxDatGuiFolder *ledFolder, *asciiFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletButton;
-    ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *fxWetSlider, *videoSpeedSlider;
+    
+    ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *videoSpeedSlider;
     
     ofxDatGuiFolder *videoFolder;
-//    ofxDatGuiScrollView *scrollVideos;
     string videoOptions[25]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"};
     ofxDatGuiButton *videoButtons[25];
 
     ofPoint guiPosition;
     ofPoint windowSize();
     
-    float fxWet=255;
+    float fxMacro=1.0;
+    ofxDatGuiSlider *fxMacroSlider;
+    
+//    float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
+//    bool asciiInvert=false;
+//    ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
+//    ofxDatGuiToggle *asciiInvertToggle;
+//    ofTexture font;
+    
+//    float ledMacro=0.0, ledDotDistance=0.0;
+//    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider;
+    
+    int pixelateMacro=0;
+    ofxDatGuiSlider *pixelateSlider;
+    
+    int fullhouseMacro=0;
+    ofxDatGuiSlider *fullhouseSlider;
     
     float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidioscopeAngle=0.0, kaleidioscopeSectors=1;
     ofxDatGuiSlider *kaleidoscopeSlider, *angleSlider, *xSlider, *ySlider, *sectorSlider;

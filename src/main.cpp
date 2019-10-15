@@ -38,6 +38,8 @@ int main(){
     cout << " NUMBER 2  "<< endl;
     ofAddListener(guiWindow->events().exit, mainApp.get(), &ofApp::exitGui);
     ofAddListener(guiWindow->events().fileDragEvent, mainApp.get(), &ofApp::dragEvent);
+    ofAddListener(guiWindow->events().keyPressed, mainApp.get(), &ofApp::keyPressed);
+    ofAddListener(guiWindow->events().keyReleased, mainApp.get(), &ofApp::keyReleased);
     ofRunApp(mainWindow, mainApp);
     ofRunMainLoop();
     
