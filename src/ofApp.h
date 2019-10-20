@@ -33,6 +33,7 @@ public:
         
         bool load(string loadPath)
         {
+            
             cout<<"load \n";
             if(loadPath.find(".mov")!=string::npos)
                 which=true;
