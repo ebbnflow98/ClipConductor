@@ -1,3 +1,8 @@
+//Clip Conductor Fragment Shader file
+//
+//
+//
+//
 //#ifdef GL_ES
 #version 120
 //precision mediump float;
@@ -40,6 +45,10 @@ uniform int asciiInvert;
 uniform float asciiDotDistance;
 uniform float asciiImageGain;
 uniform float asciiImageContrast;
+
+uniform float ledMacro;
+uniform float ledDotDistance;
+
 
 
 vec4 Invert(vec4 color,float invertMacro)
@@ -100,49 +109,105 @@ vec2 Fullhouse(vec2 pos, int fullhouseMacro)
     return pos;
 }
 
-vec4 Ascii(vec2 pos, float asciiMacro, float asciiImageGain, float asciiImageContrast, int asciiInvert, float asciiDotDistance )
-{
-    vec2 texcoord0 = gl_TexCoord[0].xy;
-    asciiImageGain = asciiImageGain*2.-1.;
-//    float imagecontrast = p2;
-    
-//    int asciiInvert = int(p3); //bool 0 or 1; clamp?
-    
-    asciiDotDistance *= 100.0;
-    
-    float asciiDotDistanceX = asciiDotDistance * 2.0;
-    float asciiDotDistanceY = asciiDotDistance * 1.0;
-    
-    float contrast = ( asciiImageContrast * 2. )* ( asciiImageContrast * 2. ) * ( asciiImageContrast * 2. ) * ( asciiImageContrast * 2. );
-    float gain = asciiImageGain - (asciiImageContrast -0.5) ;
-    
-    float baseX = floor((texcoord0.x) / asciiDotDistanceX) * asciiDotDistanceX;
-    float baseY = floor((texcoord0.y) / asciiDotDistanceY) * asciiDotDistanceY;
-    
-    vec4 color = texture2DRect(texture0, vec2(baseX, baseY));
-    
-    float grey = ( ( (color.x + color.y + color.z) / 3.0 ) * contrast + gain ) * 255. ;
-    
-    grey = clamp ( grey, 0.0, 255.0 );
-    
-    grey = 255. - grey;
-    
-    float asciinumber = float ( ( ( grey - 30. ) / 26. ) ) * float( grey > 30.);
-    
-    float distX = texcoord0.x - baseX;
-    float distY = texcoord0.y - baseY;
-    
-    float coordX = ( ( distX / asciiDotDistanceX ) / 23.0 + ( floor(asciinumber) - 1.  ) /23.0 )  * 1380.;
-    float coordY = ( distY / asciiDotDistanceY ) * 30.;
-    
-    vec4 col = texture2DRect(font, vec2(coordX, coordY));
-    
-    vec4 col_inv = 1.0 - col;
-    
-    vec4 result = float (1 - asciiInvert) * col + float (asciiInvert) * col_inv;
-    
-    return result;
-}
+//vec4 Ascii(vec4 fxColor,  float asciiMacro, float asciiImageGain, float asciiImageContrast, int asciiInvert, float asciiDotDistance )//todo
+//{
+//    vec2 pos = gl_TexCoord[0].xy; //pos
+//    asciiImageGain = asciiImageGain*2.-1.;
+////    float imagecontrast = p2;
+//
+////    int asciiInvert = int(p3); //bool 0 or 1; clamp?
+//
+//    asciiDotDistance *= 100.0;
+//
+//    float asciiDotDistanceX = asciiDotDistance * 2.0;
+//    float asciiDotDistanceY = asciiDotDistance * 1.0;
+//
+//    float contrast = ( asciiImageContrast * 2. )* ( asciiImageContrast * 2. ) * ( asciiImageContrast * 2. ) * ( asciiImageContrast * 2. );
+//    float gain = asciiImageGain - (asciiImageContrast -0.5) ;
+//
+//    float baseX = floor((pos.x) / asciiDotDistanceX) * asciiDotDistanceX;
+//    float baseY = floor((pos.y) / asciiDotDistanceY) * asciiDotDistanceY;
+//
+//    vec4 color = texture2DRect(texture0, vec2(baseX, baseY));
+//
+//
+////    color=fxColor;
+//
+//    float grey = (((color.x + color.y + color.z) / 3.0 ) * contrast + gain) * 255. ;
+//
+//    grey = clamp ( grey, 0.0, 255.0 );
+//
+//    grey = 255. - grey;
+//
+//    float asciinumber = float (((grey - 30.)/ 26.)) * float( grey > 30.);
+//
+//    float distX = pos.x - baseX;
+//    float distY = pos.y - baseY;
+//
+//    float coordX = ( ( distX / asciiDotDistanceX ) / 23.0 + ( floor(asciinumber) - 1.  ) /23.0 )  * 1380.;
+//    float coordY = ( distY / asciiDotDistanceY ) * 30.;
+//
+//    vec4 col = texture2DRect(font, vec2(coordX, coordY));
+//
+////    return col;
+//
+//    vec4 col_inv = 1.0 - col;
+//
+//    vec4 result = float (1 - asciiInvert) * col + float (asciiInvert) * col_inv;
+//
+//    return result;
+//}
+
+//vec4 LED(vec4 fxColor, vec2 pos, float ledMacro, float ledDotDistance)//todo
+//{
+//    vec2 offset_red = vec2(.5,.5);
+//    vec2 offset_green = offset_red;
+//    vec2 offset_blue = offset_red;
+//    float halfdistance = ledDotDistance/ 2.0;
+//    float quaterdistance = ledDotDistance/ 4.0;
+//
+////     pos = gl_TexCoord[0].xy;
+//    vec2 offsetr = offset_red * (ledDotDistance/ 5.0);
+//    vec2 offsetg = offset_green * (ledDotDistance/ 5.0);
+//    vec2 offsetb = offset_blue * (ledDotDistance/ 5.0);
+//
+//    float baseXr = floor((pos.x - offsetr.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetr.x;
+//    float baseYr = floor((pos.y - offsetr.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetr.y;
+//
+//    float distanceXr = abs(pos.x - baseXr);
+//    float distanceYr = abs(pos.y - baseYr);
+//
+//    float distancer = sqrt(pow(distanceXr, 2.0) + pow(distanceYr, 2.0));
+//
+//    float visibilityr = float(distancer< (quaterdistance) ) + float(distancer >= (quaterdistance) ) *  ( (halfdistance - distancer) / quaterdistance);
+//
+//    float baseXg = floor((pos.x - offsetg.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetg.x;
+//    float baseYg = floor((pos.y - offsetg.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetg.y;
+//
+//    float distanceXg = abs(pos.x - baseXg);
+//    float distanceYg = abs(pos.y - baseYg);
+//
+//    float distanceg = sqrt(pow(distanceXg, 2.0) + pow(distanceYg, 2.0));
+//
+//    float visibilityg = float(distanceg< (quaterdistance) ) + float(distanceg >= (quaterdistance) ) *  ( (halfdistance - distanceg) / quaterdistance);
+//
+//    float baseXb = floor((pos.x - offsetb.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetb.x;
+//    float baseYb = floor((pos.y - offsetb.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetb.y;
+//
+//    float distanceXb = abs(pos.x - baseXb);
+//    float distanceYb = abs(pos.y - baseYb);
+//
+//    float distanceb = sqrt(pow(distanceXb, 2.0) + pow(distanceYb, 2.0));
+//
+//    float visibilityb = float(distanceb< (quaterdistance) ) + float(distanceb >= (quaterdistance) ) *  ( (halfdistance - distanceb) / quaterdistance);
+//
+//    vec4 stuffr = texture2DRect(texture0, vec2(baseXr, baseYr));
+//    vec4 stuffg = texture2DRect(texture0, vec2(baseXg, baseYg));
+//    vec4 stuffb = texture2DRect(texture0, vec2(baseXb, baseYb));
+//
+//    return vec4(stuffr.x * visibilityr, stuffg.y * visibilityg, stuffb.z * visibilityb, 1.0);
+//
+//}
 
 void main()
 {
@@ -164,7 +229,9 @@ void main()
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
-    if(asciiMacro!=0.0)fxColor=Ascii(pos,asciiMacro,asciiImageGain,asciiImageContrast,asciiInvert,asciiDotDistance);
+//    if(asciiMacro!=0.0)fxColor=Ascii(fxColor,asciiMacro,asciiImageGain,asciiImageContrast,asciiInvert,asciiDotDistance);
+    
+//    if(ledMacro!=0.0)fxColor=LED(fxColor,pos,ledMacro,ledDotDistance);
     
     vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     

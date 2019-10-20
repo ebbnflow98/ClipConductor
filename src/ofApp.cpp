@@ -7,7 +7,6 @@ int snaves=0;
 
 void ofApp::setup()////////////////////////////////////////////////////////////
 {
-    
 //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
@@ -810,7 +809,7 @@ bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
     {
         if (!player[i].load(result.getPath())) return false;
         cout<<"hay \n";
-        videoButtons[i]->setLabel(result.getName());
+        videoButtons[i]->setLabel(result.getName()); //change this sequence to get the arrarys correct
         player[i].setLoopState(OF_LOOP_NORMAL);
         return true;
     }
@@ -917,3 +916,5 @@ bool ofApp::midiPort(int midiPortOption)////////////////////////////////////////
     if(midiIn.openPort(midiPortOption)) return true;
     else return false;
 }
+
+

@@ -10,6 +10,8 @@
 		0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */; };
 		1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
+		207D819E235BC98300FFB670 /* convertVideo.h in Sources */ = {isa = PBXBuildFile; fileRef = 207D819D235BC98300FFB670 /* convertVideo.h */; };
+		207D81A0235BCED600FFB670 /* convertVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207D819F235BCED600FFB670 /* convertVideo.cpp */; };
 		29CCE522B929F684F4AFA9CD /* AudioParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E60382E18C61C222D07D5878 /* AudioParameters.cpp */; };
 		2C41A3B3370C4274289C315A /* AudioDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CBEFB52B9BADF58A104DB7F3 /* AudioDecoder.cpp */; };
 		3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712B183BC00EBFFB1EEA5AB8 /* ofxRtMidiOut.cpp */; };
@@ -66,6 +68,8 @@
 		1A3E3B8F332A1A3C7EDF4998 /* ofxDatGuiComponent.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxDatGuiComponent.cpp; path = ../../../addons/ofxDatGui/src/core/ofxDatGuiComponent.cpp; sourceTree = SOURCE_ROOT; };
 		1CD0FCD17CF81253541710C9 /* AudioResampler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = AudioResampler.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/AudioResampler.h; sourceTree = SOURCE_ROOT; };
 		20181D082342562B006CED21 /* ofApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofApp.h; sourceTree = "<group>"; };
+		207D819D235BC98300FFB670 /* convertVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convertVideo.h; sourceTree = "<group>"; };
+		207D819F235BCED600FFB670 /* convertVideo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = convertVideo.cpp; sourceTree = "<group>"; };
 		208298154B11456DCD0BE131 /* ofxRtMidiIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxRtMidiIn.h; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiIn.h; sourceTree = SOURCE_ROOT; };
 		20DCEA8322CFF1CC008E9F9B /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		21E1E3071CB7B11914428B62 /* ofxDatGuiThemes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxDatGuiThemes.h; path = ../../../addons/ofxDatGui/src/themes/ofxDatGuiThemes.h; sourceTree = SOURCE_ROOT; };
@@ -913,6 +917,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				20181D082342562B006CED21 /* ofApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
+				207D819D235BC98300FFB670 /* convertVideo.h */,
+				207D819F235BCED600FFB670 /* convertVideo.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1050,6 +1056,7 @@
 				A310FC398427045BC6A06A0A /* Clock.cpp in Sources */,
 				82AD51FB88A0DC6AAB601EA2 /* Demuxer.cpp in Sources */,
 				EE7C3F838E94930045480504 /* MovieTime.cpp in Sources */,
+				207D81A0235BCED600FFB670 /* convertVideo.cpp in Sources */,
 				DA4D50A3FFCA8CDDC214E9E4 /* PacketCache.cpp in Sources */,
 				F882E9CB888F08A9B3538799 /* RingBuffer.cpp in Sources */,
 				45E97BE760E2DC34B9E42673 /* TimeRangeSet.cpp in Sources */,
@@ -1062,6 +1069,7 @@
 				881AF887EC2124F4105DE9E1 /* ofxMidiClock.cpp in Sources */,
 				0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */,
 				C6FE64F74F1EA1D98C8F9847 /* ofxMidiMessage.cpp in Sources */,
+				207D819E235BC98300FFB670 /* convertVideo.h in Sources */,
 				83D9F930112E0944444124EE /* ofxMidiOut.cpp in Sources */,
 				1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */,
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,

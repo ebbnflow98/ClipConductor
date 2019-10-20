@@ -4,6 +4,7 @@
 #include "ofxHapPlayer.h"
 #include "ofxXmlSettings.h"
 #include "ofxDatGui.h"
+#include "convertVideo.h"
 
 class ofApp : public ofBaseApp,
 public ofxMidiListener
@@ -18,6 +19,7 @@ public:
         string path;
         bool drawImage;
         float size;
+        bool inProgress;
         
         media()
         {
@@ -26,6 +28,7 @@ public:
             drawImage=NULL;
             path="";
             size=63;
+            inProgress=false;
         }
         
         bool load(string loadPath)
@@ -52,24 +55,37 @@ public:
             if(which)
             {
                 video.videoIsntHap=false;
+                cout<<"load up those videos \n";
                 video.load(loadPath);
-                while(!video.isLoaded())
-                {
-                    cout<<"\\"<< endl << "|"<<endl<<"/"<<endl<<"–"<<endl;
-                    if(video.videoIsntHap==true) break;
-                }
+                while(!video.isLoaded()) if(video.videoIsntHap==true) break;
                 bool balls=(video.isLoaded());
                 if (video.videoIsntHap)
                 {
-                    cout<<"load failed; video is not HAP encoded. \n";
-                    ofSystemAlertDialog("Load failed. Video file is not HAP encoded.");
-                    return false;  //for now, till HAP converter works.
+//                    cout<<"load failed; video is not HAP encoded. \n";
+//                    ofSystemAlertDialog("Load failed. Video file is not HAP encoded.");
+//                    return false;  //for now, till HAP converter works.
+                    
+                    ofFile input;
+                    input.open(loadPath);
+                    string convertedVideoPath = convert(loadPath);
+                    if(convertedVideoPath!="")
+                    {
+                        close();
+                        load(convertedVideoPath);
+                        return true;
+                    }
+                    else
+                    {
+                        ofSystemAlertDialog("Load failed. Video file is not HAP encoded and video conversion failed");
+                        return false;
+                    }
                 }
             }
             else if(!which)ofLoadImage(picture,loadPath);
             
             path=loadPath;
             full=true;
+            inProgress=false;
             cout<<"path:"<<path<<endl;
             return true;
         }
@@ -246,6 +262,4 @@ private:
     
     int imageToDraw=NULL;
 };
-
-
 
