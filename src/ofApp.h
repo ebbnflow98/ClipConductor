@@ -168,8 +168,8 @@ public:
     void onButtonEventGui2(ofxDatGuiButtonEvent e);
 
     //------------------------------------------------------------------------
-    ofFbo fbo;
-    ofShader shader;
+    ofFbo fbo,fbo2,fbo3;
+    ofShader shader, asciiShader, ledShader;
     
     ofPoint guiWindowSize={0.0,0.0};
     bool exiting=false;
@@ -205,9 +205,9 @@ public:
     //GUI..........................................----------
     ofxDatGui* gui;
     ofxDatGui* gui2;
-    bool clear=false, clearAll=false;//, invertColors=false;
+    bool clear=false, clearAll=false, invertColors=false;
     ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder; //Folders for FX GUI elements.
-//    ofxDatGuiFolder *ledFolder, *asciiFolder;
+    ofxDatGuiFolder *ledFolder, *asciiFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletButton;
     
     ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *videoSpeedSlider;
@@ -222,14 +222,14 @@ public:
     float fxMacro=1.0;
     ofxDatGuiSlider *fxMacroSlider;
     
-//    float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
-//    bool asciiInvert=false;
-//    ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
-//    ofxDatGuiToggle *asciiInvertToggle;
-//    ofTexture font;
+    float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
+    bool asciiInvert=false;
+    ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
+    ofxDatGuiToggle *asciiInvertToggle;
+    ofTexture font;
     
-//    float ledMacro=0.0, ledDotDistance=0.0;
-//    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider;
+    float ledMacro=0.0, ledDotDistance=0.0;
+    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider;
     
     int pixelateMacro=0;
     ofxDatGuiSlider *pixelateSlider;

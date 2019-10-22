@@ -10,8 +10,17 @@ void ofApp::setup()////////////////////////////////////////////////////////////
 //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
-    shader.load("shaderVert.c","shaderFrag.c");
-    if(snaves==0) fbo.allocate(ofGetWidth(), ofGetHeight());
+    if(shader.load("shaderVert.c","shaderFrag.c"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";;
+    if(asciiShader.load("asciiShader.vert","asciiShader.frag")) cout<<"asciiShader loaded"; else cout<<"asciiShader not loaded";
+    if(ledShader.load("ledShader.vert","ledShader.frag"))cout<<"ledShader loaded"; else cout<<"ledShader not loaded";
+    
+    if(snaves==0)
+    {
+        fbo.allocate(ofGetWidth(),ofGetHeight());
+        fbo2.allocate(ofGetWidth(),ofGetHeight());
+//        fbo3.allocate(ofGetWidth(),ofGetHeight());
+    }
+    
     ofLog()<<(char*)glGetString(GL_VERSION);
 //---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
@@ -93,16 +102,16 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         fullhouseFolder=gui->addFolder("Fullhouse");
         fullhouseSlider=fullhouseFolder->addSlider("Fullhouse", 1, 50, fullhouseMacro);
         
-//        asciiFolder=gui->addFolder("Ascii");
-//        asciiMacroSlider=asciiFolder->addSlider("ASCII", 0.0,1.0,asciiMacro);
-//        asciiInvertToggle=asciiFolder->addToggle("ASCII Invert", asciiInvert);
-//        asciiImageContrastSlider=asciiFolder->addSlider("Image Contrast", 0.0, 1.0,asciiImageContrast);
-//        asciiImageGainSlider=asciiFolder->addSlider("Image Gain", 0.0,1.0,asciiImageGain);
-//        asciiDotDistanceSlider=asciiFolder->addSlider("Dot Distance", 0.0, 1.0,asciiDotDistance);
-//
-//        ledFolder=gui->addFolder("Led");
-//        ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
-//        ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
+        asciiFolder=gui->addFolder("Ascii");
+        asciiMacroSlider=asciiFolder->addSlider("Ascii", 0.0,1.0,asciiMacro);
+        asciiInvertToggle=asciiFolder->addToggle("Ascii Invert", asciiInvert);
+        asciiImageContrastSlider=asciiFolder->addSlider("Ascii Image Contrast", 0.0, 1.0,asciiImageContrast);
+        asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
+        asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
+
+        ledFolder=gui->addFolder("Led");
+        ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
+        ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
         
         gui->addBreak();
         gui->addBreak();
@@ -134,8 +143,8 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui->draw();
         gui2->draw();
         ofBackground(theme->color.guiBackground);
-//        if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
-//        else cout<<"font not loaded"<<endl;
+        if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
+        else cout<<"font not loaded"<<endl;
     }
     snaves=1;
 }
@@ -190,7 +199,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 //--Draw Video---------------------------------
 //                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
-    ofEnableBlendMode(OF_BLENDMODE_ADD);
+//    ofEnableBlendMode(OF_BLENDMODE_ADD);
 //    ofSetColor(255,fxMacro);
     
     for(int i=0;i<max_videos;i++)
@@ -222,49 +231,69 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     ofEnableAlphaBlending();
     ofEnableSmoothing();
     fbo.end();
-    
+//
+    fbo2.begin();
+    ofClear(0,0,0,0);
     shader.begin();
     float time = ofGetElapsedTimef();
-    
+
     shader.setUniform1f("fxMacro", fxMacro);
-    
+
     shader.setUniform1f("time", time);
     shader.setUniform2f("resolution", ofGetWidth(),ofGetHeight());
-    
+
     shader.setUniform1f("filterMacro", filterMacro);
     shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
-    
+
     shader.setUniform1f("invertMacro", invertMacro);
-    
+
     shader.setUniform1f("rippleMacro", rippleMacro);
     shader.setUniform2f("rippleXY", rippleX,rippleY);
     shader.setUniform1f("rippleRate",rippleRate);
-    
+
     shader.setUniform1i("ksectors", kaleidioscopeSectors*kaleidoscopeMacro);
     shader.setUniform2f("kcenter", kaleiodioscopeX*kaleidoscopeMacro,kaleiodioscopeY*kaleidoscopeMacro);
     shader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
     shader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
     if(kaleidoscopeMacro<.5) shader.setUniform2f("screenCenter",0,0);
     else shader.setUniform2f("screenCenter",0.5*ofGetWidth(),0.5*ofGetHeight());
-    
+
     shader.setUniform1i("pixelateMacro", pixelateMacro);
-    
+
     shader.setUniform1i("fullhouseMacro", fullhouseMacro);
     
-//    shader.setUniform1f("asciiMacro", asciiMacro);
-//    shader.setUniform1f("asciiDotDistance", asciiDotDistance);
-//    shader.setUniform1f("asciiImageGain", asciiImageGain);
-//    shader.setUniform1f("asciiImageContrast", asciiImageContrast);
-//    shader.setUniform1i("asciiInvert", int(asciiInvert));
-//    shader.setUniformTexture("font", font, 8);
-//
-//    shader.setUniform1f("ledMacro", ledMacro);
-//    shader.setUniform1f("ledDotDistance", ledDotDistance);
+    fbo.draw(0,0,ofGetWidth(),ofGetHeight());
+    shader.end();
+    fbo2.end();
+
+    
+    fbo3.begin();
+    asciiShader.begin();
+
+    asciiShader.setUniform1f("asciiMacro", asciiMacro);
+    asciiShader.setUniform1f("asciiDotDistance", asciiDotDistance);
+    asciiShader.setUniform1f("asciiImageGain", asciiImageGain);
+    asciiShader.setUniform1f("asciiImageContrast", asciiImageContrast);
+    asciiShader.setUniform1i("asciiInvert", asciiInvert);
+    asciiShader.setUniformTexture("font", font, 8);
+
+    fbo2.draw(0,0,ofGetWidth(),ofGetHeight());
+
+    asciiShader.end();
+    fbo3.end();
+    
+//    fbo3.begin();
+//    ledShader.begin();
+    
+//    ledShader.setUniform1f("ledMacro", ledMacro);
+//    ledShader.setUniform1f("ledDotDistance", ledDotDistance);
     
     //ofSetColor(255, 255, 255);
    // glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    fbo.draw(0,0,ofGetWidth(),ofGetHeight());
-    shader.end();
+//    fbo2.draw(0,0,ofGetWidth(),ofGetHeight());
+//    ledShader.end();
+    
+//    fbo3.draw(0,0,ofGetWidth(),ofGetHeight());
 }
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)/////////////////////////////////////////////////////////////
@@ -428,7 +457,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
 //            case 35:
 //                filterAlpha=ofMap(msg.value,0, 127, 0, 1.0);
 //                filterAlphaSlider->setValue(filterAlpha);
-                break;
+//                break;
                 
             case 40:
                 kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.00);
@@ -486,27 +515,27 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
             case 57:
                 fullhouseMacro=ofMap(msg.value,0,127,1,50);
                 fullhouseSlider->setValue(fullhouseMacro);
-//            case 60:
-//                asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
-//                asciiMacroSlider->setValue(asciiMacro);
-//                break;
-//            case 61:
-//                asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
-//                asciiDotDistanceSlider->setValue(asciiDotDistance);
-//                break;
-//            case 62:
-//                asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
-//                asciiImageGainSlider->setValue(asciiImageGain);
-//                break;
-//            case 63:
-//                asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
-//                asciiImageContrastSlider->setValue(asciiImageContrast);
-//                break;
-//            case 65:
-//                if(msg.value>63) asciiInvert=true;
-//                else asciiInvert=false;
-//                asciiInvertToggle->setChecked(asciiInvert);
-//                break;
+            case 60:
+                asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
+                asciiMacroSlider->setValue(asciiMacro);
+                break;
+            case 61:
+                asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                asciiDotDistanceSlider->setValue(asciiDotDistance);
+                break;
+            case 62:
+                asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                asciiImageGainSlider->setValue(asciiImageGain);
+                break;
+            case 63:
+                asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
+                asciiImageContrastSlider->setValue(asciiImageContrast);
+                break;
+            case 65:
+                if(msg.value>63) asciiInvert=true;
+                else asciiInvert=false;
+                asciiInvertToggle->setChecked(asciiInvert);
+                break;
         }
     }
        
@@ -613,7 +642,6 @@ void ofApp::keyReleased(ofKeyEventArgs & args)
 //                                                                            cout<<"Key Released"<<endl;
     int key=args.key;
     
-    
     switch (key)
     {
         case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
@@ -642,7 +670,6 @@ void ofApp::keyReleased(ofKeyEventArgs & args)
         case 'f': player[23].drawImage=false; player[23].stop(); player[23].firstFrame();break;
         case 'g': player[24].drawImage=false; player[24].stop(); player[24].firstFrame();break;
     }
-    
 }
 ////--------------------------------------------------------------
 //void ofApp::mouseMoved(int x, int y) {}
@@ -726,7 +753,7 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////
     
     else if(e.target==rippleSyncToggle)rippleRate=bpm*60;
     
-//    else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
+    else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
 }
 
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//////////////////////////////////////////////////////////////
@@ -745,7 +772,6 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==filterRedSlider)filterRed=(e.target->getValue());
     else if(e.target==filterBlueSlider)filterBlue=(e.target->getValue());
     else if(e.target==filterGreenSlider)filterGreen=(e.target->getValue());
-//    else if(e.target==filterAlphaSlider)filterAlpha=(e.target->getValue());
     
     else if(e.target==rippleSlider)rippleMacro=(e.target->getValue());
     else if(e.target==rippleYSlider)rippleY=(e.target->getValue());
@@ -762,11 +788,11 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     
     else if(e.target==fullhouseSlider)fullhouseMacro=(e.target->getValue());
     
-//    else if(e.target==asciiMacroSlider)asciiMacro=(e.target->getValue());
-//    else if(e.target==asciiImageGainSlider)asciiImageGain=(e.target->getValue());
-//    else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
-//    else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
-//
+    else if(e.target==asciiMacroSlider)asciiMacro=(e.target->getValue());
+    else if(e.target==asciiImageGainSlider)asciiImageGain=(e.target->getValue());
+    else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
+    else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
+
 //    else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
 //    else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
 }
@@ -813,7 +839,6 @@ bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
         player[i].setLoopState(OF_LOOP_NORMAL);
         return true;
     }
-    
     else return false;
 }
 

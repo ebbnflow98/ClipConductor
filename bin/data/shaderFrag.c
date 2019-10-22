@@ -109,54 +109,6 @@ vec2 Fullhouse(vec2 pos, int fullhouseMacro)
     return pos;
 }
 
-//vec4 Ascii(vec4 fxColor,  float asciiMacro, float asciiImageGain, float asciiImageContrast, int asciiInvert, float asciiDotDistance )//todo
-//{
-//    vec2 pos = gl_TexCoord[0].xy; //pos
-//    asciiImageGain = asciiImageGain*2.-1.;
-////    float imagecontrast = p2;
-//
-////    int asciiInvert = int(p3); //bool 0 or 1; clamp?
-//
-//    asciiDotDistance *= 100.0;
-//
-//    float asciiDotDistanceX = asciiDotDistance * 2.0;
-//    float asciiDotDistanceY = asciiDotDistance * 1.0;
-//
-//    float contrast = ( asciiImageContrast * 2. )* ( asciiImageContrast * 2. ) * ( asciiImageContrast * 2. ) * ( asciiImageContrast * 2. );
-//    float gain = asciiImageGain - (asciiImageContrast -0.5) ;
-//
-//    float baseX = floor((pos.x) / asciiDotDistanceX) * asciiDotDistanceX;
-//    float baseY = floor((pos.y) / asciiDotDistanceY) * asciiDotDistanceY;
-//
-//    vec4 color = texture2DRect(texture0, vec2(baseX, baseY));
-//
-//
-////    color=fxColor;
-//
-//    float grey = (((color.x + color.y + color.z) / 3.0 ) * contrast + gain) * 255. ;
-//
-//    grey = clamp ( grey, 0.0, 255.0 );
-//
-//    grey = 255. - grey;
-//
-//    float asciinumber = float (((grey - 30.)/ 26.)) * float( grey > 30.);
-//
-//    float distX = pos.x - baseX;
-//    float distY = pos.y - baseY;
-//
-//    float coordX = ( ( distX / asciiDotDistanceX ) / 23.0 + ( floor(asciinumber) - 1.  ) /23.0 )  * 1380.;
-//    float coordY = ( distY / asciiDotDistanceY ) * 30.;
-//
-//    vec4 col = texture2DRect(font, vec2(coordX, coordY));
-//
-////    return col;
-//
-//    vec4 col_inv = 1.0 - col;
-//
-//    vec4 result = float (1 - asciiInvert) * col + float (asciiInvert) * col_inv;
-//
-//    return result;
-//}
 
 //vec4 LED(vec4 fxColor, vec2 pos, float ledMacro, float ledDotDistance)//todo
 //{
@@ -228,8 +180,6 @@ void main()
     if(filterMacro!=0.0)fxColor=Filter(fxColor,filterMacro,filterRGB);
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
-    
-//    if(asciiMacro!=0.0)fxColor=Ascii(fxColor,asciiMacro,asciiImageGain,asciiImageContrast,asciiInvert,asciiDotDistance);
     
 //    if(ledMacro!=0.0)fxColor=LED(fxColor,pos,ledMacro,ledDotDistance);
     
