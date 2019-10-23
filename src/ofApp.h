@@ -19,7 +19,6 @@ public:
         string path;
         bool drawImage;
         float size;
-        bool inProgress;
         
         media()
         {
@@ -28,7 +27,6 @@ public:
             drawImage=NULL;
             path="";
             size=63;
-            inProgress=false;
         }
         
         bool load(string loadPath)
@@ -86,7 +84,6 @@ public:
             
             path=loadPath;
             full=true;
-            inProgress=false;
             cout<<"path:"<<path<<endl;
             return true;
         }

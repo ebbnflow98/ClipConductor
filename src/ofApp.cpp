@@ -113,12 +113,12 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         ledFolder=gui->addFolder("LED");
         ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
         ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
-        ledOffsetRXSlider=ledFolder->addSlider("Red Offset X", 0.0 , 100.0, ledOffsetRX);
-        ledOffsetRYSlider=ledFolder->addSlider("Red Offset Y", 0.0 , 100.0, ledOffsetRY);
-        ledOffsetGXSlider=ledFolder->addSlider("Green Offset X", 0.0 , 100.0, ledOffsetGX);
-        ledOffsetGYSlider=ledFolder->addSlider("Green Offset Y", 0.0 , 100.0, ledOffsetGY);
-        ledOffsetBXSlider=ledFolder->addSlider("Blue Offset X", 0.0 , 100.0, ledOffsetBX);
-        ledOffsetBYSlider=ledFolder->addSlider("Blue Offset Y", 0.0 , 100.0, ledOffsetBY);
+//        ledOffsetRXSlider=ledFolder->addSlider("Red Offset X", 0.0 , 1.0, ledOffsetRX);
+//        ledOffsetRYSlider=ledFolder->addSlider("Red Offset Y", 0.0 , 1.0, ledOffsetRY);
+//        ledOffsetGXSlider=ledFolder->addSlider("Green Offset X", 0.0 , 1.0, ledOffsetGX);
+//        ledOffsetGYSlider=ledFolder->addSlider("Green Offset Y", 0.0 , 1.0, ledOffsetGY);
+//        ledOffsetBXSlider=ledFolder->addSlider("Blue Offset X", 0.0 , 1.0, ledOffsetBX);
+//        ledOffsetBYSlider=ledFolder->addSlider("Blue Offset Y", 0.0 , 1.0, ledOffsetBY);
 
         gui->addBreak();
         gui->addBreak();
@@ -136,6 +136,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         fullhouseSlider->setPrecision(0);
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
+        sectorSlider->setPrecision(0);
         tripletButton->setChecked(triplet);
         backgroundSwitchToggle->setChecked(backgroundSwitch);
         clearToggle->setChecked(clear);
@@ -297,9 +298,9 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     
     ledShader.setUniform1f("ledMacro", ledMacro);
     ledShader.setUniform1f("ledDotDistance", ledDotDistance);
-    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
-    ledShader.setUniform2f("ledOffsetGreen", ledOffsetGX, ledOffsetGY);
-    ledShader.setUniform2f("ledOffsetBlue", ledOffsetBX, ledOffsetBY);
+//    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
+//    ledShader.setUniform2f("ledOffsetGreen", ledOffsetGX, ledOffsetGY);
+//    ledShader.setUniform2f("ledOffsetBlue", ledOffsetBX, ledOffsetBY);
 
 //    ofSetColor(255, 255, 255);
 //    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
@@ -559,30 +560,30 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
                 ledDotDistanceSlider->setValue(ledDotDistance);
                 break;
-            case 68:
-                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
-                ledOffsetRXSlider->setValue(ledOffsetRX);
-                break;
-            case 69:
-                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                ledOffsetRYSlider->setValue(ledOffsetRY);
-                break;
-            case 70:
-                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                ledOffsetGXSlider->setValue(ledOffsetGX);
-                break;
-            case 71:
-                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                ledOffsetGYSlider->setValue(ledOffsetGY);
-                break;
-            case 72:
-                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                ledOffsetBXSlider->setValue(ledOffsetBX);
-                break;
-            case 73:
-                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                ledOffsetGYSlider->setValue(ledOffsetGY);
-                break;
+//            case 68:
+//                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
+//                ledOffsetRXSlider->setValue(ledOffsetRX);
+//                break;
+//            case 69:
+//                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                ledOffsetRYSlider->setValue(ledOffsetRY);
+//                break;
+//            case 70:
+//                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                ledOffsetGXSlider->setValue(ledOffsetGX);
+//                break;
+//            case 71:
+//                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                ledOffsetGYSlider->setValue(ledOffsetGY);
+//                break;
+//            case 72:
+//                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                ledOffsetBXSlider->setValue(ledOffsetBX);
+//                break;
+//            case 73:
+//                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                ledOffsetGYSlider->setValue(ledOffsetGY);
+//                break;
         }
     }
        
@@ -905,12 +906,19 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
         xmlSettings.loadFile(loadPath);
         if(xmlSettings.loadFile(loadPath))
         {
-            for(int i = 0; i <max_videos; i++)
-            {
-                player[i].which=(xmlSettings.getValue("xmlSettings:media:which"+ofToString(i),int(NULL)));
-                string media = (xmlSettings.getValue(("xmlSettings:media:video"+ofToString(i)),player[i].getPath()));
-                player[i].load(media);
-            }
+            fxMacro = xmlSettings.getValue("xmlSettings:fxWet:fxWet", 1.0);
+            fxMacroSlider->setValue(fxMacro);
+            videoSpeed = xmlSettings.getValue("xmlSettings:video:speed", 1.0);
+            videoSpeedSlider->setValue(videoSpeed);
+            videoSync = xmlSettings.getValue("xmlSettings:video:sync", 0);
+            videoSyncToggle->setChecked(videoSync);
+            videoDivision = xmlSettings.getValue("xmlSettings:video:division", 1);
+            videoDivisionSlider->setValue(videoDivision);
+            triplet = xmlSettings.getValue("xmlSettings:video:triplet", triplet);
+            tripletButton->setChecked(triplet);
+            
+            tempoDivision = xmlSettings.getValue("xmlSettings:video:tempoDivision", tempoDivision);
+            tempoDivisionSlider->setValue(tempoDivision);
             
             bgColor1Red=xmlSettings.getValue("xmlSettings:color:bgColor1Red", 0);
             bgColor1Green=xmlSettings.getValue("xmlSettings:color:bgColor1Green", 0);
@@ -920,13 +928,78 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
             bgColor2Blue=xmlSettings.getValue("xmlSettings:color:bgColor2Blue", 0);
             
             bgColor1=(ofColor::fromHsb(bgColor1Red, bgColor1Green, bgColor1Blue));
+            bgColor1ColorPicker->setColor(bgColor1);
             bgColor2=(ofColor::fromHsb(bgColor2Red, bgColor2Green, bgColor2Blue));
+            bgColor2ColorPicker->setColor(bgColor2);
+
+            invertMacro=xmlSettings.getValue("xmlSettings:invert:invert", 0);
+            invertSlider->setValue(invertMacro);
             
-            videoSync=xmlSettings.getValue("xmlSettings:gui:videoSync", false);
-            triplet=xmlSettings.getValue("xmlSettings:gui:triplet", false);
-            backgroundSwitch=xmlSettings.getValue("xmlSettings:gui:background", 0);
-            tempoDivision=xmlSettings.getValue("xmlSettings:gui:tempoDivision", 1);
-            videoDivision=xmlSettings.getValue("xmlSettings:color:videoDivision", 1);
+            rippleMacro=xmlSettings.getValue("xmlSettings:ripple:ripple", 0);
+            rippleSlider->setValue(rippleMacro);
+            rippleSync=xmlSettings.getValue("xmlSettings:ripple:sync", 0);
+            rippleSyncToggle->setChecked(rippleSync);
+            rippleX=xmlSettings.getValue("xmlSettings:ripple:x", 0.0);
+            rippleXSlider->setValue(rippleX);
+            rippleY=xmlSettings.getValue("xmlSettings:ripple:y", 0.0);
+            rippleYSlider->setValue(rippleY);
+            rippleRate=xmlSettings.getValue("xmlSettings:ripple:rate",60);
+            rippleRateSlider->setValue(rippleRate);
+            
+            filterMacro=xmlSettings.getValue("xmlSettings:filter:filter", 0.0);
+            filterSlider->setValue(filterMacro);
+            filterRed=xmlSettings.getValue("xmlSettings:filter:red",0.0);
+            filterRedSlider->setValue(filterRed);
+            filterGreen=xmlSettings.getValue("xmlSettings:filter:green",0.0);
+            filterGreenSlider->setValue(filterGreen);
+            filterBlue=xmlSettings.getValue("xmlSettings:filter:blue",0.0);
+            filterBlueSlider->setValue(filterBlue);
+            
+            kaleidoscopeMacro=xmlSettings.getValue("xmlSettings:kaleidoscope:kaleidoscope", 0.0);
+            kaleidoscopeSlider->setValue(kaleidoscopeMacro);
+            kaleidioscopeSectors=xmlSettings.getValue("xmlSettings:kaleidoscope:sectors", 1);
+            sectorSlider->setValue(kaleidioscopeSectors);
+            kaleidioscopeAngle=xmlSettings.getValue("xmlSettings:kaleidoscope:angle", 0.0);
+            angleSlider->setValue(kaleidioscopeAngle);
+            kaleiodioscopeX=xmlSettings.getValue("xmlSettings:kaleidoscope:x", 0.0);
+            xSlider->setValue(kaleiodioscopeX);
+            kaleiodioscopeY=xmlSettings.getValue("xmlSettings:kaleidoscope:y", 0.0);
+            ySlider->setValue(kaleiodioscopeY);
+
+            pixelateMacro=xmlSettings.getValue("xmlSettings:pixelate:pixelate", 0.0);
+            pixelateSlider->setValue(pixelateMacro);
+            
+            fullhouseMacro=xmlSettings.getValue("xmlSettings:fullhouse:fullhouse", 0.0);
+            fullhouseSlider->setValue(fullhouseMacro);
+            
+            asciiMacro=xmlSettings.getValue("xmlSettings:ascii:ascii", 0.0);
+            asciiMacroSlider->setValue(asciiMacro);
+            asciiImageContrast=xmlSettings.getValue("xmlSettings:ascii:imageContrast", 0.0);
+            asciiImageContrastSlider->setValue(asciiImageContrast);
+            asciiImageGain=xmlSettings.getValue("xmlSettings:ascii:imageGain", 0.0);
+            asciiImageGainSlider->setValue(asciiImageGain);
+            asciiDotDistance=xmlSettings.getValue("xmlSettings:ascii:dotDistance", 0.0);
+            asciiDotDistanceSlider->setValue(asciiDotDistance);
+            
+            ledMacro=xmlSettings.getValue("xmlSettings:led:led", 0.0);
+            ledMacroSlider->setValue(ledMacro);
+            ledDotDistance=xmlSettings.getValue("xmlSettings:led:dotDistance", 0.0);
+            ledDotDistanceSlider->setValue(ledDotDistance);
+            
+            for(int i = 0; i <max_videos; i++)
+            {
+                player[i].full=(xmlSettings.getValue("xmlSettings:media:full"+ofToString(i), 0));
+                if(player[i].full==true)
+                {
+                    player[i].which=(xmlSettings.getValue("xmlSettings:media:which"+ofToString(i),int(NULL)));
+                    string media = (xmlSettings.getValue(("xmlSettings:media:media"+ofToString(i)),player[i].getPath()));
+                    player[i].load(media);
+                    ofFile mediaFile;
+                    mediaFile.open(media);
+                    string name = mediaFile.getFileName();
+                    videoButtons[i]->setLabel(name);
+                }
+            }
             
             ofSystemAlertDialog("File loaded successfully.");
             return true;
@@ -947,13 +1020,6 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
     ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
     if(result.bSuccess)
     {
-        cout << "save success \n" << endl;
-        for(int i = 0; i <max_videos; i++)
-        {
-            xmlSettings.addValue("xmlSettings:media:which"+ofToString(i),player[i].which);
-            xmlSettings.addValue("xmlSettings:media:video"+ofToString(i), player[i].getPath());
-        }
-        
         bgColor1Red=(bgColor1.getHue());
         bgColor1Green=(bgColor1.getSaturation());
         bgColor1Blue=(bgColor1.getBrightness());
@@ -961,21 +1027,63 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         bgColor2Green=(bgColor2.getSaturation());
         bgColor2Blue=(bgColor2.getBrightness());
         
+        xmlSettings.setValue("xmlSettings:fxWet:fxWet", fxMacro);
+        xmlSettings.setValue("xmlSettings:video:speed", videoSpeed);
+        xmlSettings.setValue("xmlSettings:video:sync", videoSync);
+        xmlSettings.setValue("xmlSettings:video:division", videoDivision);
+        xmlSettings.setValue("xmlSettings:video:triplet", triplet);
+        xmlSettings.setValue("xmlSettings:video:tempoDivision", tempoDivision);
+        
         xmlSettings.setValue("xmlSettings:color:bgColor1Red", bgColor1Red);
         xmlSettings.setValue("xmlSettings:color:bgColor1Green", bgColor1Green);
         xmlSettings.setValue("xmlSettings:color:bgColor1Blue", bgColor1Blue);
         xmlSettings.setValue("xmlSettings:color:bgColor2Red", bgColor2Red);
         xmlSettings.setValue("xmlSettings:color:bgColor2Green", bgColor2Green);
         xmlSettings.setValue("xmlSettings:color:bgColor2Blue", bgColor2Blue);
+        
+        xmlSettings.setValue("xmlSettings:invert:invert", invertMacro);
+        
+        xmlSettings.setValue("xmlSettings:ripple:ripple", rippleMacro);
+        xmlSettings.setValue("xmlSettings:ripple:sync", rippleSync);
+        xmlSettings.setValue("xmlSettings:ripple:x", rippleX);
+        xmlSettings.setValue("xmlSettings:ripple:y", rippleY);
+        xmlSettings.setValue("xmlSettings:ripple:rate", rippleRate);
+        
+        xmlSettings.setValue("xmlSettings:filter:filter", filterMacro);
+        xmlSettings.setValue("xmlSettings:filter:red", filterRed);
+        xmlSettings.setValue("xmlSettings:filter:green", filterGreen);
+        xmlSettings.setValue("xmlSettings:filter:blue", filterBlue);
+        
+        xmlSettings.setValue("xmlSettings:kaleidoscope:kaleidoscope",kaleidoscopeMacro);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:sectors",kaleidioscopeSectors);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:angle",kaleidioscopeAngle);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:x",kaleiodioscopeX);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:y",kaleiodioscopeY);
+
+        xmlSettings.setValue("xmlSettings:pixelate:pixelate", pixelateMacro);
+        
+        xmlSettings.setValue("xmlSettings:fullhouse:fullhouse", fullhouseMacro);
+        
+        xmlSettings.setValue("xmlSettings:ascii:ascii", asciiMacro);
+        xmlSettings.setValue("xmlSettings:ascii:imageContrast", asciiImageContrast);
+        xmlSettings.setValue("xmlSettings:ascii:imageGain", asciiImageGain);
+        xmlSettings.setValue("xmlSettings:ascii:dotDistance", asciiDotDistance);
+
+        xmlSettings.setValue("xmlSettings:led:led", ledMacro);
+        xmlSettings.setValue("xmlSettings:led:dotDistance", ledDotDistance);
+        
+        for(int i = 0; i <max_videos; i++)
+        {
+            if(player[i].full==true)
+            {
+                xmlSettings.setValue("xmlSettings:media:full"+ofToString(i), player[i].full);
+                xmlSettings.setValue("xmlSettings:media:which"+ofToString(i), player[i].which);
+                xmlSettings.setValue("xmlSettings:media:media"+ofToString(i), player[i].path);
+            }
+        }
+        
 //                                                                                        cout << "save out" << endl;
         xmlSettings.save(result.getPath());
-        
-        xmlSettings.setValue("xmlSettings:gui:videoSync", videoSync);
-        xmlSettings.setValue("xmlSettings:gui:triplet", triplet);
-        xmlSettings.setValue("xmlSettings:gui:background", backgroundSwitch);
-        
-        xmlSettings.setValue("xmlSettings:gui:tempoDivision", tempoDivision);
-        xmlSettings.setValue("xmlSettings:color:videoDivision", videoDivision);
         
         ofSystemAlertDialog("Save successful. \n");
         return true;

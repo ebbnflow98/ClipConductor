@@ -25,15 +25,18 @@ uniform vec2 resolution;
 void main()
 {
     vec4 dryColor = texture2DRect(tex0,gl_TexCoord[0].xy);
+    vec2 or=ledOffsetRed;
+    vec2 og=ledOffsetGreen;
+    vec2 ob=ledOffsetBlue;
     
     float dotdistance = ledDotDistance;
     float halfdistance = dotdistance / 2.0;
     float quaterdistance = dotdistance / 4.0;
     
     vec2 pos = gl_TexCoord[0].xy;
-    vec2 offsetr = ledOffsetRed * (dotdistance / 5.0);
-    vec2 offsetg = ledOffsetGreen * (dotdistance / 5.0);
-    vec2 offsetb = ledOffsetBlue * (dotdistance / 5.0);
+    vec2 offsetr = or * (dotdistance / 5.0);
+    vec2 offsetg = og * (dotdistance / 5.0);
+    vec2 offsetb = ob * (dotdistance / 5.0);
     float baseXr = floor((pos.x - offsetr.x) / dotdistance) * dotdistance + halfdistance + offsetr.x;
     float baseYr = floor((pos.y - offsetr.y) / dotdistance) * dotdistance + halfdistance + offsetr.y;
     float distanceXr = abs(pos.x - baseXr);
