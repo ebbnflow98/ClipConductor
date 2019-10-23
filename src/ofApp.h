@@ -168,7 +168,7 @@ public:
     void onButtonEventGui2(ofxDatGuiButtonEvent e);
 
     //------------------------------------------------------------------------
-    ofFbo fbo,fbo2,fbo3;
+    ofFbo fbo,fbo2,fbo3,fbo4;
     ofShader shader, asciiShader, ledShader;
     
     ofPoint guiWindowSize={0.0,0.0};
@@ -228,8 +228,8 @@ public:
     ofxDatGuiToggle *asciiInvertToggle;
     ofTexture font;
     
-    float ledMacro=0.0, ledDotDistance=0.0;
-    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider;
+    float ledMacro=0.0, ledDotDistance=0.0, ledOffsetRX=0.0, ledOffsetRY=0.0, ledOffsetGX=0.0, ledOffsetGY=0.0, ledOffsetBX=0.0, ledOffsetBY=0.0;
+    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider, *ledOffsetRXSlider, *ledOffsetRYSlider, *ledOffsetGXSlider, *ledOffsetGYSlider, *ledOffsetBXSlider, *ledOffsetBYSlider;
     
     int pixelateMacro=0;
     ofxDatGuiSlider *pixelateSlider;

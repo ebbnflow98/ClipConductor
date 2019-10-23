@@ -18,7 +18,8 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     {
         fbo.allocate(ofGetWidth(),ofGetHeight());
         fbo2.allocate(ofGetWidth(),ofGetHeight());
-//        fbo3.allocate(ofGetWidth(),ofGetHeight());
+        fbo3.allocate(ofGetWidth(),ofGetHeight());
+        fbo4.allocate(ofGetWidth(),ofGetHeight());
     }
     
     ofLog()<<(char*)glGetString(GL_VERSION);
@@ -109,10 +110,16 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
         asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
 
-        ledFolder=gui->addFolder("Led");
+        ledFolder=gui->addFolder("LED");
         ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
         ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
-        
+        ledOffsetRXSlider=ledFolder->addSlider("Red Offset X", 0.0 , 100.0, ledOffsetRX);
+        ledOffsetRYSlider=ledFolder->addSlider("Red Offset Y", 0.0 , 100.0, ledOffsetRY);
+        ledOffsetGXSlider=ledFolder->addSlider("Green Offset X", 0.0 , 100.0, ledOffsetGX);
+        ledOffsetGYSlider=ledFolder->addSlider("Green Offset Y", 0.0 , 100.0, ledOffsetGY);
+        ledOffsetBXSlider=ledFolder->addSlider("Blue Offset X", 0.0 , 100.0, ledOffsetBX);
+        ledOffsetBYSlider=ledFolder->addSlider("Blue Offset Y", 0.0 , 100.0, ledOffsetBY);
+
         gui->addBreak();
         gui->addBreak();
         
@@ -268,6 +275,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 
     
     fbo3.begin();
+    ofClear(0,0,0,0);
     asciiShader.begin();
 
     asciiShader.setUniform1f("asciiMacro", asciiMacro);
@@ -282,18 +290,25 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     asciiShader.end();
     fbo3.end();
     
-//    fbo3.begin();
-//    ledShader.begin();
     
-//    ledShader.setUniform1f("ledMacro", ledMacro);
-//    ledShader.setUniform1f("ledDotDistance", ledDotDistance);
+    fbo4.begin();
+    ofClear(0,0,0,0);
+    ledShader.begin();
     
-    //ofSetColor(255, 255, 255);
-   // glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-//    fbo2.draw(0,0,ofGetWidth(),ofGetHeight());
-//    ledShader.end();
+    ledShader.setUniform1f("ledMacro", ledMacro);
+    ledShader.setUniform1f("ledDotDistance", ledDotDistance);
+    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
+    ledShader.setUniform2f("ledOffsetGreen", ledOffsetGX, ledOffsetGY);
+    ledShader.setUniform2f("ledOffsetBlue", ledOffsetBX, ledOffsetBY);
+
+//    ofSetColor(255, 255, 255);
+//    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    fbo3.draw(0,0,ofGetWidth(),ofGetHeight());
     
-//    fbo3.draw(0,0,ofGetWidth(),ofGetHeight());
+    ledShader.end();
+    fbo4.end();
+    
+    fbo4.draw(0,0,ofGetWidth(),ofGetHeight());
 }
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)/////////////////////////////////////////////////////////////
@@ -535,6 +550,38 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 if(msg.value>63) asciiInvert=true;
                 else asciiInvert=false;
                 asciiInvertToggle->setChecked(asciiInvert);
+                break;
+            case 66:
+                ledMacro=ofMap(msg.value,0,127,0.0,1.0);
+                ledMacroSlider->setValue(ledMacro);
+                break;
+            case 67:
+                ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                ledDotDistanceSlider->setValue(ledDotDistance);
+                break;
+            case 68:
+                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
+                ledOffsetRXSlider->setValue(ledOffsetRX);
+                break;
+            case 69:
+                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+                ledOffsetRYSlider->setValue(ledOffsetRY);
+                break;
+            case 70:
+                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+                ledOffsetGXSlider->setValue(ledOffsetGX);
+                break;
+            case 71:
+                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+                ledOffsetGYSlider->setValue(ledOffsetGY);
+                break;
+            case 72:
+                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+                ledOffsetBXSlider->setValue(ledOffsetBX);
+                break;
+            case 73:
+                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+                ledOffsetGYSlider->setValue(ledOffsetGY);
                 break;
         }
     }
@@ -793,8 +840,14 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
     else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
 
-//    else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
-//    else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
+    else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
+    else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
+    else if(e.target==ledOffsetRXSlider)ledOffsetRX=(e.target->getValue());
+    else if(e.target==ledOffsetRYSlider)ledOffsetRY=(e.target->getValue());
+    else if(e.target==ledOffsetGXSlider)ledOffsetGX=(e.target->getValue());
+    else if(e.target==ledOffsetGYSlider)ledOffsetGY=(e.target->getValue());
+    else if(e.target==ledOffsetBXSlider)ledOffsetBX=(e.target->getValue());
+    else if(e.target==ledOffsetBYSlider)ledOffsetBY=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////
