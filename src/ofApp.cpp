@@ -377,7 +377,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
         }
     }
     
-    if(msg.status==MIDI_CONTROL_CHANGE)
+    if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
     {
         switch(msg.control)
         {
@@ -599,7 +599,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
 }
 void ofApp::midiNoteOff(int pitch)
 {
-        player[pitch-60].drawImage==false;
+        player[pitch-60].drawImage=false;
         player[pitch-60].stop();
         player[pitch-60].firstFrame();
 //    switch (pitch)

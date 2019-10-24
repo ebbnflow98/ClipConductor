@@ -181,9 +181,9 @@ void main()
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
-//    if(ledMacro!=0.0)fxColor=LED(fxColor,pos,ledMacro,ledDotDistance);
+    vec4 color = (1.0 - fxMacro) * fxColor + fxMacro * dryColor;
     
-    vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
+    
     
     gl_FragColor=color;
 }
