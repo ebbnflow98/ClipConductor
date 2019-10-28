@@ -60,9 +60,6 @@ public:
                 bool balls=(video.isLoaded());
                 if (video.videoIsntHap)
                 {
-//                    cout<<"load failed; video is not HAP encoded. \n";
-//                    ofSystemAlertDialog("Load failed. Video file is not HAP encoded.");
-//                    return false;  //for now, till HAP converter works.
                     
                     ofFile input;
                     input.open(loadPath);
@@ -99,6 +96,8 @@ public:
         void draw(int x, int y, int width, int height)
         {
 //            cout<<"draw\n";
+          
+            
             if(which)video.draw(x,y,width,height);
             else picture.draw(x,y,width, height);
         }
@@ -139,6 +138,8 @@ public:
         
     } player[25];
     
+    int vw, vh, sw, sh, gw, gh;
+    int getHeight, getWidth;
     void setup();
     void update();
     void draw();
@@ -163,6 +164,8 @@ public:
     bool saveSettings();
     void exitGui(ofEventArgs & args);
     void onButtonEventGui2(ofxDatGuiButtonEvent e);
+    void windowResized(ofResizeEventArgs &resize);
+    void allocateFBOs();
 
     //------------------------------------------------------------------------
     ofFbo fbo,fbo2,fbo3,fbo4;
@@ -180,6 +183,7 @@ public:
     bool command=false;
     
     int playerFromMidiMessage=0;
+    
     // ---------------------------------MIDI---------------------------------
     ofxMidiTimecode timecode; //< timecode message parser
     bool timecodeRunning = false; //< is the timecode sync running?
@@ -190,6 +194,7 @@ public:
     float pitch=NULL, bpm=20, bps=NULL, videoSpeed2=1;
     ofxMidiClock clock;
     int tempoDivision=1;
+    
     //Background------------------------------------------------
     ofxDatGuiColorPicker *bgColor1ColorPicker;
     ofColor bgColor1=ofColor::black;
@@ -205,8 +210,10 @@ public:
     bool clear=false, clearAll=false, invertColors=false;
     ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder; //Folders for FX GUI elements.
     ofxDatGuiFolder *ledFolder, *asciiFolder;
-    ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletButton;
+    ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletToggle;
+    ofxDatGuiButton *clearAllButton, *saveButton, *loadButton;
     
+    ofxDatGuiDropdown *midiDropdown;
     ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *videoSpeedSlider;
     
     ofxDatGuiFolder *videoFolder;

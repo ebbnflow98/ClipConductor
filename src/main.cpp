@@ -19,7 +19,7 @@
 int main(){
     ofGLFWWindowSettings settings;
     settings.setSize(1024,768);
-    settings.setPosition(ofVec2f(1856,0));
+    settings.setPosition(ofVec2f(0,0));
     settings.resizable = true;
     shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
 
@@ -40,6 +40,7 @@ int main(){
     ofAddListener(guiWindow->events().fileDragEvent, mainApp.get(), &ofApp::dragEvent);
     ofAddListener(guiWindow->events().keyPressed, mainApp.get(), &ofApp::keyPressed);
     ofAddListener(guiWindow->events().keyReleased, mainApp.get(), &ofApp::keyReleased);
+    ofAddListener(mainWindow->events().windowResized, mainApp.get(), &ofApp::windowResized);
     ofRunApp(mainWindow, mainApp);
     ofRunMainLoop();
     

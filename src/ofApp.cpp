@@ -16,13 +16,20 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     
     if(snaves==0)
     {
-        fbo.allocate(ofGetWidth(),ofGetHeight());
-        fbo2.allocate(ofGetWidth(),ofGetHeight());
-        fbo3.allocate(ofGetWidth(),ofGetHeight());
-        fbo4.allocate(ofGetWidth(),ofGetHeight());
+//        int h = 900;
+//        int w = 1440;
+//        int h = ofGetScreenHeight();
+//        int w = ofGetScreenWidth();
+//        fbo.allocate(w,h);
+//        fbo2.allocate(w,h);
+//        fbo3.allocate(w,h);
+//        fbo4.allocate(w,h);
+        allocateFBOs();
+        
     }
     
     ofLog()<<(char*)glGetString(GL_VERSION);
+
 //---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
     midiIn.listInPorts(); // print input ports
@@ -42,7 +49,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         
         gui2->addLabel("VIDEOS");
         clearToggle = gui2->addToggle("Clear");
-        gui2->addButton("Clear All");
+        clearAllButton = gui2->addButton("Clear All");
         gui2->setPosition(gui->getWidth(),0);
         gui2->addBreak();
         gui2->addBreak();
@@ -52,16 +59,16 @@ void ofApp::setup()////////////////////////////////////////////////////////////
 //            cout<<"scroll videos"+ofToString(i)<<endl;
         }
         
-        gui->addButton("Save");
-        gui->addButton("Load"); 
-        gui->addDropdown("MIDI Port:", midiIn.getInPortList());
+        saveButton = gui->addButton("Save");
+        loadButton = gui->addButton("Load");
+        midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
         
         backgroundFolder=gui->addFolder("Background");
         backgroundSwitchToggle=backgroundFolder->addToggle("Background Switch");
         bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
         bgColor2ColorPicker=backgroundFolder->addColorPicker("BG Color 2", bgColor2);
         tempoDivisionSlider=backgroundFolder->addSlider("Tempo Division",1,3,1);
-        tripletButton=backgroundFolder->addToggle("Triplet");
+        tripletToggle=backgroundFolder->addToggle("Triplet");
     
         gui->addLabel("FX");
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
@@ -137,7 +144,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         sectorSlider->setPrecision(0);
-        tripletButton->setChecked(triplet);
+        tripletToggle->setChecked(triplet);
         backgroundSwitchToggle->setChecked(backgroundSwitch);
         clearToggle->setChecked(clear);
         videoSyncToggle->setChecked(videoSync);
@@ -181,6 +188,12 @@ void ofApp::update()////////////////////////////////////////////////////////////
 
 void ofApp::draw()///////////////////////////////////////////////////////////////////
 {
+    sw = ofGetScreenWidth();
+    sh = ofGetScreenHeight();
+    getWidth = ofGetWidth();
+    getHeight = ofGetHeight();
+    vw = ofGetViewportWidth();
+    vh = ofGetViewportHeight();
 //                                                                          cout<<"draw \n";
     if (backgroundSwitch==1)
 //    {
@@ -230,9 +243,10 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
             }
             
             if(videoCount>4) break;
-            
+          
+            player[i].setLoopState(OF_LOOP_NORMAL);
             ofSetColor(255,255,255,255);
-            player[i].draw(0,0,ofGetWidth(),ofGetHeight());
+            player[i].draw(0,0,getWidth,getHeight);
         }
     }
     
@@ -248,7 +262,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     shader.setUniform1f("fxMacro", fxMacro);
 
     shader.setUniform1f("time", time);
-    shader.setUniform2f("resolution", ofGetWidth(),ofGetHeight());
+    shader.setUniform2f("resolution", getWidth,getHeight);
 
     shader.setUniform1f("filterMacro", filterMacro);
     shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
@@ -270,7 +284,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 
     shader.setUniform1i("fullhouseMacro", fullhouseMacro);
     
-    fbo.draw(0,0,ofGetWidth(),ofGetHeight());
+    fbo.draw(0,0, getWidth, getHeight);
     shader.end();
     fbo2.end();
 
@@ -279,6 +293,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     ofClear(0,0,0,0);
     asciiShader.begin();
 
+    asciiShader.setUniform1f("fxMacro", fxMacro);
     asciiShader.setUniform1f("asciiMacro", asciiMacro);
     asciiShader.setUniform1f("asciiDotDistance", asciiDotDistance);
     asciiShader.setUniform1f("asciiImageGain", asciiImageGain);
@@ -286,7 +301,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     asciiShader.setUniform1i("asciiInvert", asciiInvert);
     asciiShader.setUniformTexture("font", font, 8);
 
-    fbo2.draw(0,0,ofGetWidth(),ofGetHeight());
+    fbo2.draw(0,0, getWidth, getHeight);
 
     asciiShader.end();
     fbo3.end();
@@ -296,6 +311,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     ofClear(0,0,0,0);
     ledShader.begin();
     
+    ledShader.setUniform1f("fxMacro", fxMacro);
     ledShader.setUniform1f("ledMacro", ledMacro);
     ledShader.setUniform1f("ledDotDistance", ledDotDistance);
 //    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
@@ -304,12 +320,12 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 
 //    ofSetColor(255, 255, 255);
 //    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    fbo3.draw(0,0,ofGetWidth(),ofGetHeight());
+    fbo3.draw(0,0, getWidth, getHeight);
     
     ledShader.end();
     fbo4.end();
     
-    fbo4.draw(0,0,ofGetWidth(),ofGetHeight());
+    fbo4.draw(0,0, getWidth, getHeight);
 }
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)/////////////////////////////////////////////////////////////
@@ -376,7 +392,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
             videoCount=-1;
         }
     }
-    
+
     if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
     {
         switch(msg.control)
@@ -415,7 +431,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
             case 21:
                 if(msg.value>63)triplet=true;
                 else triplet=false;
-                tripletButton->setChecked(triplet);
+                tripletToggle->setChecked(triplet);
                 break;
 //            case 21:
 //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
@@ -602,34 +618,6 @@ void ofApp::midiNoteOff(int pitch)
         player[pitch-60].drawImage=false;
         player[pitch-60].stop();
         player[pitch-60].firstFrame();
-//    switch (pitch)
-//    {
-//        case 60: player[0].drawImage=false; break;
-//        case 61: player[1].drawImage=false; break;
-//        case 62: player[2].drawImage=false; break;
-//        case 63: player[3].drawImage=false; break;
-//        case 64: player[4].drawImage=false; break;
-//        case 65: player[5].drawImage=false; break;
-//        case 66: player[6].drawImage=false; break;
-//        case 67: player[7].drawImage=false; break;
-//        case 68: player[8].drawImage=false; break;
-//        case 69: player[9].drawImage=false; break;
-//        case 70: player[10].drawImage=false; break;
-//        case 71: player[11].drawImage=false; break;
-//        case 72: player[12].drawImage=false; break;
-//        case 73: player[13].drawImage=false; break;
-//        case 74: player[14].drawImage=false; break;
-//        case 75: player[15].drawImage=false; break;
-//        case 76: player[16].drawImage=false; break;
-//        case 77: player[17].drawImage=false; break;
-//        case 78: player[18].drawImage=false; break;
-//        case 79: player[19].drawImage=false; break;
-//        case 80: player[20].drawImage=false; break;
-//        case 81: player[21].drawImage=false; break;
-//        case 82: player[22].drawImage=false; break;
-//        case 83: player[23].drawImage=false; break;
-//        case 84: player[24].drawImage=false; break;
-//        default: break;
 //    }
 }
 
@@ -766,28 +754,31 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//////////////////////////////////////////////////////////////
 {
-    if(e.target->is("Save")) saveSettings();
-    else if(e.target->is("Load")) loadSettings();
+    if(e.target==saveButton) saveSettings();
+    else if(e.target==loadButton) loadSettings();
 }
 
 void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)/////////////////////////////////////////////////////////////
 {
 //                                                            cout << "onButtonEvent: " << e.target->getLabel() << endl;
-    if(e.target->is("Clear All")) clearAllVideos();
-    int iLabel=stoi(e.target->getName());
-    iLabel-=1;
-    if(clear==true)
-    {
-        if(player[iLabel].isLoaded()) player[iLabel].close();
-        clear=false;
-        clearToggle->setBackgroundColor(ofColor::black);
-        clearToggle->setLabelColor(ofColor::white);
-        e.target->setLabel(ofToString(iLabel));
-    }
+    if(e.target==clearAllButton) clearAllVideos();
+    
     else
     {
-//                                                            cout<<"option selected:"<<e.target->getLabel()<<endl;
-        loadMovie(iLabel);
+        int iLabel=stoi(e.target->getName());
+        iLabel-=1;
+        if(clear==true)
+        {
+            if(player[iLabel].isLoaded()) player[iLabel].close();
+            clear=false;
+            clearToggle->setBackgroundColor(ofColor::black);
+            clearToggle->setLabelColor(ofColor::white);
+            e.target->setLabel(ofToString(iLabel));
+        }
+        else
+        {
+            loadMovie(iLabel);
+        }
     }
 }
 
@@ -874,9 +865,9 @@ void ofApp::clearAllVideos()////////////////////////////////////////////////////
 {
     for(int i=0;i<max_videos;i++)
     {
-        ofxDatGuiButton *e=videoButtons[i];
+//        ofxDatGuiButton *e=videoButtons[i];
         if(player[i].isLoaded()) player[i].close();
-        e->setLabel(ofToString(i+1));
+        videoButtons[i]->setLabel(ofToString(i+1));
     }
 }
 
@@ -915,7 +906,7 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
             videoDivision = xmlSettings.getValue("xmlSettings:video:division", 1);
             videoDivisionSlider->setValue(videoDivision);
             triplet = xmlSettings.getValue("xmlSettings:video:triplet", triplet);
-            tripletButton->setChecked(triplet);
+            tripletToggle->setChecked(triplet);
             
             tempoDivision = xmlSettings.getValue("xmlSettings:video:tempoDivision", tempoDivision);
             tempoDivisionSlider->setValue(tempoDivision);
@@ -1103,4 +1094,20 @@ bool ofApp::midiPort(int midiPortOption)////////////////////////////////////////
     else return false;
 }
 
+void ofApp::windowResized(ofResizeEventArgs &resize)
+{
+    allocateFBOs();
+}
+
+void ofApp::allocateFBOs()///////////////////////////////////////////////////////////////////
+{
+//            int h = 900;
+//            int w = 1440;
+            int h = ofGetHeight();
+            int w = ofGetWidth();
+            fbo.allocate(w,h);
+            fbo2.allocate(w,h);
+            fbo3.allocate(w,h);
+            fbo4.allocate(w,h);
+}
 

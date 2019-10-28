@@ -181,9 +181,7 @@ void main()
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
-    vec4 color = (1.0 - fxMacro) * fxColor + fxMacro * dryColor;
-    
-    
+    vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     
     gl_FragColor=color;
 }

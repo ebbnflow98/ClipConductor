@@ -49,8 +49,6 @@ uniform float asciiImageContrast;
 uniform float ledMacro;
 uniform float ledDotDistance;
 
-
-
 vec4 Invert(vec4 color,float invertMacro)
 {
     vec3 color1=color.rgb;
@@ -109,58 +107,6 @@ vec2 Fullhouse(vec2 pos, int fullhouseMacro)
     return pos;
 }
 
-
-//vec4 LED(vec4 fxColor, vec2 pos, float ledMacro, float ledDotDistance)//todo
-//{
-//    vec2 offset_red = vec2(.5,.5);
-//    vec2 offset_green = offset_red;
-//    vec2 offset_blue = offset_red;
-//    float halfdistance = ledDotDistance/ 2.0;
-//    float quaterdistance = ledDotDistance/ 4.0;
-//
-////     pos = gl_TexCoord[0].xy;
-//    vec2 offsetr = offset_red * (ledDotDistance/ 5.0);
-//    vec2 offsetg = offset_green * (ledDotDistance/ 5.0);
-//    vec2 offsetb = offset_blue * (ledDotDistance/ 5.0);
-//
-//    float baseXr = floor((pos.x - offsetr.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetr.x;
-//    float baseYr = floor((pos.y - offsetr.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetr.y;
-//
-//    float distanceXr = abs(pos.x - baseXr);
-//    float distanceYr = abs(pos.y - baseYr);
-//
-//    float distancer = sqrt(pow(distanceXr, 2.0) + pow(distanceYr, 2.0));
-//
-//    float visibilityr = float(distancer< (quaterdistance) ) + float(distancer >= (quaterdistance) ) *  ( (halfdistance - distancer) / quaterdistance);
-//
-//    float baseXg = floor((pos.x - offsetg.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetg.x;
-//    float baseYg = floor((pos.y - offsetg.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetg.y;
-//
-//    float distanceXg = abs(pos.x - baseXg);
-//    float distanceYg = abs(pos.y - baseYg);
-//
-//    float distanceg = sqrt(pow(distanceXg, 2.0) + pow(distanceYg, 2.0));
-//
-//    float visibilityg = float(distanceg< (quaterdistance) ) + float(distanceg >= (quaterdistance) ) *  ( (halfdistance - distanceg) / quaterdistance);
-//
-//    float baseXb = floor((pos.x - offsetb.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetb.x;
-//    float baseYb = floor((pos.y - offsetb.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetb.y;
-//
-//    float distanceXb = abs(pos.x - baseXb);
-//    float distanceYb = abs(pos.y - baseYb);
-//
-//    float distanceb = sqrt(pow(distanceXb, 2.0) + pow(distanceYb, 2.0));
-//
-//    float visibilityb = float(distanceb< (quaterdistance) ) + float(distanceb >= (quaterdistance) ) *  ( (halfdistance - distanceb) / quaterdistance);
-//
-//    vec4 stuffr = texture2DRect(texture0, vec2(baseXr, baseYr));
-//    vec4 stuffg = texture2DRect(texture0, vec2(baseXg, baseYg));
-//    vec4 stuffb = texture2DRect(texture0, vec2(baseXb, baseYb));
-//
-//    return vec4(stuffr.x * visibilityr, stuffg.y * visibilityg, stuffb.z * visibilityb, 1.0);
-//
-//}
-
 void main()
 {
     vec4 dryColor = texture2DRect(texture0,gl_TexCoord[0].xy);
@@ -177,13 +123,11 @@ void main()
     
     vec4 fxColor=texture2DRect(texture0,pos);
     
-    if(filterMacro!=0.0)fxColor=Filter(fxColor,filterMacro,filterRGB);
+    if(filterMacro>=0.5)fxColor=Filter(fxColor,filterMacro,filterRGB);
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
-    vec4 color = (1.0 - fxMacro) * fxColor + fxMacro * dryColor;
-    
-    
+    vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     
     gl_FragColor=color;
 }
