@@ -49,7 +49,10 @@ uniform float asciiImageContrast;
 uniform float ledMacro;
 uniform float ledDotDistance;
 
-vec4 Invert(vec4 color,float invertMacro)
+uniform float rotateMacro;
+uniform vec2 rotateScreenCenter;
+
+vec4 Invert(vec4 color, float invertMacro)
 {
     vec3 color1=color.rgb;
     vec3 invertedColor=vec3(1.0-color1.r,1.0-color1.g,1.0-color1.b);
@@ -107,6 +110,18 @@ vec2 Fullhouse(vec2 pos, int fullhouseMacro)
     return pos;
 }
 
+vec2 Rotate(vec2 pos, float rotateMacro, vec2 resolution, vec2 screenCenter)
+{
+    rotateMacro=rotateMacro*6.28;
+    vec2 v = pos - rotateScreenCenter;    //    v is a vec2 length to the center of the screen
+    float r = length(v);            //    r is the tangent to that point
+    float a = atan(v.y, v.x);          //    a is the inverse tangent of
+    a -= rotateMacro;
+    vec2 u = vec2(cos(a),sin(a)) * r;
+    u += vec2(rotateScreenCenter);
+    return u;
+}
+
 void main()
 {
     vec4 dryColor = texture2DRect(texture0,gl_TexCoord[0].xy);
@@ -120,6 +135,8 @@ void main()
     if(pixelateMacro!=0)pos=Pixelate(pos,pixelateMacro);
     
     if(fullhouseMacro!=0)pos=Fullhouse(pos,fullhouseMacro);
+    
+    pos=Rotate(pos, rotateMacro, resolution, rotateScreenCenter);
     
     vec4 fxColor=texture2DRect(texture0,pos);
     

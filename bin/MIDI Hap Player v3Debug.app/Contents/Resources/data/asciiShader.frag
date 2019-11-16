@@ -15,7 +15,8 @@ precision mediump float;
 uniform sampler2DRect tex0;
 uniform sampler2DRect font;
 
-uniform float asciiImageGain,asciiImageContrast,asciiDotDistance;
+uniform float asciiImageGain,asciiImageContrast,asciiDotDistance, asciiMacro;
+uniform bool asciiInvert;
 
 uniform vec2 screenCenter;
 uniform float time;
@@ -24,6 +25,8 @@ uniform vec2 fontResolution;
 
 void main()
 {
+    vec4 dryColor = texture2DRect(tex0,gl_TexCoord[0].xy);
+    
     float imagecontrast=asciiImageContrast;
     float dotdistance=asciiDotDistance;
     
@@ -41,13 +44,12 @@ void main()
     float baseX = floor((texcoord0.x) / dotdistanceX) * dotdistanceX;
     float baseY = floor((texcoord0.y) / dotdistanceY) * dotdistanceY;
     
-    vec4 color = texture2DRect(tex0, vec2(baseX, baseY));
+    vec4 firstColor = texture2DRect(tex0, vec2(baseX, baseY));
     
-    float grey = ( ( (color.x + color.y + color.z) / 3.0 ) * contrast + gain ) * 255. ;
+    float grey = ( ( (firstColor.x + firstColor.y + firstColor.z) / 3.0 ) * contrast + gain ) * 255. ;
+    grey = clamp( grey, 0.0, 255.0 );
     
-    grey = clamp ( grey, 0.0, 255.0 );
-    
-    grey = 255. - grey;
+    if(!asciiInvert) grey = 255. - grey;
     
     float asciinumber = float ( ( ( grey - 30. ) / 26. ) ) * float( grey > 30.);
     
@@ -58,8 +60,11 @@ void main()
     float coordY = ( distY / dotdistanceY ) * 30.;
     
     vec4 col = texture2DRect(font, vec2(coordX, coordY));
+    vec4 fxColor = vec4(col.r,col.g,col.b,asciiMacro);
     
-    gl_FragColor = col;
+    vec4 color = (1.0 - asciiMacro) * dryColor + asciiMacro * fxColor;
+    
+    gl_FragColor = color;
     
 }
 

@@ -31,7 +31,6 @@ public:
         
         bool load(string loadPath)
         {
-            
             cout<<"load \n";
             if(loadPath.find(".mov")!=string::npos)
                 which=true;
@@ -68,6 +67,7 @@ public:
                     {
                         close();
                         load(convertedVideoPath);
+                        
                         return true;
                     }
                     else
@@ -77,8 +77,17 @@ public:
                     }
                 }
             }
-            else if(!which)ofLoadImage(picture,loadPath);
+            else if(!which)
+            {
+                ofLoadImage(picture,loadPath);
+                picture.setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+            }
             
+//            if(which)
+//            {
+//                videoTexture=video.getTexture();
+//                videoTexture.setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
+//            }
             path=loadPath;
             full=true;
             cout<<"path:"<<path<<endl;
@@ -138,7 +147,6 @@ public:
         
     } player[25];
     
-    int vw, vh, sw, sh, gw, gh;
     int getHeight, getWidth;
     void setup();
     void update();
@@ -159,6 +167,8 @@ public:
     void onButtonEventVideo(ofxDatGuiButtonEvent e);
     void onToggleEvent(ofxDatGuiToggleEvent e);
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
+    void on2dPadEvent(ofxDatGui2dPadEvent e);
+
     void dragEvent(ofDragInfo & info);
     bool loadSettings();
     bool saveSettings();
@@ -177,6 +187,7 @@ public:
     bool videoSync=false;
     float videoSpeed=1;
     int videoDivision=1, videoOff=0;
+    ofTexture videoTexture;
     
     bool sustain=false;
     
@@ -208,8 +219,7 @@ public:
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
-    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder; //Folders for FX GUI elements.
-    ofxDatGuiFolder *ledFolder, *asciiFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletToggle;
     ofxDatGuiButton *clearAllButton, *saveButton, *loadButton;
     
@@ -255,6 +265,9 @@ public:
     
     float invertMacro=0.0;
     ofxDatGuiSlider *invertSlider;
+    
+    float rotateMacro=0.0, rotateScreenCenter=0.0;
+    ofxDatGuiSlider *rotateMacroSlider;
     
     //Loading/Saving----------------------------------------
     const int max_videos=25;

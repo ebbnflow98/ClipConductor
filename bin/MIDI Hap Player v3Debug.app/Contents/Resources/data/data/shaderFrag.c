@@ -49,9 +49,10 @@ uniform float asciiImageContrast;
 uniform float ledMacro;
 uniform float ledDotDistance;
 
+uniform float rotateMacro;
+uniform vec2 rotateScreenCenter;
 
-
-vec4 Invert(vec4 color,float invertMacro)
+vec4 Invert(vec4 color, float invertMacro)
 {
     vec3 color1=color.rgb;
     vec3 invertedColor=vec3(1.0-color1.r,1.0-color1.g,1.0-color1.b);
@@ -109,57 +110,17 @@ vec2 Fullhouse(vec2 pos, int fullhouseMacro)
     return pos;
 }
 
-
-//vec4 LED(vec4 fxColor, vec2 pos, float ledMacro, float ledDotDistance)//todo
-//{
-//    vec2 offset_red = vec2(.5,.5);
-//    vec2 offset_green = offset_red;
-//    vec2 offset_blue = offset_red;
-//    float halfdistance = ledDotDistance/ 2.0;
-//    float quaterdistance = ledDotDistance/ 4.0;
-//
-////     pos = gl_TexCoord[0].xy;
-//    vec2 offsetr = offset_red * (ledDotDistance/ 5.0);
-//    vec2 offsetg = offset_green * (ledDotDistance/ 5.0);
-//    vec2 offsetb = offset_blue * (ledDotDistance/ 5.0);
-//
-//    float baseXr = floor((pos.x - offsetr.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetr.x;
-//    float baseYr = floor((pos.y - offsetr.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetr.y;
-//
-//    float distanceXr = abs(pos.x - baseXr);
-//    float distanceYr = abs(pos.y - baseYr);
-//
-//    float distancer = sqrt(pow(distanceXr, 2.0) + pow(distanceYr, 2.0));
-//
-//    float visibilityr = float(distancer< (quaterdistance) ) + float(distancer >= (quaterdistance) ) *  ( (halfdistance - distancer) / quaterdistance);
-//
-//    float baseXg = floor((pos.x - offsetg.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetg.x;
-//    float baseYg = floor((pos.y - offsetg.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetg.y;
-//
-//    float distanceXg = abs(pos.x - baseXg);
-//    float distanceYg = abs(pos.y - baseYg);
-//
-//    float distanceg = sqrt(pow(distanceXg, 2.0) + pow(distanceYg, 2.0));
-//
-//    float visibilityg = float(distanceg< (quaterdistance) ) + float(distanceg >= (quaterdistance) ) *  ( (halfdistance - distanceg) / quaterdistance);
-//
-//    float baseXb = floor((pos.x - offsetb.x) / ledDotDistance) * ledDotDistance+ halfdistance + offsetb.x;
-//    float baseYb = floor((pos.y - offsetb.y) / ledDotDistance) * ledDotDistance+ halfdistance + offsetb.y;
-//
-//    float distanceXb = abs(pos.x - baseXb);
-//    float distanceYb = abs(pos.y - baseYb);
-//
-//    float distanceb = sqrt(pow(distanceXb, 2.0) + pow(distanceYb, 2.0));
-//
-//    float visibilityb = float(distanceb< (quaterdistance) ) + float(distanceb >= (quaterdistance) ) *  ( (halfdistance - distanceb) / quaterdistance);
-//
-//    vec4 stuffr = texture2DRect(texture0, vec2(baseXr, baseYr));
-//    vec4 stuffg = texture2DRect(texture0, vec2(baseXg, baseYg));
-//    vec4 stuffb = texture2DRect(texture0, vec2(baseXb, baseYb));
-//
-//    return vec4(stuffr.x * visibilityr, stuffg.y * visibilityg, stuffb.z * visibilityb, 1.0);
-//
-//}
+vec2 Rotate(vec2 pos, float rotateMacro, vec2 resolution, vec2 screenCenter)
+{
+    rotateMacro=rotateMacro*6.28;
+    vec2 v = pos - rotateScreenCenter;    //    v is a vec2 length to the center of the screen
+    float r = length(v);            //    r is the tangent to that point
+    float a = atan(v.y, v.x);          //    a is the inverse tangent of
+    a -= rotateMacro;
+    vec2 u = vec2(cos(a),sin(a)) * r;
+    u += vec2(rotateScreenCenter);
+    return u;
+}
 
 void main()
 {
@@ -175,9 +136,11 @@ void main()
     
     if(fullhouseMacro!=0)pos=Fullhouse(pos,fullhouseMacro);
     
+    pos=Rotate(pos, rotateMacro, resolution, rotateScreenCenter);
+    
     vec4 fxColor=texture2DRect(texture0,pos);
     
-    if(filterMacro!=0.0)fxColor=Filter(fxColor,filterMacro,filterRGB);
+    if(filterMacro>=0.5)fxColor=Filter(fxColor,filterMacro,filterRGB);
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     

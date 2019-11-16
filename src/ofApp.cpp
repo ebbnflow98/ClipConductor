@@ -14,19 +14,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     if(asciiShader.load("asciiShader.vert","asciiShader.frag")) cout<<"asciiShader loaded"; else cout<<"asciiShader not loaded";
     if(ledShader.load("ledShader.vert","ledShader.frag"))cout<<"ledShader loaded"; else cout<<"ledShader not loaded";
     
-    if(snaves==0)
-    {
-//        int h = 900;
-//        int w = 1440;
-//        int h = ofGetScreenHeight();
-//        int w = ofGetScreenWidth();
-//        fbo.allocate(w,h);
-//        fbo2.allocate(w,h);
-//        fbo3.allocate(w,h);
-//        fbo4.allocate(w,h);
-        allocateFBOs();
-        
-    }
+    if(snaves==0) allocateFBOs();
     
     ofLog()<<(char*)glGetString(GL_VERSION);
 
@@ -64,7 +52,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
         
         backgroundFolder=gui->addFolder("Background");
-        backgroundSwitchToggle=backgroundFolder->addToggle("Background Switch");
+//        backgroundSwitchToggle=backgroundFolder->addToggle("Background Switch");
         bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
         bgColor2ColorPicker=backgroundFolder->addColorPicker("BG Color 2", bgColor2);
         tempoDivisionSlider=backgroundFolder->addSlider("Tempo Division",1,3,1);
@@ -126,6 +114,9 @@ void ofApp::setup()////////////////////////////////////////////////////////////
 //        ledOffsetGYSlider=ledFolder->addSlider("Green Offset Y", 0.0 , 1.0, ledOffsetGY);
 //        ledOffsetBXSlider=ledFolder->addSlider("Blue Offset X", 0.0 , 1.0, ledOffsetBX);
 //        ledOffsetBYSlider=ledFolder->addSlider("Blue Offset Y", 0.0 , 1.0, ledOffsetBY);
+        
+        rotateFolder=gui->addFolder("Rotate");
+        rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
 
         gui->addBreak();
         gui->addBreak();
@@ -137,15 +128,17 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
         gui2->onToggleEvent(this, &ofApp::onToggleEvent);
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
+        gui->on2dPadEvent(this, &ofApp::on2dPadEvent);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
+        
         pixelateSlider->setPrecision(0);
         fullhouseSlider->setPrecision(0);
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         sectorSlider->setPrecision(0);
         tripletToggle->setChecked(triplet);
-        backgroundSwitchToggle->setChecked(backgroundSwitch);
+//        backgroundSwitchToggle->setChecked(backgroundSwitch);
         clearToggle->setChecked(clear);
         videoSyncToggle->setChecked(videoSync);
         rippleSyncToggle->setChecked(rippleSync);
@@ -184,34 +177,24 @@ void ofApp::update()////////////////////////////////////////////////////////////
         ofLog() << "timecode stopped";
         timecodeRunning = false;
     }
+    getWidth=ofGetWidth();
+    getHeight=ofGetHeight();
 }
 
 void ofApp::draw()///////////////////////////////////////////////////////////////////
 {
-    sw = ofGetScreenWidth();
-    sh = ofGetScreenHeight();
-    getWidth = ofGetWidth();
-    getHeight = ofGetHeight();
-    vw = ofGetViewportWidth();
-    vh = ofGetViewportHeight();
 //                                                                          cout<<"draw \n";
-    if (backgroundSwitch==1)
+//    if (backgroundSwitch==false)
 //    {
 //        if (bg==0)
 //        {
-//            if(tempo==0)(ofBackgroundGradient(bgColor1,ofColor::black));
-//            if(tempo==1)(ofBackgroundGradient(bgColor2,ofColor::white));
+//            if(tempo==0)(ofBackground(bgColor1));
+//            if(tempo==1)(ofBackground(bgColor2));
 //        }
 //    }
-//    else ofBackgroundGradient(bgColor1,ofColor::black);
-    {
-        if (bg==0)
-        {
-            if(tempo==0)(ofBackground(bgColor1));
-            if(tempo==1)(ofBackground(bgColor2));
-        }
-    }
-    else ofBackground(bgColor1);
+//    else
+    
+    ofBackground(bgColor1);
     
     fbo.begin();
     ofClear(0,0,0,0);
@@ -242,6 +225,8 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
                 if(player[i].isPlaying()==false)player[i].play();
             }
             
+            bool butthole = player[0].video.getIsMovieDone();
+            
             if(videoCount>4) break;
           
             player[i].setLoopState(OF_LOOP_NORMAL);
@@ -258,7 +243,7 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     ofClear(0,0,0,0);
     shader.begin();
     float time = ofGetElapsedTimef();
-
+    
     shader.setUniform1f("fxMacro", fxMacro);
 
     shader.setUniform1f("time", time);
@@ -278,11 +263,14 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     shader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
     shader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
     if(kaleidoscopeMacro<.5) shader.setUniform2f("screenCenter",0,0);
-    else shader.setUniform2f("screenCenter",0.5*ofGetWidth(),0.5*ofGetHeight());
+    else shader.setUniform2f("screenCenter",0.5*getWidth,0.5*getHeight);
 
     shader.setUniform1i("pixelateMacro", pixelateMacro);
 
     shader.setUniform1i("fullhouseMacro", fullhouseMacro);
+    
+    shader.setUniform1f("rotateMacro", rotateMacro);
+    shader.setUniform2f("rotateScreenCenter",0.5*getWidth,0.5*getHeight);
     
     fbo.draw(0,0, getWidth, getHeight);
     shader.end();
@@ -414,11 +402,12 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
             case 17:
                 videoDivision=msg.value;
                 videoDivisionSlider->setValue(videoDivision);
-            case 19:
-                if(msg.value>63) backgroundSwitch=true;
-                else backgroundSwitch=false;
-                backgroundSwitchToggle->setChecked(backgroundSwitch);
                 break;
+//            case 19:
+//                if(msg.value>63) backgroundSwitch=true;
+//                else backgroundSwitch=false;
+//                backgroundSwitchToggle->setChecked(backgroundSwitch);
+//                break;
             case 18:
                 if(msg.value>63) videoSync=true;
                 else videoSync=false;
@@ -544,9 +533,11 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
             case 56:
                 pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
                 pixelateSlider->setValue(pixelateMacro);
+                break;
             case 57:
                 fullhouseMacro=ofMap(msg.value,0,127,1,50);
                 fullhouseSlider->setValue(fullhouseMacro);
+                break;
             case 60:
                 asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
                 asciiMacroSlider->setValue(asciiMacro);
@@ -600,6 +591,11 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
 //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
 //                ledOffsetGYSlider->setValue(ledOffsetGY);
 //                break;
+            case 74:
+                rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
+                rotateMacroSlider->setValue(rotateMacro);
+                break;
+           
         }
     }
        
@@ -784,11 +780,11 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///////////////////////////
 
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////////////////////////////////
 {
-    if (e.target->is("Triplet"))triplet=!triplet;
-    else if (e.target->is("Background Switch"))backgroundSwitch=!backgroundSwitch;
-    else if (e.target->is("Video Sync"))videoSync=!videoSync;
+    if (e.target==tripletToggle)triplet=!triplet;
+//    else if (e.target->is("Background Switch"))backgroundSwitch=!backgroundSwitch;
+    else if (e.target==videoSyncToggle)videoSync=!videoSync;
     
-    else if(e.target->is("Clear")) clear=!clear;
+    else if(e.target==clearToggle) clear=!clear;
     
     else if(e.target==rippleSyncToggle)rippleRate=bpm*60;
     
@@ -840,6 +836,8 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==ledOffsetGYSlider)ledOffsetGY=(e.target->getValue());
     else if(e.target==ledOffsetBXSlider)ledOffsetBX=(e.target->getValue());
     else if(e.target==ledOffsetBYSlider)ledOffsetBY=(e.target->getValue());
+    
+    else if(e.target==rotateMacroSlider)rotateMacro=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////
@@ -859,6 +857,11 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)/////////////////////
         bgColor2Green=e.color.g;
         bgColor2Blue=e.color.b;
     }
+}
+
+void ofApp::on2dPadEvent(ofxDatGui2dPadEvent e)
+{
+
 }
 
 void ofApp::clearAllVideos()//////////////////////////////////////////////////////////////
@@ -977,6 +980,8 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
             ledDotDistance=xmlSettings.getValue("xmlSettings:led:dotDistance", 0.0);
             ledDotDistanceSlider->setValue(ledDotDistance);
             
+            rotateMacro=xmlSettings.getValue("xmlSettings:rotate:rotateMacro", 0.0);
+            
             for(int i = 0; i <max_videos; i++)
             {
                 player[i].full=(xmlSettings.getValue("xmlSettings:media:full"+ofToString(i), 0));
@@ -984,11 +989,19 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
                 {
                     player[i].which=(xmlSettings.getValue("xmlSettings:media:which"+ofToString(i),int(NULL)));
                     string media = (xmlSettings.getValue(("xmlSettings:media:media"+ofToString(i)),player[i].getPath()));
-                    player[i].load(media);
+                    
                     ofFile mediaFile;
                     mediaFile.open(media);
-                    string name = mediaFile.getFileName();
-                    videoButtons[i]->setLabel(name);
+                    if(!mediaFile.isFile())
+                    {
+                        ofSystemAlertDialog("Media file " + ofToString(i) + " has been moved or renamed. Failed to locate.");
+                    }
+                    else
+                    {
+                        player[i].load(media);
+                        string name = mediaFile.getFileName();
+                        videoButtons[i]->setLabel(name);
+                    }
                 }
             }
             
@@ -1063,6 +1076,8 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:led:led", ledMacro);
         xmlSettings.setValue("xmlSettings:led:dotDistance", ledDotDistance);
         
+        xmlSettings.setValue("xmlSettings:rotate:rotateMacro",rotateMacro);
+        
         for(int i = 0; i <max_videos; i++)
         {
             if(player[i].full==true)
@@ -1072,7 +1087,6 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
                 xmlSettings.setValue("xmlSettings:media:media"+ofToString(i), player[i].path);
             }
         }
-        
 //                                                                                        cout << "save out" << endl;
         xmlSettings.save(result.getPath());
         
@@ -1101,8 +1115,6 @@ void ofApp::windowResized(ofResizeEventArgs &resize)
 
 void ofApp::allocateFBOs()///////////////////////////////////////////////////////////////////
 {
-//            int h = 900;
-//            int w = 1440;
             int h = ofGetHeight();
             int w = ofGetWidth();
             fbo.allocate(w,h);
