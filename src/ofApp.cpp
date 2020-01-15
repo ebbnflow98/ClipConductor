@@ -10,7 +10,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
 //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
-    if(shader.load("shaderVert.c","shaderFrag.c"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";;
+    if(shader.load("shaderVert.c","shaderFrag.c"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
     if(asciiShader.load("asciiShader.vert","asciiShader.frag")) cout<<"asciiShader loaded"; else cout<<"asciiShader not loaded";
     if(ledShader.load("ledShader.vert","ledShader.frag"))cout<<"ledShader loaded"; else cout<<"ledShader not loaded";
     
@@ -117,6 +117,11 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         
         rotateFolder=gui->addFolder("Rotate");
         rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
+        
+        zebraFolder=gui->addFolder("Zebra");
+        zebraMacroSlider=zebraFolder->addSlider("Zebra", 0.0, 1.0,zebraMacro);
+        zebraSpeedSlider=zebraFolder->addSlider("Speed",0.0,1.0,zebraSpeed);
+        zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
 
         gui->addBreak();
         gui->addBreak();
@@ -137,6 +142,7 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         sectorSlider->setPrecision(0);
+        zebraLevelsSlider->setPrecision(0);
         tripletToggle->setChecked(triplet);
 //        backgroundSwitchToggle->setChecked(backgroundSwitch);
         clearToggle->setChecked(clear);
@@ -272,6 +278,10 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     shader.setUniform1f("rotateMacro", rotateMacro);
     shader.setUniform2f("rotateScreenCenter",0.5*getWidth,0.5*getHeight);
     
+    shader.setUniform1f("zebraMacro", zebraMacro);
+    shader.setUniform1f("zebraSpeed", zebraSpeed);
+    shader.setUniform1i("zebraLevels", zebraLevels);
+    
     fbo.draw(0,0, getWidth, getHeight);
     shader.end();
     fbo2.end();
@@ -293,7 +303,6 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 
     asciiShader.end();
     fbo3.end();
-    
     
     fbo4.begin();
     ofClear(0,0,0,0);
@@ -595,7 +604,19 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                 rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
                 rotateMacroSlider->setValue(rotateMacro);
                 break;
-           
+            case 75:
+                zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
+                zebraMacroSlider->setValue(zebraMacro);
+                break;
+            case 76:
+                zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
+                zebraSpeedSlider->setValue(zebraSpeed);
+                break;
+                
+            case 77:
+                zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
+                zebraLevelsSlider->setValue(zebraLevels);
+                break;
         }
     }
        
@@ -735,11 +756,11 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////
                     brake=true;
                     break;
                 }
-            if(brake==true) break;
+                if(brake==true) break;
             }
-                cout<<"new movie path:"<<ofFilePath::getFileName(dragInfo.files[m])<<endl<<"player array: "<<dragInfo.files[m]<<endl;
-                player[i].video.setPixelFormat(OF_PIXELS_RGBA);
-                if(player[i].load(dragInfo.files[m]))
+            cout<<"new movie path:"<<ofFilePath::getFileName(dragInfo.files[m])<<endl<<"player array: "<<dragInfo.files[m]<<endl;
+            player[i].video.setPixelFormat(OF_PIXELS_RGBA);
+            if(player[i].load(dragInfo.files[m]))
             {
                 videoButtons[i]->setLabel(ofFilePath::getFileName(dragInfo.files[m]));
                 player[i].setLoopState(OF_LOOP_NORMAL);
@@ -838,6 +859,10 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==ledOffsetBYSlider)ledOffsetBY=(e.target->getValue());
     
     else if(e.target==rotateMacroSlider)rotateMacro=(e.target->getValue());
+    
+    else if(e.target==zebraMacroSlider)zebraMacro=(e.target->getValue());
+    else if(e.target==zebraLevelsSlider)zebraLevels=(e.target->getValue());
+    else if(e.target==zebraSpeedSlider)zebraSpeed=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////
@@ -982,6 +1007,11 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
             
             rotateMacro=xmlSettings.getValue("xmlSettings:rotate:rotateMacro", 0.0);
             
+            zebraMacro=xmlSettings.getValue("xmlSettings:zebra:zebraMacro", 0.0);
+            zebraSpeed=xmlSettings.getValue("xmlSettings:zebra:zebraSpeed", 0.0);
+            zebraLevels=xmlSettings.getValue("xmlSettings:zebra:zebraLevels", 2);
+            
+            
             for(int i = 0; i <max_videos; i++)
             {
                 player[i].full=(xmlSettings.getValue("xmlSettings:media:full"+ofToString(i), 0));
@@ -1077,6 +1107,10 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:led:dotDistance", ledDotDistance);
         
         xmlSettings.setValue("xmlSettings:rotate:rotateMacro",rotateMacro);
+        
+        xmlSettings.setValue("xmlSettings:zebra:zebraMacro", zebraMacro);
+        xmlSettings.setValue("xmlSettings:zebra:zebraLevels", zebraLevels);
+        xmlSettings.setValue("xmlSettings:zebra:zebraSpeed", zebraSpeed);
         
         for(int i = 0; i <max_videos; i++)
         {

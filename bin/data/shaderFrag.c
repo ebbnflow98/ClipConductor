@@ -52,6 +52,10 @@ uniform float ledDotDistance;
 uniform float rotateMacro;
 uniform vec2 rotateScreenCenter;
 
+uniform float zebraMacro;
+uniform int zebraLevels;
+uniform float zebraSpeed;
+
 vec4 Invert(vec4 color, float invertMacro)
 {
     vec3 color1=color.rgb;
@@ -122,6 +126,23 @@ vec2 Rotate(vec2 pos, float rotateMacro, vec2 resolution, vec2 screenCenter)
     return u;
 }
 
+vec4 Zebra(vec4 dryColor, float zebraMacro, int zebraLevels, float zebraSpeed)
+{
+    float phase=time*zebraSpeed;
+    vec4 x=dryColor;
+    
+    x = mod(x + phase, 1.);
+    x = floor(x*float(zebraLevels));
+    x = mod(x,2.);
+    
+    vec4 fxColor = vec4(vec3(x), dryColor.a);
+    
+    vec4 color = (1.0 - zebraMacro) * dryColor + zebraMacro * fxColor;
+    
+    return color;
+}
+
+
 void main()
 {
     vec4 dryColor = texture2DRect(texture0,gl_TexCoord[0].xy);
@@ -138,11 +159,13 @@ void main()
     
     pos=Rotate(pos, rotateMacro, resolution, rotateScreenCenter);
     
-    vec4 fxColor=texture2DRect(texture0,pos);
+    vec4 fxColor=texture2DRect(texture0,pos);//====================
     
-    if(filterMacro>=0.5)fxColor=Filter(fxColor,filterMacro,filterRGB);
+    if(filterMacro>=0.0)fxColor=Filter(fxColor,filterMacro,filterRGB);
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
+    
+    if(zebraMacro!=0.0)fxColor=Zebra(fxColor, zebraMacro, zebraLevels, zebraSpeed);
     
     vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     

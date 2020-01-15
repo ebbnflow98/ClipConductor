@@ -105,7 +105,7 @@ public:
         void draw(int x, int y, int width, int height)
         {
 //            cout<<"draw\n";
-          
+            if(!full) return;
             
             if(which)video.draw(x,y,width,height);
             else picture.draw(x,y,width, height);
@@ -219,7 +219,7 @@ public:
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
-    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder, *zebraFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletToggle;
     ofxDatGuiButton *clearAllButton, *saveButton, *loadButton;
     
@@ -268,6 +268,10 @@ public:
     
     float rotateMacro=0.0, rotateScreenCenter=0.0;
     ofxDatGuiSlider *rotateMacroSlider;
+    
+    float zebraMacro=0.0, zebraSpeed=0.0;
+    int zebraLevels=2;
+    ofxDatGuiSlider *zebraMacroSlider, *zebraSpeedSlider, *zebraLevelsSlider;
     
     //Loading/Saving----------------------------------------
     const int max_videos=25;
