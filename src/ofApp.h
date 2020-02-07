@@ -19,6 +19,7 @@ public:
         string path;
         bool drawImage;
         float size;
+        int opacity;
         
         media()
         {
@@ -27,6 +28,7 @@ public:
             drawImage=NULL;
             path="";
             size=63;
+            opacity=255;
         }
         
         bool load(string loadPath)
@@ -167,7 +169,6 @@ public:
     void onButtonEventVideo(ofxDatGuiButtonEvent e);
     void onToggleEvent(ofxDatGuiToggleEvent e);
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
-    void on2dPadEvent(ofxDatGui2dPadEvent e);
 
     void dragEvent(ofDragInfo & info);
     bool loadSettings();

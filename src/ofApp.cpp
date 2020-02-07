@@ -44,7 +44,6 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         for(int i=0;i<max_videos;i++)
         {
             videoButtons[i]=(gui2->addButton(videoOptions[i]));
-//            cout<<"scroll videos"+ofToString(i)<<endl;
         }
         
         saveButton = gui->addButton("Save");
@@ -133,7 +132,6 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
         gui2->onToggleEvent(this, &ofApp::onToggleEvent);
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
-        gui->on2dPadEvent(this, &ofApp::on2dPadEvent);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
         
@@ -209,8 +207,6 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 //--Draw Video---------------------------------
 //                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
-//    ofEnableBlendMode(OF_BLENDMODE_ADD);
-//    ofSetColor(255,fxMacro);
     
     for(int i=0;i<max_videos;i++)
     {
@@ -231,20 +227,21 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
                 if(player[i].isPlaying()==false)player[i].play();
             }
             
-            bool butthole = player[0].video.getIsMovieDone();
+//            bool butthole = player[0].video.getIsMovieDone();
             
             if(videoCount>4) break;
           
             player[i].setLoopState(OF_LOOP_NORMAL);
-            ofSetColor(255,255,255,255);
+            ofSetColor(255,255,255,player[i].opacity);      //set color in order to draw video according to its opacity value
             player[i].draw(0,0,getWidth,getHeight);
         }
     }
     
+    ofClearAlpha();                                         //clear alpha within the fbo itself
     ofEnableAlphaBlending();
     ofEnableSmoothing();
     fbo.end();
-//
+
     fbo2.begin();
     ofClear(0,0,0,0);
     shader.begin();
@@ -344,40 +341,11 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
         if(msg.pitch>=60 && msg.pitch<=84)
         {
             playerFromMidiMessage=(msg.pitch-60);
-//            switch (msg.pitch)
-//            {
-//                case 60: playerFromMidiMessage=0; break;
-//                case 61: playerFromMidiMessage=1; break;
-//                case 62: playerFromMidiMessage=2; break;
-//                case 63: playerFromMidiMessage=3; break;
-//                case 64: playerFromMidiMessage=4; break;
-//                case 65: playerFromMidiMessage=5; break;
-//                case 66: playerFromMidiMessage=6; break;
-//                case 67: playerFromMidiMessage=7; break;
-//                case 68: playerFromMidiMessage=8; break;
-//                case 69: playerFromMidiMessage=9; break;
-//                case 70: playerFromMidiMessage=10; break;
-//                case 71: playerFromMidiMessage=11; break;
-//                case 72: playerFromMidiMessage=12; break;
-//                case 73: playerFromMidiMessage=13; break;
-//                case 74: playerFromMidiMessage=14; break;
-//                case 75: playerFromMidiMessage=15; break;
-//                case 76: playerFromMidiMessage=16; break;
-//                case 77: playerFromMidiMessage=17; break;
-//                case 78: playerFromMidiMessage=18; break;
-//                case 79: playerFromMidiMessage=19; break;
-//                case 80: playerFromMidiMessage=20; break;
-//                case 81: playerFromMidiMessage=21; break;
-//                case 82: playerFromMidiMessage=22; break;
-//                case 83: playerFromMidiMessage=23; break;
-//                case 84: playerFromMidiMessage=24; break;
-//                default: break;
-//            }
             videoCount+=1;
 //                                                                        cout<<"videoCount: "<<videoCount<<endl;
-            player[playerFromMidiMessage].size=msg.velocity;
+            player[playerFromMidiMessage].opacity=msg.velocity;
             player[playerFromMidiMessage].drawImage=true;
-            player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
+            player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
         }
     }
     
@@ -884,11 +852,6 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)/////////////////////
     }
 }
 
-void ofApp::on2dPadEvent(ofxDatGui2dPadEvent e)
-{
-
-}
-
 void ofApp::clearAllVideos()//////////////////////////////////////////////////////////////
 {
     for(int i=0;i<max_videos;i++)
@@ -1156,4 +1119,3 @@ void ofApp::allocateFBOs()//////////////////////////////////////////////////////
             fbo3.allocate(w,h);
             fbo4.allocate(w,h);
 }
-

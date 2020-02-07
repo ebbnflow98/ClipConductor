@@ -1,4 +1,4 @@
-//Clip Conductor Fragment Shader file
+ //Clip Conductor Fragment Shader file
 //
 //
 //
