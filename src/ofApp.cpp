@@ -231,7 +231,7 @@ void ofApp::draw()//============================================================
           
             player[i].setLoopState(OF_LOOP_NORMAL);
             ofSetColor(255,255,255,player[i].opacity);      //set color in order to draw video according to its opacity value
-            if(currentlyDrawing!=0)player[i].draw(0,0,getWidth,getHeight);         //draw video
+            if(drawCount!=0)player[i].draw(0,0,getWidth,getHeight);         //draw video
             else(chromaKeyVideo=i);
             drawCount-=1;
         }
@@ -242,7 +242,7 @@ void ofApp::draw()//============================================================
     ofEnableSmoothing();
     fbo.end();                                              //FBO end
     
-//-----Chroma Key FBO/Shader--------------------------------------------------
+//-----Chroma Key Video FBO--------------------------------------------------
     
     chromaKeyVideoFbo.begin();
     ofClear(0,0,0,0);
@@ -252,7 +252,7 @@ void ofApp::draw()//============================================================
     
     chromaKeyVideoFbo.end();
     
-//-----Chroma Key FBO/Shader--------------------------------------------------
+//-----Chroma Key FX FBO/Shader--------------------------------------------------
 
     chromaKeyFxFbo.begin();
     chromaKeyShader.begin();
@@ -261,6 +261,8 @@ void ofApp::draw()//============================================================
     chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
     chromaKeyShader.setUniform3i("chromaKeyColor", chromaKeyColor.r,chromaKeyColor.g,chromaKeyColor.b);
     chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
+    
+    chromaKeyVideoFbo.draw(0,0,getWidth,getHeight);
     
     chromaKeyShader.end();
     chromaKeyFxFbo.end();
@@ -305,7 +307,7 @@ void ofApp::draw()//============================================================
     shader.setUniform1i("zebraLevels", zebraLevels);
     
     fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
-    chromaKeyVideoFbo.draw(0,0,getWidth,getHeight);
+    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
     shader.end();                                   //shader1 end
     fbo2.end();                                     // FBO 2 end
 
@@ -349,7 +351,7 @@ void ofApp::draw()//============================================================
     fbo4.draw(0,0, getWidth, getHeight);                //FBO 4 draw (final draw)
 }
 
-void ofApp::newMidiMessage (ofxMidiMessage& msg)/////////////////////////////////////////////////////////////
+void ofApp::newMidiMessage (ofxMidiMessage& msg)//============================================================
 {
     if(snaves==1)
     {
@@ -513,21 +515,21 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)////////////////////////////////
                     bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                     bgColor1ColorPicker->setColor(bgColor1);
                     break;
-                case 53:
-                    bgColor2Red=msg.value;
-                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    bgColor2ColorPicker->setColor(bgColor2);
-                    break;
-                case 54:
-                    bgColor2Green=msg.value;
-                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    bgColor2ColorPicker->setColor(bgColor2);
-                    break;
-                case 55:
-                    bgColor2Blue=msg.value;
-                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    bgColor2ColorPicker->setColor(bgColor2);
-                    break;
+//                case 53:
+//                    bgColor2Red=msg.value;
+//                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    bgColor2ColorPicker->setColor(bgColor2);
+//                    break;
+//                case 54:
+//                    bgColor2Green=msg.value;
+//                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    bgColor2ColorPicker->setColor(bgColor2);
+//                    break;
+//                case 55:
+//                    bgColor2Blue=msg.value;
+//                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    bgColor2ColorPicker->setColor(bgColor2);
+//                    break;
                 case 56:
                     pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
                     pixelateSlider->setValue(pixelateMacro);
@@ -1101,9 +1103,9 @@ bool ofApp::saveSettings()//====================================================
         bgColor1Red=(bgColor1.getHue());
         bgColor1Green=(bgColor1.getSaturation());
         bgColor1Blue=(bgColor1.getBrightness());
-        bgColor2Red=(bgColor2.getHue());
-        bgColor2Green=(bgColor2.getSaturation());
-        bgColor2Blue=(bgColor2.getBrightness());
+//        bgColor2Red=(bgColor2.getHue());
+//        bgColor2Green=(bgColor2.getSaturation());
+//        bgColor2Blue=(bgColor2.getBrightness());
         
         xmlSettings.setValue("xmlSettings:fxWet:fxWet", fxMacro);
         xmlSettings.setValue("xmlSettings:video:speed", videoSpeed);

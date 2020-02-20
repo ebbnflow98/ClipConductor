@@ -215,8 +215,8 @@ public:
     //-----Background------------------------------------------------
     ofxDatGuiColorPicker *bgColor1ColorPicker;
     ofColor bgColor1=ofColor::black;
-    ofxDatGuiColorPicker *bgColor2ColorPicker;
-    ofColor bgColor2;
+//    ofxDatGuiColorPicker *bgColor2ColorPicker;
+//    ofColor bgColor2;
     int bgColor1Red=0, bgColor1Green=0, bgColor1Blue=0, bgColor2Red=0, bgColor2Green=0, bgColor2Blue=0;
     bool bg=false, backgroundSwitch=false;
     int videoCount=0;
@@ -281,7 +281,7 @@ public:
     
     float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
-    ofColor chromaKeyColor;
+    ofColor chromaKeyColor= ofColor(35,172,30);
     ofxDatGuiColorPicker *chromaKeyColorPicker;
     
     //Loading/Saving----------------------------------------
