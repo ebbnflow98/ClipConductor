@@ -3,16 +3,18 @@
 #include "ofApp.h"
 #include "ofMain.h"
 
+
 int snaves=0;
 
-void ofApp::setup()////////////////////////////////////////////////////////////
+void ofApp::setup()//============================================================
 {
 //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
-    if(shader.load("shaderVert.c","shaderFrag.c"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
+    if(shader.load("fxShader.vert","fxShader.frag"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
     if(asciiShader.load("asciiShader.vert","asciiShader.frag")) cout<<"asciiShader loaded"; else cout<<"asciiShader not loaded";
     if(ledShader.load("ledShader.vert","ledShader.frag"))cout<<"ledShader loaded"; else cout<<"ledShader not loaded";
+    if(chromaKeyShader.load("chromaKeyShader.vert","chromaKeyShader.frag"))cout<<"chromaKeyShader loaded"; else cout<<"chromaKeyShader not loaded";
     
     if(snaves==0) allocateFBOs();
     
@@ -25,7 +27,9 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     midiIn.ignoreTypes(false, false, true); // don't ignore sysex, timing, & active sense messages, these are ignored by default
     midiIn.addListener(this);   // add ofApp as a listener
     videoCount=0;
-    //--GUI setup--------------------------------------------------
+    
+//--GUI setup--------------------------------------------------
+    
     if(snaves==0)
     {
         gui = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
@@ -51,9 +55,8 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
         
         backgroundFolder=gui->addFolder("Background");
-//        backgroundSwitchToggle=backgroundFolder->addToggle("Background Switch");
         bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
-        bgColor2ColorPicker=backgroundFolder->addColorPicker("BG Color 2", bgColor2);
+//        bgColor2ColorPicker=backgroundFolder->addColorPicker("BG Color 2", bgColor2);
         tempoDivisionSlider=backgroundFolder->addSlider("Tempo Division",1,3,1);
         tripletToggle=backgroundFolder->addToggle("Triplet");
     
@@ -121,6 +124,11 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         zebraMacroSlider=zebraFolder->addSlider("Zebra", 0.0, 1.0,zebraMacro);
         zebraSpeedSlider=zebraFolder->addSlider("Speed",0.0,1.0,zebraSpeed);
         zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
+        
+        chromaKeyFolder=gui->addFolder("ChromaKey");
+        chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
+        chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
+        chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
 
         gui->addBreak();
         gui->addBreak();
@@ -142,7 +150,6 @@ void ofApp::setup()////////////////////////////////////////////////////////////
         sectorSlider->setPrecision(0);
         zebraLevelsSlider->setPrecision(0);
         tripletToggle->setChecked(triplet);
-//        backgroundSwitchToggle->setChecked(backgroundSwitch);
         clearToggle->setChecked(clear);
         videoSyncToggle->setChecked(videoSync);
         rippleSyncToggle->setChecked(rippleSync);
@@ -161,20 +168,19 @@ void ofApp::setup()////////////////////////////////////////////////////////////
     snaves=1;
 }
 
-ofPoint ofApp::windowSize()/////////////////////////////////////////////////////////////////////
+ofPoint ofApp::windowSize()//============================================================
 {
     ofPoint Windowsize(gui->getWidth()+gui2->getWidth(),gui->getHeight()*1.5);
     ofSetWindowShape(Windowsize.x, Windowsize.y);
     return Windowsize;
 }
-void ofApp::exitGui(ofEventArgs &args)//////////////////////////////////////////////////////
+void ofApp::exitGui(ofEventArgs &args)//============================================================
 {
     exit();
 }
 
-void ofApp::update()////////////////////////////////////////////////////////////////////////////
-{
-    //--Tempo update--------------------------------
+void ofApp::update()//============================================================
+{//---------Tempo update--------------------------------
 //                                                                          cout << "update"<< endl;
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
     {
@@ -183,28 +189,22 @@ void ofApp::update()////////////////////////////////////////////////////////////
     }
     getWidth=ofGetWidth();
     getHeight=ofGetHeight();
+    
+    cout<<"currentlyDrawing: "<<currentlyDrawing<<"\n";
 }
 
-void ofApp::draw()///////////////////////////////////////////////////////////////////
+void ofApp::draw()//============================================================
 {
-//                                                                          cout<<"draw \n";
-//    if (backgroundSwitch==false)
-//    {
-//        if (bg==0)
-//        {
-//            if(tempo==0)(ofBackground(bgColor1));
-//            if(tempo==1)(ofBackground(bgColor2));
-//        }
-//    }
-//    else
+    drawCount=currentlyDrawing;
+    chromaKeyVideo=-1;
     
-    ofBackground(bgColor1);
+    ofBackground(bgColor1);                                 //set background color according to user parameter
     
-    fbo.begin();
+    fbo.begin();                                            //FBO 1 begin
     ofClear(0,0,0,0);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
-//--Draw Video---------------------------------
+//----------Draw Video---------------------------------
 //                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
     
@@ -226,27 +226,52 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
                 player[i].setSpeed(videoSpeed2);
                 if(player[i].isPlaying()==false)player[i].play();
             }
-            
-//            bool butthole = player[0].video.getIsMovieDone();
-            
+                    
             if(videoCount>4) break;
           
             player[i].setLoopState(OF_LOOP_NORMAL);
             ofSetColor(255,255,255,player[i].opacity);      //set color in order to draw video according to its opacity value
-            player[i].draw(0,0,getWidth,getHeight);
+            if(currentlyDrawing!=0)player[i].draw(0,0,getWidth,getHeight);         //draw video
+            else(chromaKeyVideo=i);
+            drawCount-=1;
         }
     }
     
     ofClearAlpha();                                         //clear alpha within the fbo itself
     ofEnableAlphaBlending();
     ofEnableSmoothing();
-    fbo.end();
-
-    fbo2.begin();
-    ofClear(0,0,0,0);
-    shader.begin();
-    float time = ofGetElapsedTimef();
+    fbo.end();                                              //FBO end
     
+//-----Chroma Key FBO/Shader--------------------------------------------------
+    
+    chromaKeyVideoFbo.begin();
+    ofClear(0,0,0,0);
+
+    if(chromaKeyVideo!= -1)
+        player[chromaKeyVideo].draw(0, 0, getWidth, getHeight);
+    
+    chromaKeyVideoFbo.end();
+    
+//-----Chroma Key FBO/Shader--------------------------------------------------
+
+    chromaKeyFxFbo.begin();
+    chromaKeyShader.begin();
+    
+    shader.setUniform1f("fxMacro", fxMacro);
+    chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
+    chromaKeyShader.setUniform3i("chromaKeyColor", chromaKeyColor.r,chromaKeyColor.g,chromaKeyColor.b);
+    chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
+    
+    chromaKeyShader.end();
+    chromaKeyFxFbo.end();
+    
+//-------FX FBO/Shader---------------------------------------------------------
+
+    fbo2.begin();                                           //FBO 2 begin
+    ofClear(0,0,0,0);
+    shader.begin();                                         //Shader1 begin
+    float time = ofGetElapsedTimef();
+        
     shader.setUniform1f("fxMacro", fxMacro);
 
     shader.setUniform1f("time", time);
@@ -279,14 +304,15 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     shader.setUniform1f("zebraSpeed", zebraSpeed);
     shader.setUniform1i("zebraLevels", zebraLevels);
     
-    fbo.draw(0,0, getWidth, getHeight);
-    shader.end();
-    fbo2.end();
+    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
+    chromaKeyVideoFbo.draw(0,0,getWidth,getHeight);
+    shader.end();                                   //shader1 end
+    fbo2.end();                                     // FBO 2 end
 
-    
-    fbo3.begin();
+//------ASCII FBO/Shader---------------------------------------------------------------------------------------------
+    fbo3.begin();                                   //FBO 3 begin
     ofClear(0,0,0,0);
-    asciiShader.begin();
+    asciiShader.begin();                            //ASCII Shader begin
 
     asciiShader.setUniform1f("fxMacro", fxMacro);
     asciiShader.setUniform1f("asciiMacro", asciiMacro);
@@ -296,14 +322,15 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
     asciiShader.setUniform1i("asciiInvert", asciiInvert);
     asciiShader.setUniformTexture("font", font, 8);
 
-    fbo2.draw(0,0, getWidth, getHeight);
+    fbo2.draw(0,0, getWidth, getHeight);              //FBO 2 draw
 
-    asciiShader.end();
-    fbo3.end();
+    asciiShader.end();                                //ASCII Shader end
+    fbo3.end();                                       //FBO 3 end
     
-    fbo4.begin();
+//-------LED FBO/Shader---------------------------------------------------------
+    fbo4.begin();                                       //FBO 4 begin
     ofClear(0,0,0,0);
-    ledShader.begin();
+    ledShader.begin();                                 //LED Shader begin
     
     ledShader.setUniform1f("fxMacro", fxMacro);
     ledShader.setUniform1f("ledMacro", ledMacro);
@@ -314,299 +341,303 @@ void ofApp::draw()//////////////////////////////////////////////////////////////
 
 //    ofSetColor(255, 255, 255);
 //    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    fbo3.draw(0,0, getWidth, getHeight);
+    fbo3.draw(0,0, getWidth, getHeight);                //FBO 3 draw
+        
+    ledShader.end();                                    //LED Shader end
+    fbo4.end();                                         //FBO 4 end
     
-    ledShader.end();
-    fbo4.end();
-    
-    fbo4.draw(0,0, getWidth, getHeight);
+    fbo4.draw(0,0, getWidth, getHeight);                //FBO 4 draw (final draw)
 }
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)/////////////////////////////////////////////////////////////
 {
     if(snaves==1)
     {
-    //--New MIDI Message--------------------------
-    if(msg.status==MIDI_NOTE_ON && msg.pitch>=60 && msg.pitch<=84)
-    {
-        midiMessages.push_back(msg); // add the latest message to the message queue
-        while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
-//        cout<<"msg.channel: "<<msg.channel<<endl;
         
-        pitch=(msg.pitch);
-//            cout<<"midi note channel 2, pitch: "<<msg.pitch<<endl;
+        if(msg.status==MIDI_NOTE_ON && msg.pitch>=60 && msg.pitch<=84)
+        {
+            midiMessages.push_back(msg); // add the latest message to the message queue
+            while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
+            
+            pitch=(msg.pitch);
 
-        if(sustain)midiNoteOff(msg.pitch);
+            if(sustain)midiNoteOff(msg.pitch);
+            
+            if(msg.pitch>=60 && msg.pitch<=84)
+            {
+                playerFromMidiMessage=(msg.pitch-60);
+                videoCount+=1;
+    //                                                                        cout<<"videoCount: "<<videoCount<<endl;
+                player[playerFromMidiMessage].opacity=msg.velocity;
+                player[playerFromMidiMessage].drawImage=true;
+                player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
+            }
+        }
         
-        if(msg.pitch>=60 && msg.pitch<=84)
+        if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
         {
-            playerFromMidiMessage=(msg.pitch-60);
-            videoCount+=1;
-//                                                                        cout<<"videoCount: "<<videoCount<<endl;
-            player[playerFromMidiMessage].opacity=msg.velocity;
-            player[playerFromMidiMessage].drawImage=true;
-            player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
-        }
-    }
-    
-    if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
-    {
-        if(sustain==false)
-        {
-            midiNoteOff(msg.pitch);
-            videoCount=-1;
-        }
-    }
-
-    if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
-    {
-        switch(msg.control)
-        {
-            case 123:
+            if(sustain==false)
             {
-                for(int i=0;i<max_videos;i++) midiNoteOff(i+60);
+                midiNoteOff(msg.pitch);
+                videoCount=-1;
             }
-                break;
-            case 64: if(msg.value>63)sustain=true; else sustain=false;
-            case 15:
-                fxMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                fxMacroSlider->setValue(fxMacro);
-                break;
-            case 16:
-                videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
-                videoSpeedSlider->setValue(videoSpeed2);
-                break;
-            case 17:
-                videoDivision=msg.value;
-                videoDivisionSlider->setValue(videoDivision);
-                break;
-//            case 19:
-//                if(msg.value>63) backgroundSwitch=true;
-//                else backgroundSwitch=false;
-//                backgroundSwitchToggle->setChecked(backgroundSwitch);
-//                break;
-            case 18:
-                if(msg.value>63) videoSync=true;
-                else videoSync=false;
-                videoSyncToggle->setChecked(videoSync);
-                break;
-            case 20:
-                tempoDivision=msg.value;
-                tempoDivisionSlider->setValue(tempoDivision);
-                break;
-            case 21:
-                if(msg.value>63)triplet=true;
-                else triplet=false;
-                tripletToggle->setChecked(triplet);
-                break;
-//            case 21:
-//                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
-//                bgColor1ColorPicker->setColor(bgColor1);
-//                break;
-//            case 22:
-//                bgColor2=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
-//                bgColor1ColorPicker->setColor(bgColor1);
-//                break;
-            case 24:
-                invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                 invertSlider->setValue(invertMacro);
-                break;
-            case 25:
-                rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                rippleSlider->setValue(rippleMacro);
-                break;
-            case 26:
-            {
-                if(msg.value>63) rippleSync=true;
-                else rippleSync=false;
-                rippleSyncToggle->setChecked(rippleSync);
-                break;
-            }
-            case 27:
-                rippleX=ofMap(msg.value,0, 127, 0.0, 1.0);
-                rippleXSlider->setValue(rippleX);
-                break;
-            case 28:
-                rippleY=ofMap(msg.value,0, 127, 0.0, 1.00);
-                rippleYSlider->setValue(rippleY);
-                break;
-            case 29:
-                if(rippleSync) rippleRate=bpm/60;
-                else rippleRate=ofMap(msg.value,0, 127, .1, 300);
-                rippleRateSlider->setValue(rippleRate);
-                break;
-
-            case 30:
-                filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
-                filterSlider->setValue(filterMacro);
-                break;
-            case 31:
-                filterRed=ofMap(msg.value,0, 127, 0, 1.0);
-                filterRedSlider->setValue(filterRed);
-                break;
-            case 33:
-                filterGreen=ofMap(msg.value,0, 127, 0, 1.0);
-                filterGreenSlider->setValue(filterGreen);
-                break;
-            case 34:
-                filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
-                filterBlueSlider->setValue(filterBlue);
-                break;
-//            case 35:
-//                filterAlpha=ofMap(msg.value,0, 127, 0, 1.0);
-//                filterAlphaSlider->setValue(filterAlpha);
-//                break;
-                
-            case 40:
-                kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.00);
-                kaleidoscopeSlider->setValue(kaleidoscopeMacro);
-                break;
-            case 41:
-                kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
-                angleSlider->setValue(kaleidioscopeAngle);
-                break;
-            case 42:
-                kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
-                xSlider->setValue(kaleiodioscopeX);
-                break;
-            case 43:
-                kaleiodioscopeY=ofMap(msg.value,0, 127, 0.0, 1.00);
-                ySlider->setValue(kaleiodioscopeY);
-                break;
-            case 44:
-                kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
-                sectorSlider->setValue(kaleidioscopeSectors);
-                break;
-            case 50:
-                bgColor1Red=msg.value;
-                bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                bgColor1ColorPicker->setColor(bgColor1);
-                break;
-            case 51:
-                bgColor1Green=msg.value;
-                bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                bgColor1ColorPicker->setColor(bgColor1);
-                break;
-            case 52:
-                bgColor1Blue=msg.value;
-                bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                bgColor1ColorPicker->setColor(bgColor1);
-                break;
-            case 53:
-                bgColor2Red=msg.value;
-                bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                bgColor2ColorPicker->setColor(bgColor2);
-                break;
-            case 54:
-                bgColor2Green=msg.value;
-                bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                bgColor2ColorPicker->setColor(bgColor2);
-                break;
-            case 55:
-                bgColor2Blue=msg.value;
-                bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                bgColor2ColorPicker->setColor(bgColor2);
-                break;
-            case 56:
-                pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
-                pixelateSlider->setValue(pixelateMacro);
-                break;
-            case 57:
-                fullhouseMacro=ofMap(msg.value,0,127,1,50);
-                fullhouseSlider->setValue(fullhouseMacro);
-                break;
-            case 60:
-                asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
-                asciiMacroSlider->setValue(asciiMacro);
-                break;
-            case 61:
-                asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                asciiDotDistanceSlider->setValue(asciiDotDistance);
-                break;
-            case 62:
-                asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                asciiImageGainSlider->setValue(asciiImageGain);
-                break;
-            case 63:
-                asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
-                asciiImageContrastSlider->setValue(asciiImageContrast);
-                break;
-            case 65:
-                if(msg.value>63) asciiInvert=true;
-                else asciiInvert=false;
-                asciiInvertToggle->setChecked(asciiInvert);
-                break;
-            case 66:
-                ledMacro=ofMap(msg.value,0,127,0.0,1.0);
-                ledMacroSlider->setValue(ledMacro);
-                break;
-            case 67:
-                ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                ledDotDistanceSlider->setValue(ledDotDistance);
-                break;
-//            case 68:
-//                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
-//                ledOffsetRXSlider->setValue(ledOffsetRX);
-//                break;
-//            case 69:
-//                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//                ledOffsetRYSlider->setValue(ledOffsetRY);
-//                break;
-//            case 70:
-//                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//                ledOffsetGXSlider->setValue(ledOffsetGX);
-//                break;
-//            case 71:
-//                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//                ledOffsetGYSlider->setValue(ledOffsetGY);
-//                break;
-//            case 72:
-//                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//                ledOffsetBXSlider->setValue(ledOffsetBX);
-//                break;
-//            case 73:
-//                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//                ledOffsetGYSlider->setValue(ledOffsetGY);
-//                break;
-            case 74:
-                rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
-                rotateMacroSlider->setValue(rotateMacro);
-                break;
-            case 75:
-                zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
-                zebraMacroSlider->setValue(zebraMacro);
-                break;
-            case 76:
-                zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
-                zebraSpeedSlider->setValue(zebraSpeed);
-                break;
-                
-            case 77:
-                zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
-                zebraLevelsSlider->setValue(zebraLevels);
-                break;
         }
-    }
-       
-//-Background changing with tempo (via MIDI clock)-----------------------------
-        if (msg.status==MIDI_TIME_CLOCK && snaves==1)
+
+        if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
         {
-            if (triplet==0) if(tempoCount%(tempoDivisionValues[tempoDivision])==0) (tempo=!tempo);
-            if(triplet==1) if(tempoCount%(tempoDivisionValuesTriplet[tempoDivision])==0) (tempo=!tempo);
-            tempoCount=tempoCount+1;
-            bpm+=(clock.getBpm()-bpm)/5;
+            switch(msg.control)
+            {
+                case 123:
+                {
+                    for(int i=0;i<max_videos;i++) midiNoteOff(i+60);
+                }
+                    break;
+                case 64: if(msg.value>63)sustain=true; else sustain=false;
+                case 15:
+                    fxMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                    fxMacroSlider->setValue(fxMacro);
+                    break;
+                case 16:
+                    videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
+                    videoSpeedSlider->setValue(videoSpeed2);
+                    break;
+                case 17:
+                    videoDivision=msg.value;
+                    videoDivisionSlider->setValue(videoDivision);
+                    break;
+    //            case 19:
+    //                if(msg.value>63) backgroundSwitch=true;
+    //                else backgroundSwitch=false;
+    //                backgroundSwitchToggle->setChecked(backgroundSwitch);
+    //                break;
+                case 18:
+                    if(msg.value>63) videoSync=true;
+                    else videoSync=false;
+                    videoSyncToggle->setChecked(videoSync);
+                    break;
+                case 20:
+                    tempoDivision=msg.value;
+                    tempoDivisionSlider->setValue(tempoDivision);
+                    break;
+                case 21:
+                    if(msg.value>63)triplet=true;
+                    else triplet=false;
+                    tripletToggle->setChecked(triplet);
+                    break;
+    //            case 21:
+    //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
+    //                bgColor1ColorPicker->setColor(bgColor1);
+    //                break;
+
+                                                                                //EMPTY CASE 22
+                    
+                case 24:
+                    invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                     invertSlider->setValue(invertMacro);
+                    break;
+                case 25:
+                    rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                    rippleSlider->setValue(rippleMacro);
+                    break;
+                case 26:
+                {
+                    if(msg.value>63) rippleSync=true;
+                    else rippleSync=false;
+                    rippleSyncToggle->setChecked(rippleSync);
+                    break;
+                }
+                case 27:
+                    rippleX=ofMap(msg.value,0, 127, 0.0, 1.0);
+                    rippleXSlider->setValue(rippleX);
+                    break;
+                case 28:
+                    rippleY=ofMap(msg.value,0, 127, 0.0, 1.00);
+                    rippleYSlider->setValue(rippleY);
+                    break;
+                case 29:
+                    if(rippleSync) rippleRate=bpm/60;
+                    else rippleRate=ofMap(msg.value,0, 127, .1, 300);
+                    rippleRateSlider->setValue(rippleRate);
+                    break;
+
+                case 30:
+                    filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
+                    filterSlider->setValue(filterMacro);
+                    break;
+                case 31:
+                    filterRed=ofMap(msg.value,0, 127, 0, 1.0);
+                    filterRedSlider->setValue(filterRed);
+                    break;
+                case 33:
+                    filterGreen=ofMap(msg.value,0, 127, 0, 1.0);
+                    filterGreenSlider->setValue(filterGreen);
+                    break;
+                case 34:
+                    filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
+                    filterBlueSlider->setValue(filterBlue);
+                    break;
+                                                                                        //EMPTY CASE 35
+                    
+                case 40:
+                    kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.00);
+                    kaleidoscopeSlider->setValue(kaleidoscopeMacro);
+                    break;
+                case 41:
+                    kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
+                    angleSlider->setValue(kaleidioscopeAngle);
+                    break;
+                case 42:
+                    kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
+                    xSlider->setValue(kaleiodioscopeX);
+                    break;
+                case 43:
+                    kaleiodioscopeY=ofMap(msg.value,0, 127, 0.0, 1.00);
+                    ySlider->setValue(kaleiodioscopeY);
+                    break;
+                case 44:
+                    kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
+                    sectorSlider->setValue(kaleidioscopeSectors);
+                    break;
+                case 50:
+                    bgColor1Red=msg.value;
+                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+                    bgColor1ColorPicker->setColor(bgColor1);
+                    break;
+                case 51:
+                    bgColor1Green=msg.value;
+                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+                    bgColor1ColorPicker->setColor(bgColor1);
+                    break;
+                case 52:
+                    bgColor1Blue=msg.value;
+                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+                    bgColor1ColorPicker->setColor(bgColor1);
+                    break;
+                case 53:
+                    bgColor2Red=msg.value;
+                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+                    bgColor2ColorPicker->setColor(bgColor2);
+                    break;
+                case 54:
+                    bgColor2Green=msg.value;
+                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+                    bgColor2ColorPicker->setColor(bgColor2);
+                    break;
+                case 55:
+                    bgColor2Blue=msg.value;
+                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+                    bgColor2ColorPicker->setColor(bgColor2);
+                    break;
+                case 56:
+                    pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
+                    pixelateSlider->setValue(pixelateMacro);
+                    break;
+                case 57:
+                    fullhouseMacro=ofMap(msg.value,0,127,1,50);
+                    fullhouseSlider->setValue(fullhouseMacro);
+                    break;
+                case 60:
+                    asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
+                    asciiMacroSlider->setValue(asciiMacro);
+                    break;
+                case 61:
+                    asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                    asciiDotDistanceSlider->setValue(asciiDotDistance);
+                    break;
+                case 62:
+                    asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                    asciiImageGainSlider->setValue(asciiImageGain);
+                    break;
+                case 63:
+                    asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
+                    asciiImageContrastSlider->setValue(asciiImageContrast);
+                    break;
+                case 65:
+                    if(msg.value>63) asciiInvert=true;
+                    else asciiInvert=false;
+                    asciiInvertToggle->setChecked(asciiInvert);
+                    break;
+                case 66:
+                    ledMacro=ofMap(msg.value,0,127,0.0,1.0);
+                    ledMacroSlider->setValue(ledMacro);
+                    break;
+                case 67:
+                    ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                    ledDotDistanceSlider->setValue(ledDotDistance);
+                    break;
+    //            case 68:
+    //                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
+    //                ledOffsetRXSlider->setValue(ledOffsetRX);
+    //                break;
+    //            case 69:
+    //                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+    //                ledOffsetRYSlider->setValue(ledOffsetRY);
+    //                break;
+    //            case 70:
+    //                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+    //                ledOffsetGXSlider->setValue(ledOffsetGX);
+    //                break;
+    //            case 71:
+    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+    //                ledOffsetGYSlider->setValue(ledOffsetGY);
+    //                break;
+    //            case 72:
+    //                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+    //                ledOffsetBXSlider->setValue(ledOffsetBX);
+    //                break;
+    //            case 73:
+    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+    //                ledOffsetGYSlider->setValue(ledOffsetGY);
+    //                break;
+                case 74:
+                    rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
+                    rotateMacroSlider->setValue(rotateMacro);
+                    break;
+                case 75:
+                    zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
+                    zebraMacroSlider->setValue(zebraMacro);
+                    break;
+                case 76:
+                    zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
+                    zebraSpeedSlider->setValue(zebraSpeed);
+                    break;
+                    
+                case 77:
+                    zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
+                    zebraLevelsSlider->setValue(zebraLevels);
+                    break;
+                case 78:
+                    chromaKeyMacro=ofMap(msg.value,0,127,0.0,1.0);
+                    chromaKeyMacroSlider->setValue(chromaKeyMacro);
+                    break;
+                case 79:
+                    chromaKeyColor.r=ofMap(msg.value,0,127,0,255);
+                    chromaKeyColorPicker->setColor(chromaKeyColor);
+                    break;
+                case 80:
+                    chromaKeyColor.g=ofMap(msg.value,0,127,0,255);
+                    chromaKeyColorPicker->setColor(chromaKeyColor);
+                    break;
+                case 81:
+                    chromaKeyColor.b=ofMap(msg.value,0,127,0,255);
+                    chromaKeyColorPicker->setColor(chromaKeyColor);
+                    break;
+                case 82:
+                    chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
+                    chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
+                    break;
+            }
         }
     }
 }
-void ofApp::midiNoteOff(int pitch)
+void ofApp::midiNoteOff(int pitch)//============================================================
 {
         player[pitch-60].drawImage=false;
         player[pitch-60].stop();
         player[pitch-60].firstFrame();
-//    }
 }
 
-void ofApp::exit()//////////////////////////////////////////////////////////////////////////////////////////////
+void ofApp::exit()//============================================================
 {
     midiIn.closePort();
     midiIn.removeListener(this);
@@ -618,9 +649,11 @@ void ofApp::exit()//////////////////////////////////////////////////////////////
     }
 }
 
-void ofApp::keyPressed(ofKeyEventArgs & args)//////////////////////////////////////////////////
+
+void ofApp::keyPressed(ofKeyEventArgs & args)//============================================================
 {
-//                                                                    cout<<"key pressed: "<<key<<endl;
+    //------------Ability to preview via QWERTY keyboard presses------------------
+                                                                    cout<<"key pressed\n"<<endl;
     int key = args.key;
     if(key==OF_KEY_COMMAND) command=true;
     
@@ -653,43 +686,86 @@ void ofApp::keyPressed(ofKeyEventArgs & args)///////////////////////////////////
         case 'g': playerFromMidiMessage=24; break;
         default: break;
     }
-    player[playerFromMidiMessage].drawImage=true;
-    player[playerFromMidiMessage].size=127;
-    player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
+    
+    if(player[playerFromMidiMessage].drawImage!=true)
+    {
+        player[playerFromMidiMessage].drawImage=true;
+        player[playerFromMidiMessage].size=127;
+        player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
+
+        cout<<"Currently Drawing increment \n";
+        currentlyDrawing+=1;
+    }
+    
 }
 //--------------------------------------------------------------
-void ofApp::keyReleased(ofKeyEventArgs & args)
+void ofApp::keyReleased(ofKeyEventArgs & args)//============================================================
 {
-//                                                                            cout<<"Key Released"<<endl;
+                                                                            cout<<"Key Released"<<endl;
+    
     int key=args.key;
     
     switch (key)
     {
-        case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
-        case '2': player[1].drawImage=false; player[1].stop(); player[1].firstFrame(); break;
-        case '3': player[2].drawImage=false; player[2].stop(); player[2].firstFrame(); break;
-        case '4': player[3].drawImage=false; player[3].stop(); player[3].firstFrame(); break;
-        case '5': player[4].drawImage=false; player[4].stop(); player[4].firstFrame(); break;
-        case '6': player[5].drawImage=false; player[5].stop(); player[5].firstFrame(); break;
-        case '7': player[6].drawImage=false; player[6].stop(); player[6].firstFrame(); break;
-        case '8': player[7].drawImage=false; player[7].stop(); player[7].firstFrame(); break;
-        case '9': player[8].drawImage=false; player[8].stop(); player[8].firstFrame(); break;
-        case '0': player[9].drawImage=false; player[9].stop(); player[9].firstFrame(); break;
-        case 'q': player[10].drawImage=false; player[10].stop(); player[10].firstFrame();break;
-        case 'w': player[11].drawImage=false; player[11].stop(); player[11].firstFrame();break;
-        case 'e': player[12].drawImage=false; player[12].stop(); player[12].firstFrame();break;
-        case 'r': player[13].drawImage=false; player[13].stop(); player[13].firstFrame();break;
-        case 't': player[14].drawImage=false; player[14].stop(); player[14].firstFrame();break;
-        case 'y': player[15].drawImage=false; player[15].stop(); player[15].firstFrame();break;
-        case 'u': player[16].drawImage=false; player[16].stop(); player[16].firstFrame();break;
-        case 'i': player[17].drawImage=false; player[17].stop(); player[17].firstFrame();break;
-        case 'o': player[18].drawImage=false; player[18].stop(); player[18].firstFrame();break;
-        case 'p': player[19].drawImage=false; player[19].stop(); player[19].firstFrame();break;
-        case 'a': player[20].drawImage=false; player[20].stop(); player[20].firstFrame();break;
-        case 's': player[21].drawImage=false; player[21].stop(); player[21].firstFrame();break;
-        case 'd': player[22].drawImage=false; player[22].stop(); player[22].firstFrame();break;
-        case 'f': player[23].drawImage=false; player[23].stop(); player[23].firstFrame();break;
-        case 'g': player[24].drawImage=false; player[24].stop(); player[24].firstFrame();break;
+//        case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
+//        case '2': player[1].drawImage=false; player[1].stop(); player[1].firstFrame(); break;
+//        case '3': player[2].drawImage=false; player[2].stop(); player[2].firstFrame(); break;
+//        case '4': player[3].drawImage=false; player[3].stop(); player[3].firstFrame(); break;
+//        case '5': player[4].drawImage=false; player[4].stop(); player[4].firstFrame(); break;
+//        case '6': player[5].drawImage=false; player[5].stop(); player[5].firstFrame(); break;
+//        case '7': player[6].drawImage=false; player[6].stop(); player[6].firstFrame(); break;
+//        case '8': player[7].drawImage=false; player[7].stop(); player[7].firstFrame(); break;
+//        case '9': player[8].drawImage=false; player[8].stop(); player[8].firstFrame(); break;
+//        case '0': player[9].drawImage=false; player[9].stop(); player[9].firstFrame(); break;
+//        case 'q': player[10].drawImage=false; player[10].stop(); player[10].firstFrame();break;
+//        case 'w': player[11].drawImage=false; player[11].stop(); player[11].firstFrame();break;
+//        case 'e': player[12].drawImage=false; player[12].stop(); player[12].firstFrame();break;
+//        case 'r': player[13].drawImage=false; player[13].stop(); player[13].firstFrame();break;
+//        case 't': player[14].drawImage=false; player[14].stop(); player[14].firstFrame();break;
+//        case 'y': player[15].drawImage=false; player[15].stop(); player[15].firstFrame();break;
+//        case 'u': player[16].drawImage=false; player[16].stop(); player[16].firstFrame();break;
+//        case 'i': player[17].drawImage=false; player[17].stop(); player[17].firstFrame();break;
+//        case 'o': player[18].drawImage=false; player[18].stop(); player[18].firstFrame();break;
+//        case 'p': player[19].drawImage=false; player[19].stop(); player[19].firstFrame();break;
+//        case 'a': player[20].drawImage=false; player[20].stop(); player[20].firstFrame();break;
+//        case 's': player[21].drawImage=false; player[21].stop(); player[21].firstFrame();break;
+//        case 'd': player[22].drawImage=false; player[22].stop(); player[22].firstFrame();break;
+//        case 'f': player[23].drawImage=false; player[23].stop(); player[23].firstFrame();break;
+//        case 'g': player[24].drawImage=false; player[24].stop(); player[24].firstFrame();break;
+            
+            case '1': videoNumber=0; break;
+            case '2': videoNumber=1; break;
+            case '3': videoNumber=2; break;
+            case '4': videoNumber=3; break;
+            case '5': videoNumber=4; break;
+            case '6': videoNumber=5; break;
+            case '7': videoNumber=6; break;
+            case '8': videoNumber=7; break;
+            case '9': videoNumber=8; break;
+            case '0': videoNumber=9; break;
+            case 'q': videoNumber=10; break;
+            case 'w': videoNumber=11; break;
+            case 'e': videoNumber=12; break;
+            case 'r': videoNumber=13; break;
+            case 't': videoNumber=14; break;
+            case 'y': videoNumber=15; break;
+            case 'u': videoNumber=16; break;
+            case 'i': videoNumber=17; break;
+            case 'o': videoNumber=18; break;
+            case 'p': videoNumber=19; break;
+            case 'a': videoNumber=20; break;
+            case 's': videoNumber=21; break;
+            case 'd': videoNumber=22; break;
+            case 'f': videoNumber=23; break;
+            case 'g': videoNumber=24; break;
+    }
+    
+    if(player[videoNumber].drawImage!=false)
+    {
+        player[videoNumber].drawImage=false;
+        player[videoNumber].stop();
+        player[videoNumber].firstFrame();
+        currentlyDrawing-=1;                            cout<<"Currently Drawing decrement \n";
     }
 }
 ////--------------------------------------------------------------
@@ -702,13 +778,14 @@ void ofApp::keyReleased(ofKeyEventArgs & args)
 //void ofApp::mouseReleased() {}
 //--------------------------------------------------------------
 
-void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)//////////////////////////////////////////////////////////////
+void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)//============================================================
 {
     midiPort((e.target->getSelected())->getIndex());
 }
 
-void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////////////////////////////////////////////////////////////////////
-{
+void ofApp::dragEvent(ofDragInfo & dragInfo)//============================================================
+{//--------event handler function for when a file is dragged into Spectacle window----------------------
+
     if(dragInfo.files.size() > 0)
     {
         for(int m=0;m<dragInfo.files.size();m++)
@@ -737,14 +814,15 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)////////////////////////////////////
     }
 }
 
-void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//////////////////////////////////////////////////////////////
-{
+void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//============================================================
+{//--------Button event handler function for FX buttons----------------------
+
     if(e.target==saveButton) saveSettings();
     else if(e.target==loadButton) loadSettings();
 }
 
-void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)/////////////////////////////////////////////////////////////
-{
+void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///============================================================
+{//--------Button event handler function for video array part of GUI----------------------
 //                                                            cout << "onButtonEvent: " << e.target->getLabel() << endl;
     if(e.target==clearAllButton) clearAllVideos();
     
@@ -767,8 +845,9 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///////////////////////////
     }
 }
 
-void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////////////////////////////////
-{
+void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//============================================================
+{//--------Toggle event handler function----------------------
+
     if (e.target==tripletToggle)triplet=!triplet;
 //    else if (e.target->is("Background Switch"))backgroundSwitch=!backgroundSwitch;
     else if (e.target==videoSyncToggle)videoSync=!videoSync;
@@ -780,8 +859,10 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)///////////////////////////////
     else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
 }
 
-void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//////////////////////////////////////////////////////////////
+void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//============================================================
 {
+    //--------Slider event handler function----------------------
+    
     if(e.target==tempoDivisionSlider)tempoDivision=(e.target->getValue());
     if(e.target==videoDivisionSlider)videoDivision=(e.target->getValue());
     if(e.target==fxMacroSlider)fxMacro=(e.target->getValue());
@@ -831,10 +912,13 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)///////////////////////////////
     else if(e.target==zebraMacroSlider)zebraMacro=(e.target->getValue());
     else if(e.target==zebraLevelsSlider)zebraLevels=(e.target->getValue());
     else if(e.target==zebraSpeedSlider)zebraSpeed=(e.target->getValue());
+    
+    else if(e.target==chromaKeyMacroSlider)chromaKeyMacro=(e.target->getValue());
+    else if(e.target==chromaKeyThresholdSlider)chromaKeyThreshold=(e.target->getValue());
 }
 
-void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//////////////////////////////////////////////////////////////
-{
+void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//============================================================
+{    //--------Color picker event handler function----------------------
 //                                        cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
     if (e.target->is("BG Color 1"))
     {
@@ -843,17 +927,11 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)/////////////////////
         bgColor1Green=e.color.g;
         bgColor1Blue=e.color.b;
     }
-    else if (e.target->is("BG Color 2"))
-    {
-        bgColor2=(e.color);
-        bgColor2Red=e.color.r;
-        bgColor2Green=e.color.g;
-        bgColor2Blue=e.color.b;
-    }
+    if(e.target->is("Key"))chromaKeyColor=(e.color);
 }
 
-void ofApp::clearAllVideos()//////////////////////////////////////////////////////////////
-{
+void ofApp::clearAllVideos()//============================================================
+{//--------function to clear all videos from array----------------------
     for(int i=0;i<max_videos;i++)
     {
 //        ofxDatGuiButton *e=videoButtons[i];
@@ -862,8 +940,9 @@ void ofApp::clearAllVideos()////////////////////////////////////////////////////
     }
 }
 
-bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
-{
+bool ofApp::loadMovie(int i)//============================================================
+{//--------Load video function---------------------
+
 //                                                                    cout << "loading videos" << endl;
     ofFileDialogResult result = ofSystemLoadDialog("Load file \n");
     
@@ -878,8 +957,9 @@ bool ofApp::loadMovie(int i)///////////////////////////////////////////////////
     else return false;
 }
 
-bool ofApp::loadSettings()///////////////////////////////////////////////////////////////////////////////////////////
-{
+bool ofApp::loadSettings()//============================================================
+{//--------Load saved video array---------------------
+
     ofFileDialogResult result = ofSystemLoadDialog("Load file");
     cout << "load settings \n";
     if(result.bSuccess)
@@ -905,14 +985,14 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
             bgColor1Red=xmlSettings.getValue("xmlSettings:color:bgColor1Red", 0);
             bgColor1Green=xmlSettings.getValue("xmlSettings:color:bgColor1Green", 0);
             bgColor1Blue=xmlSettings.getValue("xmlSettings:color:bgColor1Blue", 0);
-            bgColor2Red=xmlSettings.getValue("xmlSettings:color:bgColor2Red", 0);
-            bgColor2Green=xmlSettings.getValue("xmlSettings:color:bgColor2Green", 0);
-            bgColor2Blue=xmlSettings.getValue("xmlSettings:color:bgColor2Blue", 0);
+//            bgColor2Red=xmlSettings.getValue("xmlSettings:color:bgColor2Red", 0);
+//            bgColor2Green=xmlSettings.getValue("xmlSettings:color:bgColor2Green", 0);
+//            bgColor2Blue=xmlSettings.getValue("xmlSettings:color:bgColor2Blue", 0);
             
             bgColor1=(ofColor::fromHsb(bgColor1Red, bgColor1Green, bgColor1Blue));
             bgColor1ColorPicker->setColor(bgColor1);
-            bgColor2=(ofColor::fromHsb(bgColor2Red, bgColor2Green, bgColor2Blue));
-            bgColor2ColorPicker->setColor(bgColor2);
+//            bgColor2=(ofColor::fromHsb(bgColor2Red, bgColor2Green, bgColor2Blue));
+//            bgColor2ColorPicker->setColor(bgColor2);
 
             invertMacro=xmlSettings.getValue("xmlSettings:invert:invert", 0);
             invertSlider->setValue(invertMacro);
@@ -1011,8 +1091,9 @@ bool ofApp::loadSettings()//////////////////////////////////////////////////////
     else return false;
 }
 
-bool ofApp::saveSettings()/////////////////////////////////////////////////////////////////////////////////////////////
-{
+bool ofApp::saveSettings()//============================================================
+{//--------Save video array---------------------
+
 //                                                                          cout << "save settings" << endl;
     ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
     if(result.bSuccess)
@@ -1034,9 +1115,9 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
         xmlSettings.setValue("xmlSettings:color:bgColor1Red", bgColor1Red);
         xmlSettings.setValue("xmlSettings:color:bgColor1Green", bgColor1Green);
         xmlSettings.setValue("xmlSettings:color:bgColor1Blue", bgColor1Blue);
-        xmlSettings.setValue("xmlSettings:color:bgColor2Red", bgColor2Red);
-        xmlSettings.setValue("xmlSettings:color:bgColor2Green", bgColor2Green);
-        xmlSettings.setValue("xmlSettings:color:bgColor2Blue", bgColor2Blue);
+//        xmlSettings.setValue("xmlSettings:color:bgColor2Red", bgColor2Red);
+//        xmlSettings.setValue("xmlSettings:color:bgColor2Green", bgColor2Green);
+//        xmlSettings.setValue("xmlSettings:color:bgColor2Blue", bgColor2Blue);
         
         xmlSettings.setValue("xmlSettings:invert:invert", invertMacro);
         
@@ -1099,23 +1180,25 @@ bool ofApp::saveSettings()//////////////////////////////////////////////////////
     return false;
 }
 
-bool ofApp::midiPort(int midiPortOption)//////////////////////////////////////////////////////////////
+bool ofApp::midiPort(int midiPortOption)//============================================================
 {
     if(midiIn.openPort(midiPortOption)) return true;
     else return false;
 }
 
 void ofApp::windowResized(ofResizeEventArgs &resize)
-{
+{ //--------Event handler for window resizing----------------------
+
     allocateFBOs();
 }
 
-void ofApp::allocateFBOs()///////////////////////////////////////////////////////////////////
-{
+void ofApp::allocateFBOs()//============================================================
+{//---------allocating FBOs for window resizing-------------
             int h = ofGetHeight();
             int w = ofGetWidth();
             fbo.allocate(w,h);
             fbo2.allocate(w,h);
             fbo3.allocate(w,h);
             fbo4.allocate(w,h);
+            chromaKeyVideoFbo.allocate(w,h);
 }

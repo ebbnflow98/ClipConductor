@@ -6,6 +6,7 @@
 #include "ofxDatGui.h"
 #include "convertVideo.h"
 
+
 class ofApp : public ofBaseApp,
 public ofxMidiListener
 {
@@ -179,8 +180,8 @@ public:
     void allocateFBOs();
 
     //------------------------------------------------------------------------
-    ofFbo fbo,fbo2,fbo3,fbo4;
-    ofShader shader, asciiShader, ledShader;
+    ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo;
+    ofShader shader, asciiShader, ledShader, chromaKeyShader;
     
     ofPoint guiWindowSize={0.0,0.0};
     bool exiting=false;
@@ -191,10 +192,14 @@ public:
     ofTexture videoTexture;
     
     bool sustain=false;
-    
     bool command=false;
-    
     int playerFromMidiMessage=0;
+    
+    int currentlyDrawing=-1;
+    int chromaKeyVideo=-1;
+    int drawCount=0;
+    
+    int videoNumber=0;
     
     // ---------------------------------MIDI---------------------------------
     ofxMidiTimecode timecode; //< timecode message parser
@@ -207,7 +212,7 @@ public:
     ofxMidiClock clock;
     int tempoDivision=1;
     
-    //Background------------------------------------------------
+    //-----Background------------------------------------------------
     ofxDatGuiColorPicker *bgColor1ColorPicker;
     ofColor bgColor1=ofColor::black;
     ofxDatGuiColorPicker *bgColor2ColorPicker;
@@ -216,11 +221,11 @@ public:
     bool bg=false, backgroundSwitch=false;
     int videoCount=0;
     
-    //GUI..........................................----------
+    //-------GUI FX--------------------------------------------------------------------
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
-    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder, *zebraFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletToggle;
     ofxDatGuiButton *clearAllButton, *saveButton, *loadButton;
     
@@ -273,6 +278,11 @@ public:
     float zebraMacro=0.0, zebraSpeed=0.0;
     int zebraLevels=2;
     ofxDatGuiSlider *zebraMacroSlider, *zebraSpeedSlider, *zebraLevelsSlider;
+    
+    float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
+    ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
+    ofColor chromaKeyColor;
+    ofxDatGuiColorPicker *chromaKeyColorPicker;
     
     //Loading/Saving----------------------------------------
     const int max_videos=25;

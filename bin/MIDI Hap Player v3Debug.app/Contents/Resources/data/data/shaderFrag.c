@@ -1,4 +1,4 @@
-//Clip Conductor Fragment Shader file
+ //Clip Conductor Fragment Shader file
 //
 //
 //
@@ -55,6 +55,10 @@ uniform vec2 rotateScreenCenter;
 uniform float zebraMacro;
 uniform int zebraLevels;
 uniform float zebraSpeed;
+
+uniform float chromaKeyMacro;
+uniform vec3 chromaKeyColor;
+uniform float chromaKeyThreshold;
 
 vec4 Invert(vec4 color, float invertMacro)
 {
@@ -142,6 +146,28 @@ vec4 Zebra(vec4 dryColor, float zebraMacro, int zebraLevels, float zebraSpeed)
     return color;
 }
 
+//=======CHROMA-KEY EFFECT==========================
+
+bool check(vec3 a, vec3 z, float thresh)
+{
+//    float thresh = p2;   //threshold controlled by user-controllable parameter
+    float r = a.r - z.r;
+    float g = a.g - z.g;
+    float b = a.b - z.b;
+    return (r*r + g*g + b*b) <= thresh*thresh;
+}
+
+vec4 ChromaKey(vec4 dryColor, float chromaKeyMacro,vec3 chromaKeyColor, float chromaKeyThreshold)
+{
+//    vec4 color = texture2DRect(tex0,gl_TexCoord[0].xy); //get color of current pixel
+//    vec3 chromaKeyColor = pc1; //default to green color, controlled by "pc1" (color-picker parameter)
+    
+    if(check(dryColor.rgb, chromaKeyColor,chromaKeyThreshold)) dryColor.a = 1.0-chromaKeyMacro; //check to see if pixel's color is within the tolerance of the user-controlled chroma-key color; if so, change that pixel to be transparent
+    return dryColor;
+//    gl_FragColor = color;   //return the color of the pixel
+}
+
+
 
 void main()
 {
@@ -166,6 +192,8 @@ void main()
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
     if(zebraMacro!=0.0)fxColor=Zebra(fxColor, zebraMacro, zebraLevels, zebraSpeed);
+    
+    if(chromaKeyMacro!=0.0)fxColor=ChromaKey(fxColor, chromaKeyMacro, chromaKeyColor, chromaKeyThreshold);
     
     vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     
