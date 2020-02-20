@@ -281,7 +281,8 @@ public:
     
     float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
-    ofColor chromaKeyColor= ofColor(35,172,30);
+    ofFloatColor chromaKeyColor= ofColor(0.0,1.0,0.0);
+    int chromaKeyRed=0, chromaKeyGreen=0, chromaKeyBlue=0;
     ofxDatGuiColorPicker *chromaKeyColorPicker;
     
     //Loading/Saving----------------------------------------

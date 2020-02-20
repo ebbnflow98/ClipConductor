@@ -304,9 +304,9 @@
             timestampString = "595049771.3978879"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
-            landmarkName = "ofApp::draw()"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
+            landmarkName = "ofApp::newMidiMessage(msg)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -321,8 +321,8 @@
             timestampString = "595049771.399444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "ofApp::newMidiMessage(msg)"
             landmarkType = "7">
          </BreakpointContent>
@@ -372,8 +372,8 @@
             timestampString = "595049771.399856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -389,8 +389,8 @@
             timestampString = "595049771.400147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -406,9 +406,9 @@
             timestampString = "595049771.400457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "642"
-            endingLineNumber = "642"
-            landmarkName = "ofApp::exit()"
+            startingLineNumber = "667"
+            endingLineNumber = "667"
+            landmarkName = "ofApp::keyPressed(args)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -423,8 +423,8 @@
             timestampString = "595049771.400723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -440,8 +440,8 @@
             timestampString = "595049771.400996"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -457,8 +457,8 @@
             timestampString = "595049771.401317"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -491,8 +491,8 @@
             timestampString = "595049771.401607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1000"
-            endingLineNumber = "1000"
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
             landmarkName = "ofApp::loadSettings()"
             landmarkType = "7">
          </BreakpointContent>
@@ -508,9 +508,9 @@
             timestampString = "595049771.402369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "915"
-            endingLineNumber = "915"
-            landmarkName = "ofApp::onSliderEvent(e)"
+            startingLineNumber = "944"
+            endingLineNumber = "944"
+            landmarkName = "ofApp::clearAllVideos()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -525,9 +525,9 @@
             timestampString = "595049771.402679"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "918"
-            endingLineNumber = "918"
-            landmarkName = "ofApp::onSliderEvent(e)"
+            startingLineNumber = "947"
+            endingLineNumber = "947"
+            landmarkName = "ofApp::clearAllVideos()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -542,8 +542,8 @@
             timestampString = "595049771.402957"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1007"
-            endingLineNumber = "1007"
+            startingLineNumber = "1043"
+            endingLineNumber = "1043"
             landmarkName = "ofApp::loadSettings()"
             landmarkType = "7">
          </BreakpointContent>
@@ -559,8 +559,8 @@
             timestampString = "595049771.403219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "542"
-            endingLineNumber = "542"
+            startingLineNumber = "564"
+            endingLineNumber = "564"
             landmarkName = "ofApp::newMidiMessage(msg)"
             landmarkType = "7">
          </BreakpointContent>
@@ -575,9 +575,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "802"
-            endingLineNumber = "802"
-            landmarkName = "ofApp::dragEvent(dragInfo)"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
+            landmarkName = "ofApp::onButtonEvent(e)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -591,9 +591,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "803"
-            endingLineNumber = "803"
-            landmarkName = "ofApp::dragEvent(dragInfo)"
+            startingLineNumber = "828"
+            endingLineNumber = "828"
+            landmarkName = "ofApp::onButtonEvent(e)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -601,54 +601,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "AC0E2DAF-429A-49D7-8406-7AF9D8D1ADD2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/ofApp.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "774"
-            endingLineNumber = "774"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6C373E1B-9EA0-450E-ACAC-B35DB803D6A6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/ofApp.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "798"
-            endingLineNumber = "798"
-            landmarkName = "ofApp::dragEvent(dragInfo)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F9471284-5FA9-4D5C-AB77-BE3356D9C9BB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/ofApp.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
-            landmarkName = "ofApp::dragEvent(dragInfo)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2F1D4222-9BF8-4D87-9EB1-FF7AB49BDCDF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -664,6 +616,54 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "6C373E1B-9EA0-450E-ACAC-B35DB803D6A6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "823"
+            endingLineNumber = "823"
+            landmarkName = "ofApp::onButtonEvent(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9471284-5FA9-4D5C-AB77-BE3356D9C9BB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "822"
+            endingLineNumber = "822"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2F1D4222-9BF8-4D87-9EB1-FF7AB49BDCDF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "824"
+            endingLineNumber = "824"
+            landmarkName = "ofApp::onButtonEvent(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "B9C0B17E-995B-434E-9484-1F9E43E19415"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -671,8 +671,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "796"
-            endingLineNumber = "796"
+            startingLineNumber = "821"
+            endingLineNumber = "821"
             landmarkName = "ofApp::dragEvent(dragInfo)"
             landmarkType = "7">
          </BreakpointContent>
@@ -703,8 +703,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -719,8 +719,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -735,8 +735,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "ofApp::newMidiMessage(msg)"
             landmarkType = "7">
          </BreakpointContent>
@@ -751,8 +751,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "712"
-            endingLineNumber = "712"
+            startingLineNumber = "737"
+            endingLineNumber = "737"
             landmarkName = "ofApp::keyReleased(args)"
             landmarkType = "7">
          </BreakpointContent>
@@ -767,9 +767,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "771"
-            endingLineNumber = "771"
-            landmarkName = "ofApp::keyReleased(args)"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
+            landmarkName = "ofApp::dragEvent(dragInfo)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -783,8 +783,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "658"
-            endingLineNumber = "658"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
             landmarkName = "ofApp::keyPressed(args)"
             landmarkType = "7">
             <Actions>
@@ -807,9 +807,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "764"
-            endingLineNumber = "764"
-            landmarkName = "ofApp::keyReleased(args)"
+            startingLineNumber = "789"
+            endingLineNumber = "789"
+            landmarkName = "ofApp::onDropdownEvent(e)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -823,9 +823,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "770"
-            endingLineNumber = "770"
-            landmarkName = "ofApp::keyReleased(args)"
+            startingLineNumber = "795"
+            endingLineNumber = "795"
+            landmarkName = "ofApp::dragEvent(dragInfo)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -833,6 +833,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D6050B71-FF0F-4AEA-8CFB-A9F11F9EE0A6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D367EA8F-055C-4227-B486-703F1FC8CF06"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -848,22 +864,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D367EA8F-055C-4227-B486-703F1FC8CF06"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/ofApp.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "ofApp::update()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "EDAB27F9-0420-4592-8604-B24272B5976E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -871,8 +871,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "707"
-            endingLineNumber = "707"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
             landmarkName = "ofApp::keyReleased(args)"
             landmarkType = "7">
          </BreakpointContent>
@@ -887,9 +887,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "699"
-            endingLineNumber = "699"
-            landmarkName = "ofApp::keyPressed(args)"
+            startingLineNumber = "724"
+            endingLineNumber = "724"
+            landmarkName = "ofApp::keyReleased(args)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -903,8 +903,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "704"
-            endingLineNumber = "704"
+            startingLineNumber = "729"
+            endingLineNumber = "729"
             landmarkName = "ofApp::keyReleased(args)"
             landmarkType = "7">
          </BreakpointContent>
@@ -920,9 +920,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
-            landmarkName = "ofApp::keyPressed(args)"
+            startingLineNumber = "726"
+            endingLineNumber = "726"
+            landmarkName = "ofApp::keyReleased(args)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -936,8 +936,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -952,8 +952,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -968,8 +968,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -984,8 +984,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1000,8 +1000,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1016,8 +1016,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1033,8 +1033,88 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D12458A5-AF6F-47DC-AB82-91394ED54574"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "71FDB298-06BB-4B6F-8D9A-5178A0A93732"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "ofApp::setup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C8CE6EE3-D003-4785-89EB-E21E1314F0D3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "ofApp::setup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A1EFD15C-E9F0-4E22-9F38-B157DC04667D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "ofApp::setup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F4252692-197D-4FCA-B6EF-72DC9A5D5E27"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>

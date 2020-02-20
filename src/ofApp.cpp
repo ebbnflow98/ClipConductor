@@ -128,6 +128,7 @@ void ofApp::setup()//===========================================================
         chromaKeyFolder=gui->addFolder("ChromaKey");
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
+        chromaKeyColorPicker->setColor(ofColor::green);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
 
         gui->addBreak();
@@ -613,16 +614,19 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     chromaKeyMacroSlider->setValue(chromaKeyMacro);
                     break;
                 case 79:
-                    chromaKeyColor.r=ofMap(msg.value,0,127,0,255);
+                    chromaKeyRed=ofMap(msg.value,0,127,0,255);
                     chromaKeyColorPicker->setColor(chromaKeyColor);
+                    chromaKeyColor.r=ofMap(chromaKeyRed,0,255,0.0,1.0);
                     break;
                 case 80:
-                    chromaKeyColor.g=ofMap(msg.value,0,127,0,255);
+                    chromaKeyGreen=ofMap(msg.value,0,127,0,255);
                     chromaKeyColorPicker->setColor(chromaKeyColor);
+                    chromaKeyColor.g=ofMap(chromaKeyGreen,0,255,0.0,1.0);
                     break;
                 case 81:
-                    chromaKeyColor.b=ofMap(msg.value,0,127,0,255);
+                    chromaKeyBlue=ofMap(msg.value,0,127,0,255);
                     chromaKeyColorPicker->setColor(chromaKeyColor);
+                    chromaKeyColor.b=ofMap(chromaKeyBlue ,0,255,0.0,1.0);
                     break;
                 case 82:
                     chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
@@ -929,7 +933,11 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//===================
         bgColor1Green=e.color.g;
         bgColor1Blue=e.color.b;
     }
-    if(e.target->is("Key"))chromaKeyColor=(e.color);
+    if(e.target->is("Key"))
+    {
+        chromaKeyColor=(e.color);
+        chromaKeyColorPicker->setColor(chromaKeyColor);
+    }
 }
 
 void ofApp::clearAllVideos()//============================================================
