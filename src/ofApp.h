@@ -11,6 +11,87 @@ class ofApp : public ofBaseApp,
 public ofxMidiListener
 {
 public:
+    struct evanColor
+    {
+       
+        evanColor(float r,float g,float b)
+        {
+            fRed=r;
+            fGreen=g;
+            fBlue=b;
+            iRed=int(ofMap(fRed,0.0,1.0,0,255));
+            iGreen=int(ofMap(fGreen,0.0,1.0,0,255));
+            iBlue=int(ofMap(fBlue,0.0,1.0,0,255));
+        }
+        evanColor(int r,int g,int b)
+        {
+            iRed=r;
+            iGreen=g;
+            iBlue=b;
+            fRed=float(ofMap(iRed,0,255,0.0,1.0));
+            fGreen=float(ofMap(iGreen,0,255,0.0,1.0));
+            fBlue=float(ofMap(iBlue,0,255,0.0,1.0));
+        }
+        void setColor(float r,float g,float b)
+        {
+            fRed=r;
+            fGreen=g;
+            fBlue=b;
+            iRed=int(ofMap(fRed,0.0,1.0,0,255));
+            iGreen=int(ofMap(fGreen,0.0,1.0,0,255));
+            iBlue=int(ofMap(fBlue,0.0,1.0,0,255));
+        }
+        void setColor(int r,int g,int b)
+        {
+            iRed=r;
+            iGreen=g;
+            iBlue=b;
+            fRed=float(ofMap(iRed,0,255,0.0,1.0));
+            fGreen=float(ofMap(iGreen,0,255,0.0,1.0));
+            fBlue=float(ofMap(iBlue,0,255,0.0,1.0));
+        }
+        void setRed(float r)
+        {
+            fRed=r;
+            iRed=int(ofMap(fRed,0.0,1.0,0,255));
+        }
+        void setRed(int r)
+        {
+            iRed=r;
+            fRed=float(ofMap(iRed,0,255,0.0,1.0));
+        }
+        float getRedFloat(){return fRed;}
+        int getRedInt() {return iRed;}
+        void setGreen(float g)
+        {
+            fGreen=g;
+            iGreen=int(ofMap(fGreen,0.0,1.0,0,255));
+        }
+        void setGreen(int g)
+        {
+            iGreen=g;
+            fGreen=float(ofMap(iGreen,0,255,0.0,1.0));
+        }
+        float getGreenFloat(){return fGreen;}
+        int getGreenInt(){return iGreen;}
+        void setBlue(float b)
+        {
+            fBlue=b;
+            iBlue=int(ofMap(fBlue,0.0,1.0,0,255));
+        }
+        void setBlue(int b)
+        {
+            iBlue=b;
+            fBlue=float(ofMap(iBlue,0,255,0.0,1.0));
+        }
+        float getBlueFloat(){return fBlue;}
+        int getBlueInt(){return iBlue;}
+        
+    private:
+        float fRed=0.0,fGreen=0.0,fBlue=0.0;
+        int iRed=0,iGreen=0,iBlue=0;
+    };
+    
     struct media
     {
         bool which;
@@ -180,7 +261,7 @@ public:
     void allocateFBOs();
 
     //------------------------------------------------------------------------
-    ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo;
+    ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
     ofShader shader, asciiShader, ledShader, chromaKeyShader;
     
     ofPoint guiWindowSize={0.0,0.0};
@@ -281,8 +362,8 @@ public:
     
     float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
-    ofFloatColor chromaKeyColor= ofColor(0.0,1.0,0.0);
-    int chromaKeyRed=0, chromaKeyGreen=0, chromaKeyBlue=0;
+    evanColor chromaKeyColor= evanColor(0.0f,1.0f,0.0f);
+    int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
     ofxDatGuiColorPicker *chromaKeyColorPicker;
     
     //Loading/Saving----------------------------------------

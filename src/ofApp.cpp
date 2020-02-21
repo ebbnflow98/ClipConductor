@@ -8,6 +8,7 @@ int snaves=0;
 
 void ofApp::setup()//============================================================
 {
+    
 //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
@@ -129,6 +130,7 @@ void ofApp::setup()//===========================================================
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
+//        chromaKeyFolder->addSlider("chromagreen", 0.0, 1.0);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
 
         gui->addBreak();
@@ -191,7 +193,7 @@ void ofApp::update()//==========================================================
     getWidth=ofGetWidth();
     getHeight=ofGetHeight();
     
-    cout<<"currentlyDrawing: "<<currentlyDrawing<<"\n";
+//    cout<<"currentlyDrawing: "<<currentlyDrawing<<"\n";
 }
 
 void ofApp::draw()//============================================================
@@ -247,34 +249,50 @@ void ofApp::draw()//============================================================
     
     chromaKeyVideoFbo.begin();
     ofClear(0,0,0,0);
-
-    if(chromaKeyVideo!= -1)
-        player[chromaKeyVideo].draw(0, 0, getWidth, getHeight);
+     
+    if(chromaKeyVideo!= -1)player[chromaKeyVideo].draw(0, 0, getWidth, getHeight);
     
     chromaKeyVideoFbo.end();
     
 //-----Chroma Key FX FBO/Shader--------------------------------------------------
 
     chromaKeyFxFbo.begin();
+    ofClear(0,0,0,0);
+    
     chromaKeyShader.begin();
     
     shader.setUniform1f("fxMacro", fxMacro);
     chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
-    chromaKeyShader.setUniform3i("chromaKeyColor", chromaKeyColor.r,chromaKeyColor.g,chromaKeyColor.b);
+    chromaKeyShader.setUniform3f("chromaKeyColor", chromaKeyColor.getRedFloat(),chromaKeyColor.getGreenFloat(),chromaKeyColor.getBlueFloat());
+//    chromaKeyShader.setUniform1i("chromaKeyColorGreen",chromaKeyColor.g);
     chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
     
     chromaKeyVideoFbo.draw(0,0,getWidth,getHeight);
     
     chromaKeyShader.end();
     chromaKeyFxFbo.end();
+
+//-------Blend FBO---------------------------------------------------------
+
+    blendFbo.begin();
+    ofClear(0,0,0,0);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    ofDisableSmoothing();
+    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
+    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
+    ofEnableAlphaBlending();
+    ofEnableSmoothing();
+    blendFbo.end();
+    
     
 //-------FX FBO/Shader---------------------------------------------------------
 
     fbo2.begin();                                           //FBO 2 begin
     ofClear(0,0,0,0);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     shader.begin();                                         //Shader1 begin
     float time = ofGetElapsedTimef();
-        
+
     shader.setUniform1f("fxMacro", fxMacro);
 
     shader.setUniform1f("time", time);
@@ -299,18 +317,21 @@ void ofApp::draw()//============================================================
     shader.setUniform1i("pixelateMacro", pixelateMacro);
 
     shader.setUniform1i("fullhouseMacro", fullhouseMacro);
-    
+
     shader.setUniform1f("rotateMacro", rotateMacro);
     shader.setUniform2f("rotateScreenCenter",0.5*getWidth,0.5*getHeight);
-    
+
     shader.setUniform1f("zebraMacro", zebraMacro);
     shader.setUniform1f("zebraSpeed", zebraSpeed);
     shader.setUniform1i("zebraLevels", zebraLevels);
-    
-    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
-    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
+
+//    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
+//    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
+    blendFbo.draw(0,0,getWidth, getHeight);
     shader.end();                                   //shader1 end
     fbo2.end();                                     // FBO 2 end
+    
+//    fbo2.draw(0,0,getWidth,getHeight);
 
 //------ASCII FBO/Shader---------------------------------------------------------------------------------------------
     fbo3.begin();                                   //FBO 3 begin
@@ -329,12 +350,12 @@ void ofApp::draw()//============================================================
 
     asciiShader.end();                                //ASCII Shader end
     fbo3.end();                                       //FBO 3 end
-    
+
 //-------LED FBO/Shader---------------------------------------------------------
     fbo4.begin();                                       //FBO 4 begin
     ofClear(0,0,0,0);
     ledShader.begin();                                 //LED Shader begin
-    
+
     ledShader.setUniform1f("fxMacro", fxMacro);
     ledShader.setUniform1f("ledMacro", ledMacro);
     ledShader.setUniform1f("ledDotDistance", ledDotDistance);
@@ -345,10 +366,10 @@ void ofApp::draw()//============================================================
 //    ofSetColor(255, 255, 255);
 //    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     fbo3.draw(0,0, getWidth, getHeight);                //FBO 3 draw
-        
+
     ledShader.end();                                    //LED Shader end
     fbo4.end();                                         //FBO 4 end
-    
+
     fbo4.draw(0,0, getWidth, getHeight);                //FBO 4 draw (final draw)
 }
 
@@ -614,19 +635,16 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     chromaKeyMacroSlider->setValue(chromaKeyMacro);
                     break;
                 case 79:
-                    chromaKeyRed=ofMap(msg.value,0,127,0,255);
-                    chromaKeyColorPicker->setColor(chromaKeyColor);
-                    chromaKeyColor.r=ofMap(chromaKeyRed,0,255,0.0,1.0);
+                    chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
+                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                     break;
                 case 80:
                     chromaKeyGreen=ofMap(msg.value,0,127,0,255);
-                    chromaKeyColorPicker->setColor(chromaKeyColor);
-                    chromaKeyColor.g=ofMap(chromaKeyGreen,0,255,0.0,1.0);
+                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                     break;
                 case 81:
                     chromaKeyBlue=ofMap(msg.value,0,127,0,255);
-                    chromaKeyColorPicker->setColor(chromaKeyColor);
-                    chromaKeyColor.b=ofMap(chromaKeyBlue ,0,255,0.0,1.0);
+                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                     break;
                 case 82:
                     chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
@@ -698,8 +716,8 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
         player[playerFromMidiMessage].drawImage=true;
         player[playerFromMidiMessage].size=127;
         player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
-
-        cout<<"Currently Drawing increment \n";
+        
+//        cout<<"Currently Drawing increment \n";
         currentlyDrawing+=1;
     }
     
@@ -921,6 +939,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     
     else if(e.target==chromaKeyMacroSlider)chromaKeyMacro=(e.target->getValue());
     else if(e.target==chromaKeyThresholdSlider)chromaKeyThreshold=(e.target->getValue());
+    else if(e.target->is("chromagreen"))chromaKeyGreen=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//============================================================
@@ -935,8 +954,7 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//===================
     }
     if(e.target->is("Key"))
     {
-        chromaKeyColor=(e.color);
-        chromaKeyColorPicker->setColor(chromaKeyColor);
+        chromaKeyColor.setColor((e.target->getColor()).r,e.target->getColor().g,e.target->getColor().b);
     }
 }
 
@@ -1207,8 +1225,10 @@ void ofApp::allocateFBOs()//====================================================
             int h = ofGetHeight();
             int w = ofGetWidth();
             fbo.allocate(w,h);
+            chromaKeyVideoFbo.allocate(w,h);
+            chromaKeyFxFbo.allocate(w,h);
+            blendFbo.allocate(w, h);
             fbo2.allocate(w,h);
             fbo3.allocate(w,h);
             fbo4.allocate(w,h);
-            chromaKeyVideoFbo.allocate(w,h);
 }
