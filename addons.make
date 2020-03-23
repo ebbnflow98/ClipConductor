@@ -1,4 +1,5 @@
 ofxDatGui
+ofxGui
 ofxHapPlayerAltered
 ofxMidi
 ofxXmlSettings
