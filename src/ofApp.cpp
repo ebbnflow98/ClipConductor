@@ -37,7 +37,8 @@ void ofApp::setup()//===========================================================
         gui->setAutoDraw(true);
         gui2= new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui2->setAutoDraw(true);
-//        gui->addFRM();
+        gui3 = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+        gui3->setAutoDraw(true);
         clear=false;
         
         gui2->addLabel("VIDEOS");
@@ -46,6 +47,10 @@ void ofApp::setup()//===========================================================
         gui2->setPosition(gui->getWidth(),0);
         gui2->addBreak();
         gui2->addBreak();
+        
+        gui3->setPosition(gui->getWidth()+gui2->getWidth(), 0);
+        
+        
         for(int i=0;i<max_videos;i++)
         {
             videoButtons[i]=(gui2->addButton(videoOptions[i]));
@@ -54,6 +59,8 @@ void ofApp::setup()//===========================================================
         saveButton = gui->addButton("Save");
         loadButton = gui->addButton("Load");
         midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
+        
+        addLightButton = gui3->addButton("Add Light");
         
         backgroundFolder=gui->addFolder("Background");
         bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
@@ -130,8 +137,12 @@ void ofApp::setup()//===========================================================
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
-//        chromaKeyFolder->addSlider("chromagreen", 0.0, 1.0);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
+        
+        vhsFolder=gui->addFolder("VHS");
+        vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
+        vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
+        vhsSpeedSlider=vhsFolder->addSlider("Speed",0,60,vhsSpeed);
 
         gui->addBreak();
         gui->addBreak();
@@ -141,10 +152,22 @@ void ofApp::setup()//===========================================================
         gui->onSliderEvent(this, &ofApp::onSliderEvent);
         gui->onToggleEvent(this, &ofApp::onToggleEvent);
         gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
+        
         gui2->onToggleEvent(this, &ofApp::onToggleEvent);
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
+        
+        gui3->onToggleEvent(this, &ofApp::onToggleEventGui3);
+        gui3->onButtonEvent(this, &ofApp::onButtonEventGui3);
+        gui3->onRightClickEvent(this, &ofApp::onRightClickEventGui3);
+        
+        mAddNewLight.addListener(this, &ofApp::onAddNewLightEventGui3);
+        submitButton=mAddNewLight.getButton(0);
+        cancelButton=mAddNewLight.getButton(1);
+        
+        mEditLight.addListener(this, &ofApp::onEditLightEventGui3);
+        gui3->onTextInputEvent(this, &ofApp::onTextInputEventGui3);
         
         pixelateSlider->setPrecision(0);
         fullhouseSlider->setPrecision(0);
@@ -162,9 +185,14 @@ void ofApp::setup()//===========================================================
         
         gui->setTheme(theme);
         gui2->setTheme(flip);
+        gui3->setTheme(theme);
         gui->draw();
         gui2->draw();
-        ofBackground(theme->color.guiBackground);
+        gui3->draw();
+//        ofBackground(theme->color.guiBackground);
+        ofBackground(ofColor::black);
+//        mAddNewLight.setTheme(theme);
+//        mEditLight.setTheme(theme);
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
     }
@@ -173,7 +201,7 @@ void ofApp::setup()//===========================================================
 
 ofPoint ofApp::windowSize()//============================================================
 {
-    ofPoint Windowsize(gui->getWidth()+gui2->getWidth(),gui->getHeight()*1.5);
+    ofPoint Windowsize(gui->getWidth()+gui2->getWidth()+gui3->getWidth(),gui->getHeight()*1.5);
     ofSetWindowShape(Windowsize.x, Windowsize.y);
     return Windowsize;
 }
@@ -324,7 +352,10 @@ void ofApp::draw()//============================================================
     shader.setUniform1f("zebraMacro", zebraMacro);
     shader.setUniform1f("zebraSpeed", zebraSpeed);
     shader.setUniform1i("zebraLevels", zebraLevels);
-
+    
+    shader.setUniform1f("vhsMacro", vhsMacro);
+    shader.setUniform1f("vhsStrength", vhsStrength);
+    shader.setUniform1f("vhsSpeed", vhsSpeed);
 //    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
 //    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
     blendFbo.draw(0,0,getWidth, getHeight);
@@ -650,6 +681,18 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
                     chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
                     break;
+                case 83:
+                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                    vhsMacroSlider->setValue(vhsMacro);
+                    break;
+                case 84:
+                    vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
+                    vhsStrengthSlider->setValue(vhsStrength);
+                    break;
+                case 85:
+                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
+                    vhsSpeedSlider->setValue(vhsSpeed);
+                    break;
             }
         }
     }
@@ -838,6 +881,31 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)//==================================
     }
 }
 
+void ofApp::onAddNewLightEventGui3(ofxModalEvent e)//==========================
+{
+     if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
+     else if (e.type == ofxModalEvent::CONFIRM)
+     {
+         cout << "confirm button was selected" << endl;
+         addLight();
+     }
+}
+
+void ofApp::onRightClickEventGui3(ofxDatGuiRightClickEvent e)//============================================================
+{
+    if(e.target->getType()==ofxDatGuiType::FOLDER)
+    {
+        int l = e.target->getCount();
+        mEditLight.show(&(rig[e.target->getCount()-1]));  //show editLight dialog according to count of the target
+        cout<<"right click:"+e.target->getLabel()+"\n";
+    }
+}
+
+void ofApp::onSliderEventGui3(ofxDatGuiSliderEvent e)//============================================================
+{
+    int toggle = e.target->getCount();
+}
+
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//============================================================
 {//--------Button event handler function for FX buttons----------------------
 
@@ -869,6 +937,11 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///========================
     }
 }
 
+void ofApp::onButtonEventGui3(ofxDatGuiButtonEvent e)//============================================================
+{
+    if(e.target==addLightButton) mAddNewLight.show(getRigSize(), getRigSize()); //clear light first and pass in midiCCStart and dmxChannelStart
+}
+
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//============================================================
 {//--------Toggle event handler function----------------------
 
@@ -881,6 +954,17 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//=============================
     else if(e.target==rippleSyncToggle)rippleRate=bpm*60;
     
     else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
+}
+
+void ofApp::onToggleEventGui3(ofxDatGuiToggleEvent e)//============================================================
+{
+    int toggle = e.target->getCount();
+}
+
+void ofApp::onTextInputEventGui3(ofxDatGuiTextInputEvent e)
+{
+    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX) cout<<"NumberBox event \n";
+    if(e.type==ofxDatGuiNumberBoxEventType::INPUT) cout<<"mInput event \n";
 }
 
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//============================================================
@@ -937,6 +1021,10 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     else if(e.target==zebraLevelsSlider)zebraLevels=(e.target->getValue());
     else if(e.target==zebraSpeedSlider)zebraSpeed=(e.target->getValue());
     
+    else if(e.target==vhsMacroSlider)vhsMacro=(e.target->getValue());
+    else if(e.target==vhsStrengthSlider)vhsStrength=(e.target->getValue());
+    else if(e.target==vhsSpeedSlider)vhsSpeed=(e.target->getValue());
+    
     else if(e.target==chromaKeyMacroSlider)chromaKeyMacro=(e.target->getValue());
     else if(e.target==chromaKeyThresholdSlider)chromaKeyThreshold=(e.target->getValue());
     else if(e.target->is("chromagreen"))chromaKeyGreen=(e.target->getValue());
@@ -956,6 +1044,38 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//===================
     {
         chromaKeyColor.setColor((e.target->getColor()).r,e.target->getColor().g,e.target->getColor().b);
     }
+}
+
+void ofApp::onEditLightEventGui3(ofxModalEvent e)//============================================================
+{
+    if(e.type==ofxModalEvent::SHOWN) disableGuis();
+    if(e.type==ofxModalEvent::HIDDEN) enableGuis();
+    if(e.type==ofxModalEvent::DELETE)
+    {
+        light* a=mEditLight.getLight();
+        deleteLight(a);
+    }
+    cout<<"DELETE event sent \n";
+    if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
+    else if (e.type == ofxModalEvent::CONFIRM)
+    {
+        cout << "confirm button was selected" << endl;
+        editLight();
+    }
+}
+
+void ofApp::enableGuis()
+{
+    gui->setEnabled(true);
+    gui2->setEnabled(true);
+    gui3->setEnabled(true);
+}
+
+void ofApp::disableGuis()
+{
+    gui->setEnabled(false);
+    gui2->setEnabled(false);
+    gui3->setEnabled(false);
 }
 
 void ofApp::clearAllVideos()//============================================================
@@ -1082,6 +1202,9 @@ bool ofApp::loadSettings()//====================================================
             zebraSpeed=xmlSettings.getValue("xmlSettings:zebra:zebraSpeed", 0.0);
             zebraLevels=xmlSettings.getValue("xmlSettings:zebra:zebraLevels", 2);
             
+            vhsMacro=xmlSettings.getValue("xmlSettings:vhs:vhsMacro",0.0);
+            vhsSpeed=xmlSettings.getValue("xmlSettings:vhs:vhsSpeed",0.0);
+            vhsStrength=xmlSettings.getValue("xmlSettings:vhs:vhsStrength", 0.0);
             
             for(int i = 0; i <max_videos; i++)
             {
@@ -1184,6 +1307,10 @@ bool ofApp::saveSettings()//====================================================
         xmlSettings.setValue("xmlSettings:zebra:zebraLevels", zebraLevels);
         xmlSettings.setValue("xmlSettings:zebra:zebraSpeed", zebraSpeed);
         
+        xmlSettings.setValue("xmlSettings:vhs:vhsMacro", vhsMacro);
+        xmlSettings.setValue("xmlSettings:vhs:vhsStrength", vhsStrength);
+        xmlSettings.setValue("xmlSettings:vhs:vhsSpeed",vhsSpeed);
+        
         for(int i = 0; i <max_videos; i++)
         {
             if(player[i].full==true)
@@ -1232,3 +1359,56 @@ void ofApp::allocateFBOs()//====================================================
             fbo3.allocate(w,h);
             fbo4.allocate(w,h);
 }
+
+void ofApp::deleteLight(light* a)//============================================================
+{
+    gui3->removeFolder(a->name);    //to delete the components inside of the folder
+    rig.erase(rig.begin()+a->count-1);  //delete light from the rig
+    
+}
+
+int ofApp::getRigSize()//============================================================
+{
+    int rigSize=0;
+    for(int i=0;i<rig.size();i+=1)
+    {
+        rigSize+=rig[i].values.size();
+    }
+    return rigSize;
+}
+
+void ofApp::addLight()//============================================================
+{
+    light *a = mAddNewLight.getLight();
+    ofxDatGuiFolder *folder=gui3->addFolder(a->name);
+    for(int i=0;i<a->values.size();i+=1)
+    {
+        a->values[i].value.set(a->values[i].parameter,120,0,255);
+        folder->addSlider(a->values[i].value,true,a->midiCCStart+i);
+    }
+    runningCount=runningCount+1;
+    a->count=runningCount;
+    folder->setCount(runningCount);
+    rig.push_back(*a);
+}
+
+void ofApp::editLight()//============================================================
+{
+    light *a = mEditLight.getLight();
+    int existingSliders=rig[a->count-1].numberOfChannels;
+    rig[a->count-1] = *a;
+    ofxDatGuiFolder *folder = gui3->getFolder(a->name);
+    for(int i=0;i<existingSliders;i++)
+    {
+        folder->children.pop_back();
+    }
+    for(int i=0;i<a->values.size();i+=1)
+    {
+        a->values[i].value.set(a->values[i].parameter,120,0,255);
+        folder->addSlider(a->values[i].value,true,a->values[i].midiCC);
+    }
+    a->count=runningCount;
+    folder->setCount(runningCount);
+    folder->collapse();
+}
+

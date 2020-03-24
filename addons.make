@@ -1,5 +1,8 @@
-ofxDatGui
+ofxDatGui FOCUS
+ofxDmx
 ofxGui
 ofxHapPlayerAltered
 ofxMidi
+ofxModal
+ofxParagraph
 ofxXmlSettings

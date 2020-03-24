@@ -44,7 +44,6 @@ int main(){
     ofRunApp(mainWindow, mainApp);
     ofRunMainLoop();
     
-    
 //    ofGLFWWindowSettings settings;
 //    settings.setSize(1024,768);
 //    settings.setGLVersion(3, 2);
