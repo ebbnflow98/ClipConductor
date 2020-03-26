@@ -139,6 +139,10 @@ void ofApp::setup()//===========================================================
         chromaKeyColorPicker->setColor(ofColor::green);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
         
+        squareioscopeFolder=gui->addFolder("Squareioscope");
+        squareioscopeMacroSlider=squareioscopeFolder->addSlider("Squareioscope", 0.0, 1.0, squareioscopeMacro);
+        squareioscopeMacro2Slider=squareioscopeFolder->addSlider("Squareioscope2", 0.0, 1.0,squareioscopeMacro2);
+        
         vhsFolder=gui->addFolder("VHS");
         vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
         vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
@@ -352,6 +356,9 @@ void ofApp::draw()//============================================================
     shader.setUniform1f("zebraMacro", zebraMacro);
     shader.setUniform1f("zebraSpeed", zebraSpeed);
     shader.setUniform1i("zebraLevels", zebraLevels);
+    
+    shader.setUniform1f("squareioscopeMacro", squareioscopeMacro);
+    shader.setUniform1f("squareioscopeMacro2", squareioscopeMacro2);
     
     shader.setUniform1f("vhsMacro", vhsMacro);
     shader.setUniform1f("vhsStrength", vhsStrength);
@@ -682,14 +689,22 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
                     break;
                 case 83:
+                    squareioscopeMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                    squareioscopeMacroSlider->setValue(squareioscopeMacro);
+                    break;
+                case 84:
+                    squareioscopeMacro2=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                    squareioscopeMacroSlider->setValue(squareioscopeMacro2);
+                break;
+                case 85:
                     vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
                     vhsMacroSlider->setValue(vhsMacro);
                     break;
-                case 84:
+                case 86:
                     vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
                     vhsStrengthSlider->setValue(vhsStrength);
                     break;
-                case 85:
+                case 87:
                     vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
                     vhsSpeedSlider->setValue(vhsSpeed);
                     break;
@@ -1021,6 +1036,9 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     else if(e.target==zebraLevelsSlider)zebraLevels=(e.target->getValue());
     else if(e.target==zebraSpeedSlider)zebraSpeed=(e.target->getValue());
     
+    else if(e.target==squareioscopeMacroSlider)squareioscopeMacro=(e.target->getValue());
+    else if(e.target==squareioscopeMacro2Slider)squareioscopeMacro2=(e.target->getValue());
+    
     else if(e.target==vhsMacroSlider)vhsMacro=(e.target->getValue());
     else if(e.target==vhsStrengthSlider)vhsStrength=(e.target->getValue());
     else if(e.target==vhsSpeedSlider)vhsSpeed=(e.target->getValue());
@@ -1202,6 +1220,9 @@ bool ofApp::loadSettings()//====================================================
             zebraSpeed=xmlSettings.getValue("xmlSettings:zebra:zebraSpeed", 0.0);
             zebraLevels=xmlSettings.getValue("xmlSettings:zebra:zebraLevels", 2);
             
+            squareioscopeMacro=xmlSettings.getValue("xmlSettings:square:squareioscope", 0.0);
+            squareioscopeMacro2=xmlSettings.getValue("xmlSettings:square:squareioscope2", 0.0);
+            
             vhsMacro=xmlSettings.getValue("xmlSettings:vhs:vhsMacro",0.0);
             vhsSpeed=xmlSettings.getValue("xmlSettings:vhs:vhsSpeed",0.0);
             vhsStrength=xmlSettings.getValue("xmlSettings:vhs:vhsStrength", 0.0);
@@ -1306,6 +1327,9 @@ bool ofApp::saveSettings()//====================================================
         xmlSettings.setValue("xmlSettings:zebra:zebraMacro", zebraMacro);
         xmlSettings.setValue("xmlSettings:zebra:zebraLevels", zebraLevels);
         xmlSettings.setValue("xmlSettings:zebra:zebraSpeed", zebraSpeed);
+        
+        xmlSettings.setValue("xmlSettings:square:squareioscope", squareioscopeMacro);
+        xmlSettings.setValue("xmlSettings:square:squareioscope2", squareioscopeMacro2);
         
         xmlSettings.setValue("xmlSettings:vhs:vhsMacro", vhsMacro);
         xmlSettings.setValue("xmlSettings:vhs:vhsStrength", vhsStrength);
