@@ -5,93 +5,15 @@
 #include "ofxXmlSettings.h"
 #include "ofxDatGui.h"
 #include "convertVideo.h"
+#include "evanColor.h"
+#include "light.h"
+#include "modalDialogs.h"
+#include "ofxDmx.h"
 
 
 class ofApp : public ofBaseApp,
 public ofxMidiListener
 {
-public:
-    struct evanColor
-    {
-       
-        evanColor(float r,float g,float b)
-        {
-            fRed=r;
-            fGreen=g;
-            fBlue=b;
-            iRed=int(ofMap(fRed,0.0,1.0,0,255));
-            iGreen=int(ofMap(fGreen,0.0,1.0,0,255));
-            iBlue=int(ofMap(fBlue,0.0,1.0,0,255));
-        }
-        evanColor(int r,int g,int b)
-        {
-            iRed=r;
-            iGreen=g;
-            iBlue=b;
-            fRed=float(ofMap(iRed,0,255,0.0,1.0));
-            fGreen=float(ofMap(iGreen,0,255,0.0,1.0));
-            fBlue=float(ofMap(iBlue,0,255,0.0,1.0));
-        }
-        void setColor(float r,float g,float b)
-        {
-            fRed=r;
-            fGreen=g;
-            fBlue=b;
-            iRed=int(ofMap(fRed,0.0,1.0,0,255));
-            iGreen=int(ofMap(fGreen,0.0,1.0,0,255));
-            iBlue=int(ofMap(fBlue,0.0,1.0,0,255));
-        }
-        void setColor(int r,int g,int b)
-        {
-            iRed=r;
-            iGreen=g;
-            iBlue=b;
-            fRed=float(ofMap(iRed,0,255,0.0,1.0));
-            fGreen=float(ofMap(iGreen,0,255,0.0,1.0));
-            fBlue=float(ofMap(iBlue,0,255,0.0,1.0));
-        }
-        void setRed(float r)
-        {
-            fRed=r;
-            iRed=int(ofMap(fRed,0.0,1.0,0,255));
-        }
-        void setRed(int r)
-        {
-            iRed=r;
-            fRed=float(ofMap(iRed,0,255,0.0,1.0));
-        }
-        float getRedFloat(){return fRed;}
-        int getRedInt() {return iRed;}
-        void setGreen(float g)
-        {
-            fGreen=g;
-            iGreen=int(ofMap(fGreen,0.0,1.0,0,255));
-        }
-        void setGreen(int g)
-        {
-            iGreen=g;
-            fGreen=float(ofMap(iGreen,0,255,0.0,1.0));
-        }
-        float getGreenFloat(){return fGreen;}
-        int getGreenInt(){return iGreen;}
-        void setBlue(float b)
-        {
-            fBlue=b;
-            iBlue=int(ofMap(fBlue,0.0,1.0,0,255));
-        }
-        void setBlue(int b)
-        {
-            iBlue=b;
-            fBlue=float(ofMap(iBlue,0,255,0.0,1.0));
-        }
-        float getBlueFloat(){return fBlue;}
-        int getBlueInt(){return iBlue;}
-        
-    private:
-        float fRed=0.0,fGreen=0.0,fBlue=0.0;
-        int iRed=0,iGreen=0,iBlue=0;
-    };
-    
     struct media
     {
         bool which;
@@ -166,12 +88,7 @@ public:
                 ofLoadImage(picture,loadPath);
                 picture.setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
             }
-            
-//            if(which)
-//            {
-//                videoTexture=video.getTexture();
-//                videoTexture.setTextureWrap(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
-//            }
+
             path=loadPath;
             full=true;
             cout<<"path:"<<path<<endl;
@@ -231,6 +148,37 @@ public:
         
     } player[25];
     
+    
+    struct fxParameter
+    {
+        ofxDatGuiSlider* slider;
+        float value;
+        float max;
+        float min;
+        fxParameter()
+        {
+            min=0.0;
+            max=1.0;
+            value=0.0;
+        }
+       
+        void setMinMaxValue(int mn, int mx, int v)
+        {
+            min=mn;
+            max=mx;
+            value=v;
+        }
+        
+        void set(int a)
+        {
+            value=ofMap(a ,0, 127, min, max);
+            slider->setValue(value);
+        }
+    };
+    
+    
+public:
+    
     int getHeight, getWidth;
     void setup();
     void update();
@@ -259,8 +207,24 @@ public:
     void onButtonEventGui2(ofxDatGuiButtonEvent e);
     void windowResized(ofResizeEventArgs &resize);
     void allocateFBOs();
-
-    //------------------------------------------------------------------------
+    void enableGuis();
+    void disableGuis();
+    
+    
+//-------------------GUI 3--------------------------------
+    void onTextInputEventGui3(ofxDatGuiTextInputEvent e);
+    void onRightClickEventGui3(ofxDatGuiRightClickEvent e);
+    void onEditLightEventGui3(ofxModalEvent e);
+    void onAddNewLightEventGui3(ofxModalEvent e);
+    void onSliderEventGui3(ofxDatGuiSliderEvent e);
+    void onButtonEventGui3(ofxDatGuiButtonEvent e);
+    void onToggleEventGui3(ofxDatGuiToggleEvent e);
+    void editLight();
+    void addLight();
+    int getRigSize();
+    void deleteLight(light * a);
+    
+//------------------------------------------------------------------------
     ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
     ofShader shader, asciiShader, ledShader, chromaKeyShader;
     
@@ -306,7 +270,7 @@ public:
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
-    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder, *squareioscopeFolder, *vhsFolder;
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletToggle;
     ofxDatGuiButton *clearAllButton, *saveButton, *loadButton;
     
@@ -320,55 +284,66 @@ public:
     ofPoint guiPosition;
     ofPoint windowSize();
     
-    float fxMacro=1.0;
-    ofxDatGuiSlider *fxMacroSlider;
     
-    float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
+    
+    fxParameter fxMacro;
+    
+    fxParameter invertMacro;
+    
+    fxParameter rippleMacro, rippleX, rippleY, rippleRate;
+       bool rippleSync=false;
+       ofxDatGuiToggle *rippleSyncToggle;
+    
+    fxParameter filterMacro, filterRed, filterGreen, filterBlue;
+    
+    fxParameter kaleidoscopeMacro, kaleiodioscopeX, kaleiodioscopeY, kaleidioscopeAngle, kaleidioscopeSectors;
+
+    fxParameter pixelateMacro;
+    
+    fxParameter fullhouseMacro;
+    
+    fxParameter asciiMacro, asciiDotDistance, asciiImageGain, asciiImageContrast;
     bool asciiInvert=false;
-    ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
     ofxDatGuiToggle *asciiInvertToggle;
     ofTexture font;
     
-    float ledMacro=0.0, ledDotDistance=0.0, ledOffsetRX=0.0, ledOffsetRY=0.0, ledOffsetGX=0.0, ledOffsetGY=0.0, ledOffsetBX=0.0, ledOffsetBY=0.0;
-    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider, *ledOffsetRXSlider, *ledOffsetRYSlider, *ledOffsetGXSlider, *ledOffsetGYSlider, *ledOffsetBXSlider, *ledOffsetBYSlider;
+    fxParameter ledMacro, ledDotDistance, ledOffsetRX, ledOffsetRY, ledOffsetGX, ledOffsetGY, ledOffsetBX, ledOffsetBY;
     
-    int pixelateMacro=0;
-    ofxDatGuiSlider *pixelateSlider;
+    fxParameter rotateMacro, rotateScreenCenter;
     
-    int fullhouseMacro=0;
-    ofxDatGuiSlider *fullhouseSlider;
-    
-    float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidioscopeAngle=0.0, kaleidioscopeSectors=1;
-    ofxDatGuiSlider *kaleidoscopeSlider, *angleSlider, *xSlider, *ySlider, *sectorSlider;
-    
-    float filterMacro=0.0, filterRed=1.0, filterGreen=1, filterBlue=1.0, filterAlpha=1.0;
-    ofxDatGuiSlider *filterSlider,*filterRedSlider, *filterGreenSlider, *filterBlueSlider, *filterAlphaSlider;
-    
-    float rippleMacro=0.0, rippleX=1.0, rippleY=1.0, rippleRate=60.0;
-    ofxDatGuiSlider *rippleSlider ,*rippleXSlider, *rippleYSlider, *rippleRateSlider;
-    bool rippleSync=false;
-    ofxDatGuiToggle *rippleSyncToggle;
-    ofxDatGuiWaveMonitor *rippleWaveMonitor;
-    
-    float invertMacro=0.0;
-    ofxDatGuiSlider *invertSlider;
-    
-    float rotateMacro=0.0, rotateScreenCenter=0.0;
-    ofxDatGuiSlider *rotateMacroSlider;
-    
-    float zebraMacro=0.0, zebraSpeed=0.0;
-    int zebraLevels=2;
-    ofxDatGuiSlider *zebraMacroSlider, *zebraSpeedSlider, *zebraLevelsSlider;
-    
-    float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
-    ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
-    evanColor chromaKeyColor= evanColor(0.0f,1.0f,0.0f);
+    fxParameter zebraMacro, zebraSpeed, zebraLevels;
+
+    fxParameter chromaKeyMacro, chromaKeyThreshold;
+
+    evanColor chromaKeyColor= evanColor();
     int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
     ofxDatGuiColorPicker *chromaKeyColorPicker;
+    
+    fxParameter squareioscopeMacro, squareioscopeMacro2;
+ 
+    fxParameter vhsMacro, vhsStrength, vhsSpeed;
+    
+    
     
     //Loading/Saving----------------------------------------
     const int max_videos=25;
     ofxXmlSettings xmlSettings;
+    
+    //---------------------------------------
+    ofxDmx dmx;
+    ofxDatGui *gui3;
+    
+    int autoCycleRed, autoCycleGreen, autoCycleBlue;
+    int lightWidth;
+    vector<light> rig;
+    int runningCount=0;
+    
+    ofxDatGuiButton *addLightButton;
+    
+    addNewLight mAddNewLight;
+    class editLight mEditLight;
+    evanColor rigColor;
+    ofxDatGuiButton *submitButton, *cancelButton, *loadLightButton, *saveLightButton;
     
 private:
     ofxMidiIn midiIn;

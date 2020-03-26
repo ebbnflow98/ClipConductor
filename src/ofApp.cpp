@@ -68,56 +68,73 @@ void ofApp::setup()//===========================================================
         tempoDivisionSlider=backgroundFolder->addSlider("Tempo Division",1,3,1);
         tripletToggle=backgroundFolder->addToggle("Triplet");
     
+        
         gui->addLabel("FX");
-        fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
+        
+        fxMacro.slider = gui->addSlider("FX Wet",fxMacro.min,fxMacro.max,fxMacro.value);
         
         videoFolder=gui->addFolder("Video Controls");
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
         videoSyncToggle=videoFolder->addToggle("Video Sync");
         videoDivisionSlider=videoFolder->addSlider("Video Division",1,8,1);
         
+        //invert fx
         invertFolder=gui->addFolder("Invert");
-        invertSlider=invertFolder->addSlider("Invert", 0.0, 1.0, invertMacro);
-        invertSlider->setPrecision(1);
-        invertSlider->setValue(invertMacro);
+        invertMacro.slider=invertFolder->addSlider("Invert",invertMacro.min,invertMacro.max,invertMacro.value);
+        invertMacro.slider->setPrecision(1);
+        invertMacro.slider->setValue(invertMacro.value);
         
+        //ripple fx
         rippleFolder=gui->addFolder("Ripple");
-        rippleSlider = rippleFolder->addSlider("Ripple", 0.0,1.0,rippleMacro);
+        rippleMacro.slider = rippleFolder->addSlider("Ripple",rippleMacro.min,rippleMacro.max,rippleMacro.value);
         rippleSyncToggle=rippleFolder->addToggle("Sync");
-        rippleXSlider=rippleFolder->addSlider("X", 0.0, 1.0,rippleX);
-        rippleYSlider=rippleFolder->addSlider("Y", 0.0, 1.0,rippleY);
-        rippleRateSlider=rippleFolder->addSlider("Rate",0.1, 300.00,rippleRate);
+        rippleX.slider=rippleFolder->addSlider("X", rippleX.min,rippleX.max,rippleX.value);
+        rippleY.slider=rippleFolder->addSlider("Y", rippleX.min,rippleY.max,rippleY.value);
+        rippleRate.setMinMaxValue(0.1, 300.00, 1.0);
+        rippleRate.slider=rippleFolder->addSlider("Rate", rippleRate.min, rippleRate.max, rippleRate.value);
         
+        //filter fx
         filterFolder=gui->addFolder("Filter");
-        filterSlider=filterFolder->addSlider("Filter",0.0,1.0,filterMacro);
-        filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
-        filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
-        filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
-//        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
+        filterMacro.slider=filterFolder->addSlider("Filter",filterMacro.min,filterMacro.max,filterMacro.value);
+        filterRed.slider=filterFolder->addSlider("Red", filterRed.min,filterRed.max,filterRed.value);
+        filterGreen.slider=filterFolder->addSlider("Green",filterGreen.min,filterGreen.max,filterGreen.value);
+        filterBlue.slider=filterFolder->addSlider("Blue",filterBlue.min,filterBlue.max,filterBlue.value);
 
+        //kaleidioscope fx
         kaleidioscopeFolder=gui->addFolder("Kaleidioscope");
-        kaleidoscopeSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
-        sectorSlider=kaleidioscopeFolder->addSlider("Sectors", 1.0, 100,kaleidioscopeSectors);
-        angleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
-        xSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
-        ySlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
-        
+        kaleidoscopeMacro.slider=kaleidioscopeFolder->addSlider("Kaleidoscope",kaleidoscopeMacro.min,kaleidoscopeMacro.max,kaleidoscopeMacro.value);
+        kaleidioscopeSectors.setMinMaxValue(1.0, 100.0, 1.0);
+        kaleidioscopeSectors.slider=kaleidioscopeFolder->addSlider("Sectors", kaleidioscopeSectors.min, kaleidioscopeSectors.max,kaleidioscopeSectors.value);
+        kaleidioscopeAngle.setMinMaxValue(-180, 180, 0);
+        kaleidioscopeAngle.slider=kaleidioscopeFolder->addSlider("Angle",kaleidioscopeAngle.min,kaleidioscopeAngle.max,kaleidioscopeAngle.value);
+        kaleidioscopeAngle.slider->setPrecision(0);
+        kaleiodioscopeX.slider=kaleidioscopeFolder->addSlider("X",kaleiodioscopeX.min,kaleiodioscopeX.max,kaleiodioscopeX.value);
+        kaleiodioscopeY.slider=kaleidioscopeFolder->addSlider("Y",kaleiodioscopeY.min,kaleiodioscopeY.max,kaleiodioscopeY.value);
+       
+        //pixelate fx
         pixelateFolder=gui->addFolder("Pixelate");
-        pixelateSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
+        pixelateMacro.setMinMaxValue(0, 100, 0);
+        pixelateMacro.slider=pixelateFolder->addSlider("Pixelate", pixelateMacro.min, pixelateMacro.max, pixelateMacro.value);
+        pixelateMacro.slider->setPrecision(0);
         
+        //fullhouse fx
         fullhouseFolder=gui->addFolder("Fullhouse");
-        fullhouseSlider=fullhouseFolder->addSlider("Fullhouse", 1, 50, fullhouseMacro);
-        
-        asciiFolder=gui->addFolder("Ascii");
-        asciiMacroSlider=asciiFolder->addSlider("Ascii", 0.0,1.0,asciiMacro);
-        asciiInvertToggle=asciiFolder->addToggle("Ascii Invert", asciiInvert);
-        asciiImageContrastSlider=asciiFolder->addSlider("Ascii Image Contrast", 0.0, 1.0,asciiImageContrast);
-        asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
-        asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
+        fullhouseMacro.setMinMaxValue(0, 50, 0);
+        fullhouseMacro.slider=fullhouseFolder->addSlider("Fullhouse", fullhouseMacro.min, fullhouseMacro.max, fullhouseMacro.value);
+        fullhouseMacro.slider->setPrecision(0);
 
+       //ascii fx
+        asciiFolder=gui->addFolder("Ascii");
+        asciiMacro.slider=asciiFolder->addSlider("Ascii", asciiMacro.min,asciiMacro.max,asciiMacro.value);
+        asciiInvertToggle=asciiFolder->addToggle("Ascii Invert", asciiInvert);
+        asciiImageContrast.slider=asciiFolder->addSlider("Ascii Image Contrast", asciiImageContrast.min,asciiImageContrast.max,asciiImageContrast.value);
+        asciiImageGain.slider=asciiFolder->addSlider("Ascii Image Gain", asciiImageGain.min,asciiImageGain.max,asciiImageGain.value);
+        asciiDotDistance.slider=asciiFolder->addSlider("ASCII Dot Distance", asciiDotDistance.min,asciiDotDistance.max,asciiDotDistance.value);
+
+        //led fx
         ledFolder=gui->addFolder("LED");
-        ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
-        ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
+        ledMacro.slider=ledFolder->addSlider("LED", ledMacro.min, ledMacro.max,ledMacro.value);
+        ledDotDistance.slider=ledFolder->addSlider("LED Dot Distance", ledDotDistance.min, ledDotDistance.max,ledDotDistance.value);
 //        ledOffsetRXSlider=ledFolder->addSlider("Red Offset X", 0.0 , 1.0, ledOffsetRX);
 //        ledOffsetRYSlider=ledFolder->addSlider("Red Offset Y", 0.0 , 1.0, ledOffsetRY);
 //        ledOffsetGXSlider=ledFolder->addSlider("Green Offset X", 0.0 , 1.0, ledOffsetGX);
@@ -125,29 +142,39 @@ void ofApp::setup()//===========================================================
 //        ledOffsetBXSlider=ledFolder->addSlider("Blue Offset X", 0.0 , 1.0, ledOffsetBX);
 //        ledOffsetBYSlider=ledFolder->addSlider("Blue Offset Y", 0.0 , 1.0, ledOffsetBY);
         
+        //rotate fx
         rotateFolder=gui->addFolder("Rotate");
-        rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
-        
+        rotateMacro.setMinMaxValue(-1.0, 1.0, 0.0);
+        rotateMacro.slider=rotateFolder->addSlider("Rotate",rotateMacro.min,rotateMacro.max,rotateMacro.value);
+       
+        //zebra fx
         zebraFolder=gui->addFolder("Zebra");
-        zebraMacroSlider=zebraFolder->addSlider("Zebra", 0.0, 1.0,zebraMacro);
-        zebraSpeedSlider=zebraFolder->addSlider("Speed",0.0,1.0,zebraSpeed);
-        zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
+        zebraMacro.slider=zebraFolder->addSlider("Zebra", zebraMacro.min, zebraMacro.max,zebraMacro.value);
+        zebraSpeed.slider=zebraFolder->addSlider("Speed",zebraSpeed.min,zebraSpeed.max,zebraSpeed.value);
+        zebraLevels.setMinMaxValue(2, 50, 5);
+        zebraLevels.slider=zebraFolder->addSlider("Levels",zebraLevels.min,zebraLevels.max,zebraLevels.value);
+        zebraLevels.slider->setPrecision(0);
         
+        //chromaKey fx
         chromaKeyFolder=gui->addFolder("ChromaKey");
-        chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
+        chromaKeyMacro.slider=chromaKeyFolder->addSlider("ChromaKey", chromaKeyMacro.min, chromaKeyMacro.max,chromaKeyMacro.value);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
-        chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
+        chromaKeyThreshold.slider=chromaKeyFolder->addSlider("Threshold", chromaKeyMacro.min, chromaKeyMacro.max,chromaKeyThreshold.value);
         
+       //squareioscope fx
         squareioscopeFolder=gui->addFolder("Squareioscope");
-        squareioscopeMacroSlider=squareioscopeFolder->addSlider("Squareioscope", 0.0, 1.0, squareioscopeMacro);
-        squareioscopeMacro2Slider=squareioscopeFolder->addSlider("Squareioscope2", 0.0, 1.0,squareioscopeMacro2);
+        squareioscopeMacro2.slider=squareioscopeFolder->addSlider("Squareioscope2", squareioscopeMacro2.min, squareioscopeMacro2.max,squareioscopeMacro2.value);
+        squareioscopeMacro.slider=squareioscopeFolder->addSlider("Squareioscope",squareioscopeMacro.min,squareioscopeMacro.max,squareioscopeMacro.value);
         
+        //vhs fx
         vhsFolder=gui->addFolder("VHS");
-        vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
-        vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
-        vhsSpeedSlider=vhsFolder->addSlider("Speed",0,60,vhsSpeed);
+        vhsMacro.slider=vhsFolder->addSlider("VHS",vhsMacro.min, vhsMacro.max, vhsMacro.value);
+        vhsStrength.slider=vhsFolder->addSlider("Strength",vhsStrength.min,vhsStrength.max,vhsStrength.value);
+        vhsSpeed.slider=vhsFolder->addSlider("Speed",vhsSpeed.min,vhsSpeed.max,vhsSpeed.value);
 
+        
+        
         gui->addBreak();
         gui->addBreak();
         
@@ -173,19 +200,20 @@ void ofApp::setup()//===========================================================
         mEditLight.addListener(this, &ofApp::onEditLightEventGui3);
         gui3->onTextInputEvent(this, &ofApp::onTextInputEventGui3);
         
-        pixelateSlider->setPrecision(0);
-        fullhouseSlider->setPrecision(0);
+
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
-        sectorSlider->setPrecision(0);
-        zebraLevelsSlider->setPrecision(0);
+        kaleidioscopeSectors.slider->setPrecision(0);
+        zebraLevels.slider->setPrecision(0);
+        pixelateMacro.slider->setPrecision(0);
+        fullhouseMacro.slider->setPrecision(0);
         tripletToggle->setChecked(triplet);
         clearToggle->setChecked(clear);
         videoSyncToggle->setChecked(videoSync);
         rippleSyncToggle->setChecked(rippleSync);
         cout<<"here 4"<<endl;
-        ofxDatGuiThemeEvan *theme = new ofxDatGuiThemeEvan;
-        ofxDatGuiThemeEvanFlip *flip = new ofxDatGuiThemeEvanFlip;
+        ofxDatGuiThemeSpectacle *theme = new ofxDatGuiThemeSpectacle;
+        ofxDatGuiThemeSpectacle *flip = new ofxDatGuiThemeSpectacle;
         
         gui->setTheme(theme);
         gui2->setTheme(flip);
@@ -293,11 +321,10 @@ void ofApp::draw()//============================================================
     
     chromaKeyShader.begin();
     
-    shader.setUniform1f("fxMacro", fxMacro);
-    chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
+    shader.setUniform1f("fxMacro", fxMacro.value);
+    chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro.value);
     chromaKeyShader.setUniform3f("chromaKeyColor", chromaKeyColor.getRedFloat(),chromaKeyColor.getGreenFloat(),chromaKeyColor.getBlueFloat());
-//    chromaKeyShader.setUniform1i("chromaKeyColorGreen",chromaKeyColor.g);
-    chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
+    chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold.value);
     
     chromaKeyVideoFbo.draw(0,0,getWidth,getHeight);
     
@@ -325,44 +352,44 @@ void ofApp::draw()//============================================================
     shader.begin();                                         //Shader1 begin
     float time = ofGetElapsedTimef();
 
-    shader.setUniform1f("fxMacro", fxMacro);
+    shader.setUniform1f("fxMacro", fxMacro.value);
 
     shader.setUniform1f("time", time);
     shader.setUniform2f("resolution", getWidth,getHeight);
 
-    shader.setUniform1f("filterMacro", filterMacro);
-    shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
+    shader.setUniform1f("filterMacro", filterMacro.value);
+    shader.setUniform4f("filterRGB",filterRed.value,filterGreen.value,filterBlue.value,1.0); //commented out FilterAlpha
 
-    shader.setUniform1f("invertMacro", invertMacro);
+    shader.setUniform1f("invertMacro", invertMacro.value);
 
-    shader.setUniform1f("rippleMacro", rippleMacro);
-    shader.setUniform2f("rippleXY", rippleX,rippleY);
-    shader.setUniform1f("rippleRate",rippleRate);
+    shader.setUniform1f("rippleMacro", rippleMacro.value);
+    shader.setUniform2f("rippleXY", rippleX.value,rippleY.value);
+    shader.setUniform1f("rippleRate",rippleRate.value);
 
-    shader.setUniform1i("ksectors", kaleidioscopeSectors*kaleidoscopeMacro);
-    shader.setUniform2f("kcenter", kaleiodioscopeX*kaleidoscopeMacro,kaleiodioscopeY*kaleidoscopeMacro);
-    shader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
-    shader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
-    if(kaleidoscopeMacro<.5) shader.setUniform2f("screenCenter",0,0);
+    shader.setUniform1i("ksectors", int(kaleidioscopeSectors.value*kaleidoscopeMacro.value));
+    shader.setUniform2f("kcenter", kaleiodioscopeX.value*kaleidoscopeMacro.value,kaleiodioscopeY.value*kaleidoscopeMacro.value);
+    shader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro.value);
+    shader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle.value))*kaleidoscopeMacro.value);
+    if(kaleidoscopeMacro.value<.5) shader.setUniform2f("screenCenter",0,0);
     else shader.setUniform2f("screenCenter",0.5*getWidth,0.5*getHeight);
 
-    shader.setUniform1i("pixelateMacro", pixelateMacro);
+    shader.setUniform1i("pixelateMacro", int(pixelateMacro.value));
 
-    shader.setUniform1i("fullhouseMacro", fullhouseMacro);
+    shader.setUniform1i("fullhouseMacro", int(fullhouseMacro.value));
 
-    shader.setUniform1f("rotateMacro", rotateMacro);
+    shader.setUniform1f("rotateMacro", rotateMacro.value);
     shader.setUniform2f("rotateScreenCenter",0.5*getWidth,0.5*getHeight);
 
-    shader.setUniform1f("zebraMacro", zebraMacro);
-    shader.setUniform1f("zebraSpeed", zebraSpeed);
-    shader.setUniform1i("zebraLevels", zebraLevels);
+    shader.setUniform1f("zebraMacro", zebraMacro.value);
+    shader.setUniform1f("zebraSpeed", zebraSpeed.value);
+    shader.setUniform1i("zebraLevels", zebraLevels.value);
     
-    shader.setUniform1f("squareioscopeMacro", squareioscopeMacro);
-    shader.setUniform1f("squareioscopeMacro2", squareioscopeMacro2);
+    shader.setUniform1f("squareioscopeMacro", squareioscopeMacro.value);
+    shader.setUniform1f("squareioscopeMacro2", squareioscopeMacro2.value);
     
-    shader.setUniform1f("vhsMacro", vhsMacro);
-    shader.setUniform1f("vhsStrength", vhsStrength);
-    shader.setUniform1f("vhsSpeed", vhsSpeed);
+    shader.setUniform1f("vhsMacro", vhsMacro.value);
+    shader.setUniform1f("vhsStrength", vhsStrength.value);
+    shader.setUniform1f("vhsSpeed", vhsSpeed.value);
 //    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
 //    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
     blendFbo.draw(0,0,getWidth, getHeight);
@@ -376,12 +403,12 @@ void ofApp::draw()//============================================================
     ofClear(0,0,0,0);
     asciiShader.begin();                            //ASCII Shader begin
 
-    asciiShader.setUniform1f("fxMacro", fxMacro);
-    asciiShader.setUniform1f("asciiMacro", asciiMacro);
-    asciiShader.setUniform1f("asciiDotDistance", asciiDotDistance);
-    asciiShader.setUniform1f("asciiImageGain", asciiImageGain);
-    asciiShader.setUniform1f("asciiImageContrast", asciiImageContrast);
-    asciiShader.setUniform1i("asciiInvert", asciiInvert);
+    asciiShader.setUniform1f("fxMacro", fxMacro.value);
+    asciiShader.setUniform1f("asciiMacro", asciiMacro.value);
+    asciiShader.setUniform1f("asciiDotDistance", asciiDotDistance.value);
+    asciiShader.setUniform1f("asciiImageGain", asciiImageGain.value);
+    asciiShader.setUniform1f("asciiImageContrast", asciiImageContrast.value);
+    asciiShader.setUniform1i("asciiInvert", int(asciiInvert));
     asciiShader.setUniformTexture("font", font, 8);
 
     fbo2.draw(0,0, getWidth, getHeight);              //FBO 2 draw
@@ -394,9 +421,9 @@ void ofApp::draw()//============================================================
     ofClear(0,0,0,0);
     ledShader.begin();                                 //LED Shader begin
 
-    ledShader.setUniform1f("fxMacro", fxMacro);
-    ledShader.setUniform1f("ledMacro", ledMacro);
-    ledShader.setUniform1f("ledDotDistance", ledDotDistance);
+    ledShader.setUniform1f("fxMacro", fxMacro.value);
+    ledShader.setUniform1f("ledMacro", ledMacro.value);
+    ledShader.setUniform1f("ledDotDistance", ledDotDistance.value);
 //    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
 //    ledShader.setUniform2f("ledOffsetGreen", ledOffsetGX, ledOffsetGY);
 //    ledShader.setUniform2f("ledOffsetBlue", ledOffsetBX, ledOffsetBY);
@@ -413,304 +440,304 @@ void ofApp::draw()//============================================================
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)//============================================================
 {
-    if(snaves==1)
-    {
-        
-        if(msg.status==MIDI_NOTE_ON && msg.pitch>=60 && msg.pitch<=84)
-        {
-            midiMessages.push_back(msg); // add the latest message to the message queue
-            while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
-            
-            pitch=(msg.pitch);
-
-            if(sustain)midiNoteOff(msg.pitch);
-            
-            if(msg.pitch>=60 && msg.pitch<=84)
-            {
-                playerFromMidiMessage=(msg.pitch-60);
-                videoCount+=1;
-    //                                                                        cout<<"videoCount: "<<videoCount<<endl;
-                player[playerFromMidiMessage].opacity=msg.velocity;
-                player[playerFromMidiMessage].drawImage=true;
-                player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
-            }
-        }
-        
-        if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
-        {
-            if(sustain==false)
-            {
-                midiNoteOff(msg.pitch);
-                videoCount=-1;
-            }
-        }
-
-        if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
-        {
-            switch(msg.control)
-            {
-                case 123:
-                {
-                    for(int i=0;i<max_videos;i++) midiNoteOff(i+60);
-                }
-                    break;
-                case 64: if(msg.value>63)sustain=true; else sustain=false;
-                case 15:
-                    fxMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                    fxMacroSlider->setValue(fxMacro);
-                    break;
-                case 16:
-                    videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
-                    videoSpeedSlider->setValue(videoSpeed2);
-                    break;
-                case 17:
-                    videoDivision=msg.value;
-                    videoDivisionSlider->setValue(videoDivision);
-                    break;
-    //            case 19:
-    //                if(msg.value>63) backgroundSwitch=true;
-    //                else backgroundSwitch=false;
-    //                backgroundSwitchToggle->setChecked(backgroundSwitch);
-    //                break;
-                case 18:
-                    if(msg.value>63) videoSync=true;
-                    else videoSync=false;
-                    videoSyncToggle->setChecked(videoSync);
-                    break;
-                case 20:
-                    tempoDivision=msg.value;
-                    tempoDivisionSlider->setValue(tempoDivision);
-                    break;
-                case 21:
-                    if(msg.value>63)triplet=true;
-                    else triplet=false;
-                    tripletToggle->setChecked(triplet);
-                    break;
-    //            case 21:
-    //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
-    //                bgColor1ColorPicker->setColor(bgColor1);
-    //                break;
-
-                                                                                //EMPTY CASE 22
-                    
-                case 24:
-                    invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                     invertSlider->setValue(invertMacro);
-                    break;
-                case 25:
-                    rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                    rippleSlider->setValue(rippleMacro);
-                    break;
-                case 26:
-                {
-                    if(msg.value>63) rippleSync=true;
-                    else rippleSync=false;
-                    rippleSyncToggle->setChecked(rippleSync);
-                    break;
-                }
-                case 27:
-                    rippleX=ofMap(msg.value,0, 127, 0.0, 1.0);
-                    rippleXSlider->setValue(rippleX);
-                    break;
-                case 28:
-                    rippleY=ofMap(msg.value,0, 127, 0.0, 1.00);
-                    rippleYSlider->setValue(rippleY);
-                    break;
-                case 29:
-                    if(rippleSync) rippleRate=bpm/60;
-                    else rippleRate=ofMap(msg.value,0, 127, .1, 300);
-                    rippleRateSlider->setValue(rippleRate);
-                    break;
-
-                case 30:
-                    filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterSlider->setValue(filterMacro);
-                    break;
-                case 31:
-                    filterRed=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterRedSlider->setValue(filterRed);
-                    break;
-                case 33:
-                    filterGreen=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterGreenSlider->setValue(filterGreen);
-                    break;
-                case 34:
-                    filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterBlueSlider->setValue(filterBlue);
-                    break;
-                                                                                        //EMPTY CASE 35
-                    
-                case 40:
-                    kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.00);
-                    kaleidoscopeSlider->setValue(kaleidoscopeMacro);
-                    break;
-                case 41:
-                    kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
-                    angleSlider->setValue(kaleidioscopeAngle);
-                    break;
-                case 42:
-                    kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
-                    xSlider->setValue(kaleiodioscopeX);
-                    break;
-                case 43:
-                    kaleiodioscopeY=ofMap(msg.value,0, 127, 0.0, 1.00);
-                    ySlider->setValue(kaleiodioscopeY);
-                    break;
-                case 44:
-                    kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
-                    sectorSlider->setValue(kaleidioscopeSectors);
-                    break;
-                case 50:
-                    bgColor1Red=msg.value;
-                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    bgColor1ColorPicker->setColor(bgColor1);
-                    break;
-                case 51:
-                    bgColor1Green=msg.value;
-                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    bgColor1ColorPicker->setColor(bgColor1);
-                    break;
-                case 52:
-                    bgColor1Blue=msg.value;
-                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    bgColor1ColorPicker->setColor(bgColor1);
-                    break;
-//                case 53:
-//                    bgColor2Red=msg.value;
-//                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-//                    bgColor2ColorPicker->setColor(bgColor2);
+//    if(snaves==1)
+//    {
+//
+//        if(msg.status==MIDI_NOTE_ON && msg.pitch>=60 && msg.pitch<=84)
+//        {
+//            midiMessages.push_back(msg); // add the latest message to the message queue
+//            while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
+//
+//            pitch=(msg.pitch);
+//
+//            if(sustain)midiNoteOff(msg.pitch);
+//
+//            if(msg.pitch>=60 && msg.pitch<=84)
+//            {
+//                playerFromMidiMessage=(msg.pitch-60);
+//                videoCount+=1;
+//    //                                                                        cout<<"videoCount: "<<videoCount<<endl;
+//                player[playerFromMidiMessage].opacity=msg.velocity;
+//                player[playerFromMidiMessage].drawImage=true;
+//                player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
+//            }
+//        }
+//
+//        if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
+//        {
+//            if(sustain==false)
+//            {
+//                midiNoteOff(msg.pitch);
+//                videoCount=-1;
+//            }
+//        }
+//
+//        if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
+//        {
+//            switch(msg.control)
+//            {
+//                case 123:
+//                {
+//                    for(int i=0;i<max_videos;i++) midiNoteOff(i+60);
+//                }
 //                    break;
-//                case 54:
-//                    bgColor2Green=msg.value;
-//                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-//                    bgColor2ColorPicker->setColor(bgColor2);
+//                case 64: if(msg.value>63)sustain=true; else sustain=false;
+//                case 15:
+//                    fxMacro.value=ofMap(msg.value,0, 127, 0.0, 1.0);
+//                    fxMacroSlider->setValue(fxMacro);
 //                    break;
-//                case 55:
-//                    bgColor2Blue=msg.value;
-//                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-//                    bgColor2ColorPicker->setColor(bgColor2);
+//                case 16:
+//                    videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
+//                    videoSpeedSlider->setValue(videoSpeed2);
 //                    break;
-                case 56:
-                    pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
-                    pixelateSlider->setValue(pixelateMacro);
-                    break;
-                case 57:
-                    fullhouseMacro=ofMap(msg.value,0,127,1,50);
-                    fullhouseSlider->setValue(fullhouseMacro);
-                    break;
-                case 60:
-                    asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    asciiMacroSlider->setValue(asciiMacro);
-                    break;
-                case 61:
-                    asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    asciiDotDistanceSlider->setValue(asciiDotDistance);
-                    break;
-                case 62:
-                    asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    asciiImageGainSlider->setValue(asciiImageGain);
-                    break;
-                case 63:
-                    asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
-                    asciiImageContrastSlider->setValue(asciiImageContrast);
-                    break;
-                case 65:
-                    if(msg.value>63) asciiInvert=true;
-                    else asciiInvert=false;
-                    asciiInvertToggle->setChecked(asciiInvert);
-                    break;
-                case 66:
-                    ledMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    ledMacroSlider->setValue(ledMacro);
-                    break;
-                case 67:
-                    ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    ledDotDistanceSlider->setValue(ledDotDistance);
-                    break;
-    //            case 68:
-    //                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
-    //                ledOffsetRXSlider->setValue(ledOffsetRX);
-    //                break;
-    //            case 69:
-    //                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-    //                ledOffsetRYSlider->setValue(ledOffsetRY);
-    //                break;
-    //            case 70:
-    //                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-    //                ledOffsetGXSlider->setValue(ledOffsetGX);
-    //                break;
-    //            case 71:
-    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-    //                ledOffsetGYSlider->setValue(ledOffsetGY);
-    //                break;
-    //            case 72:
-    //                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-    //                ledOffsetBXSlider->setValue(ledOffsetBX);
-    //                break;
-    //            case 73:
-    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-    //                ledOffsetGYSlider->setValue(ledOffsetGY);
-    //                break;
-                case 74:
-                    rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    rotateMacroSlider->setValue(rotateMacro);
-                    break;
-                case 75:
-                    zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    zebraMacroSlider->setValue(zebraMacro);
-                    break;
-                case 76:
-                    zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
-                    zebraSpeedSlider->setValue(zebraSpeed);
-                    break;
-                    
-                case 77:
-                    zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
-                    zebraLevelsSlider->setValue(zebraLevels);
-                    break;
-                case 78:
-                    chromaKeyMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    chromaKeyMacroSlider->setValue(chromaKeyMacro);
-                    break;
-                case 79:
-                    chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
-                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                    break;
-                case 80:
-                    chromaKeyGreen=ofMap(msg.value,0,127,0,255);
-                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                    break;
-                case 81:
-                    chromaKeyBlue=ofMap(msg.value,0,127,0,255);
-                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                    break;
-                case 82:
-                    chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
-                    chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
-                    break;
-                case 83:
-                    squareioscopeMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    squareioscopeMacroSlider->setValue(squareioscopeMacro);
-                    break;
-                case 84:
-                    squareioscopeMacro2=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    squareioscopeMacroSlider->setValue(squareioscopeMacro2);
-                break;
-                case 85:
-                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    vhsMacroSlider->setValue(vhsMacro);
-                    break;
-                case 86:
-                    vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
-                    vhsStrengthSlider->setValue(vhsStrength);
-                    break;
-                case 87:
-                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
-                    vhsSpeedSlider->setValue(vhsSpeed);
-                    break;
-            }
-        }
-    }
+//                case 17:
+//                    videoDivision=msg.value;
+//                    videoDivisionSlider->setValue(videoDivision);
+//                    break;
+//    //            case 19:
+//    //                if(msg.value>63) backgroundSwitch=true;
+//    //                else backgroundSwitch=false;
+//    //                backgroundSwitchToggle->setChecked(backgroundSwitch);
+//    //                break;
+//                case 18:
+//                    if(msg.value>63) videoSync=true;
+//                    else videoSync=false;
+//                    videoSyncToggle->setChecked(videoSync);
+//                    break;
+//                case 20:
+//                    tempoDivision=msg.value;
+//                    tempoDivisionSlider->setValue(tempoDivision);
+//                    break;
+//                case 21:
+//                    if(msg.value>63)triplet=true;
+//                    else triplet=false;
+//                    tripletToggle->setChecked(triplet);
+//                    break;
+//    //            case 21:
+//    //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
+//    //                bgColor1ColorPicker->setColor(bgColor1);
+//    //                break;
+//
+//                                                                                //EMPTY CASE 22
+//
+//                case 24:
+//                    invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+//                     invertSlider->setValue(invertMacro);
+//                    break;
+//                case 25:
+//                    rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+//                    rippleSlider->setValue(rippleMacro);
+//                    break;
+//                case 26:
+//                {
+//                    if(msg.value>63) rippleSync=true;
+//                    else rippleSync=false;
+//                    rippleSyncToggle->setChecked(rippleSync);
+//                    break;
+//                }
+//                case 27:
+//                    rippleX=ofMap(msg.value,0, 127, 0.0, 1.0);
+//                    rippleXSlider->setValue(rippleX);
+//                    break;
+//                case 28:
+//                    rippleY=ofMap(msg.value,0, 127, 0.0, 1.00);
+//                    rippleYSlider->setValue(rippleY);
+//                    break;
+//                case 29:
+//                    if(rippleSync) rippleRate=bpm/60;
+//                    else rippleRate=ofMap(msg.value,0, 127, .1, 300);
+//                    rippleRateSlider->setValue(rippleRate);
+//                    break;
+//
+//                case 30:
+//                    filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
+//                    filterSlider->setValue(filterMacro);
+//                    break;
+//                case 31:
+//                    filterRed=ofMap(msg.value,0, 127, 0, 1.0);
+//                    filterRedSlider->setValue(filterRed);
+//                    break;
+//                case 33:
+//                    filterGreen=ofMap(msg.value,0, 127, 0, 1.0);
+//                    filterGreenSlider->setValue(filterGreen);
+//                    break;
+//                case 34:
+//                    filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
+//                    filterBlueSlider->setValue(filterBlue);
+//                    break;
+//                                                                                        //EMPTY CASE 35
+//
+//                case 40:
+//                    kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.00);
+//                    kaleidoscopeSlider->setValue(kaleidoscopeMacro);
+//                    break;
+//                case 41:
+//                    kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
+//                    angleSlider->setValue(kaleidioscopeAngle);
+//                    break;
+//                case 42:
+//                    kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
+//                    xSlider->setValue(kaleiodioscopeX);
+//                    break;
+//                case 43:
+//                    kaleiodioscopeY=ofMap(msg.value,0, 127, 0.0, 1.00);
+//                    ySlider->setValue(kaleiodioscopeY);
+//                    break;
+//                case 44:
+//                    kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
+//                    sectorSlider->setValue(kaleidioscopeSectors);
+//                    break;
+//                case 50:
+//                    bgColor1Red=msg.value;
+//                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    bgColor1ColorPicker->setColor(bgColor1);
+//                    break;
+//                case 51:
+//                    bgColor1Green=msg.value;
+//                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    bgColor1ColorPicker->setColor(bgColor1);
+//                    break;
+//                case 52:
+//                    bgColor1Blue=msg.value;
+//                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    bgColor1ColorPicker->setColor(bgColor1);
+//                    break;
+////                case 53:
+////                    bgColor2Red=msg.value;
+////                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+////                    bgColor2ColorPicker->setColor(bgColor2);
+////                    break;
+////                case 54:
+////                    bgColor2Green=msg.value;
+////                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+////                    bgColor2ColorPicker->setColor(bgColor2);
+////                    break;
+////                case 55:
+////                    bgColor2Blue=msg.value;
+////                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+////                    bgColor2ColorPicker->setColor(bgColor2);
+////                    break;
+//                case 56:
+//                    pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
+//                    pixelateSlider->setValue(pixelateMacro);
+//                    break;
+//                case 57:
+//                    fullhouseMacro=ofMap(msg.value,0,127,1,50);
+//                    fullhouseSlider->setValue(fullhouseMacro);
+//                    break;
+//                case 60:
+//                    asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
+//                    asciiMacroSlider->setValue(asciiMacro);
+//                    break;
+//                case 61:
+//                    asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                    asciiDotDistanceSlider->setValue(asciiDotDistance);
+//                    break;
+//                case 62:
+//                    asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                    asciiImageGainSlider->setValue(asciiImageGain);
+//                    break;
+//                case 63:
+//                    asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
+//                    asciiImageContrastSlider->setValue(asciiImageContrast);
+//                    break;
+//                case 65:
+//                    if(msg.value>63) asciiInvert=true;
+//                    else asciiInvert=false;
+//                    asciiInvertToggle->setChecked(asciiInvert);
+//                    break;
+//                case 66:
+//                    ledMacro=ofMap(msg.value,0,127,0.0,1.0);
+//                    ledMacroSlider->setValue(ledMacro);
+//                    break;
+//                case 67:
+//                    ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                    ledDotDistanceSlider->setValue(ledDotDistance);
+//                    break;
+//    //            case 68:
+//    //                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
+//    //                ledOffsetRXSlider->setValue(ledOffsetRX);
+//    //                break;
+//    //            case 69:
+//    //                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//    //                ledOffsetRYSlider->setValue(ledOffsetRY);
+//    //                break;
+//    //            case 70:
+//    //                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//    //                ledOffsetGXSlider->setValue(ledOffsetGX);
+//    //                break;
+//    //            case 71:
+//    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//    //                ledOffsetGYSlider->setValue(ledOffsetGY);
+//    //                break;
+//    //            case 72:
+//    //                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//    //                ledOffsetBXSlider->setValue(ledOffsetBX);
+//    //                break;
+//    //            case 73:
+//    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//    //                ledOffsetGYSlider->setValue(ledOffsetGY);
+//    //                break;
+//                case 74:
+//                    rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
+//                    rotateMacroSlider->setValue(rotateMacro);
+//                    break;
+//                case 75:
+//                    zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
+//                    zebraMacroSlider->setValue(zebraMacro);
+//                    break;
+//                case 76:
+//                    zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
+//                    zebraSpeedSlider->setValue(zebraSpeed);
+//                    break;
+//
+//                case 77:
+//                    zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
+//                    zebraLevelsSlider->setValue(zebraLevels);
+//                    break;
+//                case 78:
+//                    chromaKeyMacro=ofMap(msg.value,0,127,0.0,1.0);
+//                    chromaKeyMacroSlider->setValue(chromaKeyMacro);
+//                    break;
+//                case 79:
+//                    chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
+//                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+//                    break;
+//                case 80:
+//                    chromaKeyGreen=ofMap(msg.value,0,127,0,255);
+//                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+//                    break;
+//                case 81:
+//                    chromaKeyBlue=ofMap(msg.value,0,127,0,255);
+//                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+//                    break;
+//                case 82:
+//                    chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
+//                    chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
+//                    break;
+//                case 83:
+//                    squareioscopeMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                    squareioscopeMacroSlider->setValue(squareioscopeMacro);
+//                    break;
+//                case 84:
+//                    squareioscopeMacro2=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                    squareioscopeMacroSlider->setValue(squareioscopeMacro2);
+//                break;
+//                case 85:
+//                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                    vhsMacroSlider->setValue(vhsMacro);
+//                    break;
+//                case 86:
+//                    vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
+//                    vhsStrengthSlider->setValue(vhsStrength);
+//                    break;
+//                case 87:
+//                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
+//                    vhsSpeedSlider->setValue(vhsSpeed);
+//                    break;
+//            }
+//        }
+//    }
 }
 void ofApp::midiNoteOff(int pitch)//============================================================
 {
@@ -966,7 +993,7 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//=============================
     
     else if(e.target==clearToggle) clear=!clear;
     
-    else if(e.target==rippleSyncToggle)rippleRate=bpm*60;
+    else if(e.target==rippleSyncToggle)rippleRate.value=bpm*60;
     
     else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
 }
@@ -988,64 +1015,64 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     
     if(e.target==tempoDivisionSlider)tempoDivision=(e.target->getValue());
     if(e.target==videoDivisionSlider)videoDivision=(e.target->getValue());
-    if(e.target==fxMacroSlider)fxMacro=(e.target->getValue());
+    if(e.target==fxMacro.slider)fxMacro.value=(e.target->getValue());
     
-    else if(e.target==kaleidoscopeSlider)kaleidoscopeMacro = (e.target->getValue());
-    else if(e.target==angleSlider)kaleidioscopeAngle=(e.target->getValue());
-    else if(e.target==xSlider)kaleiodioscopeX=(e.target->getValue());
-    else if(e.target==ySlider)kaleiodioscopeY=(e.target->getValue());
-    else if(e.target==sectorSlider)kaleidioscopeSectors=(e.target->getValue());
+    else if(e.target==kaleidoscopeMacro.slider)kaleidoscopeMacro.value = (e.target->getValue());
+    else if(e.target==kaleidioscopeAngle.slider)kaleidioscopeAngle.value=(e.target->getValue());
+    else if(e.target==kaleiodioscopeX.slider)kaleiodioscopeX.value=(e.target->getValue());
+    else if(e.target==kaleiodioscopeY.slider)kaleiodioscopeY.value=(e.target->getValue());
+    else if(e.target==kaleidioscopeSectors.slider)kaleidioscopeSectors.value=(e.target->getValue());
     
-    else if(e.target==filterSlider)filterMacro=(e.target->getValue());
-    else if(e.target==filterRedSlider)filterRed=(e.target->getValue());
-    else if(e.target==filterBlueSlider)filterBlue=(e.target->getValue());
-    else if(e.target==filterGreenSlider)filterGreen=(e.target->getValue());
+    else if(e.target==filterMacro.slider)filterMacro.value=(e.target->getValue());
+    else if(e.target==filterRed.slider)filterRed.value=(e.target->getValue());
+    else if(e.target==filterBlue.slider)filterBlue.value=(e.target->getValue());
+    else if(e.target==filterGreen.slider)filterGreen.value=(e.target->getValue());
     
-    else if(e.target==rippleSlider)rippleMacro=(e.target->getValue());
-    else if(e.target==rippleYSlider)rippleY=(e.target->getValue());
-    else if(e.target==rippleXSlider)rippleX=(e.target->getValue());
-    else if(e.target==rippleRateSlider)
+    else if(e.target==rippleMacro.slider)rippleMacro.value=(e.target->getValue());
+    else if(e.target==rippleY.slider)rippleY.value=(e.target->getValue());
+    else if(e.target==rippleX.slider)rippleX.value=(e.target->getValue());
+    else if(e.target==rippleRate.slider)
     {
-        if(rippleSync==false)rippleRate=(e.target->getValue());
+        if(rippleSync==false)rippleRate.value=(e.target->getValue());
     }
-    else if(e.target==invertSlider)invertMacro=(e.target->getValue());
+    
+    else if(e.target==invertMacro.slider)invertMacro.value=(e.target->getValue());
     
     else if(e.target==videoSpeedSlider)videoSpeed2=(e.target->getValue());
     
-    else if(e.target==pixelateSlider)pixelateMacro=(e.target->getValue());
+    else if(e.target==pixelateMacro.slider)pixelateMacro.value=(e.target->getValue());
     
-    else if(e.target==fullhouseSlider)fullhouseMacro=(e.target->getValue());
+    else if(e.target==fullhouseMacro.slider)fullhouseMacro.value=(e.target->getValue());
     
-    else if(e.target==asciiMacroSlider)asciiMacro=(e.target->getValue());
-    else if(e.target==asciiImageGainSlider)asciiImageGain=(e.target->getValue());
-    else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
-    else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
+    else if(e.target==asciiMacro.slider)asciiMacro.value=(e.target->getValue());
+    else if(e.target==asciiImageGain.slider)asciiImageGain.value=(e.target->getValue());
+    else if(e.target==asciiImageContrast.slider)asciiImageContrast.value=(e.target->getValue());
+    else if(e.target==asciiDotDistance.slider)asciiDotDistance.value=(e.target->getValue());
 
-    else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
-    else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
-    else if(e.target==ledOffsetRXSlider)ledOffsetRX=(e.target->getValue());
-    else if(e.target==ledOffsetRYSlider)ledOffsetRY=(e.target->getValue());
-    else if(e.target==ledOffsetGXSlider)ledOffsetGX=(e.target->getValue());
-    else if(e.target==ledOffsetGYSlider)ledOffsetGY=(e.target->getValue());
-    else if(e.target==ledOffsetBXSlider)ledOffsetBX=(e.target->getValue());
-    else if(e.target==ledOffsetBYSlider)ledOffsetBY=(e.target->getValue());
+    else if(e.target==ledMacro.slider)ledMacro.value=(e.target->getValue());
+    else if(e.target==ledDotDistance.slider)ledDotDistance.value=(e.target->getValue());
+    else if(e.target==ledOffsetRX.slider)ledOffsetRX.value=(e.target->getValue());
+    else if(e.target==ledOffsetRY.slider)ledOffsetRY.value=(e.target->getValue());
+    else if(e.target==ledOffsetGX.slider)ledOffsetGX.value=(e.target->getValue());
+    else if(e.target==ledOffsetGY.slider)ledOffsetGY.value=(e.target->getValue());
+    else if(e.target==ledOffsetBX.slider)ledOffsetBX.value=(e.target->getValue());
+    else if(e.target==ledOffsetBY.slider)ledOffsetBY.value=(e.target->getValue());
     
-    else if(e.target==rotateMacroSlider)rotateMacro=(e.target->getValue());
+    else if(e.target==rotateMacro.slider)rotateMacro.value=(e.target->getValue());
     
-    else if(e.target==zebraMacroSlider)zebraMacro=(e.target->getValue());
-    else if(e.target==zebraLevelsSlider)zebraLevels=(e.target->getValue());
-    else if(e.target==zebraSpeedSlider)zebraSpeed=(e.target->getValue());
+    else if(e.target==zebraMacro.slider)zebraMacro.value=(e.target->getValue());
+    else if(e.target==zebraLevels.slider)zebraLevels.value=(e.target->getValue());
+    else if(e.target==zebraSpeed.slider)zebraSpeed.value=(e.target->getValue());
     
-    else if(e.target==squareioscopeMacroSlider)squareioscopeMacro=(e.target->getValue());
-    else if(e.target==squareioscopeMacro2Slider)squareioscopeMacro2=(e.target->getValue());
+    else if(e.target==squareioscopeMacro.slider)squareioscopeMacro.value=(e.target->getValue());
+    else if(e.target==squareioscopeMacro2.slider)squareioscopeMacro2.value=(e.target->getValue());
     
-    else if(e.target==vhsMacroSlider)vhsMacro=(e.target->getValue());
-    else if(e.target==vhsStrengthSlider)vhsStrength=(e.target->getValue());
-    else if(e.target==vhsSpeedSlider)vhsSpeed=(e.target->getValue());
+    else if(e.target==vhsMacro.slider)vhsMacro.value=(e.target->getValue());
+    else if(e.target==vhsStrength.slider)vhsStrength.value=(e.target->getValue());
+    else if(e.target==vhsSpeed.slider)vhsSpeed.value=(e.target->getValue());
     
-    else if(e.target==chromaKeyMacroSlider)chromaKeyMacro=(e.target->getValue());
-    else if(e.target==chromaKeyThresholdSlider)chromaKeyThreshold=(e.target->getValue());
-    else if(e.target->is("chromagreen"))chromaKeyGreen=(e.target->getValue());
+    else if(e.target==chromaKeyMacro.slider)chromaKeyMacro.value=(e.target->getValue());
+    else if(e.target==chromaKeyThreshold.slider)chromaKeyThreshold.value=(e.target->getValue());
 }
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//============================================================
@@ -1134,8 +1161,8 @@ bool ofApp::loadSettings()//====================================================
         xmlSettings.loadFile(loadPath);
         if(xmlSettings.loadFile(loadPath))
         {
-            fxMacro = xmlSettings.getValue("xmlSettings:fxWet:fxWet", 1.0);
-            fxMacroSlider->setValue(fxMacro);
+            fxMacro.value = xmlSettings.getValue("xmlSettings:fxWet:fxWet", 1.0);
+            fxMacro.slider->setValue(fxMacro.value);
             videoSpeed = xmlSettings.getValue("xmlSettings:video:speed", 1.0);
             videoSpeedSlider->setValue(videoSpeed);
             videoSync = xmlSettings.getValue("xmlSettings:video:sync", 0);
@@ -1160,72 +1187,81 @@ bool ofApp::loadSettings()//====================================================
 //            bgColor2=(ofColor::fromHsb(bgColor2Red, bgColor2Green, bgColor2Blue));
 //            bgColor2ColorPicker->setColor(bgColor2);
 
-            invertMacro=xmlSettings.getValue("xmlSettings:invert:invert", 0);
-            invertSlider->setValue(invertMacro);
+            invertMacro.value=xmlSettings.getValue("xmlSettings:invert:invert", 0);
+            invertMacro.slider->setValue(invertMacro.value);
             
-            rippleMacro=xmlSettings.getValue("xmlSettings:ripple:ripple", 0);
-            rippleSlider->setValue(rippleMacro);
+            rippleMacro.value=xmlSettings.getValue("xmlSettings:ripple:ripple", 0);
+            rippleMacro.slider->setValue(rippleMacro.value);
             rippleSync=xmlSettings.getValue("xmlSettings:ripple:sync", 0);
             rippleSyncToggle->setChecked(rippleSync);
-            rippleX=xmlSettings.getValue("xmlSettings:ripple:x", 0.0);
-            rippleXSlider->setValue(rippleX);
-            rippleY=xmlSettings.getValue("xmlSettings:ripple:y", 0.0);
-            rippleYSlider->setValue(rippleY);
-            rippleRate=xmlSettings.getValue("xmlSettings:ripple:rate",60);
-            rippleRateSlider->setValue(rippleRate);
+            rippleX.value=xmlSettings.getValue("xmlSettings:ripple:x", 0.0);
+            rippleX.slider->setValue(rippleX.value);
+            rippleY.value=xmlSettings.getValue("xmlSettings:ripple:y", 0.0);
+            rippleY.slider->setValue(rippleY.value);
+            rippleRate.value=xmlSettings.getValue("xmlSettings:ripple:rate",60);
+            rippleRate.slider->setValue(rippleRate.value);
             
-            filterMacro=xmlSettings.getValue("xmlSettings:filter:filter", 0.0);
-            filterSlider->setValue(filterMacro);
-            filterRed=xmlSettings.getValue("xmlSettings:filter:red",0.0);
-            filterRedSlider->setValue(filterRed);
-            filterGreen=xmlSettings.getValue("xmlSettings:filter:green",0.0);
-            filterGreenSlider->setValue(filterGreen);
-            filterBlue=xmlSettings.getValue("xmlSettings:filter:blue",0.0);
-            filterBlueSlider->setValue(filterBlue);
+            filterMacro.value=xmlSettings.getValue("xmlSettings:filter:filter", 0.0);
+            filterMacro.slider->setValue(filterMacro.value);
+            filterRed.value=xmlSettings.getValue("xmlSettings:filter:red",0.0);
+            filterRed.slider->setValue(filterRed.value);
+            filterGreen.value=xmlSettings.getValue("xmlSettings:filter:green",0.0);
+            filterGreen.slider->setValue(filterGreen.value);
+            filterBlue.value=xmlSettings.getValue("xmlSettings:filter:blue",0.0);
+            filterBlue.slider->setValue(filterBlue.value);
             
-            kaleidoscopeMacro=xmlSettings.getValue("xmlSettings:kaleidoscope:kaleidoscope", 0.0);
-            kaleidoscopeSlider->setValue(kaleidoscopeMacro);
-            kaleidioscopeSectors=xmlSettings.getValue("xmlSettings:kaleidoscope:sectors", 1);
-            sectorSlider->setValue(kaleidioscopeSectors);
-            kaleidioscopeAngle=xmlSettings.getValue("xmlSettings:kaleidoscope:angle", 0.0);
-            angleSlider->setValue(kaleidioscopeAngle);
-            kaleiodioscopeX=xmlSettings.getValue("xmlSettings:kaleidoscope:x", 0.0);
-            xSlider->setValue(kaleiodioscopeX);
-            kaleiodioscopeY=xmlSettings.getValue("xmlSettings:kaleidoscope:y", 0.0);
-            ySlider->setValue(kaleiodioscopeY);
+            kaleidoscopeMacro.value=xmlSettings.getValue("xmlSettings:kaleidoscope:kaleidoscope", 0.0);
+            kaleidoscopeMacro.slider->setValue(kaleidoscopeMacro.value);
+            kaleidioscopeSectors.value=xmlSettings.getValue("xmlSettings:kaleidoscope:sectors", 1);
+            kaleidioscopeSectors.slider->setValue(kaleidioscopeSectors.value);
+            kaleidioscopeAngle.value=xmlSettings.getValue("xmlSettings:kaleidoscope:angle", 0.0);
+            kaleidioscopeAngle.slider->setValue(kaleidioscopeAngle.value);
+            kaleiodioscopeX.value=xmlSettings.getValue("xmlSettings:kaleidoscope:x", 0.0);
+            kaleiodioscopeX.slider->setValue(kaleiodioscopeX.value);
+            kaleiodioscopeY.value=xmlSettings.getValue("xmlSettings:kaleidoscope:y", 0.0);
+            kaleiodioscopeY.slider->setValue(kaleiodioscopeY.value);
 
-            pixelateMacro=xmlSettings.getValue("xmlSettings:pixelate:pixelate", 0.0);
-            pixelateSlider->setValue(pixelateMacro);
+            pixelateMacro.value=xmlSettings.getValue("xmlSettings:pixelate:pixelate", 0.0);
+            pixelateMacro.slider->setValue(pixelateMacro.value);
             
-            fullhouseMacro=xmlSettings.getValue("xmlSettings:fullhouse:fullhouse", 0.0);
-            fullhouseSlider->setValue(fullhouseMacro);
+            fullhouseMacro.value=xmlSettings.getValue("xmlSettings:fullhouse:fullhouse", 0.0);
+            fullhouseMacro.slider->setValue(fullhouseMacro.value);
             
-            asciiMacro=xmlSettings.getValue("xmlSettings:ascii:ascii", 0.0);
-            asciiMacroSlider->setValue(asciiMacro);
-            asciiImageContrast=xmlSettings.getValue("xmlSettings:ascii:imageContrast", 0.0);
-            asciiImageContrastSlider->setValue(asciiImageContrast);
-            asciiImageGain=xmlSettings.getValue("xmlSettings:ascii:imageGain", 0.0);
-            asciiImageGainSlider->setValue(asciiImageGain);
-            asciiDotDistance=xmlSettings.getValue("xmlSettings:ascii:dotDistance", 0.0);
-            asciiDotDistanceSlider->setValue(asciiDotDistance);
+            asciiMacro.value=xmlSettings.getValue("xmlSettings:ascii:ascii", 0.0);
+            asciiMacro.slider->setValue(asciiMacro.value);
+            asciiImageContrast.value=xmlSettings.getValue("xmlSettings:ascii:imageContrast", 0.0);
+            asciiImageContrast.slider->setValue(asciiImageContrast.value);
+            asciiImageGain.value=xmlSettings.getValue("xmlSettings:ascii:imageGain", 0.0);
+            asciiImageGain.slider->setValue(asciiImageGain.value);
+            asciiDotDistance.value=xmlSettings.getValue("xmlSettings:ascii:dotDistance", 0.0);
+            asciiDotDistance.slider->setValue(asciiDotDistance.value);
             
-            ledMacro=xmlSettings.getValue("xmlSettings:led:led", 0.0);
-            ledMacroSlider->setValue(ledMacro);
-            ledDotDistance=xmlSettings.getValue("xmlSettings:led:dotDistance", 0.0);
-            ledDotDistanceSlider->setValue(ledDotDistance);
+            ledMacro.value=xmlSettings.getValue("xmlSettings:led:led", 0.0);
+            ledMacro.slider->setValue(ledMacro.value);
+            ledDotDistance.value=xmlSettings.getValue("xmlSettings:led:dotDistance", 0.0);
+            ledDotDistance.slider->setValue(ledDotDistance.value);
             
-            rotateMacro=xmlSettings.getValue("xmlSettings:rotate:rotateMacro", 0.0);
+            rotateMacro.value=xmlSettings.getValue("xmlSettings:rotate:rotateMacro", 0.0);
+            rotateMacro.slider->setValue(rotateMacro.value);
             
-            zebraMacro=xmlSettings.getValue("xmlSettings:zebra:zebraMacro", 0.0);
-            zebraSpeed=xmlSettings.getValue("xmlSettings:zebra:zebraSpeed", 0.0);
-            zebraLevels=xmlSettings.getValue("xmlSettings:zebra:zebraLevels", 2);
+            zebraMacro.value=xmlSettings.getValue("xmlSettings:zebra:zebraMacro", 0.0);
+            zebraMacro.slider->setValue(zebraMacro.value);
+            zebraSpeed.value=xmlSettings.getValue("xmlSettings:zebra:zebraSpeed", 0.0);
+            zebraSpeed.slider->setValue(zebraSpeed.value);
+            zebraLevels.value=xmlSettings.getValue("xmlSettings:zebra:zebraLevels", 2);
+            zebraLevels.slider->setValue(zebraLevels.value);
             
-            squareioscopeMacro=xmlSettings.getValue("xmlSettings:square:squareioscope", 0.0);
-            squareioscopeMacro2=xmlSettings.getValue("xmlSettings:square:squareioscope2", 0.0);
+            squareioscopeMacro.value=xmlSettings.getValue("xmlSettings:square:squareioscope", 0.0);
+            squareioscopeMacro.slider->setValue(squareioscopeMacro.value);
+            squareioscopeMacro2.value=xmlSettings.getValue("xmlSettings:square:squareioscope2", 0.0);
+            squareioscopeMacro2.slider->setValue(squareioscopeMacro2.value);
             
-            vhsMacro=xmlSettings.getValue("xmlSettings:vhs:vhsMacro",0.0);
-            vhsSpeed=xmlSettings.getValue("xmlSettings:vhs:vhsSpeed",0.0);
-            vhsStrength=xmlSettings.getValue("xmlSettings:vhs:vhsStrength", 0.0);
+            vhsMacro.value=xmlSettings.getValue("xmlSettings:vhs:vhsMacro",0.0);
+            vhsMacro.slider->setValue(vhsMacro.value);
+            vhsSpeed.value=xmlSettings.getValue("xmlSettings:vhs:vhsSpeed",0.0);
+            vhsSpeed.slider->setValue(vhsSpeed.value);
+            vhsStrength.value=xmlSettings.getValue("xmlSettings:vhs:vhsStrength", 0.0);
+            vhsStrength.slider->setValue(vhsStrength.value);
             
             for(int i = 0; i <max_videos; i++)
             {
@@ -1277,7 +1313,7 @@ bool ofApp::saveSettings()//====================================================
 //        bgColor2Green=(bgColor2.getSaturation());
 //        bgColor2Blue=(bgColor2.getBrightness());
         
-        xmlSettings.setValue("xmlSettings:fxWet:fxWet", fxMacro);
+        xmlSettings.setValue("xmlSettings:fxWet:fxWet", fxMacro.value);
         xmlSettings.setValue("xmlSettings:video:speed", videoSpeed);
         xmlSettings.setValue("xmlSettings:video:sync", videoSync);
         xmlSettings.setValue("xmlSettings:video:division", videoDivision);
@@ -1291,49 +1327,49 @@ bool ofApp::saveSettings()//====================================================
 //        xmlSettings.setValue("xmlSettings:color:bgColor2Green", bgColor2Green);
 //        xmlSettings.setValue("xmlSettings:color:bgColor2Blue", bgColor2Blue);
         
-        xmlSettings.setValue("xmlSettings:invert:invert", invertMacro);
+        xmlSettings.setValue("xmlSettings:invert:invert", invertMacro.value);
         
-        xmlSettings.setValue("xmlSettings:ripple:ripple", rippleMacro);
+        xmlSettings.setValue("xmlSettings:ripple:ripple", rippleMacro.value);
         xmlSettings.setValue("xmlSettings:ripple:sync", rippleSync);
-        xmlSettings.setValue("xmlSettings:ripple:x", rippleX);
-        xmlSettings.setValue("xmlSettings:ripple:y", rippleY);
-        xmlSettings.setValue("xmlSettings:ripple:rate", rippleRate);
+        xmlSettings.setValue("xmlSettings:ripple:x", rippleX.value);
+        xmlSettings.setValue("xmlSettings:ripple:y", rippleY.value);
+        xmlSettings.setValue("xmlSettings:ripple:rate", rippleRate.value);
         
-        xmlSettings.setValue("xmlSettings:filter:filter", filterMacro);
-        xmlSettings.setValue("xmlSettings:filter:red", filterRed);
-        xmlSettings.setValue("xmlSettings:filter:green", filterGreen);
-        xmlSettings.setValue("xmlSettings:filter:blue", filterBlue);
+        xmlSettings.setValue("xmlSettings:filter:filter", filterMacro.value);
+        xmlSettings.setValue("xmlSettings:filter:red", filterRed.value);
+        xmlSettings.setValue("xmlSettings:filter:green", filterGreen.value);
+        xmlSettings.setValue("xmlSettings:filter:blue", filterBlue.value);
         
-        xmlSettings.setValue("xmlSettings:kaleidoscope:kaleidoscope",kaleidoscopeMacro);
-        xmlSettings.setValue("xmlSettings:kaleidoscope:sectors",kaleidioscopeSectors);
-        xmlSettings.setValue("xmlSettings:kaleidoscope:angle",kaleidioscopeAngle);
-        xmlSettings.setValue("xmlSettings:kaleidoscope:x",kaleiodioscopeX);
-        xmlSettings.setValue("xmlSettings:kaleidoscope:y",kaleiodioscopeY);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:kaleidoscope",kaleidoscopeMacro.value);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:sectors",kaleidioscopeSectors.value);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:angle",kaleidioscopeAngle.value);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:x",kaleiodioscopeX.value);
+        xmlSettings.setValue("xmlSettings:kaleidoscope:y",kaleiodioscopeY.value);
 
-        xmlSettings.setValue("xmlSettings:pixelate:pixelate", pixelateMacro);
+        xmlSettings.setValue("xmlSettings:pixelate:pixelate", pixelateMacro.value);
         
-        xmlSettings.setValue("xmlSettings:fullhouse:fullhouse", fullhouseMacro);
+        xmlSettings.setValue("xmlSettings:fullhouse:fullhouse", fullhouseMacro.value);
         
-        xmlSettings.setValue("xmlSettings:ascii:ascii", asciiMacro);
-        xmlSettings.setValue("xmlSettings:ascii:imageContrast", asciiImageContrast);
-        xmlSettings.setValue("xmlSettings:ascii:imageGain", asciiImageGain);
-        xmlSettings.setValue("xmlSettings:ascii:dotDistance", asciiDotDistance);
+        xmlSettings.setValue("xmlSettings:ascii:ascii", asciiMacro.value);
+        xmlSettings.setValue("xmlSettings:ascii:imageContrast", asciiImageContrast.value);
+        xmlSettings.setValue("xmlSettings:ascii:imageGain", asciiImageGain.value);
+        xmlSettings.setValue("xmlSettings:ascii:dotDistance", asciiDotDistance.value);
 
-        xmlSettings.setValue("xmlSettings:led:led", ledMacro);
-        xmlSettings.setValue("xmlSettings:led:dotDistance", ledDotDistance);
+        xmlSettings.setValue("xmlSettings:led:led", ledMacro.value);
+        xmlSettings.setValue("xmlSettings:led:dotDistance", ledDotDistance.value);
         
-        xmlSettings.setValue("xmlSettings:rotate:rotateMacro",rotateMacro);
+        xmlSettings.setValue("xmlSettings:rotate:rotateMacro",rotateMacro.value);
         
-        xmlSettings.setValue("xmlSettings:zebra:zebraMacro", zebraMacro);
-        xmlSettings.setValue("xmlSettings:zebra:zebraLevels", zebraLevels);
-        xmlSettings.setValue("xmlSettings:zebra:zebraSpeed", zebraSpeed);
+        xmlSettings.setValue("xmlSettings:zebra:zebraMacro", zebraMacro.value);
+        xmlSettings.setValue("xmlSettings:zebra:zebraLevels", zebraLevels.value);
+        xmlSettings.setValue("xmlSettings:zebra:zebraSpeed", zebraSpeed.value);
         
-        xmlSettings.setValue("xmlSettings:square:squareioscope", squareioscopeMacro);
-        xmlSettings.setValue("xmlSettings:square:squareioscope2", squareioscopeMacro2);
+        xmlSettings.setValue("xmlSettings:square:squareioscope", squareioscopeMacro.value);
+        xmlSettings.setValue("xmlSettings:square:squareioscope2", squareioscopeMacro2.value);
         
-        xmlSettings.setValue("xmlSettings:vhs:vhsMacro", vhsMacro);
-        xmlSettings.setValue("xmlSettings:vhs:vhsStrength", vhsStrength);
-        xmlSettings.setValue("xmlSettings:vhs:vhsSpeed",vhsSpeed);
+        xmlSettings.setValue("xmlSettings:vhs:vhsMacro", vhsMacro.value);
+        xmlSettings.setValue("xmlSettings:vhs:vhsStrength", vhsStrength.value);
+        xmlSettings.setValue("xmlSettings:vhs:vhsSpeed",vhsSpeed.value);
         
         for(int i = 0; i <max_videos; i++)
         {
