@@ -14,6 +14,8 @@
 class ofApp : public ofBaseApp,
 public ofxMidiListener
 {
+    public:
+
     struct media
     {
         bool which;
@@ -147,21 +149,39 @@ public ofxMidiListener
         }
         
     } player[25];
-    
-    
-    struct fxParameter
+
+//====================================================================================
+    class fxParameter
     {
+    public:
+        ofxDatGuiType type;
+        
+        
+        fxParameter() {}
+        virtual void onMidiMessage(int newValue){}
+        virtual ofxDatGuiComponent* getAThing()
+        {
+//            return new ofxDatGuiComponent("empty")
+        }
+        virtual bool compare(ofxDatGuiComponent* e){};
+        
+    };
+    
+    class fxSlider : public fxParameter
+    {
+    public:
         ofxDatGuiSlider* slider;
         float value;
         float max;
         float min;
-        fxParameter()
+        
+        fxSlider()
         {
-            min=0.0;
-            max=1.0;
-            value=0.0;
+            fxParameter();
+            type=ofxDatGuiType::SLIDER;
+            slider=new ofxDatGuiSlider("",min,max,value);
         }
-       
+        
         void setMinMaxValue(int mn, int mx, int v)
         {
             min=mn;
@@ -169,15 +189,58 @@ public ofxMidiListener
             value=v;
         }
         
-        void set(int a)
+        void onMidiMessage(int newValue)
         {
-            value=ofMap(a ,0, 127, min, max);
-            slider->setValue(value);
+            value=ofMap(newValue, 0, 127, min, max);
+            if(slider->getPrecision()==0) slider->setValue(int(value));
+            else slider->setValue(value);
         }
+        
+        ofxDatGuiComponent * getAThing()
+        {
+            return slider;
+        }
+        
+        bool compare(ofxDatGuiComponent* e)
+        {
+            if(type==e->getType()) return false;
+            if(e==slider) return true;
+            return false;
+        }
+        
     };
-    
-    
-public:
+     class fxToggle : public fxParameter
+        {
+            ofxDatGuiToggle* toggle;
+            bool checked;
+            
+            fxToggle()
+            {
+                fxParameter();
+                type=ofxDatGuiType::TOGGLE;
+            }
+            
+            void onMidiMessage(int newValue)
+            {
+                if(newValue>63)checked=true;
+                else checked=false;
+                toggle->setChecked(checked);
+            }
+            
+            ofxDatGuiComponent * getAThing()
+            {
+                return toggle;
+            }
+            
+            bool compare(ofxDatGuiComponent* e)
+            {
+                if(type==e->getType()) return false;
+                if(e==toggle) return true;
+                return false;
+            }
+            
+        };
+//====================================================================================
     
     int getHeight, getWidth;
     void setup();
@@ -199,6 +262,13 @@ public:
     void onButtonEventVideo(ofxDatGuiButtonEvent e);
     void onToggleEvent(ofxDatGuiToggleEvent e);
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
+    void onTextInputEventGui1(ofxDatGuiTextInputEvent e);
+    void onNumberBoxChangedEventGui1(ofxDatGuiNumberBoxChangedEvent e);
+    fxParameter* getFxParameter(ofxDatGuiComponent *e);
+    bool validMidiCC(int cc);
+    
+    void removeFxParameter(ofxDatGuiComponent *e, int previous);
+    
 
     void dragEvent(ofDragInfo & info);
     bool loadSettings();
@@ -209,6 +279,7 @@ public:
     void allocateFBOs();
     void enableGuis();
     void disableGuis();
+
     
     
 //-------------------GUI 3--------------------------------
@@ -245,8 +316,7 @@ public:
     int drawCount=0;
     
     int videoNumber=0;
-    
-    // ---------------------------------MIDI---------------------------------
+// ---------------------------------MIDI---------------------------------
     ofxMidiTimecode timecode; //< timecode message parser
     bool timecodeRunning = false; //< is the timecode sync running?
     long timecodeTimestamp = 0; //< when last quarter frame message was received
@@ -257,16 +327,15 @@ public:
     ofxMidiClock clock;
     int tempoDivision=1;
     
-    //-----Background------------------------------------------------
+//-----Background------------------------------------------------
     ofxDatGuiColorPicker *bgColor1ColorPicker;
     ofColor bgColor1=ofColor::black;
-//    ofxDatGuiColorPicker *bgColor2ColorPicker;
-//    ofColor bgColor2;
+
     int bgColor1Red=0, bgColor1Green=0, bgColor1Blue=0, bgColor2Red=0, bgColor2Green=0, bgColor2Blue=0;
     bool bg=false, backgroundSwitch=false;
     int videoCount=0;
     
-    //-------GUI FX--------------------------------------------------------------------
+//-------GUI FX--------------------------------------------------------------------
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
@@ -284,52 +353,53 @@ public:
     ofPoint guiPosition;
     ofPoint windowSize();
     
+    vector<fxParameter*> fxByCC[127];
     
     
-    fxParameter fxMacro;
+    fxSlider fxMacro,
     
-    fxParameter invertMacro;
+    invertMacro,
     
-    fxParameter rippleMacro, rippleX, rippleY, rippleRate;
-       bool rippleSync=false;
-       ofxDatGuiToggle *rippleSyncToggle;
+    rippleMacro, rippleX, rippleY, rippleRate;
+    bool rippleSync=false;
+    ofxDatGuiToggle *rippleSyncToggle;
     
-    fxParameter filterMacro, filterRed, filterGreen, filterBlue;
+    fxSlider filterMacro, filterRed, filterGreen, filterBlue,
     
-    fxParameter kaleidoscopeMacro, kaleiodioscopeX, kaleiodioscopeY, kaleidioscopeAngle, kaleidioscopeSectors;
-
-    fxParameter pixelateMacro;
+    kaleidoscopeMacro, kaleiodioscopeX, kaleiodioscopeY, kaleidioscopeAngle, kaleidioscopeSectors,
     
-    fxParameter fullhouseMacro;
+    pixelateMacro,
     
-    fxParameter asciiMacro, asciiDotDistance, asciiImageGain, asciiImageContrast;
+    fullhouseMacro,
+    
+    asciiMacro, asciiDotDistance, asciiImageGain, asciiImageContrast;
     bool asciiInvert=false;
     ofxDatGuiToggle *asciiInvertToggle;
     ofTexture font;
     
-    fxParameter ledMacro, ledDotDistance, ledOffsetRX, ledOffsetRY, ledOffsetGX, ledOffsetGY, ledOffsetBX, ledOffsetBY;
+    fxSlider ledMacro, ledDotDistance, ledOffsetRX, ledOffsetRY, ledOffsetGX, ledOffsetGY, ledOffsetBX, ledOffsetBY,
     
-    fxParameter rotateMacro, rotateScreenCenter;
+    rotateMacro, rotateScreenCenter,
     
-    fxParameter zebraMacro, zebraSpeed, zebraLevels;
-
-    fxParameter chromaKeyMacro, chromaKeyThreshold;
-
+    zebraMacro, zebraSpeed, zebraLevels,
+    
+    chromaKeyMacro, chromaKeyThreshold;
+    
     evanColor chromaKeyColor= evanColor();
     int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
     ofxDatGuiColorPicker *chromaKeyColorPicker;
     
-    fxParameter squareioscopeMacro, squareioscopeMacro2;
- 
-    fxParameter vhsMacro, vhsStrength, vhsSpeed;
+    fxSlider squareioscopeMacro, squareioscopeMacro2,
+    
+    vhsMacro, vhsStrength, vhsSpeed;
     
     
     
-    //Loading/Saving----------------------------------------
+//Loading/Saving----------------------------------------
     const int max_videos=25;
     ofxXmlSettings xmlSettings;
     
-    //---------------------------------------
+//---------------------------------------
     ofxDmx dmx;
     ofxDatGui *gui3;
     

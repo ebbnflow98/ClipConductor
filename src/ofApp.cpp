@@ -72,6 +72,8 @@ void ofApp::setup()//===========================================================
         gui->addLabel("FX");
         
         fxMacro.slider = gui->addSlider("FX Wet",fxMacro.min,fxMacro.max,fxMacro.value);
+        fxMacro.slider->setShowNumberBox(true);
+        fxMacro.slider->setNumberBoxNumber(0);
         
         videoFolder=gui->addFolder("Video Controls");
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
@@ -149,10 +151,13 @@ void ofApp::setup()//===========================================================
        
         //zebra fx
         zebraFolder=gui->addFolder("Zebra");
-        zebraMacro.slider=zebraFolder->addSlider("Zebra", zebraMacro.min, zebraMacro.max,zebraMacro.value);
-        zebraSpeed.slider=zebraFolder->addSlider("Speed",zebraSpeed.min,zebraSpeed.max,zebraSpeed.value);
+        zebraMacro.slider=zebraFolder->addSlider("Zebra", zebraMacro.min, zebraMacro.max,zebraMacro.value,true, 15);
+        zebraMacro.slider->setPreviousNumberBoxNumber(15);
+        zebraSpeed.slider=zebraFolder->addSlider("Speed",zebraSpeed.min,zebraSpeed.max,zebraSpeed.value,true, 16);
+        zebraSpeed.slider->setPreviousNumberBoxNumber(16);
         zebraLevels.setMinMaxValue(2, 50, 5);
-        zebraLevels.slider=zebraFolder->addSlider("Levels",zebraLevels.min,zebraLevels.max,zebraLevels.value);
+        zebraLevels.slider=zebraFolder->addSlider("Levels",zebraLevels.min,zebraLevels.max,zebraLevels.value,true,17);
+        zebraLevels.slider->setPreviousNumberBoxNumber(17);
         zebraLevels.slider->setPrecision(0);
         
         //chromaKey fx
@@ -174,7 +179,77 @@ void ofApp::setup()//===========================================================
         vhsSpeed.slider=vhsFolder->addSlider("Speed",vhsSpeed.min,vhsSpeed.max,vhsSpeed.value);
 
         
+        fxByCC[15].push_back(&fxMacro);
+//        fxByCC[16].push_back(&videoSpeed2);
+//        fxByCC[17].push_back(&videoDivison);
+//        fxByCC[18].push_back(&videoSync);
+//        fxByCC[20].push_back(&tempoSync);
+//        fxByCC[21].push_back(&tripletToggle);
         
+        fxByCC[24].push_back(&invertMacro);
+        
+        fxByCC[25].push_back(&rippleMacro);
+        
+//        fxByCC[26].push_back(&rippleSync);
+        fxByCC[27].push_back(&rippleX);
+        fxByCC[28].push_back(&rippleY);
+//        fxByCC[29].push_back(&rippleSync);
+        
+        fxByCC[30].push_back(&filterMacro);
+        fxByCC[31].push_back(&filterRed);
+        fxByCC[33].push_back(&filterGreen);
+        fxByCC[34].push_back(&filterBlue);
+        
+        fxByCC[40].push_back(&kaleidoscopeMacro);
+        fxByCC[41].push_back(&kaleidioscopeAngle);
+        fxByCC[42].push_back(&kaleiodioscopeX);
+        fxByCC[43].push_back(&kaleiodioscopeY);
+        fxByCC[44].push_back(&kaleidioscopeSectors);
+        
+//        fxByCC[50].push_back(&bgColor1Red);
+//        fxByCC[51].push_back(&bgColor1Green);
+//        fxByCC[52].push_back(&bgColor1Blue);
+//        fxByCC[53].push_back(&bgColor2Red);
+//        fxByCC[54].push_back(&bgColor2Green);
+//        fxByCC[55].push_back(&bgColor2Blue);
+        
+        fxByCC[56].push_back(&pixelateMacro);
+        fxByCC[57].push_back(&fullhouseMacro);
+        
+        fxByCC[60].push_back(&asciiMacro);
+        fxByCC[61].push_back(&asciiDotDistance);
+        fxByCC[62].push_back(&asciiImageGain);
+        fxByCC[63].push_back(&asciiImageContrast);
+//        fxByCC[65].push_back(&asciiInvert);
+        
+        fxByCC[66].push_back(&ledMacro);
+        fxByCC[67].push_back(&ledDotDistance);
+        fxByCC[68].push_back(&ledOffsetRX);
+        fxByCC[69].push_back(&ledOffsetRY);
+        fxByCC[70].push_back(&ledOffsetGX);
+        fxByCC[71].push_back(&ledOffsetGY);
+        fxByCC[72].push_back(&ledOffsetBX);
+        fxByCC[73].push_back(&ledOffsetBY);
+        
+        fxByCC[74].push_back(&rotateMacro);
+        
+        fxByCC[75].push_back(&zebraMacro);
+        fxByCC[76].push_back(&zebraSpeed);
+        fxByCC[77].push_back(&zebraLevels);
+        
+        fxByCC[78].push_back(&chromaKeyMacro);
+//        fxByCC[79].push_back(&chromaKeyRed);
+//        fxByCC[80].push_back(&chromaKeyGreen);
+//        fxByCC[81].push_back(&chromaKeyBlue);
+        fxByCC[82].push_back(&chromaKeyThreshold);
+        
+        fxByCC[83].push_back(&squareioscopeMacro);
+        fxByCC[84].push_back(&squareioscopeMacro2);
+        
+        fxByCC[85].push_back(&vhsMacro);
+        fxByCC[86].push_back(&vhsStrength);
+        fxByCC[87].push_back(&vhsSpeed);
+
         gui->addBreak();
         gui->addBreak();
         
@@ -183,6 +258,7 @@ void ofApp::setup()//===========================================================
         gui->onSliderEvent(this, &ofApp::onSliderEvent);
         gui->onToggleEvent(this, &ofApp::onToggleEvent);
         gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
+        gui->onNumberBoxChangedEvent(this, &ofApp::onNumberBoxChangedEventGui1);
         
         gui2->onToggleEvent(this, &ofApp::onToggleEvent);
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
@@ -440,51 +516,56 @@ void ofApp::draw()//============================================================
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)//============================================================
 {
-//    if(snaves==1)
-//    {
-//
-//        if(msg.status==MIDI_NOTE_ON && msg.pitch>=60 && msg.pitch<=84)
-//        {
-//            midiMessages.push_back(msg); // add the latest message to the message queue
-//            while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
-//
-//            pitch=(msg.pitch);
-//
-//            if(sustain)midiNoteOff(msg.pitch);
-//
-//            if(msg.pitch>=60 && msg.pitch<=84)
-//            {
-//                playerFromMidiMessage=(msg.pitch-60);
-//                videoCount+=1;
-//    //                                                                        cout<<"videoCount: "<<videoCount<<endl;
-//                player[playerFromMidiMessage].opacity=msg.velocity;
-//                player[playerFromMidiMessage].drawImage=true;
-//                player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
-//            }
-//        }
-//
-//        if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
-//        {
-//            if(sustain==false)
-//            {
-//                midiNoteOff(msg.pitch);
-//                videoCount=-1;
-//            }
-//        }
-//
-//        if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
-//        {
-//            switch(msg.control)
-//            {
-//                case 123:
-//                {
-//                    for(int i=0;i<max_videos;i++) midiNoteOff(i+60);
-//                }
-//                    break;
-//                case 64: if(msg.value>63)sustain=true; else sustain=false;
+    if(snaves==1)
+    {
+        
+        if(msg.status==MIDI_NOTE_ON && msg.pitch>=60 && msg.pitch<=84)
+        {
+            midiMessages.push_back(msg); // add the latest message to the message queue
+            while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
+            
+            pitch=(msg.pitch);
+            
+            if(sustain)midiNoteOff(msg.pitch);
+            
+            if(msg.pitch>=60 && msg.pitch<=84)
+            {
+                playerFromMidiMessage=(msg.pitch-60);
+                videoCount+=1;
+                //                                                                        cout<<"videoCount: "<<videoCount<<endl;
+                player[playerFromMidiMessage].opacity=msg.velocity;
+                player[playerFromMidiMessage].drawImage=true;
+                player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
+            }
+        }
+        
+        if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
+        {
+            if(sustain==false)
+            {
+                midiNoteOff(msg.pitch);
+                videoCount=-1;
+            }
+        }
+        
+        if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
+        {
+            switch(msg.control)
+            {
+                case 123:
+                {
+                    for(int i=0;i<max_videos;i++) midiNoteOff(i+60);
+                }
+                    break;
+                case 64: if(msg.value>63)sustain=true; else sustain=false;
+                    
+                default:
+                    for(int i=0;i<fxByCC[msg.control].size();i++)
+                    {
+                        fxByCC[msg.control][i]->onMidiMessage(msg.value);
+                    }
 //                case 15:
-//                    fxMacro.value=ofMap(msg.value,0, 127, 0.0, 1.0);
-//                    fxMacroSlider->setValue(fxMacro);
+//
 //                    break;
 //                case 16:
 //                    videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
@@ -494,11 +575,11 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 //                    videoDivision=msg.value;
 //                    videoDivisionSlider->setValue(videoDivision);
 //                    break;
-//    //            case 19:
-//    //                if(msg.value>63) backgroundSwitch=true;
-//    //                else backgroundSwitch=false;
-//    //                backgroundSwitchToggle->setChecked(backgroundSwitch);
-//    //                break;
+//                    //            case 19:
+//                    //                if(msg.value>63) backgroundSwitch=true;
+//                    //                else backgroundSwitch=false;
+//                    //                backgroundSwitchToggle->setChecked(backgroundSwitch);
+//                    //                break;
 //                case 18:
 //                    if(msg.value>63) videoSync=true;
 //                    else videoSync=false;
@@ -513,16 +594,16 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 //                    else triplet=false;
 //                    tripletToggle->setChecked(triplet);
 //                    break;
-//    //            case 21:
-//    //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
-//    //                bgColor1ColorPicker->setColor(bgColor1);
-//    //                break;
+//                    //            case 21:
+//                    //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
+//                    //                bgColor1ColorPicker->setColor(bgColor1);
+//                    //                break;
 //
-//                                                                                //EMPTY CASE 22
+//                    //EMPTY CASE 22
 //
 //                case 24:
 //                    invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-//                     invertSlider->setValue(invertMacro);
+//                    invertSlider->setValue(invertMacro);
 //                    break;
 //                case 25:
 //                    rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
@@ -565,10 +646,10 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 //                    filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
 //                    filterBlueSlider->setValue(filterBlue);
 //                    break;
-//                                                                                        //EMPTY CASE 35
+//                    //EMPTY CASE 35
 //
 //                case 40:
-//                    kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.00);
+//                    kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
 //                    kaleidoscopeSlider->setValue(kaleidoscopeMacro);
 //                    break;
 //                case 41:
@@ -602,21 +683,21 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 //                    bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
 //                    bgColor1ColorPicker->setColor(bgColor1);
 //                    break;
-////                case 53:
-////                    bgColor2Red=msg.value;
-////                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-////                    bgColor2ColorPicker->setColor(bgColor2);
-////                    break;
-////                case 54:
-////                    bgColor2Green=msg.value;
-////                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-////                    bgColor2ColorPicker->setColor(bgColor2);
-////                    break;
-////                case 55:
-////                    bgColor2Blue=msg.value;
-////                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-////                    bgColor2ColorPicker->setColor(bgColor2);
-////                    break;
+//                    //                case 53:
+//                    //                    bgColor2Red=msg.value;
+//                    //                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    //                    bgColor2ColorPicker->setColor(bgColor2);
+//                    //                    break;
+//                    //                case 54:
+//                    //                    bgColor2Green=msg.value;
+//                    //                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    //                    bgColor2ColorPicker->setColor(bgColor2);
+//                    //                    break;
+//                    //                case 55:
+//                    //                    bgColor2Blue=msg.value;
+//                    //                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
+//                    //                    bgColor2ColorPicker->setColor(bgColor2);
+//                    //                    break;
 //                case 56:
 //                    pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
 //                    pixelateSlider->setValue(pixelateMacro);
@@ -654,30 +735,30 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 //                    ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
 //                    ledDotDistanceSlider->setValue(ledDotDistance);
 //                    break;
-//    //            case 68:
-//    //                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
-//    //                ledOffsetRXSlider->setValue(ledOffsetRX);
-//    //                break;
-//    //            case 69:
-//    //                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//    //                ledOffsetRYSlider->setValue(ledOffsetRY);
-//    //                break;
-//    //            case 70:
-//    //                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//    //                ledOffsetGXSlider->setValue(ledOffsetGX);
-//    //                break;
-//    //            case 71:
-//    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//    //                ledOffsetGYSlider->setValue(ledOffsetGY);
-//    //                break;
-//    //            case 72:
-//    //                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//    //                ledOffsetBXSlider->setValue(ledOffsetBX);
-//    //                break;
-//    //            case 73:
-//    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-//    //                ledOffsetGYSlider->setValue(ledOffsetGY);
-//    //                break;
+//                    //            case 68:
+//                    //                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
+//                    //                ledOffsetRXSlider->setValue(ledOffsetRX);
+//                    //                break;
+//                    //            case 69:
+//                    //                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                    //                ledOffsetRYSlider->setValue(ledOffsetRY);
+//                    //                break;
+//                    //            case 70:
+//                    //                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                    //                ledOffsetGXSlider->setValue(ledOffsetGX);
+//                    //                break;
+//                    //            case 71:
+//                    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                    //                ledOffsetGYSlider->setValue(ledOffsetGY);
+//                    //                break;
+//                    //            case 72:
+//                    //                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                    //                ledOffsetBXSlider->setValue(ledOffsetBX);
+//                    //                break;
+//                    //            case 73:
+//                    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
+//                    //                ledOffsetGYSlider->setValue(ledOffsetGY);
+//                    //                break;
 //                case 74:
 //                    rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
 //                    rotateMacroSlider->setValue(rotateMacro);
@@ -722,7 +803,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 //                case 84:
 //                    squareioscopeMacro2=ofMap(msg.value, 0, 127, 0.0, 1.0);
 //                    squareioscopeMacroSlider->setValue(squareioscopeMacro2);
-//                break;
+//                    break;
 //                case 85:
 //                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
 //                    vhsMacroSlider->setValue(vhsMacro);
@@ -735,9 +816,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 //                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
 //                    vhsSpeedSlider->setValue(vhsSpeed);
 //                    break;
-//            }
-//        }
-//    }
+            }
+        }
+    }
 }
 void ofApp::midiNoteOff(int pitch)//============================================================
 {
@@ -758,11 +839,10 @@ void ofApp::exit()//============================================================
     }
 }
 
-
 void ofApp::keyPressed(ofKeyEventArgs & args)//============================================================
 {
     //------------Ability to preview via QWERTY keyboard presses------------------
-                                                                    cout<<"key pressed\n"<<endl;
+//                                                                    cout<<"key pressed\n"<<endl;
     int key = args.key;
     if(key==OF_KEY_COMMAND) command=true;
     
@@ -801,8 +881,6 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
         player[playerFromMidiMessage].drawImage=true;
         player[playerFromMidiMessage].size=127;
         player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
-        
-//        cout<<"Currently Drawing increment \n";
         currentlyDrawing+=1;
     }
     
@@ -810,38 +888,11 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
 //--------------------------------------------------------------
 void ofApp::keyReleased(ofKeyEventArgs & args)//============================================================
 {
-                                                                            cout<<"Key Released"<<endl;
-    
+                                                                          //  cout<<"Key Released"<<endl;
     int key=args.key;
     
     switch (key)
     {
-//        case '1': player[0].drawImage=false; player[0].stop(); player[0].firstFrame(); break;
-//        case '2': player[1].drawImage=false; player[1].stop(); player[1].firstFrame(); break;
-//        case '3': player[2].drawImage=false; player[2].stop(); player[2].firstFrame(); break;
-//        case '4': player[3].drawImage=false; player[3].stop(); player[3].firstFrame(); break;
-//        case '5': player[4].drawImage=false; player[4].stop(); player[4].firstFrame(); break;
-//        case '6': player[5].drawImage=false; player[5].stop(); player[5].firstFrame(); break;
-//        case '7': player[6].drawImage=false; player[6].stop(); player[6].firstFrame(); break;
-//        case '8': player[7].drawImage=false; player[7].stop(); player[7].firstFrame(); break;
-//        case '9': player[8].drawImage=false; player[8].stop(); player[8].firstFrame(); break;
-//        case '0': player[9].drawImage=false; player[9].stop(); player[9].firstFrame(); break;
-//        case 'q': player[10].drawImage=false; player[10].stop(); player[10].firstFrame();break;
-//        case 'w': player[11].drawImage=false; player[11].stop(); player[11].firstFrame();break;
-//        case 'e': player[12].drawImage=false; player[12].stop(); player[12].firstFrame();break;
-//        case 'r': player[13].drawImage=false; player[13].stop(); player[13].firstFrame();break;
-//        case 't': player[14].drawImage=false; player[14].stop(); player[14].firstFrame();break;
-//        case 'y': player[15].drawImage=false; player[15].stop(); player[15].firstFrame();break;
-//        case 'u': player[16].drawImage=false; player[16].stop(); player[16].firstFrame();break;
-//        case 'i': player[17].drawImage=false; player[17].stop(); player[17].firstFrame();break;
-//        case 'o': player[18].drawImage=false; player[18].stop(); player[18].firstFrame();break;
-//        case 'p': player[19].drawImage=false; player[19].stop(); player[19].firstFrame();break;
-//        case 'a': player[20].drawImage=false; player[20].stop(); player[20].firstFrame();break;
-//        case 's': player[21].drawImage=false; player[21].stop(); player[21].firstFrame();break;
-//        case 'd': player[22].drawImage=false; player[22].stop(); player[22].firstFrame();break;
-//        case 'f': player[23].drawImage=false; player[23].stop(); player[23].firstFrame();break;
-//        case 'g': player[24].drawImage=false; player[24].stop(); player[24].firstFrame();break;
-            
             case '1': videoNumber=0; break;
             case '2': videoNumber=1; break;
             case '3': videoNumber=2; break;
@@ -874,7 +925,7 @@ void ofApp::keyReleased(ofKeyEventArgs & args)//================================
         player[videoNumber].drawImage=false;
         player[videoNumber].stop();
         player[videoNumber].firstFrame();
-        currentlyDrawing-=1;                            cout<<"Currently Drawing decrement \n";
+        currentlyDrawing-=1;
     }
 }
 ////--------------------------------------------------------------
@@ -1003,11 +1054,69 @@ void ofApp::onToggleEventGui3(ofxDatGuiToggleEvent e)//=========================
     int toggle = e.target->getCount();
 }
 
+void ofApp::onTextInputEventGui1(ofxDatGuiTextInputEvent e)
+{
+    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX)
+    {   cout<<"NumberBox event \n";
+    }
+}
+
 void ofApp::onTextInputEventGui3(ofxDatGuiTextInputEvent e)
 {
-    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX) cout<<"NumberBox event \n";
+    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX)cout<<"Text input number event\n";
     if(e.type==ofxDatGuiNumberBoxEventType::INPUT) cout<<"mInput event \n";
 }
+
+void ofApp::onNumberBoxChangedEventGui1(ofxDatGuiNumberBoxChangedEvent e)
+{
+    cout<<"Evan's fun NumberBox Event \n";
+    
+    if(!validMidiCC(e.value))
+    {
+        e.target->setNumberBoxNumber(e.target->getPreviousNumberBoxNumber());
+        return;
+    }
+    removeFxParameter(e.target, e.target->getPreviousNumberBoxNumber());
+    fxByCC[e.target->getNumberBoxNumber()].push_back(getFxParameter(e.target));
+}
+
+ofApp::fxParameter* ofApp::getFxParameter(ofxDatGuiComponent *e)
+{
+    for(int i=0;i<127;i++)
+    {
+        for(int j=0;j<fxByCC[i].size();j++)
+        {
+            if(fxByCC[i][j]->compare(e))return fxByCC[i][j];
+        }
+    }
+    cout<<"No cooresponding fx found\n";
+    return 0;
+}
+
+bool ofApp::validMidiCC(int cc)
+{
+    if(cc>=0 && cc<=127)
+    {
+        if(cc==64 || cc==123) return false;
+        else return true;
+    }
+    else ofSystemAlertDialog("Invalid MIDI CC number entered");
+    return false;
+}
+
+ void ofApp::removeFxParameter(ofxDatGuiComponent *e, int previous)
+{
+    for(int i=0;i<fxByCC[previous].size();i++)
+    {
+        if(fxByCC[previous][i]->compare(e))
+        {
+            fxByCC[previous].erase(fxByCC[previous].begin()+i);
+            cout<<"fxParameter added at "<<previous<< ", "<< i <<"\n";
+        }
+    }
+}
+
+
 
 void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//============================================================
 {
@@ -1309,9 +1418,6 @@ bool ofApp::saveSettings()//====================================================
         bgColor1Red=(bgColor1.getHue());
         bgColor1Green=(bgColor1.getSaturation());
         bgColor1Blue=(bgColor1.getBrightness());
-//        bgColor2Red=(bgColor2.getHue());
-//        bgColor2Green=(bgColor2.getSaturation());
-//        bgColor2Blue=(bgColor2.getBrightness());
         
         xmlSettings.setValue("xmlSettings:fxWet:fxWet", fxMacro.value);
         xmlSettings.setValue("xmlSettings:video:speed", videoSpeed);
@@ -1323,9 +1429,6 @@ bool ofApp::saveSettings()//====================================================
         xmlSettings.setValue("xmlSettings:color:bgColor1Red", bgColor1Red);
         xmlSettings.setValue("xmlSettings:color:bgColor1Green", bgColor1Green);
         xmlSettings.setValue("xmlSettings:color:bgColor1Blue", bgColor1Blue);
-//        xmlSettings.setValue("xmlSettings:color:bgColor2Red", bgColor2Red);
-//        xmlSettings.setValue("xmlSettings:color:bgColor2Green", bgColor2Green);
-//        xmlSettings.setValue("xmlSettings:color:bgColor2Blue", bgColor2Blue);
         
         xmlSettings.setValue("xmlSettings:invert:invert", invertMacro.value);
         
@@ -1403,7 +1506,6 @@ bool ofApp::midiPort(int midiPortOption)//======================================
 
 void ofApp::windowResized(ofResizeEventArgs &resize)
 { //--------Event handler for window resizing----------------------
-
     allocateFBOs();
 }
 
