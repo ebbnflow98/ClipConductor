@@ -6,7 +6,7 @@ OF_PATH = ../../..
 #include "../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig"
 
 //ICONS - NEW IN 0072 
-ICON_NAME_DEBUG = spectacle-debug.icns
+ICON_NAME_DEBUG = spectacle.icns
 ICON_NAME_RELEASE = spectacle.icns
 //ICON_FILE_PATH = $(OF_PATH)/libs/openFrameworksCompiled/project/osx/
 

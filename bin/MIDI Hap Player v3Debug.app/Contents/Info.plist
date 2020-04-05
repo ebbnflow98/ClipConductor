@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>MIDI Hap Player v3Debug</string>
 	<key>CFBundleIconFile</key>
-	<string>bin/data/icon.icns</string>
+	<string>spectacle.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>cc.openFrameworks.ofapp</string>
 	<key>CFBundleInfoDictionaryVersion</key>

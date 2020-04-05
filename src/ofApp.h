@@ -196,15 +196,11 @@ public ofxMidiListener
             else slider->setValue(value);
         }
         
-        ofxDatGuiComponent * getAThing()
-        {
-            return slider;
-        }
-        
         bool compare(ofxDatGuiComponent* e)
         {
-            if(type==e->getType()) return false;
-            if(e==slider) return true;
+            if(type!=e->getType()) return false;
+            ofxDatGuiSlider *ptr= dynamic_cast<ofxDatGuiSlider*>(e);
+            if(ptr==slider) return true;
             return false;
         }
         
@@ -355,45 +351,57 @@ public ofxMidiListener
     
     vector<fxParameter*> fxByCC[127];
     
+    float fxMacro=1.0;
+      ofxDatGuiSlider *fxMacroSlider;
     
-    fxSlider fxMacro,
-    
-    invertMacro,
-    
-    rippleMacro, rippleX, rippleY, rippleRate;
-    bool rippleSync=false;
-    ofxDatGuiToggle *rippleSyncToggle;
-    
-    fxSlider filterMacro, filterRed, filterGreen, filterBlue,
-    
-    kaleidoscopeMacro, kaleiodioscopeX, kaleiodioscopeY, kaleidioscopeAngle, kaleidioscopeSectors,
-    
-    pixelateMacro,
-    
-    fullhouseMacro,
-    
-    asciiMacro, asciiDotDistance, asciiImageGain, asciiImageContrast;
+     float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
     bool asciiInvert=false;
+    ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
     ofxDatGuiToggle *asciiInvertToggle;
     ofTexture font;
     
-    fxSlider ledMacro, ledDotDistance, ledOffsetRX, ledOffsetRY, ledOffsetGX, ledOffsetGY, ledOffsetBX, ledOffsetBY,
+    float ledMacro=0.0, ledDotDistance=0.0, ledOffsetRX=0.0, ledOffsetRY=0.0, ledOffsetGX=0.0, ledOffsetGY=0.0, ledOffsetBX=0.0, ledOffsetBY=0.0;
+    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider, *ledOffsetRXSlider, *ledOffsetRYSlider, *ledOffsetGXSlider, *ledOffsetGYSlider, *ledOffsetBXSlider, *ledOffsetBYSlider;
     
-    rotateMacro, rotateScreenCenter,
+    int pixelateMacro=0;
+    ofxDatGuiSlider *pixelateMacroSlider;
     
-    zebraMacro, zebraSpeed, zebraLevels,
+    int fullhouseMacro=0;
+    ofxDatGuiSlider *fullhouseMacroSlider;
     
-    chromaKeyMacro, chromaKeyThreshold;
+    float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidioscopeAngle=0.0, kaleidioscopeSectors=1;
+    ofxDatGuiSlider *kaleidoscopeMacroSlider, *kaleidoscopeAngleSlider, *kaleidoscopeXSlider, *kaleidoscopeYSlider, *kaleidoscopeSectorSlider;
     
+    float filterMacro=0.0, filterRed=1.0, filterGreen=1, filterBlue=1.0, filterAlpha=1.0;
+    ofxDatGuiSlider *filterMacroSlider,*filterRedSlider, *filterGreenSlider, *filterBlueSlider, *filterAlphaSlider;
+    
+    float rippleMacro=0.0, rippleX=1.0, rippleY=1.0, rippleRate=60.0;
+    ofxDatGuiSlider *rippleMacroSlider ,*rippleXSlider, *rippleYSlider, *rippleRateSlider;
+    bool rippleSync=false;
+    ofxDatGuiToggle *rippleSyncToggle;
+    ofxDatGuiWaveMonitor *rippleWaveMonitor;
+    
+    float invertMacro=0.0;
+    ofxDatGuiSlider *invertMacroSlider;
+    
+    float rotateMacro=0.0, rotateScreenCenter=0.0;
+    ofxDatGuiSlider *rotateMacroSlider;
+    
+    float zebraMacro=0.0, zebraSpeed=0.0;
+    int zebraLevels=2;
+    ofxDatGuiSlider *zebraMacroSlider, *zebraSpeedSlider, *zebraLevelsSlider;
+
+    float squareioscopeMacro=0.0, squareioscopeMacro2=0.0;
+    ofxDatGuiSlider *squareioscopeMacroSlider, *squareioscopeMacro2Slider;
+    
+    float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
+    ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
     evanColor chromaKeyColor= evanColor();
     int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
     ofxDatGuiColorPicker *chromaKeyColorPicker;
     
-    fxSlider squareioscopeMacro, squareioscopeMacro2,
-    
-    vhsMacro, vhsStrength, vhsSpeed;
-    
-    
+    float vhsMacro, vhsStrength, vhsSpeed;
+    ofxDatGuiSlider *vhsMacroSlider, *vhsStrengthSlider, *vhsSpeedSlider;
     
 //Loading/Saving----------------------------------------
     const int max_videos=25;
