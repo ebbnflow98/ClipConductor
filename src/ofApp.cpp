@@ -9,7 +9,7 @@ int snaves=0;
 void ofApp::setup()//============================================================
 {
     
-//    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
+    //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
     if(shader.load("fxShader.vert","fxShader.frag"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
@@ -20,8 +20,8 @@ void ofApp::setup()//===========================================================
     if(snaves==0) allocateFBOs();
     
     ofLog()<<(char*)glGetString(GL_VERSION);
-
-//---MIDI Setup-----------------------------------------------------
+    
+    //---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
     midiIn.listInPorts(); // print input ports
     midiIn.openPort(0);
@@ -29,7 +29,7 @@ void ofApp::setup()//===========================================================
     midiIn.addListener(this);   // add ofApp as a listener
     videoCount=0;
     
-//--GUI setup--------------------------------------------------
+    //--GUI setup--------------------------------------------------
     
     if(snaves==0)
     {
@@ -79,83 +79,83 @@ void ofApp::setup()//===========================================================
         gui->getLabel("FX")->drawPicture=true;
         gui->getLabel("FX")->pictureChoice=ofxDatGuiLabel::differentPictures::EYE;
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
-          
-          videoFolder=gui->addFolder("Video Controls");
-          videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
-          videoSyncToggle=videoFolder->addToggle("Video Sync");
-          videoDivisionSlider=videoFolder->addSlider("Video Division",1,8,1);
+        
+        videoFolder=gui->addFolder("Video Controls");
+        videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
+        videoSyncToggle=videoFolder->addToggle("Video Sync");
+        videoDivisionSlider=videoFolder->addSlider("Video Division",1,8,1);
         
         invertFolder=gui->addFolder("Invert");
-                invertMacroSlider=invertFolder->addSlider("Invert", 0.0, 1.0, invertMacro);
-                invertMacroSlider->setPrecision(1);
-                invertMacroSlider->setValue(invertMacro);
-                
-                rippleFolder=gui->addFolder("Ripple");
-                rippleMacroSlider = rippleFolder->addSlider("Ripple", 0.0,1.0,rippleMacro);
-                rippleSyncToggle=rippleFolder->addToggle("Sync");
-                rippleXSlider=rippleFolder->addSlider("X", 0.0, 1.0,rippleX);
-                rippleYSlider=rippleFolder->addSlider("Y", 0.0, 1.0,rippleY);
-                rippleRateSlider=rippleFolder->addSlider("Rate",0.1, 300.00,rippleRate);
-                
-                filterFolder=gui->addFolder("Filter");
-                filterMacroSlider=filterFolder->addSlider("Filter",0.0,1.0,filterMacro);
-                filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
-                filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
-                filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
+        invertMacroSlider=invertFolder->addSlider("Invert", 0.0, 1.0, invertMacro);
+        invertMacroSlider->setPrecision(1);
+        invertMacroSlider->setValue(invertMacro);
+        
+        rippleFolder=gui->addFolder("Ripple");
+        rippleMacroSlider = rippleFolder->addSlider("Ripple", 0.0,1.0,rippleMacro);
+        rippleSyncToggle=rippleFolder->addToggle("Sync");
+        rippleXSlider=rippleFolder->addSlider("X", 0.0, 1.0,rippleX);
+        rippleYSlider=rippleFolder->addSlider("Y", 0.0, 1.0,rippleY);
+        rippleRateSlider=rippleFolder->addSlider("Rate",0.1, 300.00,rippleRate);
+        
+        filterFolder=gui->addFolder("Filter");
+        filterMacroSlider=filterFolder->addSlider("Filter",0.0,1.0,filterMacro);
+        filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
+        filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
+        filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
         //        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
-
-                kaleidioscopeFolder=gui->addFolder("Kaleidioscope");
-                kaleidoscopeMacroSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
-                kaleidoscopeSectorSlider=kaleidioscopeFolder->addSlider("Sectors", 1.0, 100,kaleidioscopeSectors);
-                kaleidoscopeAngleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
-                kaleidoscopeXSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
-                kaleidoscopeYSlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
-                
-                pixelateFolder=gui->addFolder("Pixelate");
-                pixelateMacroSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
-                
-                fullhouseFolder=gui->addFolder("Fullhouse");
-                fullhouseMacroSlider=fullhouseFolder->addSlider("Fullhouse", 1, 50, fullhouseMacro);
-                
-                asciiFolder=gui->addFolder("Ascii");
-                asciiMacroSlider=asciiFolder->addSlider("Ascii", 0.0,1.0,asciiMacro);
-                asciiInvertToggle=asciiFolder->addToggle("Ascii Invert", asciiInvert);
-                asciiImageContrastSlider=asciiFolder->addSlider("Ascii Image Contrast", 0.0, 1.0,asciiImageContrast);
-                asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
-                asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
-
-                ledFolder=gui->addFolder("LED");
-                ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
-                ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
+        
+        kaleidioscopeFolder=gui->addFolder("Kaleidioscope");
+        kaleidoscopeMacroSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
+        kaleidoscopeSectorSlider=kaleidioscopeFolder->addSlider("Sectors", 1.0, 100,kaleidioscopeSectors);
+        kaleidoscopeAngleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
+        kaleidoscopeXSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
+        kaleidoscopeYSlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
+        
+        pixelateFolder=gui->addFolder("Pixelate");
+        pixelateMacroSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
+        
+        fullhouseFolder=gui->addFolder("Fullhouse");
+        fullhouseMacroSlider=fullhouseFolder->addSlider("Fullhouse", 1, 50, fullhouseMacro);
+        
+        asciiFolder=gui->addFolder("Ascii");
+        asciiMacroSlider=asciiFolder->addSlider("Ascii", 0.0,1.0,asciiMacro);
+        asciiInvertToggle=asciiFolder->addToggle("Ascii Invert", asciiInvert);
+        asciiImageContrastSlider=asciiFolder->addSlider("Ascii Image Contrast", 0.0, 1.0,asciiImageContrast);
+        asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
+        asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
+        
+        ledFolder=gui->addFolder("LED");
+        ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
+        ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
         //        ledOffsetRXSlider=ledFolder->addSlider("Red Offset X", 0.0 , 1.0, ledOffsetRX);
         //        ledOffsetRYSlider=ledFolder->addSlider("Red Offset Y", 0.0 , 1.0, ledOffsetRY);
         //        ledOffsetGXSlider=ledFolder->addSlider("Green Offset X", 0.0 , 1.0, ledOffsetGX);
         //        ledOffsetGYSlider=ledFolder->addSlider("Green Offset Y", 0.0 , 1.0, ledOffsetGY);
         //        ledOffsetBXSlider=ledFolder->addSlider("Blue Offset X", 0.0 , 1.0, ledOffsetBX);
         //        ledOffsetBYSlider=ledFolder->addSlider("Blue Offset Y", 0.0 , 1.0, ledOffsetBY);
-                
-                rotateFolder=gui->addFolder("Rotate");
-                rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
-                
-                zebraFolder=gui->addFolder("Zebra");
-                zebraMacroSlider=zebraFolder->addSlider("Zebra", 0.0, 1.0,zebraMacro);
-                zebraSpeedSlider=zebraFolder->addSlider("Speed",0.0,1.0,zebraSpeed);
-                zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
-                
-                chromaKeyFolder=gui->addFolder("ChromaKey");
-                chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
-                chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
-                chromaKeyColorPicker->setColor(ofColor::green);
-                chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
-                
-                squareioscopeFolder=gui->addFolder("Squareioscope");
-                squareioscopeMacroSlider=squareioscopeFolder->addSlider("Squareioscope", 0.0, 1.0, squareioscopeMacro);
-                squareioscopeMacro2Slider=squareioscopeFolder->addSlider("Squareioscope2", 0.0, 1.0,squareioscopeMacro);
-                
-                vhsFolder=gui->addFolder("VHS");
-                vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
-                vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
-                vhsSpeedSlider=vhsFolder->addSlider("Speed",0,60,vhsSpeed);
+        
+        rotateFolder=gui->addFolder("Rotate");
+        rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
+        
+        zebraFolder=gui->addFolder("Zebra");
+        zebraMacroSlider=zebraFolder->addSlider("Zebra", 0.0, 1.0,zebraMacro);
+        zebraSpeedSlider=zebraFolder->addSlider("Speed",0.0,1.0,zebraSpeed);
+        zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
+        
+        chromaKeyFolder=gui->addFolder("ChromaKey");
+        chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
+        chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
+        chromaKeyColorPicker->setColor(ofColor::green);
+        chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
+        
+        squareioscopeFolder=gui->addFolder("Squareioscope");
+        squareioscopeMacroSlider=squareioscopeFolder->addSlider("Squareioscope", 0.0, 1.0, squareioscopeMacro);
+        squareioscopeMacro2Slider=squareioscopeFolder->addSlider("Squareioscope2", 0.0, 1.0,squareioscopeMacro);
+        
+        vhsFolder=gui->addFolder("VHS");
+        vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
+        vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
+        vhsSpeedSlider=vhsFolder->addSlider("Speed",0,60,vhsSpeed);
         
         gui->addBreak();
         gui->addBreak();
@@ -183,7 +183,7 @@ void ofApp::setup()//===========================================================
         mEditLight.addListener(this, &ofApp::onEditLightEventGui3);
         gui3->onTextInputEvent(this, &ofApp::onTextInputEventGui3);
         
-
+        
         tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         kaleidoscopeSectorSlider->setPrecision(0);
@@ -204,10 +204,10 @@ void ofApp::setup()//===========================================================
         gui->draw();
         gui2->draw();
         gui3->draw();
-//        ofBackground(theme->color.guiBackground);
+        //        ofBackground(theme->color.guiBackground);
         ofBackground(ofColor::black);
-//        mAddNewLight.setTheme(theme);
-//        mEditLight.setTheme(theme);
+        //        mAddNewLight.setTheme(theme);
+        //        mEditLight.setTheme(theme);
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
     }
@@ -227,7 +227,7 @@ void ofApp::exitGui(ofEventArgs &args)//========================================
 
 void ofApp::update()//============================================================
 {//---------Tempo update--------------------------------
-//                                                                          cout << "update"<< endl;
+    //                                                                          cout << "update"<< endl;
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
     {
         ofLog() << "timecode stopped";
@@ -236,11 +236,15 @@ void ofApp::update()//==========================================================
     getWidth=ofGetWidth();
     getHeight=ofGetHeight();
     
-//    cout<<"currentlyDrawing: "<<currentlyDrawing<<"\n";
+    //    cout<<"currentlyDrawing: "<<currentlyDrawing<<"\n";
 }
 
 void ofApp::draw()//============================================================
 {
+    if(gui2->mEnabled)
+    {
+//        cout<<"uh oh gui2 \n";
+    }
     drawCount=currentlyDrawing;
     chromaKeyVideo=-1;
     
@@ -250,8 +254,8 @@ void ofApp::draw()//============================================================
     ofClear(0,0,0,0);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
-//----------Draw Video---------------------------------
-//                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
+    //----------Draw Video---------------------------------
+    //                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
     
     for(int i=0;i<max_videos;i++)
@@ -265,16 +269,16 @@ void ofApp::draw()//============================================================
                 videoSpeed=(((player[imageToDraw].video.getDuration())/bps)*videoDivision);
                 player[i].setSpeed(videoSpeed/2);
                 player[i].play();
-//                                                                      cout<<"image to draw"<<imageToDraw<<endl;
+                //                                                                      cout<<"image to draw"<<imageToDraw<<endl;
             }
             else
             {
                 player[i].setSpeed(videoSpeed2);
                 if(player[i].isPlaying()==false)player[i].play();
             }
-                    
+            
             if(videoCount>4) break;
-          
+            
             player[i].setLoopState(OF_LOOP_NORMAL);
             ofSetColor(255,255,255,player[i].opacity);      //set color in order to draw video according to its opacity value
             if(drawCount!=0)player[i].draw(0,0,getWidth,getHeight);         //draw video
@@ -288,17 +292,17 @@ void ofApp::draw()//============================================================
     ofEnableSmoothing();
     fbo.end();                                              //FBO end
     
-//-----Chroma Key Video FBO--------------------------------------------------
+    //-----Chroma Key Video FBO--------------------------------------------------
     
     chromaKeyVideoFbo.begin();
     ofClear(0,0,0,0);
-     
+    
     if(chromaKeyVideo!= -1)player[chromaKeyVideo].draw(0, 0, getWidth, getHeight);
     
     chromaKeyVideoFbo.end();
     
-//-----Chroma Key FX FBO/Shader--------------------------------------------------
-
+    //-----Chroma Key FX FBO/Shader--------------------------------------------------
+    
     chromaKeyFxFbo.begin();
     ofClear(0,0,0,0);
     
@@ -313,9 +317,9 @@ void ofApp::draw()//============================================================
     
     chromaKeyShader.end();
     chromaKeyFxFbo.end();
-
-//-------Blend FBO---------------------------------------------------------
-
+    
+    //-------Blend FBO---------------------------------------------------------
+    
     blendFbo.begin();
     ofClear(0,0,0,0);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
@@ -327,42 +331,42 @@ void ofApp::draw()//============================================================
     blendFbo.end();
     
     
-//-------FX FBO/Shader---------------------------------------------------------
-
+    //-------FX FBO/Shader---------------------------------------------------------
+    
     fbo2.begin();                                           //FBO 2 begin
     ofClear(0,0,0,0);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     shader.begin();                                         //Shader1 begin
     float time = ofGetElapsedTimef();
-
+    
     shader.setUniform1f("fxMacro", fxMacro);
-
+    
     shader.setUniform1f("time", time);
     shader.setUniform2f("resolution", getWidth,getHeight);
-
+    
     shader.setUniform1f("filterMacro", filterMacro);
     shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
-
+    
     shader.setUniform1f("invertMacro", invertMacro);
-
+    
     shader.setUniform1f("rippleMacro", rippleMacro);
     shader.setUniform2f("rippleXY", rippleX,rippleY);
     shader.setUniform1f("rippleRate",rippleRate);
-
+    
     shader.setUniform1i("ksectors", int(kaleidioscopeSectors*kaleidoscopeMacro));
     shader.setUniform2f("kcenter", kaleiodioscopeX*kaleidoscopeMacro,kaleiodioscopeY*kaleidoscopeMacro);
     shader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
     shader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
     if(kaleidoscopeMacro<.5) shader.setUniform2f("screenCenter",0,0);
     else shader.setUniform2f("screenCenter",0.5*getWidth,0.5*getHeight);
-
+    
     shader.setUniform1i("pixelateMacro", int(pixelateMacro));
-
+    
     shader.setUniform1i("fullhouseMacro", int(fullhouseMacro));
-
+    
     shader.setUniform1f("rotateMacro", rotateMacro);
     shader.setUniform2f("rotateScreenCenter",0.5*getWidth,0.5*getHeight);
-
+    
     shader.setUniform1f("zebraMacro", zebraMacro);
     shader.setUniform1f("zebraSpeed", zebraSpeed);
     shader.setUniform1i("zebraLevels", zebraLevels);
@@ -373,19 +377,19 @@ void ofApp::draw()//============================================================
     shader.setUniform1f("vhsMacro", vhsMacro);
     shader.setUniform1f("vhsStrength", vhsStrength);
     shader.setUniform1f("vhsSpeed", vhsSpeed);
-//    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
-//    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
+    //    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
+    //    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
     blendFbo.draw(0,0,getWidth, getHeight);
     shader.end();                                   //shader1 end
     fbo2.end();                                     // FBO 2 end
     
-//    fbo2.draw(0,0,getWidth,getHeight);
-
-//------ASCII FBO/Shader---------------------------------------------------------------------------------------------
+    //    fbo2.draw(0,0,getWidth,getHeight);
+    
+    //------ASCII FBO/Shader---------------------------------------------------------------------------------------------
     fbo3.begin();                                   //FBO 3 begin
     ofClear(0,0,0,0);
     asciiShader.begin();                            //ASCII Shader begin
-
+    
     asciiShader.setUniform1f("fxMacro", fxMacro);
     asciiShader.setUniform1f("asciiMacro", asciiMacro);
     asciiShader.setUniform1f("asciiDotDistance", asciiDotDistance);
@@ -393,31 +397,31 @@ void ofApp::draw()//============================================================
     asciiShader.setUniform1f("asciiImageContrast", asciiImageContrast);
     asciiShader.setUniform1i("asciiInvert", int(asciiInvert));
     asciiShader.setUniformTexture("font", font, 8);
-
+    
     fbo2.draw(0,0, getWidth, getHeight);              //FBO 2 draw
-
+    
     asciiShader.end();                                //ASCII Shader end
     fbo3.end();                                       //FBO 3 end
-
-//-------LED FBO/Shader---------------------------------------------------------
+    
+    //-------LED FBO/Shader---------------------------------------------------------
     fbo4.begin();                                       //FBO 4 begin
     ofClear(0,0,0,0);
     ledShader.begin();                                 //LED Shader begin
-
+    
     ledShader.setUniform1f("fxMacro", fxMacro);
     ledShader.setUniform1f("ledMacro", ledMacro);
     ledShader.setUniform1f("ledDotDistance", ledDotDistance);
-//    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
-//    ledShader.setUniform2f("ledOffsetGreen", ledOffsetGX, ledOffsetGY);
-//    ledShader.setUniform2f("ledOffsetBlue", ledOffsetBX, ledOffsetBY);
-
-//    ofSetColor(255, 255, 255);
-//    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    //    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
+    //    ledShader.setUniform2f("ledOffsetGreen", ledOffsetGX, ledOffsetGY);
+    //    ledShader.setUniform2f("ledOffsetBlue", ledOffsetBX, ledOffsetBY);
+    
+    //    ofSetColor(255, 255, 255);
+    //    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     fbo3.draw(0,0, getWidth, getHeight);                //FBO 3 draw
-
+    
     ledShader.end();                                    //LED Shader end
     fbo4.end();                                         //FBO 4 end
-
+    
     fbo4.draw(0,0, getWidth, getHeight);                //FBO 4 draw (final draw)
 }
 
@@ -472,7 +476,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         fxByCC[msg.control][i]->onMidiMessage(msg.value);
                     }
                 case 15:
-
+                    
                     break;
                 case 16:
                     videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
@@ -505,9 +509,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
                     //                bgColor1ColorPicker->setColor(bgColor1);
                     //                break;
-
+                    
                     //EMPTY CASE 22
-
+                    
                 case 24:
                     invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
                     invertMacroSlider->setValue(invertMacro);
@@ -536,7 +540,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     else rippleRate=ofMap(msg.value,0, 127, .1, 300);
                     rippleRateSlider->setValue(rippleRate);
                     break;
-
+                    
                 case 30:
                     filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
                     filterMacroSlider->setValue(filterMacro);
@@ -554,7 +558,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     filterBlueSlider->setValue(filterBlue);
                     break;
                     //EMPTY CASE 35
-
+                    
                 case 40:
                     kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
                     kaleidoscopeMacroSlider->setValue(kaleidoscopeMacro);
@@ -678,7 +682,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
                     zebraSpeedSlider->setValue(zebraSpeed);
                     break;
-
+                    
                 case 77:
                     zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
                     zebraLevelsSlider->setValue(zebraLevels);
@@ -729,9 +733,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 }
 void ofApp::midiNoteOff(int pitch)//============================================================
 {
-        player[pitch-60].drawImage=false;
-        player[pitch-60].stop();
-        player[pitch-60].firstFrame();
+    player[pitch-60].drawImage=false;
+    player[pitch-60].stop();
+    player[pitch-60].firstFrame();
 }
 
 void ofApp::exit()//============================================================
@@ -749,7 +753,7 @@ void ofApp::exit()//============================================================
 void ofApp::keyPressed(ofKeyEventArgs & args)//============================================================
 {
     //------------Ability to preview via QWERTY keyboard presses------------------
-//                                                                    cout<<"key pressed\n"<<endl;
+    //                                                                    cout<<"key pressed\n"<<endl;
     int key = args.key;
     if(key==OF_KEY_COMMAND) command=true;
     
@@ -795,36 +799,36 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
 //--------------------------------------------------------------
 void ofApp::keyReleased(ofKeyEventArgs & args)//============================================================
 {
-                                                                          //  cout<<"Key Released"<<endl;
+    //  cout<<"Key Released"<<endl;
     int key=args.key;
     
     switch (key)
     {
-            case '1': videoNumber=0; break;
-            case '2': videoNumber=1; break;
-            case '3': videoNumber=2; break;
-            case '4': videoNumber=3; break;
-            case '5': videoNumber=4; break;
-            case '6': videoNumber=5; break;
-            case '7': videoNumber=6; break;
-            case '8': videoNumber=7; break;
-            case '9': videoNumber=8; break;
-            case '0': videoNumber=9; break;
-            case 'q': videoNumber=10; break;
-            case 'w': videoNumber=11; break;
-            case 'e': videoNumber=12; break;
-            case 'r': videoNumber=13; break;
-            case 't': videoNumber=14; break;
-            case 'y': videoNumber=15; break;
-            case 'u': videoNumber=16; break;
-            case 'i': videoNumber=17; break;
-            case 'o': videoNumber=18; break;
-            case 'p': videoNumber=19; break;
-            case 'a': videoNumber=20; break;
-            case 's': videoNumber=21; break;
-            case 'd': videoNumber=22; break;
-            case 'f': videoNumber=23; break;
-            case 'g': videoNumber=24; break;
+        case '1': videoNumber=0; break;
+        case '2': videoNumber=1; break;
+        case '3': videoNumber=2; break;
+        case '4': videoNumber=3; break;
+        case '5': videoNumber=4; break;
+        case '6': videoNumber=5; break;
+        case '7': videoNumber=6; break;
+        case '8': videoNumber=7; break;
+        case '9': videoNumber=8; break;
+        case '0': videoNumber=9; break;
+        case 'q': videoNumber=10; break;
+        case 'w': videoNumber=11; break;
+        case 'e': videoNumber=12; break;
+        case 'r': videoNumber=13; break;
+        case 't': videoNumber=14; break;
+        case 'y': videoNumber=15; break;
+        case 'u': videoNumber=16; break;
+        case 'i': videoNumber=17; break;
+        case 'o': videoNumber=18; break;
+        case 'p': videoNumber=19; break;
+        case 'a': videoNumber=20; break;
+        case 's': videoNumber=21; break;
+        case 'd': videoNumber=22; break;
+        case 'f': videoNumber=23; break;
+        case 'g': videoNumber=24; break;
     }
     
     if(player[videoNumber].drawImage!=false)
@@ -852,7 +856,7 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)//=========================
 
 void ofApp::dragEvent(ofDragInfo & dragInfo)//============================================================
 {//--------event handler function for when a file is dragged into Spectacle window----------------------
-
+    
     if(dragInfo.files.size() > 0)
     {
         for(int m=0;m<dragInfo.files.size();m++)
@@ -883,12 +887,14 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)//==================================
 
 void ofApp::onAddNewLightEventGui3(ofxModalEvent e)//==========================
 {
-     if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
-     else if (e.type == ofxModalEvent::CONFIRM)
-     {
-         cout << "confirm button was selected" << endl;
-         addLight();
-     }
+    if(e.type==ofxModalEvent::SHOWN) disableGuis();
+    else if(e.type==ofxModalEvent::HIDDEN) enableGuis();
+    else if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
+    else if (e.type == ofxModalEvent::CONFIRM)
+    {
+        cout << "confirm button was selected" << endl;
+        addLight();
+    }
 }
 
 void ofApp::onRightClickEventGui3(ofxDatGuiRightClickEvent e)//============================================================
@@ -908,14 +914,14 @@ void ofApp::onSliderEventGui3(ofxDatGuiSliderEvent e)//=========================
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//============================================================
 {//--------Button event handler function for FX buttons----------------------
-
+    
     if(e.target==saveButton) saveSettings();
     else if(e.target==loadButton) loadSettings();
 }
 
 void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///============================================================
 {//--------Button event handler function for video array part of GUI----------------------
-//                                                            cout << "onButtonEvent: " << e.target->getLabel() << endl;
+    //                                                            cout << "onButtonEvent: " << e.target->getLabel() << endl;
     if(e.target==clearAllButton) clearAllVideos();
     
     else
@@ -939,14 +945,18 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///========================
 
 void ofApp::onButtonEventGui3(ofxDatGuiButtonEvent e)//============================================================
 {
-    if(e.target==addLightButton) mAddNewLight.show(getRigSize(), getRigSize()); //clear light first and pass in midiCCStart and dmxChannelStart
+    if(e.target==addLightButton)
+    {
+        
+        mAddNewLight.show(getRigSize(), getRigSize()); //clear light first and pass in midiCCStart and dmxChannelStart
+    }
 }
 
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//============================================================
 {//--------Toggle event handler function----------------------
-
+    
     if (e.target==tripletToggle)triplet=!triplet;
-//    else if (e.target->is("Background Switch"))backgroundSwitch=!backgroundSwitch;
+    //    else if (e.target->is("Background Switch"))backgroundSwitch=!backgroundSwitch;
     else if (e.target==videoSyncToggle)videoSync=!videoSync;
     
     else if(e.target==clearToggle) clear=!clear;
@@ -1011,7 +1021,7 @@ bool ofApp::validMidiCC(int cc)
     return false;
 }
 
- void ofApp::removeFxParameter(ofxDatGuiComponent *e, int previous)
+void ofApp::removeFxParameter(ofxDatGuiComponent *e, int previous)
 {
     for(int i=0;i<fxByCC[previous].size();i++)
     {
@@ -1064,7 +1074,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     else if(e.target==asciiImageGainSlider)asciiImageGain=(e.target->getValue());
     else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
     else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
-
+    
     else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
     else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
     else if(e.target==ledOffsetRXSlider)ledOffsetRX=(e.target->getValue());
@@ -1093,7 +1103,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//============================================================
 {    //--------Color picker event handler function----------------------
-//                                        cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
+    //                                        cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
     if (e.target->is("BG Color 1"))
     {
         bgColor1=(e.color);
@@ -1143,7 +1153,7 @@ void ofApp::clearAllVideos()//==================================================
 {//--------function to clear all videos from array----------------------
     for(int i=0;i<max_videos;i++)
     {
-//        ofxDatGuiButton *e=videoButtons[i];
+        //        ofxDatGuiButton *e=videoButtons[i];
         if(player[i].isLoaded()) player[i].close();
         videoButtons[i]->setLabel(ofToString(i+1));
     }
@@ -1151,8 +1161,8 @@ void ofApp::clearAllVideos()//==================================================
 
 bool ofApp::loadMovie(int i)//============================================================
 {//--------Load video function---------------------
-
-//                                                                    cout << "loading videos" << endl;
+    
+    //                                                                    cout << "loading videos" << endl;
     ofFileDialogResult result = ofSystemLoadDialog("Load file \n");
     
     if(result.bSuccess)
@@ -1168,7 +1178,7 @@ bool ofApp::loadMovie(int i)//==================================================
 
 bool ofApp::loadSettings()//============================================================
 {//--------Load saved video array---------------------
-
+    
     ofFileDialogResult result = ofSystemLoadDialog("Load file");
     cout << "load settings \n";
     if(result.bSuccess)
@@ -1194,15 +1204,15 @@ bool ofApp::loadSettings()//====================================================
             bgColor1Red=xmlSettings.getValue("xmlSettings:color:bgColor1Red", 0);
             bgColor1Green=xmlSettings.getValue("xmlSettings:color:bgColor1Green", 0);
             bgColor1Blue=xmlSettings.getValue("xmlSettings:color:bgColor1Blue", 0);
-//            bgColor2Red=xmlSettings.getValue("xmlSettings:color:bgColor2Red", 0);
-//            bgColor2Green=xmlSettings.getValue("xmlSettings:color:bgColor2Green", 0);
-//            bgColor2Blue=xmlSettings.getValue("xmlSettings:color:bgColor2Blue", 0);
+            //            bgColor2Red=xmlSettings.getValue("xmlSettings:color:bgColor2Red", 0);
+            //            bgColor2Green=xmlSettings.getValue("xmlSettings:color:bgColor2Green", 0);
+            //            bgColor2Blue=xmlSettings.getValue("xmlSettings:color:bgColor2Blue", 0);
             
             bgColor1=(ofColor::fromHsb(bgColor1Red, bgColor1Green, bgColor1Blue));
             bgColor1ColorPicker->setColor(bgColor1);
-//            bgColor2=(ofColor::fromHsb(bgColor2Red, bgColor2Green, bgColor2Blue));
-//            bgColor2ColorPicker->setColor(bgColor2);
-
+            //            bgColor2=(ofColor::fromHsb(bgColor2Red, bgColor2Green, bgColor2Blue));
+            //            bgColor2ColorPicker->setColor(bgColor2);
+            
             invertMacro=xmlSettings.getValue("xmlSettings:invert:invert", 0);
             invertMacroSlider->setValue(invertMacro);
             
@@ -1236,7 +1246,7 @@ bool ofApp::loadSettings()//====================================================
             kaleidoscopeXSlider->setValue(kaleiodioscopeX);
             kaleiodioscopeY=xmlSettings.getValue("xmlSettings:kaleidoscope:y", 0.0);
             kaleidoscopeYSlider->setValue(kaleiodioscopeY);
-
+            
             pixelateMacro=xmlSettings.getValue("xmlSettings:pixelate:pixelate", 0.0);
             pixelateMacroSlider->setValue(pixelateMacro);
             
@@ -1317,8 +1327,8 @@ bool ofApp::loadSettings()//====================================================
 
 bool ofApp::saveSettings()//============================================================
 {//--------Save video array---------------------
-
-//                                                                          cout << "save settings" << endl;
+    
+    //                                                                          cout << "save settings" << endl;
     ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
     if(result.bSuccess)
     {
@@ -1355,7 +1365,7 @@ bool ofApp::saveSettings()//====================================================
         xmlSettings.setValue("xmlSettings:kaleidoscope:angle",kaleidioscopeAngle);
         xmlSettings.setValue("xmlSettings:kaleidoscope:x",kaleiodioscopeX);
         xmlSettings.setValue("xmlSettings:kaleidoscope:y",kaleiodioscopeY);
-
+        
         xmlSettings.setValue("xmlSettings:pixelate:pixelate", pixelateMacro);
         
         xmlSettings.setValue("xmlSettings:fullhouse:fullhouse", fullhouseMacro);
@@ -1364,7 +1374,7 @@ bool ofApp::saveSettings()//====================================================
         xmlSettings.setValue("xmlSettings:ascii:imageContrast", asciiImageContrast);
         xmlSettings.setValue("xmlSettings:ascii:imageGain", asciiImageGain);
         xmlSettings.setValue("xmlSettings:ascii:dotDistance", asciiDotDistance);
-
+        
         xmlSettings.setValue("xmlSettings:led:led", ledMacro);
         xmlSettings.setValue("xmlSettings:led:dotDistance", ledDotDistance);
         
@@ -1390,7 +1400,7 @@ bool ofApp::saveSettings()//====================================================
                 xmlSettings.setValue("xmlSettings:media:media"+ofToString(i), player[i].path);
             }
         }
-//                                                                                        cout << "save out" << endl;
+        //                                                                                        cout << "save out" << endl;
         xmlSettings.save(result.getPath());
         
         ofSystemAlertDialog("Save successful. \n");
@@ -1398,7 +1408,7 @@ bool ofApp::saveSettings()//====================================================
     }
     else
     {
-//                                                                                    cout<<"save failed"<<endl;
+        //                                                                                    cout<<"save failed"<<endl;
         ofSystemAlertDialog("Save failed. \n");
         return false;
     }
@@ -1418,15 +1428,15 @@ void ofApp::windowResized(ofResizeEventArgs &resize)
 
 void ofApp::allocateFBOs()//============================================================
 {//---------allocating FBOs for window resizing-------------
-            int h = ofGetHeight();
-            int w = ofGetWidth();
-            fbo.allocate(w,h);
-            chromaKeyVideoFbo.allocate(w,h);
-            chromaKeyFxFbo.allocate(w,h);
-            blendFbo.allocate(w, h);
-            fbo2.allocate(w,h);
-            fbo3.allocate(w,h);
-            fbo4.allocate(w,h);
+    int h = ofGetHeight();
+    int w = ofGetWidth();
+    fbo.allocate(w,h);
+    chromaKeyVideoFbo.allocate(w,h);
+    chromaKeyFxFbo.allocate(w,h);
+    blendFbo.allocate(w, h);
+    fbo2.allocate(w,h);
+    fbo3.allocate(w,h);
+    fbo4.allocate(w,h);
 }
 
 void ofApp::deleteLight(light* a)//============================================================
@@ -1450,10 +1460,12 @@ void ofApp::addLight()//========================================================
 {
     light *a = mAddNewLight.getLight();
     ofxDatGuiFolder *folder=gui3->addFolder(a->name);
+    ofxDatGuiSlider *newSlider;
     for(int i=0;i<a->values.size();i+=1)
     {
         a->values[i].value.set(a->values[i].parameter,120,0,255);
-        folder->addSlider(a->values[i].value,true,a->midiCCStart+i);
+        newSlider=folder->addSlider(a->values[i].value,true,a->dmxChannelStart+i);
+        newSlider->setLabel(a->values[i].parameter);
     }
     runningCount=runningCount+1;
     a->count=runningCount;
@@ -1474,7 +1486,7 @@ void ofApp::editLight()//=======================================================
     for(int i=0;i<a->values.size();i+=1)
     {
         a->values[i].value.set(a->values[i].parameter,120,0,255);
-        folder->addSlider(a->values[i].value,true,a->values[i].midiCC);
+        folder->addSlider(a->values[i].value,true,a->values[i].dmxChannel);
     }
     a->count=runningCount;
     folder->setCount(runningCount);
