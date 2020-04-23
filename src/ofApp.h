@@ -276,6 +276,7 @@ public ofxMidiListener
     void enableGuis();
     void disableGuis();
 
+<<<<<<< HEAD
     
     
 //-------------------GUI 3--------------------------------
@@ -396,6 +397,7 @@ public ofxMidiListener
     
     float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
+<<<<<<< HEAD
     evanColor chromaKeyColor= evanColor();
     int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
     ofxDatGuiColorPicker *chromaKeyColorPicker;

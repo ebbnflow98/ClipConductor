@@ -71,16 +71,162 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "C914F28D-1F90-4577-B6E5-FDD8012EF8B0"
+=======
+            uuid = "D64722F4-463F-48FF-B30A-CA26A1350BD6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../addons/ofxHapPlayerAltered/src/ofxHapPlayer.cpp"
+            timestampString = "594426915.015524"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "ofxHapPlayer::readPacket(packet)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "13B6C17A-5571-48CA-B13A-B698D29AACB8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/Demuxer.cpp"
+            timestampString = "591568255.42361"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "ofxHap::Demuxer::threadMain(const std::string movie, PacketReceiver&amp; receiver)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C076EBF5-E295-4FC2-99EB-4DF6187B9F56"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../addons/ofxHapPlayerAltered/src/ofxHapPlayer.cpp"
+            timestampString = "594426915.015862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "634"
+            endingLineNumber = "634"
+            landmarkName = "ofxHapPlayer::getHapAvailable()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "97C8968C-C286-41BD-9268-EF8C4494D5CC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/Demuxer.cpp"
+            timestampString = "591568255.423752"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "ofxHap::Demuxer::threadMain(const std::string movie, PacketReceiver&amp; receiver)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "069F1B9E-C836-45BB-BC7D-9D7B55D12386"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../addons/ofxHapPlayerAltered/src/ofxHapPlayer.cpp"
+            timestampString = "594426915.016178"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "ofxHapPlayer::foundStream(stream)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "81F1B777-34C6-49C5-8F51-85EE662EE3A8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../addons/ofxHapPlayerAltered/src/ofxHapPlayer.cpp"
+            timestampString = "594426915.01648"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "ofxHapPlayer::error(averror)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E95733A-DE4B-4488-9F9B-63ADBD6562A8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/convertVideo.cpp"
+            timestampString = "593283359.716355"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "convert(input)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7555D158-EBE2-473B-9F5F-5B31FCBED5F1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.h"
+            timestampString = "594789511.22658"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "load(loadPath)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D05E6A82-1E11-4CFC-8D90-32402134140B"
+>>>>>>> parent of cccce6e... chroma key implemented
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiGroups.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "338"
             endingLineNumber = "338"
             landmarkName = "addSlider(label, min, max, val, showNumBox, numBoxNum)"
+=======
+            startingLineNumber = "358"
+            endingLineNumber = "358"
+            landmarkName = "ofApp::newMidiMessage(msg)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -94,10 +240,17 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/core/ofxDatGuiIntObject.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "100"
             endingLineNumber = "100"
             landmarkName = "ofxDatGuiInteractiveObject"
             landmarkType = "3">
+=======
+            startingLineNumber = "425"
+            endingLineNumber = "425"
+            landmarkName = "ofApp::newMidiMessage(msg)"
+            landmarkType = "7">
+>>>>>>> parent of cccce6e... chroma key implemented
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,9 +263,15 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiGroups.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "335"
             endingLineNumber = "335"
             landmarkName = "addSlider(label, min, max, val, showNumBox, numBoxNum)"
+=======
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "stop()"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,32 +285,137 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiGroups.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "272"
             endingLineNumber = "272"
             landmarkName = "dispatchNumberBoxChangedEvent(e)"
+=======
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "stop()"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "AA2CABDF-F3E5-4A2D-88AD-9C2FB233D54F"
+=======
+            uuid = "DB91AB03-0341-4FFF-B477-C2F5F30C1BAA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            timestampString = "595049771.399856"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "583C4B6F-1164-4A40-A992-A635505986B2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            timestampString = "595049771.400147"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84A3C29B-E933-4966-B44A-D6635FFBF5FC"
+>>>>>>> parent of cccce6e... chroma key implemented
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../addons/ofxDatGui FOCUS/src/ofxDatGui.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "332"
             endingLineNumber = "332"
             landmarkName = "ofxDatGui::addSlider(label, min, max)"
+=======
+            startingLineNumber = "667"
+            endingLineNumber = "667"
+            landmarkName = "ofApp::keyPressed(args)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "FBB852BD-298F-4D0E-A76B-63D5B7628395"
+=======
+            uuid = "A1100269-2C89-4DFA-8E87-753681D1FD99"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            timestampString = "595049771.400723"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "83029DF1-5725-4811-B965-F77005813CC0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            timestampString = "595049771.400996"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F1FE977-963B-46CF-AA74-B961B6F62BD4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            timestampString = "595049771.401317"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "27450D39-15F5-4457-917D-298F173BF879"
+>>>>>>> parent of cccce6e... chroma key implemented
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -221,10 +485,17 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "295"
             endingLineNumber = "295"
             landmarkName = "ofxDatGuiSlider"
             landmarkType = "3">
+=======
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
+            landmarkName = "ofApp::loadSettings()"
+            landmarkType = "7">
+>>>>>>> parent of cccce6e... chroma key implemented
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -237,9 +508,15 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "319"
             endingLineNumber = "319"
             landmarkName = "onMouseDrag(m)"
+=======
+            startingLineNumber = "944"
+            endingLineNumber = "944"
+            landmarkName = "ofApp::clearAllVideos()"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -253,9 +530,15 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "318"
             endingLineNumber = "318"
             landmarkName = "onMouseDrag(m)"
+=======
+            startingLineNumber = "947"
+            endingLineNumber = "947"
+            landmarkName = "ofApp::clearAllVideos()"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -269,9 +552,15 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "136"
             endingLineNumber = "136"
             landmarkName = "setValue(value)"
+=======
+            startingLineNumber = "1043"
+            endingLineNumber = "1043"
+            landmarkName = "ofApp::loadSettings()"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -285,25 +574,201 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "137"
             endingLineNumber = "137"
             landmarkName = "setValue(value)"
+=======
+            startingLineNumber = "564"
+            endingLineNumber = "564"
+            landmarkName = "ofApp::newMidiMessage(msg)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "E8EE011A-3E0A-4706-9DC6-A68B0A0415F0"
+=======
+            uuid = "ED942B3D-121F-4BA4-A70A-3CE0DE6936D8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
+            landmarkName = "ofApp::onButtonEvent(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0ACDB07D-FAB8-4C9E-AE32-02A235CCA35F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "828"
+            endingLineNumber = "828"
+            landmarkName = "ofApp::onButtonEvent(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC0E2DAF-429A-49D7-8406-7AF9D8D1ADD2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "799"
+            endingLineNumber = "799"
+            landmarkName = "ofApp::dragEvent(dragInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6C373E1B-9EA0-450E-ACAC-B35DB803D6A6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "823"
+            endingLineNumber = "823"
+            landmarkName = "ofApp::onButtonEvent(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9471284-5FA9-4D5C-AB77-BE3356D9C9BB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "822"
+            endingLineNumber = "822"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2F1D4222-9BF8-4D87-9EB1-FF7AB49BDCDF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "824"
+            endingLineNumber = "824"
+            landmarkName = "ofApp::onButtonEvent(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B9C0B17E-995B-434E-9484-1F9E43E19415"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "821"
+            endingLineNumber = "821"
+            landmarkName = "ofApp::dragEvent(dragInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E573531F-266B-4045-A726-4A59D2B4FB99"
+>>>>>>> parent of cccce6e... chroma key implemented
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "201"
             endingLineNumber = "201"
             landmarkName = "compare(e)"
+=======
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "draw(x, y, width, height)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F4098D48-B1C6-40F1-B9A6-F8303E41A845"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F41505A-C663-4CFA-B16D-A21B294C6EE9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "01F63479-26A7-4BA4-B3E9-274D5D0E47C8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
+            landmarkName = "ofApp::newMidiMessage(msg)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -314,12 +779,53 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiLabel.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
             landmarkName = "setTheme(theme)"
+=======
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "737"
+            endingLineNumber = "737"
+            landmarkName = "ofApp::keyReleased(args)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C1F6BAE6-5FF6-44F5-A902-8C57074F3771"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
+            landmarkName = "ofApp::dragEvent(dragInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "21138E65-EF1E-4BC2-9670-BB402AF232CE"
+            shouldBeEnabled = "No"
+            ignoreCount = "10"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
+            landmarkName = "ofApp::keyPressed(args)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -333,41 +839,99 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiLabel.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "94"
             endingLineNumber = "94"
             landmarkName = "setWidth(width)"
+=======
+            startingLineNumber = "789"
+            endingLineNumber = "789"
+            landmarkName = "ofApp::onDropdownEvent(e)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "7CE3CA77-1463-464C-9B8C-06067EC786E8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiLabel.h"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "draw()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AD83B0CA-F436-414B-9638-F1C056052828"
+=======
+            uuid = "F7CEDBE7-5689-4351-8236-CEA5BE22BE1A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "795"
+            endingLineNumber = "795"
+            landmarkName = "ofApp::dragEvent(dragInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6050B71-FF0F-4AEA-8CFB-A9F11F9EE0A6"
+>>>>>>> parent of cccce6e... chroma key implemented
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../addons/ofxDatGui FOCUS/src/components/ofxDatGuiLabel.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "draw()"
+=======
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "ofApp::draw()"
+>>>>>>> parent of cccce6e... chroma key implemented
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+<<<<<<< HEAD
+            uuid = "AD83B0CA-F436-414B-9638-F1C056052828"
+=======
+            uuid = "D367EA8F-055C-4227-B486-703F1FC8CF06"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "ofApp::update()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EDAB27F9-0420-4592-8604-B24272B5976E"
+>>>>>>> parent of cccce6e... chroma key implemented
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "1469"
             endingLineNumber = "1469"
             landmarkName = "ofApp::addLight()"
+=======
+            startingLineNumber = "732"
+            endingLineNumber = "732"
+            landmarkName = "ofApp::keyReleased(args)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -381,9 +945,15 @@
             filePath = "../../../addons/ofxDatGui FOCUS/src/ofxDatGui.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "938"
             endingLineNumber = "938"
             landmarkName = "ofxDatGui::update()"
+=======
+            startingLineNumber = "724"
+            endingLineNumber = "724"
+            landmarkName = "ofApp::keyReleased(args)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -397,18 +967,95 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "1146"
             endingLineNumber = "1146"
             landmarkName = "ofApp::disableGuis()"
+=======
+            startingLineNumber = "729"
+            endingLineNumber = "729"
+            landmarkName = "ofApp::keyReleased(args)"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "384EE42B-3425-4F5E-8FBC-888B4AF10466"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
+=======
+            uuid = "0BED4985-ABF1-4147-A1E3-F04251600E1E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            condition = "currentlyDrawing&gt;1;"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "726"
+            endingLineNumber = "726"
+            landmarkName = "ofApp::keyReleased(args)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4157B192-E12A-44D1-A156-E07D5E6167E5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E8BF840A-E308-43E8-8D08-5F408D550E0C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "417D7A88-09A3-4F91-85F8-02963C914E1C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A38C873-664F-4B1E-B9F3-0B6720D71317"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+>>>>>>> parent of cccce6e... chroma key implemented
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
@@ -422,15 +1069,24 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "996C6FFB-D9EB-48DD-B2D8-8B417D3F9350"
+=======
+            uuid = "9AD77D3C-700D-4D07-816E-17F312B497EE"
+>>>>>>> parent of cccce6e... chroma key implemented
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "289"
             endingLineNumber = "289"
+=======
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -438,15 +1094,24 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "A7F6C9DF-FCB7-4616-A624-EC93F13171E6"
+=======
+            uuid = "579CB62C-7563-4EBC-9ED5-C10EF270CF9C"
+>>>>>>> parent of cccce6e... chroma key implemented
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "385"
             endingLineNumber = "385"
+=======
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+>>>>>>> parent of cccce6e... chroma key implemented
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -454,18 +1119,112 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             uuid = "50A981AA-8F87-4002-A53F-FB9B0AD65C65"
+=======
+            uuid = "15EC0468-087D-4747-916C-31D0C0AB7C0C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            condition = "currentlyDrawing==1"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D12458A5-AF6F-47DC-AB82-91394ED54574"
+>>>>>>> parent of cccce6e... chroma key implemented
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "246"
             endingLineNumber = "246"
             landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+=======
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "71FDB298-06BB-4B6F-8D9A-5178A0A93732"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "ofApp::setup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C8CE6EE3-D003-4785-89EB-E21E1314F0D3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "ofApp::setup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A1EFD15C-E9F0-4E22-9F38-B157DC04667D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "ofApp::setup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F4252692-197D-4FCA-B6EF-72DC9A5D5E27"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+>>>>>>> parent of cccce6e... chroma key implemented
    </Breakpoints>
 </Bucket>
