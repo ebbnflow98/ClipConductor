@@ -8,6 +8,7 @@ int snaves=0;
 
 void ofApp::setup()//============================================================
 {
+<<<<<<< HEAD
     
     //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
@@ -236,6 +237,7 @@ void ofApp::update()//==========================================================
     getWidth=ofGetWidth();
     getHeight=ofGetHeight();
     
+<<<<<<< HEAD
     //    cout<<"currentlyDrawing: "<<currentlyDrawing<<"\n";
 }
 
@@ -296,6 +298,7 @@ void ofApp::draw()//============================================================
     
     chromaKeyVideoFbo.begin();
     ofClear(0,0,0,0);
+<<<<<<< HEAD
     
     if(chromaKeyVideo!= -1)player[chromaKeyVideo].draw(0, 0, getWidth, getHeight);
     
@@ -310,6 +313,7 @@ void ofApp::draw()//============================================================
     
     shader.setUniform1f("fxMacro", fxMacro);
     chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
+<<<<<<< HEAD
     chromaKeyShader.setUniform3f("chromaKeyColor", chromaKeyColor.getRedFloat(),chromaKeyColor.getGreenFloat(),chromaKeyColor.getBlueFloat());
     chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
     
@@ -335,7 +339,6 @@ void ofApp::draw()//============================================================
     
     fbo2.begin();                                           //FBO 2 begin
     ofClear(0,0,0,0);
-    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     shader.begin();                                         //Shader1 begin
     float time = ofGetElapsedTimef();
     
