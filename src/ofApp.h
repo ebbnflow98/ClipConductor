@@ -151,91 +151,91 @@ public ofxMidiListener
     } player[25];
 
 //====================================================================================
-    class fxParameter
-    {
-    public:
-        ofxDatGuiType type;
-        
-        
-        fxParameter() {}
-        virtual void onMidiMessage(int newValue){}
-        virtual ofxDatGuiComponent* getAThing()
-        {
-//            return new ofxDatGuiComponent("empty")
-        }
-        virtual bool compare(ofxDatGuiComponent* e){};
-        
-    };
-    
-    class fxSlider : public fxParameter
-    {
-    public:
-        ofxDatGuiSlider* slider;
-        float value;
-        float max;
-        float min;
-        
-        fxSlider()
-        {
-            fxParameter();
-            type=ofxDatGuiType::SLIDER;
-            slider=new ofxDatGuiSlider("",min,max,value);
-        }
-        
-        void setMinMaxValue(int mn, int mx, int v)
-        {
-            min=mn;
-            max=mx;
-            value=v;
-        }
-        
-        void onMidiMessage(int newValue)
-        {
-            value=ofMap(newValue, 0, 127, min, max);
-            if(slider->getPrecision()==0) slider->setValue(int(value));
-            else slider->setValue(value);
-        }
-        
-        bool compare(ofxDatGuiComponent* e)
-        {
-            if(type!=e->getType()) return false;
-            ofxDatGuiSlider *ptr= dynamic_cast<ofxDatGuiSlider*>(e);
-            if(ptr==slider) return true;
-            return false;
-        }
-        
-    };
-     class fxToggle : public fxParameter
-        {
-            ofxDatGuiToggle* toggle;
-            bool checked;
-            
-            fxToggle()
-            {
-                fxParameter();
-                type=ofxDatGuiType::TOGGLE;
-            }
-            
-            void onMidiMessage(int newValue)
-            {
-                if(newValue>63)checked=true;
-                else checked=false;
-                toggle->setChecked(checked);
-            }
-            
-            ofxDatGuiComponent * getAThing()
-            {
-                return toggle;
-            }
-            
-            bool compare(ofxDatGuiComponent* e)
-            {
-                if(type==e->getType()) return false;
-                if(e==toggle) return true;
-                return false;
-            }
-            
-        };
+//    class fxParameter
+//    {
+//    public:
+//        ofxDatGuiType type;
+//
+//
+//        fxParameter() {}
+//        virtual void onMidiMessage(int newValue){}
+//        virtual ofxDatGuiComponent* getAThing()
+//        {
+////            return new ofxDatGuiComponent("empty")
+//        }
+//        virtual bool compare(ofxDatGuiComponent* e){};
+//
+//    };
+//
+//    class fxSlider : public fxParameter
+//    {
+//    public:
+//        ofxDatGuiSlider* slider;
+//        float value;
+//        float max;
+//        float min;
+//
+//        fxSlider()
+//        {
+//            fxParameter();
+//            type=ofxDatGuiType::SLIDER;
+//            slider=new ofxDatGuiSlider("",min,max,value);
+//        }
+//
+//        void setMinMaxValue(int mn, int mx, int v)
+//        {
+//            min=mn;
+//            max=mx;
+//            value=v;
+//        }
+//
+//        void onMidiMessage(int newValue)
+//        {
+//            value=ofMap(newValue, 0, 127, min, max);
+//            if(slider->getPrecision()==0) slider->setValue(int(value));
+//            else slider->setValue(value);
+//        }
+//
+//        bool compare(ofxDatGuiComponent* e)
+//        {
+//            if(type!=e->getType()) return false;
+//            ofxDatGuiSlider *ptr= dynamic_cast<ofxDatGuiSlider*>(e);
+//            if(ptr==slider) return true;
+//            return false;
+//        }
+//
+//    };
+//     class fxToggle : public fxParameter
+//        {
+//            ofxDatGuiToggle* toggle;
+//            bool checked;
+//
+//            fxToggle()
+//            {
+//                fxParameter();
+//                type=ofxDatGuiType::TOGGLE;
+//            }
+//
+//            void onMidiMessage(int newValue)
+//            {
+//                if(newValue>63)checked=true;
+//                else checked=false;
+//                toggle->setChecked(checked);
+//            }
+//
+//            ofxDatGuiComponent * getAThing()
+//            {
+//                return toggle;
+//            }
+//
+//            bool compare(ofxDatGuiComponent* e)
+//            {
+//                if(type==e->getType()) return false;
+//                if(e==toggle) return true;
+//                return false;
+//            }
+//
+//        };
 //====================================================================================
     
     int getHeight, getWidth;
@@ -259,11 +259,11 @@ public ofxMidiListener
     void onToggleEvent(ofxDatGuiToggleEvent e);
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
     void onTextInputEventGui1(ofxDatGuiTextInputEvent e);
-    void onNumberBoxChangedEventGui1(ofxDatGuiNumberBoxChangedEvent e);
-    fxParameter* getFxParameter(ofxDatGuiComponent *e);
+//    void onNumberBoxChangedEventGui1(ofxDatGuiNumberBoxChangedEvent e);
+//    fxParameter* getFxParameter(ofxDatGuiComponent *e);
     bool validMidiCC(int cc);
     
-    void removeFxParameter(ofxDatGuiComponent *e, int previous);
+//    void removeFxParameter(ofxDatGuiComponent *e, int previous);
     
 
     void dragEvent(ofDragInfo & info);
@@ -276,17 +276,16 @@ public ofxMidiListener
     void enableGuis();
     void disableGuis();
 
-<<<<<<< HEAD
     
     
 //-------------------GUI 3--------------------------------
     void onTextInputEventGui3(ofxDatGuiTextInputEvent e);
-    void onRightClickEventGui3(ofxDatGuiRightClickEvent e);
-    void onEditLightEventGui3(ofxModalEvent e);
-    void onAddNewLightEventGui3(ofxModalEvent e);
+//    void onRightClickEventGui3(ofxDatGuiRightClickEvent e);
+//    void onEditLightEventGui3(ofxModalEvent e);
+//    void onAddNewLightEventGui3(ofxModalEvent e);
     void onSliderEventGui3(ofxDatGuiSliderEvent e);
-    void onButtonEventGui3(ofxDatGuiButtonEvent e);
-    void onToggleEventGui3(ofxDatGuiToggleEvent e);
+//    void onButtonEventGui3(ofxDatGuiButtonEvent e);
+//    void onToggleEventGui3(ofxDatGuiToggleEvent e);
     void editLight();
     void addLight();
     int getRigSize();
@@ -350,7 +349,7 @@ public ofxMidiListener
     ofPoint guiPosition;
     ofPoint windowSize();
     
-    vector<fxParameter*> fxByCC[127];
+//    vector<fxParameter*> fxByCC[127];
     
     float fxMacro=1.0;
       ofxDatGuiSlider *fxMacroSlider;
@@ -397,7 +396,6 @@ public ofxMidiListener
     
     float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
-<<<<<<< HEAD
     evanColor chromaKeyColor= evanColor();
     int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
     ofxDatGuiColorPicker *chromaKeyColorPicker;
@@ -407,6 +405,7 @@ public ofxMidiListener
     
 //Loading/Saving----------------------------------------
     const int max_videos=25;
+    
     ofxXmlSettings xmlSettings;
     
 //---------------------------------------
@@ -418,12 +417,20 @@ public ofxMidiListener
     vector<light> rig;
     int runningCount=0;
     
-    ofxDatGuiButton *addLightButton;
+//    ofxDatGuiButton *addLightButton;
     
-    addNewLight mAddNewLight;
-    class editLight mEditLight;
-    evanColor rigColor;
-    ofxDatGuiButton *submitButton, *cancelButton, *loadLightButton, *saveLightButton;
+//    addNewLight mAddNewLight;
+//    class editLight mEditLight;
+//    evanColor rigColor;
+//    ofxDatGuiButton *submitButton, *cancelButton, *loadLightButton, *saveLightButton;
+    
+    const int numberOfLights=44;
+    ofParameter<int> lightValues[44];                    //numberOfLights
+    ofxDatGuiSlider *lightSliders[44];      //numberOfLights
+//    ofSerial serial;
+//    vector<ofSerialDeviceInfo> serialDeviceInfo;
+//    vector<string> serialInputs;
+//    ofxDatGuiButton *restoreDevices;
     
 private:
     ofxMidiIn midiIn;

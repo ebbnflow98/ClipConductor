@@ -1,6 +1,5 @@
-ofxDatGui FOCUS
+ofxDatGuiSpectacle
 ofxDmx
-ofxGui
 ofxHapPlayerAltered
 ofxMidi
 ofxModal

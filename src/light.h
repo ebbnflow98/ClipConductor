@@ -8,7 +8,13 @@
 #ifndef light_h
 #define light_h
 
-class evanColor
+
+struct channel
+{
+    
+};
+
+class light
 {
   
 };

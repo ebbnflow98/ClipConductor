@@ -8,7 +8,6 @@ int snaves=0;
 
 void ofApp::setup()//============================================================
 {
-<<<<<<< HEAD
     
     //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
@@ -21,6 +20,8 @@ void ofApp::setup()//===========================================================
     if(snaves==0) allocateFBOs();
     
     ofLog()<<(char*)glGetString(GL_VERSION);
+    
+    if(snaves==0)dmx.connect("/dev/tty.usbserial-ENVVVCOF",44); // use the name
     
     //---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
@@ -35,6 +36,7 @@ void ofApp::setup()//===========================================================
     if(snaves==0)
     {
         gui = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+        
         gui->setAutoDraw(true);
         gui2= new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui2->setAutoDraw(true);
@@ -43,8 +45,10 @@ void ofApp::setup()//===========================================================
         clear=false;
         
         gui2->addLabel("Videos");
-        gui2->getLabel("Videos")->drawPicture=true;
-        gui2->getLabel("Videos")->pictureChoice=ofxDatGuiLabel::differentPictures::FILM;
+        gui2->getLabel("Videos")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+
+//        gui2->getLabel("Videos")->drawPicture=true;
+//        gui2->getLabel("Videos")->pictureChoice=ofxDatGuiLabel::differentPictures::FILM;
         
         clearToggle = gui2->addToggle("Clear");
         clearAllButton = gui2->addButton("Clear All");
@@ -65,11 +69,17 @@ void ofApp::setup()//===========================================================
         midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
         
         gui3->addLabel("Lights");
-        gui3->getLabel("Lights")->drawPicture=true;
-        gui3->getLabel("Lights")->pictureChoice=ofxDatGuiLabel::differentPictures::LIGHTBULB;
+        gui3->getLabel("Lights")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+//        gui3->getLabel("Lights")->drawPicture=true;
+//        gui3->getLabel("Lights")->pictureChoice=ofxDatGuiLabel::differentPictures::LIGHTBULB;
         
-        addLightButton = gui3->addButton("Add Light");
-        addLightButton->drawPlus=true;
+//        addLightButton = gui3->addButton("Add Light");
+//        addLightButton->drawPlus=true;
+        
+//        serialDeviceInfo=serial.getDeviceList();
+//        for(int i=0;i<serialDeviceInfo.size();i++){serialInputs[i].push_back(serialDeviceInfo[i].getDeviceName());};
+//        gui3->addDropdown("DMX Devices", serialInputs);
+        
         
         backgroundFolder=gui->addFolder("Background");
         bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
@@ -77,8 +87,10 @@ void ofApp::setup()//===========================================================
         tripletToggle=backgroundFolder->addToggle("Triplet");
         
         gui->addLabel("FX");
-        gui->getLabel("FX")->drawPicture=true;
-        gui->getLabel("FX")->pictureChoice=ofxDatGuiLabel::differentPictures::EYE;
+        gui->getLabel("FX")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+
+//        gui->getLabel("FX")->drawPicture=true;
+//        gui->getLabel("FX")->pictureChoice=ofxDatGuiLabel::differentPictures::EYE;
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
         videoFolder=gui->addFolder("Video Controls");
@@ -166,23 +178,34 @@ void ofApp::setup()//===========================================================
         gui->onSliderEvent(this, &ofApp::onSliderEvent);
         gui->onToggleEvent(this, &ofApp::onToggleEvent);
         gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
-        gui->onNumberBoxChangedEvent(this, &ofApp::onNumberBoxChangedEventGui1);
+//        gui->onNumberBoxChangedEvent(this, &ofApp::onNumberBoxChangedEventGui1);
         
         gui2->onToggleEvent(this, &ofApp::onToggleEvent);
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         cout<<"here 3"<<endl;
         
-        gui3->onToggleEvent(this, &ofApp::onToggleEventGui3);
-        gui3->onButtonEvent(this, &ofApp::onButtonEventGui3);
-        gui3->onRightClickEvent(this, &ofApp::onRightClickEventGui3);
+//        gui3->onToggleEvent(this, &ofApp::onToggleEventGui3);
+//        gui3->onButtonEvent(this, &ofApp::onButtonEventGui3);
+//        gui3->onRightClickEvent(this, &ofApp::onRightClickEventGui3);
+//
+//        mAddNewLight.addListener(this, &ofApp::onAddNewLightEventGui3);
+//        submitButton=mAddNewLight.getButton(0);
+//        cancelButton=mAddNewLight.getButton(1);
         
-        mAddNewLight.addListener(this, &ofApp::onAddNewLightEventGui3);
-        submitButton=mAddNewLight.getButton(0);
-        cancelButton=mAddNewLight.getButton(1);
+//        mEditLight.addListener(this, &ofApp::onEditLightEventGui3);
+//        gui3->onTextInputEvent(this, &ofApp::onTextInputEventGui3);
         
-        mEditLight.addListener(this, &ofApp::onEditLightEventGui3);
-        gui3->onTextInputEvent(this, &ofApp::onTextInputEventGui3);
+       gui3->onSliderEvent(this, &ofApp::onSliderEventGui3);
+        for(int i=0;i<numberOfLights;i++)
+        {
+            lightValues[i]=0;
+            lightValues[i].set("Ch."+ofToString(i+1),0,0,255);
+            gui3->addSlider(lightValues[i]);
+            lightSliders[i] = new ofxDatGuiSlider(lightValues[i]);
+            lightSliders[i]->onSliderEvent(this,&ofApp::onSliderEventGui3);
+        }
+        
         
         
         tempoDivisionSlider->setPrecision(0);
@@ -234,11 +257,21 @@ void ofApp::update()//==========================================================
         ofLog() << "timecode stopped";
         timecodeRunning = false;
     }
+    
     getWidth=ofGetWidth();
     getHeight=ofGetHeight();
     
-<<<<<<< HEAD
-    //    cout<<"currentlyDrawing: "<<currentlyDrawing<<"\n";
+    //dmx update:
+    for(int i=0;i<numberOfLights;i++)
+    {
+        lightSliders[i]->update();
+        dmx.setLevel(i+1, lightValues[i]);
+    }
+    
+    if(dmx.isConnected())
+    {
+        dmx.update();
+    }
 }
 
 void ofApp::draw()//============================================================
@@ -298,7 +331,6 @@ void ofApp::draw()//============================================================
     
     chromaKeyVideoFbo.begin();
     ofClear(0,0,0,0);
-<<<<<<< HEAD
     
     if(chromaKeyVideo!= -1)player[chromaKeyVideo].draw(0, 0, getWidth, getHeight);
     
@@ -313,7 +345,6 @@ void ofApp::draw()//============================================================
     
     shader.setUniform1f("fxMacro", fxMacro);
     chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
-<<<<<<< HEAD
     chromaKeyShader.setUniform3f("chromaKeyColor", chromaKeyColor.getRedFloat(),chromaKeyColor.getGreenFloat(),chromaKeyColor.getBlueFloat());
     chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
     
@@ -464,6 +495,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
         
         if(msg.status==MIDI_CONTROL_CHANGE)         //MIDI CC (FX) change cases
         {
+            if(msg.channel==1)
+            {
             switch(msg.control)
             {
                 case 123:
@@ -473,13 +506,14 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     break;
                 case 64: if(msg.value>63)sustain=true; else sustain=false;
                     
-                default:
-                    for(int i=0;i<fxByCC[msg.control].size();i++)
-                    {
-                        fxByCC[msg.control][i]->onMidiMessage(msg.value);
-                    }
+//                default:
+//                    for(int i=0;i<fxByCC[msg.control].size();i++)
+//                    {
+//                        fxByCC[msg.control][i]->onMidiMessage(msg.value);
+//                    }
                 case 15:
-                    
+                    fxMacro=ofMap(msg.value,0,127,0.0,1.0);
+                    fxMacroSlider->setValue(fxMacro);
                     break;
                 case 16:
                     videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
@@ -508,10 +542,6 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     else triplet=false;
                     tripletToggle->setChecked(triplet);
                     break;
-                    //            case 21:
-                    //                bgColor1=ofFloatColor(ofMap(msg.value,0, 127, 0.0, 1.0));
-                    //                bgColor1ColorPicker->setColor(bgColor1);
-                    //                break;
                     
                     //EMPTY CASE 22
                     
@@ -732,6 +762,12 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     break;
             }
         }
+            if(msg.channel==2)
+            {
+                lightValues[msg.control]=msg.value;
+            }
+        }
+        
     }
 }
 void ofApp::midiNoteOff(int pitch)//============================================================
@@ -888,32 +924,29 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)//==================================
     }
 }
 
-void ofApp::onAddNewLightEventGui3(ofxModalEvent e)//==========================
-{
-    if(e.type==ofxModalEvent::SHOWN) disableGuis();
-    else if(e.type==ofxModalEvent::HIDDEN) enableGuis();
-    else if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
-    else if (e.type == ofxModalEvent::CONFIRM)
-    {
-        cout << "confirm button was selected" << endl;
-        addLight();
-    }
-}
+//void ofApp::onAddNewLightEventGui3(ofxModalEvent e)//==========================
+//{
+//    if(e.type==ofxModalEvent::SHOWN) disableGuis();
+//    else if(e.type==ofxModalEvent::HIDDEN) enableGuis();
+//    else if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
+//    else if (e.type == ofxModalEvent::CONFIRM)
+//    {
+//        cout << "confirm button was selected" << endl;
+//        addLight();
+//    }
+//}
 
-void ofApp::onRightClickEventGui3(ofxDatGuiRightClickEvent e)//============================================================
-{
-    if(e.target->getType()==ofxDatGuiType::FOLDER)
-    {
-        int l = e.target->getCount();
-        mEditLight.show(&(rig[e.target->getCount()-1]));  //show editLight dialog according to count of the target
-        cout<<"right click:"+e.target->getLabel()+"\n";
-    }
-}
+//void ofApp::onRightClickEventGui3(ofxDatGuiRightClickEvent e)//============================================================
+//{
+//    if(e.target->getType()==ofxDatGuiType::FOLDER)
+//    {
+//        int l = e.target->getCount();
+//        mEditLight.show(&(rig[e.target->getCount()-1]));  //show editLight dialog according to count of the target
+//        cout<<"right click:"+e.target->getLabel()+"\n";
+//    }
+//}
 
-void ofApp::onSliderEventGui3(ofxDatGuiSliderEvent e)//============================================================
-{
-    int toggle = e.target->getCount();
-}
+
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//============================================================
 {//--------Button event handler function for FX buttons----------------------
@@ -946,14 +979,14 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///========================
     }
 }
 
-void ofApp::onButtonEventGui3(ofxDatGuiButtonEvent e)//============================================================
-{
-    if(e.target==addLightButton)
-    {
-        
-        mAddNewLight.show(getRigSize(), getRigSize()); //clear light first and pass in midiCCStart and dmxChannelStart
-    }
-}
+//void ofApp::onButtonEventGui3(ofxDatGuiButtonEvent e)//============================================================
+//{
+//    if(e.target==addLightButton)
+//    {
+//
+//        mAddNewLight.show(getRigSize(), getRigSize()); //clear light first and pass in midiCCStart and dmxChannelStart
+//    }
+//}
 
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//============================================================
 {//--------Toggle event handler function----------------------
@@ -969,10 +1002,10 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//=============================
     else if(e.target==asciiInvertToggle)asciiInvert=!asciiInvert;
 }
 
-void ofApp::onToggleEventGui3(ofxDatGuiToggleEvent e)//============================================================
-{
-    int toggle = e.target->getCount();
-}
+//void ofApp::onToggleEventGui3(ofxDatGuiToggleEvent e)//============================================================
+//{
+//    int toggle = e.target->getCount();
+//}
 
 void ofApp::onTextInputEventGui1(ofxDatGuiTextInputEvent e)
 {
@@ -981,37 +1014,37 @@ void ofApp::onTextInputEventGui1(ofxDatGuiTextInputEvent e)
     }
 }
 
-void ofApp::onTextInputEventGui3(ofxDatGuiTextInputEvent e)
-{
-    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX)cout<<"Text input number event\n";
-    if(e.type==ofxDatGuiNumberBoxEventType::INPUT) cout<<"mInput event \n";
-}
+//void ofApp::onTextInputEventGui3(ofxDatGuiTextInputEvent e)
+//{
+//    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX)cout<<"Text input number event\n";
+//    if(e.type==ofxDatGuiNumberBoxEventType::INPUT) cout<<"mInput event \n";
+//}
 
-void ofApp::onNumberBoxChangedEventGui1(ofxDatGuiNumberBoxChangedEvent e)
-{
-    cout<<"Evan's fun NumberBox Event \n";
-    
-    if(!validMidiCC(e.value))
-    {
-        e.target->setNumberBoxNumber(e.target->getPreviousNumberBoxNumber());
-        return;
-    }
-    removeFxParameter(e.target, e.target->getPreviousNumberBoxNumber());
-    fxByCC[e.target->getNumberBoxNumber()].push_back(getFxParameter(e.target));
-}
+//void ofApp::onNumberBoxChangedEventGui1(ofxDatGuiNumberBoxChangedEvent e)
+//{
+//    cout<<"Evan's fun NumberBox Event \n";
+//
+//    if(!validMidiCC(e.value))
+//    {
+//        e.target->setNumberBoxNumber(e.target->getPreviousNumberBoxNumber());
+//        return;
+//    }
+//    removeFxParameter(e.target, e.target->getPreviousNumberBoxNumber());
+//    fxByCC[e.target->getNumberBoxNumber()].push_back(getFxParameter(e.target));
+//}
 
-ofApp::fxParameter* ofApp::getFxParameter(ofxDatGuiComponent *e)
-{
-    for(int i=0;i<127;i++)
-    {
-        for(int j=0;j<fxByCC[i].size();j++)
-        {
-            if(fxByCC[i][j]->compare(e))return fxByCC[i][j];
-        }
-    }
-    cout<<"No cooresponding fx found\n";
-    return 0;
-}
+//ofApp::fxParameter* ofApp::getFxParameter(ofxDatGuiComponent *e)
+//{
+//    for(int i=0;i<127;i++)
+//    {
+//        for(int j=0;j<fxByCC[i].size();j++)
+//        {
+//            if(fxByCC[i][j]->compare(e))return fxByCC[i][j];
+//        }
+//    }
+//    cout<<"No cooresponding fx found\n";
+//    return 0;
+//}
 
 bool ofApp::validMidiCC(int cc)
 {
@@ -1023,18 +1056,18 @@ bool ofApp::validMidiCC(int cc)
     else ofSystemAlertDialog("Invalid MIDI CC number entered");
     return false;
 }
-
-void ofApp::removeFxParameter(ofxDatGuiComponent *e, int previous)
-{
-    for(int i=0;i<fxByCC[previous].size();i++)
-    {
-        if(fxByCC[previous][i]->compare(e))
-        {
-            fxByCC[previous].erase(fxByCC[previous].begin()+i);
-            cout<<"fxParameter added at "<<previous<< ", "<< i <<"\n";
-        }
-    }
-}
+//
+//void ofApp::removeFxParameter(ofxDatGuiComponent *e, int previous)
+//{
+//    for(int i=0;i<fxByCC[previous].size();i++)
+//    {
+//        if(fxByCC[previous][i]->compare(e))
+//        {
+//            fxByCC[previous].erase(fxByCC[previous].begin()+i);
+//            cout<<"fxParameter added at "<<previous<< ", "<< i <<"\n";
+//        }
+//    }
+//}
 
 
 
@@ -1104,6 +1137,12 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     else if(e.target==chromaKeyThresholdSlider)chromaKeyThreshold=(e.target->getValue());
 }
 
+void ofApp::onSliderEventGui3(ofxDatGuiSliderEvent e)//============================================================
+{
+    cout<<"gui3 slider \n";
+//    lightValues[ofToInt(e.target->getLabel())-1]=(e.target->getValue());
+}
+
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//============================================================
 {    //--------Color picker event handler function----------------------
     //                                        cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
@@ -1120,23 +1159,23 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//===================
     }
 }
 
-void ofApp::onEditLightEventGui3(ofxModalEvent e)//============================================================
-{
-    if(e.type==ofxModalEvent::SHOWN) disableGuis();
-    if(e.type==ofxModalEvent::HIDDEN) enableGuis();
-    if(e.type==ofxModalEvent::DELETE)
-    {
-        light* a=mEditLight.getLight();
-        deleteLight(a);
-    }
-    cout<<"DELETE event sent \n";
-    if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
-    else if (e.type == ofxModalEvent::CONFIRM)
-    {
-        cout << "confirm button was selected" << endl;
-        editLight();
-    }
-}
+//void ofApp::onEditLightEventGui3(ofxModalEvent e)//============================================================
+//{
+//    if(e.type==ofxModalEvent::SHOWN) disableGuis();
+//    if(e.type==ofxModalEvent::HIDDEN) enableGuis();
+////    if(e.type==ofxModalEvent::DELETE)
+////    {
+////        light* a=mEditLight.getLight();
+////        deleteLight(a);
+////    }
+//    cout<<"DELETE event sent \n";
+//    if (e.type == ofxModalEvent::CANCEL) cout << "cancel button was selected" << endl;
+//    else if (e.type == ofxModalEvent::CONFIRM)
+//    {
+//        cout << "confirm button was selected" << endl;
+//        editLight();
+//    }
+//}
 
 void ofApp::enableGuis()
 {
@@ -1442,57 +1481,57 @@ void ofApp::allocateFBOs()//====================================================
     fbo4.allocate(w,h);
 }
 
-void ofApp::deleteLight(light* a)//============================================================
-{
-    gui3->removeFolder(a->name);    //to delete the components inside of the folder
-    rig.erase(rig.begin()+a->count-1);  //delete light from the rig
-    
-}
+//void ofApp::deleteLight(light* a)//============================================================
+//{
+//    gui3->removeFolder(a->name);    //to delete the components inside of the folder
+//    rig.erase(rig.begin()+a->count-1);  //delete light from the rig
+//
+//}
 
-int ofApp::getRigSize()//============================================================
-{
-    int rigSize=0;
-    for(int i=0;i<rig.size();i+=1)
-    {
-        rigSize+=rig[i].values.size();
-    }
-    return rigSize;
-}
+//int ofApp::getRigSize()//============================================================
+//{
+//    int rigSize=0;
+//    for(int i=0;i<rig.size();i+=1)
+//    {
+//        rigSize+=rig[i].values.size();
+//    }
+//    return rigSize;
+//}
 
-void ofApp::addLight()//============================================================
-{
-    light *a = mAddNewLight.getLight();
-    ofxDatGuiFolder *folder=gui3->addFolder(a->name);
-    ofxDatGuiSlider *newSlider;
-    for(int i=0;i<a->values.size();i+=1)
-    {
-        a->values[i].value.set(a->values[i].parameter,120,0,255);
-        newSlider=folder->addSlider(a->values[i].value,true,a->dmxChannelStart+i);
-        newSlider->setLabel(a->values[i].parameter);
-    }
-    runningCount=runningCount+1;
-    a->count=runningCount;
-    folder->setCount(runningCount);
-    rig.push_back(*a);
-}
+//void ofApp::addLight()//============================================================
+//{
+//    light *a = mAddNewLight.getLight();
+//    ofxDatGuiFolder *folder=gui3->addFolder(a->name);
+//    ofxDatGuiSlider *newSlider;
+//    for(int i=0;i<a->values.size();i+=1)
+//    {
+//        a->values[i].value.set(a->values[i].parameter,120,0,255);
+//        newSlider=folder->addSlider(a->values[i].value,true,a->dmxChannelStart+i);
+//        newSlider->setLabel(a->values[i].parameter);
+//    }
+//    runningCount=runningCount+1;
+//    a->count=runningCount;
+//    folder->setCount(runningCount);
+//    rig.push_back(*a);
+//}
 
-void ofApp::editLight()//============================================================
-{
-    light *a = mEditLight.getLight();
-    int existingSliders=rig[a->count-1].numberOfChannels;
-    rig[a->count-1] = *a;
-    ofxDatGuiFolder *folder = gui3->getFolder(a->name);
-    for(int i=0;i<existingSliders;i++)
-    {
-        folder->children.pop_back();
-    }
-    for(int i=0;i<a->values.size();i+=1)
-    {
-        a->values[i].value.set(a->values[i].parameter,120,0,255);
-        folder->addSlider(a->values[i].value,true,a->values[i].dmxChannel);
-    }
-    a->count=runningCount;
-    folder->setCount(runningCount);
-    folder->collapse();
-}
+//void ofApp::editLight()//============================================================
+//{
+//    light *a = mEditLight.getLight();
+//    int existingSliders=rig[a->count-1].numberOfChannels;
+//    rig[a->count-1] = *a;
+//    ofxDatGuiFolder *folder = gui3->getFolder(a->name);
+//    for(int i=0;i<existingSliders;i++)
+//    {
+//        folder->children.pop_back();
+//    }
+//    for(int i=0;i<a->values.size();i+=1)
+//    {
+//        a->values[i].value.set(a->values[i].parameter,120,0,255);
+//        folder->addSlider(a->values[i].value,true,a->values[i].dmxChannel);
+//    }
+//    a->count=runningCount;
+//    folder->setCount(runningCount);
+//    folder->collapse();
+//}
 
