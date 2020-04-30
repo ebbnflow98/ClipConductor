@@ -154,14 +154,14 @@ vec4 Vhs(vec4 dryColor, float vhsMacro, float vhsStrength, float vhsSpeed)
 {
 //        vec2 uv = fragCoord.xy / iResolution.xy;
     vec2 uv = gl_TexCoord[0].xy;
-    uv *= resolution.y/resolution.x;
-    uv += 1.0;
-    uv /= 2.0;
-    uv *= resolution.xy;
-
-    uv.y = resolution.y - uv.y;
-    uv = mod(uv, resolution);
-    uv *= texResolution/resolution;
+//    uv *= resolution.y/resolution.x;
+//    uv += 1.0;
+//    uv /= 2.0;
+//    uv *= resolution.xy;
+//
+//    uv.y = resolution.y - uv.y;
+//    uv = mod(uv, resolution);
+//    uv *= texResolution/resolution;
     
         vec2 uv_org = vec2(uv);
 
@@ -193,63 +193,68 @@ vec4 Vhs(vec4 dryColor, float vhsMacro, float vhsStrength, float vhsSpeed)
                 float colx = rand(vec2(t2,t2)) * 0.75;
                 float coly = rand(vec2(uv.x+t,t));// * 0.5;
                 float colz = rand(vec2(t2,t2));// * 0.5;
-               return vec4(org_c.x+colx,org_c.y+colx,org_c.z+colx,0.0);
-
+                vec4 fxColor = vec4(org_c.x+colx,org_c.y+colx,org_c.z+colx,0.0);
+                vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
+                return color;
             }
         }
         else if (y<cos(t) && mod(x*40.0,2.0)>rand(vec2(y*t,t*t))*1.0 ||  mod(y*12.0,2.0)<rand(vec2(x,t))*1.0)
         {
             if (rand(vec2(x+t,y+t))>0.8)
             {
-                return vec4(rand(vec2(x*t,y*t)),rand(vec2(x*t,y*t)),rand(vec2(x*t,y*t)),0.0);
+               vec4 fxColor = vec4(rand(vec2(x*t,y*t)),rand(vec2(x*t,y*t)),rand(vec2(x*t,y*t)),0.0);
+                vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
+                return color;
             }
             else
             {
-            return texture2DRect(texture0, uv);
+            vec4 fxColor = texture2DRect(texture0, uv);
+            vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
+            return color;
             }
         }
         else
         {
-        
             uv.x = uv.x + rand(vec2(t,uv.y)) * 0.0087 * sin(y*2.0);
-                                                    
-       return texture2DRect(texture0, uv);
+            vec4 fxColor = texture2DRect(texture0, uv);
+            vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
+            return color;
         }
 }
 
-vec3 GetTextureOffset(vec2 coords, vec2 textureSize, vec2 texelOffset)
-{
-    vec2 texelSize = 1.0 / textureSize;
-    vec2 offsetCoords = coords + texelSize * texelOffset;
-    
-    vec2 halfTexelSize = texelSize / 2.0;
-    vec2 clampedOffsetCoords = clamp(offsetCoords, halfTexelSize, 1.0 - halfTexelSize);
-    
-    return texture2D(iChannel0, clampedOffsetCoords).rgb;
-}
-
-
-void vhsTest(void)
-{
-    vec2 screenCoords = gl_FragCoord.xy;
-    vec2 screenSize = resolution.xy;
-    
-    
-    vec2 offsetFromCenter = GetOffsetFromCenter(screenCoords, screenSize);
-    vec2 offsetDirection = normalize(-offsetFromCenter);
-    float offsetDistance = length(offsetFromCenter);
-    
-    
-    vec2 offset = GetDistortionTexelOffset(offsetDirection, offsetDistance, time);
-    
-    
-    vec2 coords = (gl_FragCoord.xy / screenSize);
-    coords.y = 1.0 - coords.y;
-    
-    vec3 background = GetTextureOffset(coords, screenSize, offset);
-    
-     return vec4(background, 1.0);
-}
+//vec3 GetTextureOffset(vec2 coords, vec2 textureSize, vec2 texelOffset)
+//{
+//    vec2 texelSize = 1.0 / textureSize;
+//    vec2 offsetCoords = coords + texelSize * texelOffset;
+//
+//    vec2 halfTexelSize = texelSize / 2.0;
+//    vec2 clampedOffsetCoords = clamp(offsetCoords, halfTexelSize, 1.0 - halfTexelSize);
+//
+//    return texture2D(iChannel0, clampedOffsetCoords).rgb;
+//}
+//
+//
+//void vhsTest(void)
+//{
+//    vec2 screenCoords = gl_FragCoord.xy;
+//    vec2 screenSize = resolution.xy;
+//
+//
+//    vec2 offsetFromCenter = GetOffsetFromCenter(screenCoords, screenSize);
+//    vec2 offsetDirection = normalize(-offsetFromCenter);
+//    float offsetDistance = length(offsetFromCenter);
+//
+//
+//    vec2 offset = GetDistortionTexelOffset(offsetDirection, offsetDistance, time);
+//
+//
+//    vec2 coords = (gl_FragCoord.xy / screenSize);
+//    coords.y = 1.0 - coords.y;
+//
+//    vec3 background = GetTextureOffset(coords, screenSize, offset);
+//
+//     return vec4(background, 1.0);
+//}
 
 void main()
 {
@@ -275,7 +280,7 @@ void main()
     
     if(zebraMacro!=0.0)fxColor=Zebra(fxColor, zebraMacro, zebraLevels, zebraSpeed);
     
-    fxColor = Vhs(fxColor, vhsMacro, vhsSpeed, vhsStrength);
+    if(vhsMacro!=0.0) fxColor = Vhs(fxColor, vhsMacro, vhsSpeed, vhsStrength);
     
     vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     

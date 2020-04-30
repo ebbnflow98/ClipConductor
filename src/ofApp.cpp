@@ -762,7 +762,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     break;
             }
         }
-            if(msg.channel==2)lightValues[msg.control]=ofMap(msg.value, 0, 127, 0, 255);
+            if(msg.channel==2)lightValues[msg.control-1]=ofMap(msg.value, 0, 127, 0, 255);
         }
         
     }
