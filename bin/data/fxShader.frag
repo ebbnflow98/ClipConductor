@@ -161,7 +161,7 @@ void main()
     
     vec4 fxColor=texture2DRect(texture0,pos);//====================
     
-    if(filterMacro>=0.0)fxColor=Filter(fxColor,filterMacro,filterRGB);
+    if(filterMacro>=0.0)fxColor=Filter(fxColor,1.0-filterMacro,filterRGB);
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
