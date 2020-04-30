@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/data/.DS_Store</key>
+		<data>
+		eQkMgWbXMzShAHibg5W+SbX+AYA=
+		</data>
 		<key>Resources/data/.gitkeep</key>
 		<data>
 		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
@@ -16,9 +20,25 @@
 		<data>
 		pYa5KjP/xwz857szSu13F9fFqyg=
 		</data>
+		<key>Resources/data/chromaKeyShader.frag</key>
+		<data>
+		cVbHDxG6bjURU0xy0eXBI81WoFg=
+		</data>
+		<key>Resources/data/chromaKeyShader.vert</key>
+		<data>
+		pYa5KjP/xwz857szSu13F9fFqyg=
+		</data>
 		<key>Resources/data/font.jpg</key>
 		<data>
 		d7QB4QXAS6rvk9WO76yH7b2WWCU=
+		</data>
+		<key>Resources/data/fxShader.frag</key>
+		<data>
+		KYuwRdBoAyE8r3Fj7lMvNzNdh50=
+		</data>
+		<key>Resources/data/fxShader.vert</key>
+		<data>
+		YUGC85hchG8JF+ghB6V5XONcgYc=
 		</data>
 		<key>Resources/data/ledShader.frag</key>
 		<data>
@@ -27,6 +47,10 @@
 		<key>Resources/data/ledShader.vert</key>
 		<data>
 		pYa5KjP/xwz857szSu13F9fFqyg=
+		</data>
+		<key>Resources/data/ofxbraitsch/.DS_Store</key>
+		<data>
+		N895eP0zLIZzac/cKQx/zwSvyvo=
 		</data>
 		<key>Resources/data/ofxbraitsch/fonts/Merriweather.otf</key>
 		<data>
@@ -60,17 +84,13 @@
 		<data>
 		xe433g3CzTm0axZMVNlXhlT+RLE=
 		</data>
-		<key>Resources/data/shaderFrag.c</key>
+		<key>Resources/data/spectacle-debug.icns</key>
 		<data>
-		jQx7HqY7hnJNsM/B3Ad6kXrrBqU=
+		OHQ1ElDbQHGuuv0xdTer2rePEBk=
 		</data>
-		<key>Resources/data/shaderVert.c</key>
+		<key>Resources/data/spectacle.icns</key>
 		<data>
-		YUGC85hchG8JF+ghB6V5XONcgYc=
-		</data>
-		<key>Resources/icon.icns</key>
-		<data>
-		ElQz5i/NZ7sP+plmU+M30HSDpKc=
+		OHQ1ElDbQHGuuv0xdTer2rePEBk=
 		</data>
 		<key>Resources/spectacle.icns</key>
 		<data>
@@ -83,10 +103,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			Ji55KyJEuyrEBz7Ea+cVLArtHrs=
+			U/7nQHi6y06EYtmmQMQHtck9Pm0=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"9f0707993732af6be59d531f00a97b1a0496a655" or cdhash H"262e792b2244bb2ac4073ec46be7152c0aed1ebb" or cdhash H"42b474ff863109132be7fc8602ade09e9c7abb8e" or cdhash H"2a1d7ed412ed78ded7bc1c3f04491ee91dab25b3"</string>
+			<string>identifier libfmodex and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>Resources/data/.gitkeep</key>
 		<dict>
@@ -121,6 +141,28 @@
 			DYMGcw0eQKQSEtbf+tOpAI7kTLurGyrsMPdBfSdqee8=
 			</data>
 		</dict>
+		<key>Resources/data/chromaKeyShader.frag</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			cVbHDxG6bjURU0xy0eXBI81WoFg=
+			</data>
+			<key>hash2</key>
+			<data>
+			wdjHL5mh8JARETS9YE/lXvwPhMjmZI4jX+iQuCIcEcw=
+			</data>
+		</dict>
+		<key>Resources/data/chromaKeyShader.vert</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			pYa5KjP/xwz857szSu13F9fFqyg=
+			</data>
+			<key>hash2</key>
+			<data>
+			DYMGcw0eQKQSEtbf+tOpAI7kTLurGyrsMPdBfSdqee8=
+			</data>
+		</dict>
 		<key>Resources/data/font.jpg</key>
 		<dict>
 			<key>hash</key>
@@ -130,6 +172,28 @@
 			<key>hash2</key>
 			<data>
 			Y6gW/AYoac5pCc3lvcZ9j9GCqbFUw2TrBprKdu4+erQ=
+			</data>
+		</dict>
+		<key>Resources/data/fxShader.frag</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			KYuwRdBoAyE8r3Fj7lMvNzNdh50=
+			</data>
+			<key>hash2</key>
+			<data>
+			KdCGkcdsJdsblWJ8f7JpLD8JZFdHhPNpZdLaeU9qfSo=
+			</data>
+		</dict>
+		<key>Resources/data/fxShader.vert</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YUGC85hchG8JF+ghB6V5XONcgYc=
+			</data>
+			<key>hash2</key>
+			<data>
+			/mKgkux5f81+Bw10YDWMMSfVCTJlQucGS3mY578xkyo=
 			</data>
 		</dict>
 		<key>Resources/data/ledShader.frag</key>
@@ -242,37 +306,26 @@
 			udNwRcywiB1T/3+lxbxs+PSac7DZcd/x3FDZHvxEz0A=
 			</data>
 		</dict>
-		<key>Resources/data/shaderFrag.c</key>
+		<key>Resources/data/spectacle-debug.icns</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jQx7HqY7hnJNsM/B3Ad6kXrrBqU=
+			OHQ1ElDbQHGuuv0xdTer2rePEBk=
 			</data>
 			<key>hash2</key>
 			<data>
-			SBwtKm8ygp+yZktOaHiDNZieYSOq8i6eZSZG+hfHS44=
+			QjooezrtOMfYKDMoKU5YlMM+tPxGNYD63/+9eLYr+UA=
 			</data>
 		</dict>
-		<key>Resources/data/shaderVert.c</key>
+		<key>Resources/data/spectacle.icns</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			YUGC85hchG8JF+ghB6V5XONcgYc=
+			OHQ1ElDbQHGuuv0xdTer2rePEBk=
 			</data>
 			<key>hash2</key>
 			<data>
-			/mKgkux5f81+Bw10YDWMMSfVCTJlQucGS3mY578xkyo=
-			</data>
-		</dict>
-		<key>Resources/icon.icns</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ElQz5i/NZ7sP+plmU+M30HSDpKc=
-			</data>
-			<key>hash2</key>
-			<data>
-			3YkhHmSHdJJZLnBhltHiTfCbULzXe6t8O5Z0yuadm6s=
+			QjooezrtOMfYKDMoKU5YlMM+tPxGNYD63/+9eLYr+UA=
 			</data>
 		</dict>
 		<key>Resources/spectacle.icns</key>

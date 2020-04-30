@@ -8,8 +8,8 @@ int snaves=0;
 
 void ofApp::setup()//============================================================
 {
-    
-    //    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
+    ofLog(OF_LOG_NOTICE, "hayyy \n");
+    if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
     if(shader.load("fxShader.vert","fxShader.frag"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
