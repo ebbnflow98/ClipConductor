@@ -148,7 +148,7 @@ public ofxMidiListener
             if(which)video.setLoopState(state);
         }
         
-    } player[128];
+    } player[25];
 
 //====================================================================================
 //    class fxParameter
@@ -344,7 +344,7 @@ public ofxMidiListener
     
     ofxDatGuiFolder *videoFolder;
 //    string videoOptions[25]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"};
-    ofxDatGuiButton *videoButtons[128];
+    ofxDatGuiButton *videoButtons[25];
 
     ofPoint guiPosition;
     ofPoint windowSize();
@@ -404,7 +404,7 @@ public ofxMidiListener
     ofxDatGuiSlider *vhsMacroSlider, *vhsStrengthSlider, *vhsSpeedSlider;
     
 //Loading/Saving----------------------------------------
-    const int max_videos=128;
+    const int max_videos=25;
     
     ofxXmlSettings xmlSettings;
     

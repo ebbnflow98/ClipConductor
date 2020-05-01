@@ -158,9 +158,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1138"
-            endingLineNumber = "1138"
-            landmarkName = "ofApp::onSliderEventGui3(e)"
+            startingLineNumber = "1141"
+            endingLineNumber = "1141"
+            landmarkName = "ofApp::onSliderEvent(e)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
