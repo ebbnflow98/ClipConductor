@@ -464,7 +464,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
     if(snaves==1)
     {
         
-        if(msg.status==MIDI_NOTE_ON && msg.pitch>=60 && msg.pitch<=84)
+        if(msg.status==MIDI_NOTE_ON && msg.pitch>=0 && msg.pitch<=99)
         {
             midiMessages.push_back(msg); // add the latest message to the message queue
             while(midiMessages.size() > maxMessages) midiMessages.erase(midiMessages.begin());
@@ -473,9 +473,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
             
             if(sustain)midiNoteOff(msg.pitch);
             
-            if(msg.pitch>=60 && msg.pitch<=84)
+            if(msg.pitch>=0 && msg.pitch<=99)
             {
-                playerFromMidiMessage=(msg.pitch-60);
+                playerFromMidiMessage=(msg.pitch);
                 videoCount+=1;
                 //                                                                        cout<<"videoCount: "<<videoCount<<endl;
                 player[playerFromMidiMessage].opacity=msg.velocity;
@@ -484,7 +484,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
             }
         }
         
-        if(msg.status==MIDI_NOTE_OFF && msg.pitch>=60 && msg.pitch<=84)
+        if(msg.status==MIDI_NOTE_OFF && msg.pitch>=0 && msg.pitch<=99)
         {
             if(sustain==false)
             {
@@ -501,7 +501,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
             {
                 case 123:
                 {
-                    for(int i=0;i<max_videos;i++) midiNoteOff(i+60);
+                    for(int i=0;i<max_videos;i++) midiNoteOff(i);
                 }
                     break;
                 case 64: if(msg.value>63)sustain=true; else sustain=false;
@@ -772,14 +772,13 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                tempoCount=tempoCount+1;
                bpm+=(clock.getBpm()-bpm)/5;
            }
-        
     }
 }
 void ofApp::midiNoteOff(int pitch)//============================================================
 {
-    player[pitch-60].drawImage=false;
-    player[pitch-60].stop();
-    player[pitch-60].firstFrame();
+    player[pitch].drawImage=false;
+    player[pitch].stop();
+    player[pitch].firstFrame();
 }
 
 void ofApp::exit()//============================================================
@@ -1144,7 +1143,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
 
 void ofApp::onSliderEventGui3(ofxDatGuiSliderEvent e)//============================================================
 {
-    cout<<"gui3 slider \n";
+//    cout<<"gui3 slider \n";
 //    lightValues[ofToInt(e.target->getLabel())-1]=(e.target->getValue());
 }
 
