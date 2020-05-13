@@ -150,94 +150,7 @@ public ofxMidiListener
         
     } player[100];
 
-//====================================================================================
-//    class fxParameter
-//    {
-//    public:
-//        ofxDatGuiType type;
-//
-//
-//        fxParameter() {}
-//        virtual void onMidiMessage(int newValue){}
-//        virtual ofxDatGuiComponent* getAThing()
-//        {
-////            return new ofxDatGuiComponent("empty")
-//        }
-//        virtual bool compare(ofxDatGuiComponent* e){};
-//
-//    };
-//
-//    class fxSlider : public fxParameter
-//    {
-//    public:
-//        ofxDatGuiSlider* slider;
-//        float value;
-//        float max;
-//        float min;
-//
-//        fxSlider()
-//        {
-//            fxParameter();
-//            type=ofxDatGuiType::SLIDER;
-//            slider=new ofxDatGuiSlider("",min,max,value);
-//        }
-//
-//        void setMinMaxValue(int mn, int mx, int v)
-//        {
-//            min=mn;
-//            max=mx;
-//            value=v;
-//        }
-//
-//        void onMidiMessage(int newValue)
-//        {
-//            value=ofMap(newValue, 0, 127, min, max);
-//            if(slider->getPrecision()==0) slider->setValue(int(value));
-//            else slider->setValue(value);
-//        }
-//
-//        bool compare(ofxDatGuiComponent* e)
-//        {
-//            if(type!=e->getType()) return false;
-//            ofxDatGuiSlider *ptr= dynamic_cast<ofxDatGuiSlider*>(e);
-//            if(ptr==slider) return true;
-//            return false;
-//        }
-//
-//    };
-//     class fxToggle : public fxParameter
-//        {
-//            ofxDatGuiToggle* toggle;
-//            bool checked;
-//
-//            fxToggle()
-//            {
-//                fxParameter();
-//                type=ofxDatGuiType::TOGGLE;
-//            }
-//
-//            void onMidiMessage(int newValue)
-//            {
-//                if(newValue>63)checked=true;
-//                else checked=false;
-//                toggle->setChecked(checked);
-//            }
-//
-//            ofxDatGuiComponent * getAThing()
-//            {
-//                return toggle;
-//            }
-//
-//            bool compare(ofxDatGuiComponent* e)
-//            {
-//                if(type==e->getType()) return false;
-//                if(e==toggle) return true;
-//                return false;
-//            }
-//
-//        };
-//====================================================================================
-    
+
     int getHeight, getWidth;
     void setup();
     void update();
@@ -260,10 +173,8 @@ public ofxMidiListener
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
     void onTextInputEventGui1(ofxDatGuiTextInputEvent e);
 //    void onNumberBoxChangedEventGui1(ofxDatGuiNumberBoxChangedEvent e);
-//    fxParameter* getFxParameter(ofxDatGuiComponent *e);
     bool validMidiCC(int cc);
     
-//    void removeFxParameter(ofxDatGuiComponent *e, int previous);
     
 
     void dragEvent(ofDragInfo & info);
@@ -343,14 +254,11 @@ public ofxMidiListener
     ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *videoSpeedSlider;
     
     ofxDatGuiFolder *videoFolder;
-//    string videoOptions[25]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"};
     ofxDatGuiButton *videoButtons[100];
 
     ofPoint guiPosition;
     ofPoint windowSize();
-    
-//    vector<fxParameter*> fxByCC[127];
-    
+        
     float fxMacro=1.0;
       ofxDatGuiSlider *fxMacroSlider;
     
@@ -372,7 +280,7 @@ public ofxMidiListener
     float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidioscopeAngle=0.0, kaleidioscopeSectors=1;
     ofxDatGuiSlider *kaleidoscopeMacroSlider, *kaleidoscopeAngleSlider, *kaleidoscopeXSlider, *kaleidoscopeYSlider, *kaleidoscopeSectorSlider;
     
-    float filterMacro=0.0, filterRed=1.0, filterGreen=1, filterBlue=1.0, filterAlpha=1.0;
+    float filterMacro=1.0, filterRed=1.0, filterGreen=1, filterBlue=1.0, filterAlpha=1.0;
     ofxDatGuiSlider *filterMacroSlider,*filterRedSlider, *filterGreenSlider, *filterBlueSlider, *filterAlphaSlider;
     
     float rippleMacro=0.0, rippleX=1.0, rippleY=1.0, rippleRate=60.0;

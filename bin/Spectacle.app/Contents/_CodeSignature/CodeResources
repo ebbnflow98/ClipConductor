@@ -34,7 +34,7 @@
 		</data>
 		<key>Resources/data/fxShader.frag</key>
 		<data>
-		9qdNcn43nN+4bDFrHxU6sxrzCDI=
+		3MLx8GMhGdI2i9jOgMLM/ShDlOg=
 		</data>
 		<key>Resources/data/fxShader.vert</key>
 		<data>
@@ -115,7 +115,1429 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/libavcodec.57.64.101.dylib</key>
+		<key>Frameworks/ffmpeg/include/libavcodec/avcodec.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			6Sw3ABBDDRlutIcePQvtTXpw5zw=
+			</data>
+			<key>requirement</key>
+			<string>identifier avcodec and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/avdct.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			ubxdIZCfEBa8MLLFQnxWbfy3FiU=
+			</data>
+			<key>requirement</key>
+			<string>identifier avdct and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/avfft.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			ALwYyJ18axVe0emmDLx13L0eZO0=
+			</data>
+			<key>requirement</key>
+			<string>identifier avfft and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/d3d11va.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			o+04Fz4l7YOxSpTyxn44LUd9qD0=
+			</data>
+			<key>requirement</key>
+			<string>identifier d3d11va and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/dirac.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			NaTJ2SmrIUF+RpBHEk/9a699tiQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier dirac and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/dv_profile.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			x5Fln2X6NG+3S9ed2HwDfXuUYY4=
+			</data>
+			<key>requirement</key>
+			<string>identifier "dv_profile" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/dxva2.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			xS0vNUnxCOMTEFoonEEj0VEmNjs=
+			</data>
+			<key>requirement</key>
+			<string>identifier dxva2 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/jni.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			h9uaIIewJcnz8GvV22Yw9QTJ/Zs=
+			</data>
+			<key>requirement</key>
+			<string>identifier jni and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/mediacodec.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			k/UYnY3K2m+5dEUj+vq1cxrUHZs=
+			</data>
+			<key>requirement</key>
+			<string>identifier mediacodec and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/qsv.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			kqLYaqUs0nthFpvlYyyq8D/onjE=
+			</data>
+			<key>requirement</key>
+			<string>identifier qsv and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/vaapi.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			u1jizsgV0V82ftSSGGicCWCzLCA=
+			</data>
+			<key>requirement</key>
+			<string>identifier vaapi and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/vda.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			q3L4TZzhxn/xS1gdDc1KTMT3cMI=
+			</data>
+			<key>requirement</key>
+			<string>identifier vda and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/vdpau.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			h3SuNQBzLfN1PXRCQ5ZK5XYfYfk=
+			</data>
+			<key>requirement</key>
+			<string>identifier vdpau and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/version.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			8OADYOsJIRFjcWeRoQIBkWgjZ1o=
+			</data>
+			<key>requirement</key>
+			<string>identifier version and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/videotoolbox.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			/qhTyw5IeIMppUg+9RuOfyZOpoc=
+			</data>
+			<key>requirement</key>
+			<string>identifier videotoolbox and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/vorbis_parser.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			TbJUlTxwKhQtuhvWH1NoWrgJo4Q=
+			</data>
+			<key>requirement</key>
+			<string>identifier "vorbis_parser" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavcodec/xvmc.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			9MetvVxaCQn0dClIpzBXnBQy34k=
+			</data>
+			<key>requirement</key>
+			<string>identifier xvmc and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavformat/avformat.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			w3o90d7JGsBARUGQo8FfMhfqyWk=
+			</data>
+			<key>requirement</key>
+			<string>identifier avformat and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavformat/avio.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			rFRWrn3C4nCCSp46u4Qz85ON6MM=
+			</data>
+			<key>requirement</key>
+			<string>identifier avio and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavformat/version.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			cpOroAKaYLEzBAx+qehW9oJBHCQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier version and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/adler32.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			eDLVEIZAwE8ZlAxjRD3kR7WW1h8=
+			</data>
+			<key>requirement</key>
+			<string>identifier adler32 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/aes.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			HrqEjwuZMHUuquYh+JJHQ7jXvnA=
+			</data>
+			<key>requirement</key>
+			<string>identifier aes and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/aes_ctr.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			YbEYC4X0N1to2yR5BwVJEv1C2Tc=
+			</data>
+			<key>requirement</key>
+			<string>identifier "aes_ctr" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/attributes.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			riCaDHRVliX3jGWE7HJPy+NlwNI=
+			</data>
+			<key>requirement</key>
+			<string>identifier attributes and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/audio_fifo.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			obaLA0xY/uqMBkVDIjHcvLqvWGk=
+			</data>
+			<key>requirement</key>
+			<string>identifier "audio_fifo" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/avassert.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			ZQ+rVBA7/9dZBixBayKf5iDnkj8=
+			</data>
+			<key>requirement</key>
+			<string>identifier avassert and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/avconfig.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			JQQE55VcdCInGqBniPFS6H2+Mqk=
+			</data>
+			<key>requirement</key>
+			<string>identifier avconfig and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/avstring.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			MPPdzl5MosLU/STO+zwJjreFsdI=
+			</data>
+			<key>requirement</key>
+			<string>identifier avstring and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/avutil.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			5Z/4pmf57iZKNNIrMJM1Bhuhehc=
+			</data>
+			<key>requirement</key>
+			<string>identifier avutil and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/base64.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			408V5rp2Hnxadp9nBal21g0UuPw=
+			</data>
+			<key>requirement</key>
+			<string>identifier base64 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/blowfish.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			n5JNptbAcXCN0E+ijvn/Na16dLQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier blowfish and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/bprint.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			fvb5tGHFWyMEHH5wnvWCgWZ1Cgk=
+			</data>
+			<key>requirement</key>
+			<string>identifier bprint and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/bswap.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			npNfjOOiEZ4mKlgShuSBRIaxW0s=
+			</data>
+			<key>requirement</key>
+			<string>identifier bswap and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/buffer.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			r79IGkXvQNFYnWuJW+dyvljeGK0=
+			</data>
+			<key>requirement</key>
+			<string>identifier buffer and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/camellia.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			M2wQ/nbBEMGEbn7TeBbkgGXw0Ys=
+			</data>
+			<key>requirement</key>
+			<string>identifier camellia and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/cast5.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			ZzUQMFIXz0gXCnSTKbm+hpyShnM=
+			</data>
+			<key>requirement</key>
+			<string>identifier cast5 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/channel_layout.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Gf/03O2qonEG1y0i1nr35smZj4k=
+			</data>
+			<key>requirement</key>
+			<string>identifier "channel_layout" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/common.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			hmRQlnrc9S1gELso7ehu0MLGkgo=
+			</data>
+			<key>requirement</key>
+			<string>identifier common and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/cpu.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			u0oMCgc24bhZTyWMTCPFPULds3A=
+			</data>
+			<key>requirement</key>
+			<string>identifier cpu and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/crc.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			gf5E3xb1WTUXwyYIbWj6WWzAR2k=
+			</data>
+			<key>requirement</key>
+			<string>identifier crc and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/des.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			5Rkk/CNXv1cJR2eXBeCblvMNNFc=
+			</data>
+			<key>requirement</key>
+			<string>identifier des and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/dict.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			1BTNky7U0dAnFwgm64Tz9Dua0uQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier dict and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/display.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			BPJuDUSOeqX1SiEgYE380lPB+ww=
+			</data>
+			<key>requirement</key>
+			<string>identifier display and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/downmix_info.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			w5vOVa/3ANZUPm+6awZirYT1Dwg=
+			</data>
+			<key>requirement</key>
+			<string>identifier "downmix_info" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/error.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			UnN5FWs/H3lPv+Ylf1znzsUAzfQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier error and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/eval.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Uu3++fHpN/II53f4D32o4U4Dr4w=
+			</data>
+			<key>requirement</key>
+			<string>identifier eval and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/ffversion.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			tH58h9Vvv820h23iDtbFXGR1ls4=
+			</data>
+			<key>requirement</key>
+			<string>identifier ffversion and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/fifo.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			/jyFKeeAQ/X7irnxzqIvc82HCUE=
+			</data>
+			<key>requirement</key>
+			<string>identifier fifo and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/file.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			CpP79gFVGUgDSV+saAq6N+ulQ5k=
+			</data>
+			<key>requirement</key>
+			<string>identifier file and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/frame.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			ZzytL2iKzmeWWnroDKEJ550YNjg=
+			</data>
+			<key>requirement</key>
+			<string>identifier frame and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hash.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			q/5bh3iM/SR77uvTBI9IAPz+IXI=
+			</data>
+			<key>requirement</key>
+			<string>identifier hash and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hmac.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			iXXbjgIjBcSdkwnCFunxdRnC5Tc=
+			</data>
+			<key>requirement</key>
+			<string>identifier hmac and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hwcontext.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			W8gHMtiR+q+L3AMxwhuyQy9yUTc=
+			</data>
+			<key>requirement</key>
+			<string>identifier hwcontext and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hwcontext_cuda.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			1xNl0nrPU6D41t2qpYQAlaIwZSE=
+			</data>
+			<key>requirement</key>
+			<string>identifier "hwcontext_cuda" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hwcontext_dxva2.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			BQuFcir7Mpp6my/gLS65HM0r9ig=
+			</data>
+			<key>requirement</key>
+			<string>identifier "hwcontext_dxva2" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hwcontext_qsv.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Q7sRfVQTR9FmonN1kI811Z8scE8=
+			</data>
+			<key>requirement</key>
+			<string>identifier "hwcontext_qsv" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hwcontext_vaapi.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			4rk5Vf/iuL+sIKh1P3P2X0L+hkU=
+			</data>
+			<key>requirement</key>
+			<string>identifier "hwcontext_vaapi" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/hwcontext_vdpau.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			F88jXlFE8/6O9293y17N6cqkT0E=
+			</data>
+			<key>requirement</key>
+			<string>identifier "hwcontext_vdpau" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/imgutils.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			fgqWRH/LpobNwFb7gzXoVtl/dOw=
+			</data>
+			<key>requirement</key>
+			<string>identifier imgutils and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/intfloat.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Ishh0lLJGpQmwiLV+ARGOK82IKg=
+			</data>
+			<key>requirement</key>
+			<string>identifier intfloat and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/intreadwrite.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			0DnGs0a3z+YWvryOrBgeLlBQC/w=
+			</data>
+			<key>requirement</key>
+			<string>identifier intreadwrite and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/lfg.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			nh892beV6igjvgioZdLNeTSS8Ro=
+			</data>
+			<key>requirement</key>
+			<string>identifier lfg and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/log.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			QaNAIfoy5QdjHGA09ApXRUE3z6w=
+			</data>
+			<key>requirement</key>
+			<string>identifier log and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/macros.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			d/+APrWGvSf02Bov91ZCtzcyAj4=
+			</data>
+			<key>requirement</key>
+			<string>identifier macros and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/mastering_display_metadata.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			iql8Tw1HsNxUTV70GBqlJx97XLc=
+			</data>
+			<key>requirement</key>
+			<string>identifier "mastering_display_metadata" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/mathematics.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			wGnE5VjCFaYTurvE9hQmYR6NtyU=
+			</data>
+			<key>requirement</key>
+			<string>identifier mathematics and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/md5.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			3YE45Ib37Ep2FCx1TZskng+PZgo=
+			</data>
+			<key>requirement</key>
+			<string>identifier md5 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/mem.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			lWnL/DRp2D7soflZMcvFgJKWkSQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier mem and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/motion_vector.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			+KPjZeG+3zU+JkMQr8UxycmUs0M=
+			</data>
+			<key>requirement</key>
+			<string>identifier "motion_vector" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/murmur3.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			nhRQw06U7ylYXF4LkUgrxG/KVKQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier murmur3 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/opt.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			7shodpvKjlq3oP6+bcmWzMNQTQE=
+			</data>
+			<key>requirement</key>
+			<string>identifier opt and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/parseutils.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			2xL6JnfT97kj1JBaF7trz4kN9KU=
+			</data>
+			<key>requirement</key>
+			<string>identifier parseutils and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/pixdesc.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			toYHlgl+TXu+WFoSagLhTUFg9Hk=
+			</data>
+			<key>requirement</key>
+			<string>identifier pixdesc and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/pixelutils.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			KTz41m6aDPwLSVR/f5RK6uZMrIo=
+			</data>
+			<key>requirement</key>
+			<string>identifier pixelutils and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/pixfmt.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			1x7sFh43q7TNDHPoJRpEwYNk3dE=
+			</data>
+			<key>requirement</key>
+			<string>identifier pixfmt and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/random_seed.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			MXTZNSrc8hokaceHDdRS6qiCY8Y=
+			</data>
+			<key>requirement</key>
+			<string>identifier "random_seed" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/rational.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			qfp0nnRMMrpWT03Hrho/O6GAsNw=
+			</data>
+			<key>requirement</key>
+			<string>identifier rational and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/rc4.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			B8Fzb7OM24fixHc45QZq6HGj0ew=
+			</data>
+			<key>requirement</key>
+			<string>identifier rc4 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/replaygain.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			UyBL5P+V7wLc4L9oDvyD9tr3440=
+			</data>
+			<key>requirement</key>
+			<string>identifier replaygain and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/ripemd.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			H6l0Y15n0oyx6VEuJLLVeIhIl3Y=
+			</data>
+			<key>requirement</key>
+			<string>identifier ripemd and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/samplefmt.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			2pFbuzAxR7VcrvGjNl4v+/JUDN4=
+			</data>
+			<key>requirement</key>
+			<string>identifier samplefmt and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/sha.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			wwCQrgs1reOQgq01CmekQcfEDMY=
+			</data>
+			<key>requirement</key>
+			<string>identifier sha and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/sha512.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			pXfNAYFEYwTQdCRhvOf4GFd/2tQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier sha512 and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/stereo3d.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			llhfB+15PfmxQxLIUrrDYWbpSZY=
+			</data>
+			<key>requirement</key>
+			<string>identifier stereo3d and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/tea.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			H73vB6seKY1l5bMQHP0qvMBhZ7s=
+			</data>
+			<key>requirement</key>
+			<string>identifier tea and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/threadmessage.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			+ORVJActjNg7P2sHVjRa02/Z/nk=
+			</data>
+			<key>requirement</key>
+			<string>identifier threadmessage and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/time.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			ZH9Od3LaLodYe0QJik/QWtwHWTw=
+			</data>
+			<key>requirement</key>
+			<string>identifier time and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/timecode.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			d6AYZMvJOc4e1nUvkiPWKskls/M=
+			</data>
+			<key>requirement</key>
+			<string>identifier timecode and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/timestamp.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			fdvRbbFWrWCnewEHsa4AylMrhvg=
+			</data>
+			<key>requirement</key>
+			<string>identifier "timestamp" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/tree.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			qLyLeMvupY75qd89GYyyTyUtA3s=
+			</data>
+			<key>requirement</key>
+			<string>identifier tree and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/twofish.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			LW68/wr2CU7vbSZVwWXW5ajTIk0=
+			</data>
+			<key>requirement</key>
+			<string>identifier twofish and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/version.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			/xrrfDpRB2b0+dZvYPYKjOacrc0=
+			</data>
+			<key>requirement</key>
+			<string>identifier version and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libavutil/xtea.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			en64EV7hEGLOoeOnHH0QpU0pDhg=
+			</data>
+			<key>requirement</key>
+			<string>identifier xtea and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswresample/swresample.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			pa9uYP2h3JOf8NHg9TXvRgwrstM=
+			</data>
+			<key>requirement</key>
+			<string>identifier swresample and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswresample/version.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			3WZLDI3HOBwvLC8Ilbj0mFIXGjw=
+			</data>
+			<key>requirement</key>
+			<string>identifier version and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/Makefile</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			dNPPkDRRfuoP80A0nNW11CWJVnw=
+			</data>
+			<key>requirement</key>
+			<string>identifier Makefile and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/aarch64/Makefile</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			g/bpg3EQXnmARZo/TG2mHFHeYPs=
+			</data>
+			<key>requirement</key>
+			<string>identifier Makefile and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/aarch64/hscale.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Svp0IS1EqbyL/UVF7+wkYWneu6k=
+			</data>
+			<key>requirement</key>
+			<string>identifier hscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/aarch64/output.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Ckzkzk1xjZRPpijkEip4DV0ZILI=
+			</data>
+			<key>requirement</key>
+			<string>identifier output and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/aarch64/swscale.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			gN0EzQOBEeu86tsvGXMT6UoxeHk=
+			</data>
+			<key>requirement</key>
+			<string>identifier swscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/aarch64/swscale_unscaled.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			m3OpashW+Q94RCU9UPP72zCBkvM=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_unscaled" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/aarch64/yuv2rgb_neon.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			T+CvUPrQpiPRyeQzFavFatzs03U=
+			</data>
+			<key>requirement</key>
+			<string>identifier "yuv2rgb_neon" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/alphablend.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			qHt3ZAB0FYFuc/qsynjzFiSA4O0=
+			</data>
+			<key>requirement</key>
+			<string>identifier alphablend and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/Makefile</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			T2/o4kiLqqmlym+KIQAkewVxCUs=
+			</data>
+			<key>requirement</key>
+			<string>identifier Makefile and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/hscale.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			A3JuGnh41sVxEsmYrnEWpPaDLwY=
+			</data>
+			<key>requirement</key>
+			<string>identifier hscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/output.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			68Ej7G+1+luJodAxGVaia2SgZWk=
+			</data>
+			<key>requirement</key>
+			<string>identifier output and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/rgb2yuv_neon_16.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			mnd4voFnUK0NmR50kt2uJvzC3Z4=
+			</data>
+			<key>requirement</key>
+			<string>identifier "rgb2yuv_neon_16" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/rgb2yuv_neon_32.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			ckeWjDfNFx0FgadxyCshnJIJ8V8=
+			</data>
+			<key>requirement</key>
+			<string>identifier "rgb2yuv_neon_32" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/rgb2yuv_neon_common.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			7R5uuVEMbG/noL0WhFDbm9lQzEA=
+			</data>
+			<key>requirement</key>
+			<string>identifier "rgb2yuv_neon_common" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/swscale.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			JLh1RH51S5Rv+fernvAngm5Kfhg=
+			</data>
+			<key>requirement</key>
+			<string>identifier swscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/swscale_unscaled.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			FgksBv81qwjJLLZRANgDU+8Sh1c=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_unscaled" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/arm/yuv2rgb_neon.S</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			a6TS0MltEfs/j8GZ0j0up+H67go=
+			</data>
+			<key>requirement</key>
+			<string>identifier "yuv2rgb_neon" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/bayer_template.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			u6uswS5vEQ1wDStwXe46rHPxNCI=
+			</data>
+			<key>requirement</key>
+			<string>identifier "bayer_template" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/gamma.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			T/ESRCoLCX5Ri38rMCenLlFypjI=
+			</data>
+			<key>requirement</key>
+			<string>identifier gamma and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/hscale.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			lRiO5Nxy3YxJ6KBKF4Hf5cjjakE=
+			</data>
+			<key>requirement</key>
+			<string>identifier hscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/hscale_fast_bilinear.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Gk6y+yalPVOzQYJTPJWtBXSiEXU=
+			</data>
+			<key>requirement</key>
+			<string>identifier "hscale_fast_bilinear" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/input.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			hUt2DSJ6pYNkfrUVNqretQ/cV9Y=
+			</data>
+			<key>requirement</key>
+			<string>identifier input and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/libswscale.v</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			KY5LhewcqHV7Ye1hOp7OszIyXz4=
+			</data>
+			<key>requirement</key>
+			<string>identifier libswscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/log2_tab.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			GTgOu0ZnZJo09+t/8IuPVyqizcU=
+			</data>
+			<key>requirement</key>
+			<string>identifier "log2_tab" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/options.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			kjHS3/qGeJijOG/4056cwbPvEUQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier options and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/output.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			iUZ3eIRaqVpPuL4ZQYua1REI+4E=
+			</data>
+			<key>requirement</key>
+			<string>identifier output and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/ppc/Makefile</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			EZf1NQLQ1MrKxqnXH01Atn2+CGg=
+			</data>
+			<key>requirement</key>
+			<string>identifier Makefile and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/ppc/swscale_altivec.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			WaNQD9K2zNviFVQVojK3Ce1A7eI=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_altivec" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/ppc/swscale_ppc_template.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			2Yg8qiqXCFYDq/IhCy31Ewtm3tI=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_ppc_template" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/ppc/swscale_vsx.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			PjTMR/CgraQGdPuYSONu1UcSknE=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_vsx" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/ppc/yuv2rgb_altivec.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			/1taCCwT99y9gHsrcdwykxgEstk=
+			</data>
+			<key>requirement</key>
+			<string>identifier "yuv2rgb_altivec" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/ppc/yuv2rgb_altivec.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			LW59jhk+fUWiae0y17Wl3gKVOCY=
+			</data>
+			<key>requirement</key>
+			<string>identifier "yuv2rgb_altivec" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/ppc/yuv2yuv_altivec.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			fSX9QSfH2e3NDjj9leiJ6cQ4lsw=
+			</data>
+			<key>requirement</key>
+			<string>identifier "yuv2yuv_altivec" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/rgb2rgb.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			GgwI/F3WkeDesjo0VgYl/EeD3oI=
+			</data>
+			<key>requirement</key>
+			<string>identifier rgb2rgb and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/rgb2rgb.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			OZT+cygccEnzJUbA+br+qfgNdCg=
+			</data>
+			<key>requirement</key>
+			<string>identifier rgb2rgb and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/rgb2rgb_template.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			l/24o74wxlvzk5NgdQs0LO0Oalg=
+			</data>
+			<key>requirement</key>
+			<string>identifier "rgb2rgb_template" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/slice.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			tFHtzq8wOcag03gRR+iofCxpm1U=
+			</data>
+			<key>requirement</key>
+			<string>identifier slice and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/swscale.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Iva7OR9h5s/+qxfUK45HmaI91/U=
+			</data>
+			<key>requirement</key>
+			<string>identifier swscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/swscale.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			eai5XWG8TYC90rh91Ph0/Hq9Dp8=
+			</data>
+			<key>requirement</key>
+			<string>identifier swscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/swscale_internal.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			cEIHPkEBjaM3shtfbx5sZwuxgtQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_internal" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/swscale_unscaled.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			cl000o22twlFrqZTrSZ54++Ddbs=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_unscaled" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/swscaleres.rc</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			3D8su6Y3xL2uEcNmK8Pf5z+Xx70=
+			</data>
+			<key>requirement</key>
+			<string>identifier swscaleres and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/tests/.gitignore</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			lxQVAKjAgYWNx4qLbIbTDVSg5oY=
+			</data>
+			<key>requirement</key>
+			<string>identifier "" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/tests/colorspace.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			82F5SBP1Yahtm+f+17nzDjjaLdU=
+			</data>
+			<key>requirement</key>
+			<string>identifier colorspace and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/tests/pixdesc_query.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			0li+ubYF6D81T41f9HalB5Ckafo=
+			</data>
+			<key>requirement</key>
+			<string>identifier "pixdesc_query" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/tests/swscale.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			mjYFDtxARTlCdFnXxHQ2NeZGjdc=
+			</data>
+			<key>requirement</key>
+			<string>identifier swscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/utils.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			DpK82hut29NvJSFlcNHYZc2wF1Q=
+			</data>
+			<key>requirement</key>
+			<string>identifier utils and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/version.h</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			hLC72dMrI/eZpNRSGM1KucEtUiU=
+			</data>
+			<key>requirement</key>
+			<string>identifier version and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/vscale.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			SLnskZuTyIELcKEhckfBTDfX1G4=
+			</data>
+			<key>requirement</key>
+			<string>identifier vscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/Makefile</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			2Gs5KwlLQrIaJYgqWf4NgxqJu+Y=
+			</data>
+			<key>requirement</key>
+			<string>identifier Makefile and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/hscale_fast_bilinear_simd.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			En/v+YTVS41G103TkDun5hBSsiM=
+			</data>
+			<key>requirement</key>
+			<string>identifier "hscale_fast_bilinear_simd" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/input.asm</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			YN9dnvEnJHrRjmS/aAkPxC7gR54=
+			</data>
+			<key>requirement</key>
+			<string>identifier input and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/output.asm</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			RVB8ls8Vz9qts85h3fd/VMkTXLY=
+			</data>
+			<key>requirement</key>
+			<string>identifier output and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/rgb2rgb.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			+KwjHTJoQtN7reWSB8CixON5T2U=
+			</data>
+			<key>requirement</key>
+			<string>identifier rgb2rgb and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/rgb2rgb_template.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			XoN5N47rqcAvmrtVLRU/xXqBhSM=
+			</data>
+			<key>requirement</key>
+			<string>identifier "rgb2rgb_template" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/rgb_2_rgb.asm</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			2rshtEylvXn7ncBhK/qXxyLM8ag=
+			</data>
+			<key>requirement</key>
+			<string>identifier "rgb_2_rgb" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/scale.asm</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			uRC0SlXsx+mXU53BAi0wQ9LiYbs=
+			</data>
+			<key>requirement</key>
+			<string>identifier scale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/swscale.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			RXvdv/YFy6lv4UWyB+/LzxsVTx4=
+			</data>
+			<key>requirement</key>
+			<string>identifier swscale and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/swscale_template.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			If6GFOQa9HEYwCMtGFjkmVM2nzM=
+			</data>
+			<key>requirement</key>
+			<string>identifier "swscale_template" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/w64xmmtest.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			7ReDwMTCtdxQbhuJEpYVEx9tC0c=
+			</data>
+			<key>requirement</key>
+			<string>identifier w64xmmtest and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/yuv2rgb.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			e+XX6gy/QQM11x3zVlHafhyQpVg=
+			</data>
+			<key>requirement</key>
+			<string>identifier yuv2rgb and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/x86/yuv2rgb_template.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			igtH7xGNFL/qL+BFg2H076b34Jk=
+			</data>
+			<key>requirement</key>
+			<string>identifier "yuv2rgb_template" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/include/libswscale/yuv2rgb.c</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			D4M96Ye2p6nOZLHqihUX0glnREM=
+			</data>
+			<key>requirement</key>
+			<string>identifier yuv2rgb and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/osx/libavcodec.57.64.101.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
@@ -124,7 +1546,7 @@
 			<key>requirement</key>
 			<string>identifier "libavcodec.57" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
-		<key>Frameworks/libavformat.57.56.101.dylib</key>
+		<key>Frameworks/ffmpeg/lib/osx/libavformat.57.56.101.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
@@ -133,7 +1555,7 @@
 			<key>requirement</key>
 			<string>identifier "libavformat.57" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
-		<key>Frameworks/libavutil.55.34.101.dylib</key>
+		<key>Frameworks/ffmpeg/lib/osx/libavutil.55.34.101.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
@@ -141,6 +1563,87 @@
 			</data>
 			<key>requirement</key>
 			<string>identifier "libavutil.55" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/osx/libswresample.2.3.100.dylib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			FrwCU+Ai8dxKuSukeM4+V4ZyQoQ=
+			</data>
+			<key>requirement</key>
+			<string>identifier "libswresample.2" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/Win32/libavcodec.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			nuWHvs4EBmJ2JiK8VdooGyA9gNk=
+			</data>
+			<key>requirement</key>
+			<string>identifier libavcodec and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/Win32/libavformat.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			gAzUXftU8aRsBkxXkGOMqHTRsc0=
+			</data>
+			<key>requirement</key>
+			<string>identifier libavformat and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/Win32/libavutil.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			aUjH4DJeb+/T+Kqza+5Hp+FFoHo=
+			</data>
+			<key>requirement</key>
+			<string>identifier libavutil and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/Win32/libswresample.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			TCtaGnk6U+c4PeGvvQEDiueWs0k=
+			</data>
+			<key>requirement</key>
+			<string>identifier libswresample and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/x64/libavcodec.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			Nz3jKneCksIxMpEkQCkh7IAZ9X4=
+			</data>
+			<key>requirement</key>
+			<string>identifier libavcodec and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/x64/libavformat.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			gbo6/0xSGV3EHqzGvejeWhHLVlA=
+			</data>
+			<key>requirement</key>
+			<string>identifier libavformat and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/x64/libavutil.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			0xRRNwrFz5ARx0LNcb52ELfAong=
+			</data>
+			<key>requirement</key>
+			<string>identifier libavutil and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+		</dict>
+		<key>Frameworks/ffmpeg/lib/vs/x64/libswresample.lib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			hKEdyyv2Ag+uwjyrmjFod7Rd9e8=
+			</data>
+			<key>requirement</key>
+			<string>identifier libswresample and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>Frameworks/libfmodex.dylib</key>
 		<dict>
@@ -150,15 +1653,6 @@
 			</data>
 			<key>requirement</key>
 			<string>identifier libfmodex and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
-		</dict>
-		<key>Frameworks/libswresample.2.3.100.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			FrwCU+Ai8dxKuSukeM4+V4ZyQoQ=
-			</data>
-			<key>requirement</key>
-			<string>identifier "libswresample.2" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: evan.peters@aol.com (MZ6D56627M)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>Resources/data/.gitkeep</key>
 		<dict>
@@ -230,11 +1724,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9qdNcn43nN+4bDFrHxU6sxrzCDI=
+			3MLx8GMhGdI2i9jOgMLM/ShDlOg=
 			</data>
 			<key>hash2</key>
 			<data>
-			XLmysTWHThSmCBsu44FqbyhJbbxY55Qi60CmZoTGWUw=
+			qhzt+mE7ejk4UZwgFtCrCVazKNb1sJllrLaV6DOarkk=
 			</data>
 		</dict>
 		<key>Resources/data/fxShader.vert</key>

@@ -73,7 +73,7 @@ vec4 Filter(vec4 color, float filterMacro, vec4 filterRGB)
     color.r*=filterRGB.r*filterMacro;
     color.g*=filterRGB.g*filterMacro;
     color.b*=filterRGB.b*filterMacro;
-    color.a*=filterRGB.a*filterMacro;
+//    color.a*=filterRGB.a*filterMacro;
     
     return color;
 }
@@ -222,40 +222,6 @@ vec4 Vhs(vec4 dryColor, float vhsMacro, float vhsStrength, float vhsSpeed)
         }
 }
 
-//vec3 GetTextureOffset(vec2 coords, vec2 textureSize, vec2 texelOffset)
-//{
-//    vec2 texelSize = 1.0 / textureSize;
-//    vec2 offsetCoords = coords + texelSize * texelOffset;
-//
-//    vec2 halfTexelSize = texelSize / 2.0;
-//    vec2 clampedOffsetCoords = clamp(offsetCoords, halfTexelSize, 1.0 - halfTexelSize);
-//
-//    return texture2D(iChannel0, clampedOffsetCoords).rgb;
-//}
-//
-//
-//void vhsTest(void)
-//{
-//    vec2 screenCoords = gl_FragCoord.xy;
-//    vec2 screenSize = resolution.xy;
-//
-//
-//    vec2 offsetFromCenter = GetOffsetFromCenter(screenCoords, screenSize);
-//    vec2 offsetDirection = normalize(-offsetFromCenter);
-//    float offsetDistance = length(offsetFromCenter);
-//
-//
-//    vec2 offset = GetDistortionTexelOffset(offsetDirection, offsetDistance, time);
-//
-//
-//    vec2 coords = (gl_FragCoord.xy / screenSize);
-//    coords.y = 1.0 - coords.y;
-//
-//    vec3 background = GetTextureOffset(coords, screenSize, offset);
-//
-//     return vec4(background, 1.0);
-//}
-
 void main()
 {
     vec4 dryColor = texture2DRect(texture0,gl_TexCoord[0].xy);
@@ -274,13 +240,13 @@ void main()
     
     vec4 fxColor=texture2DRect(texture0,pos);//====================
     
-    if(filterMacro>=0.0)fxColor=Filter(fxColor,1.0-filterMacro,filterRGB);
+    if(filterMacro>=0.0)fxColor=Filter(fxColor,filterMacro,filterRGB);
     
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
-    if(zebraMacro!=0.0)fxColor=Zebra(fxColor, zebraMacro, zebraLevels, zebraSpeed);
+    if(zebraMacro!=0.0)fxColor = Zebra(fxColor, zebraMacro, zebraLevels, zebraSpeed);
     
-    if(vhsMacro!=0.0) fxColor = Vhs(fxColor, vhsMacro, vhsSpeed, vhsStrength);
+//    if(vhsMacro!=0.0) fxColor = Vhs(fxColor, vhsMacro, vhsSpeed, vhsStrength);
     
     vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     
