@@ -7,16 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AA38188232795C60DE824B0 /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C2F53547FE937A2A3078D7 /* ofxDatGui.cpp */; };
 		0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */; };
 		1030C647FD06E4D3E054F65D /* ofxMidiTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */; };
 		1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */; };
 		207ED205245D066900811854 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
-		207ED206245D066900811854 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
 		207ED207245D066900811854 /* convertVideo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEB1E4BFB95C333EB1746EA4 /* convertVideo.cpp */; };
-		207ED208245D066900811854 /* ofxDatGuiComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03242EAE8A592AC37FD0B97 /* ofxDatGuiComponent.cpp */; };
-		207ED209245D066900811854 /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C2F53547FE937A2A3078D7 /* ofxDatGui.cpp */; };
-		207ED20A245D066900811854 /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61AE03F870FFAFDCDD8C2030 /* ofxSmartFont.cpp */; };
 		207ED20B245D066900811854 /* ofxDmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 435636905F1CDAC0B05976DD /* ofxDmx.cpp */; };
 		207ED20C245D066900811854 /* ofxHapPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01C45E832E7F99B0B52B53B /* ofxHapPlayer.cpp */; };
 		207ED20D245D066900811854 /* hap.c in Sources */ = {isa = PBXBuildFile; fileRef = 8E391A896AE1799FB984B167 /* hap.c */; };
@@ -46,11 +41,12 @@
 		207ED225245D066900811854 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832BDC407620CDBA568B713D /* tinyxmlerror.cpp */; };
 		207ED226245D066900811854 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B40EDA85BEB63E46785BC29 /* tinyxml.cpp */; };
 		207ED228245D066900811854 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */; };
+		20A40C78246E2A7F00605FD8 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
+		20A40C79246E2A7F00605FD8 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
 		29CCE522B929F684F4AFA9CD /* AudioParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E60382E18C61C222D07D5878 /* AudioParameters.cpp */; };
 		2C41A3B3370C4274289C315A /* AudioDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CBEFB52B9BADF58A104DB7F3 /* AudioDecoder.cpp */; };
 		3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712B183BC00EBFFB1EEA5AB8 /* ofxRtMidiOut.cpp */; };
 		45E97BE760E2DC34B9E42673 /* TimeRangeSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FC45ABF75D4DB04EEBFB3CB /* TimeRangeSet.cpp */; };
-		557C4C5A2DD58DD09FBDEBEB /* ofxDatGuiComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A03242EAE8A592AC37FD0B97 /* ofxDatGuiComponent.cpp */; };
 		5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC5DA1C87211D4F6377DA719 /* tinyxmlparser.cpp */; };
 		5C425EB9C00EF2E9A088BBAE /* hap.c in Sources */ = {isa = PBXBuildFile; fileRef = 8E391A896AE1799FB984B167 /* hap.c */; };
 		631702104AFC104323A9EB79 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */; };
@@ -66,13 +62,11 @@
 		933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B40EDA85BEB63E46785BC29 /* tinyxml.cpp */; };
 		9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832BDC407620CDBA568B713D /* tinyxmlerror.cpp */; };
 		A310FC398427045BC6A06A0A /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8CA1830EB9DEEB005E24D87 /* Clock.cpp */; };
-		A5673C6757C450679D61A8C1 /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61AE03F870FFAFDCDD8C2030 /* ofxSmartFont.cpp */; };
 		BCC8D420CBA9217E437D2D76 /* ofxRtMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F634AA6CA2E3C60F3B87B59A /* ofxRtMidiIn.cpp */; };
 		C6FE64F74F1EA1D98C8F9847 /* ofxMidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0E7EDA67EDF213FC0E83D17 /* ofxMidiMessage.cpp */; };
 		D525F48A6A16AD553BAEA033 /* AudioResampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B9FF2BE52E8F04FDBA5F596 /* AudioResampler.cpp */; };
 		DA4D50A3FFCA8CDDC214E9E4 /* PacketCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60C11F9766136D478F92E85A /* PacketCache.cpp */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
-		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
 		EE7C3F838E94930045480504 /* MovieTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 780E9A0BA0692F25A4BD6CE4 /* MovieTime.cpp */; };
 		F11ED3F68183C96A6F7F4DCC /* AudioThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 001F37FF59925885CC869559 /* AudioThread.cpp */; };
 		F882E9CB888F08A9B3538799 /* RingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49A19DB15C41B102F96E8AF9 /* RingBuffer.cpp */; };
@@ -106,34 +100,22 @@
 		04F77E5C73A62E2E77C78EC6 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiOut.cpp; path = ../../../addons/ofxMidi/src/ofxMidiOut.cpp; sourceTree = SOURCE_ROOT; };
 		05F6CF127D4A621113D4A62F /* ofxMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidi.h; path = ../../../addons/ofxMidi/src/ofxMidi.h; sourceTree = SOURCE_ROOT; };
 		0616E2E62D4C4B9FF49E9FA7 /* MovieTime.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MovieTime.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/MovieTime.h; sourceTree = SOURCE_ROOT; };
-		103367A5953CCCA5C287CB34 /* ofxDatGuiGroups.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiGroups.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiGroups.h; sourceTree = SOURCE_ROOT; };
 		10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiTimecode.cpp; path = ../../../addons/ofxMidi/src/ofxMidiTimecode.cpp; sourceTree = SOURCE_ROOT; };
-		10FBC8DF494134418023EAB1 /* ofxDatGuiComponent.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiComponent.h; path = ../../../addons/ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.h; sourceTree = SOURCE_ROOT; };
-		11011EB2846EACFDE5056214 /* ofxSmartFont.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSmartFont.h; path = ../../../addons/ofxDatGuiSpectacle/src/libs/ofxSmartFont/ofxSmartFont.h; sourceTree = SOURCE_ROOT; };
 		1689662B6141B1D63E63CDE3 /* Demuxer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Demuxer.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/Demuxer.h; sourceTree = SOURCE_ROOT; };
 		1B70F4B78DF3102C0278A701 /* evanColor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = evanColor.h; path = src/evanColor.h; sourceTree = SOURCE_ROOT; };
 		1CD0FCD17CF81253541710C9 /* AudioResampler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = AudioResampler.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/AudioResampler.h; sourceTree = SOURCE_ROOT; };
-		1F5E4ADC76C3D52F6CC472FC /* ofxDatGuiConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiConstants.h; path = ../../../addons/ofxDatGuiSpectacle/src/core/ofxDatGuiConstants.h; sourceTree = SOURCE_ROOT; };
 		207ED230245D066900811854 /* Spectacle copyDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spectacle copyDebug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		207ED231245D066900811854 /* Spectacle copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Spectacle copy-Info.plist"; path = "/Users/Evan/Documents/Coding/of_v0.11.0_osx_release/apps/myApps/MIDI Hap Player v3/Spectacle copy-Info.plist"; sourceTree = "<absolute>"; };
 		208298154B11456DCD0BE131 /* ofxRtMidiIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRtMidiIn.h; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiIn.h; sourceTree = SOURCE_ROOT; };
-		26C04A2B48B805E131772D95 /* ofxDatGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGui.h; path = ../../../addons/ofxDatGuiSpectacle/src/ofxDatGui.h; sourceTree = SOURCE_ROOT; };
+		20A40C77246E2A5D00605FD8 /* Spectacle copy copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Spectacle copy copy-Info.plist"; path = "/Users/Evan/Documents/Coding/of_v0.11.0_osx_release/apps/myApps/MIDI Hap Player v3/Spectacle copy copy-Info.plist"; sourceTree = "<absolute>"; };
 		280D08C3289D60869BDAF7A6 /* ofxDmx.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDmx.h; path = ../../../addons/ofxDmx/src/ofxDmx.h; sourceTree = SOURCE_ROOT; };
 		2B10088182CCC77A91CEC1F9 /* Clock.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Clock.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/Clock.h; sourceTree = SOURCE_ROOT; };
 		2B40EDA85BEB63E46785BC29 /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
-		2F44D9B44BFEDA1C089E0207 /* ofxDatGuiEvents.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiEvents.h; path = ../../../addons/ofxDatGuiSpectacle/src/core/ofxDatGuiEvents.h; sourceTree = SOURCE_ROOT; };
-		2F4DD85A0AD49A6CF08A462B /* ofxDatGuiScrollView.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiScrollView.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiScrollView.h; sourceTree = SOURCE_ROOT; };
-		33060A4813374B5B9A1018A8 /* ofxDatGuiThemes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiThemes.h; path = ../../../addons/ofxDatGuiSpectacle/src/themes/ofxDatGuiThemes.h; sourceTree = SOURCE_ROOT; };
-		33C3282BDBB3471DAA40A508 /* ofxDatGuiSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiSlider.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h; sourceTree = SOURCE_ROOT; };
 		395904325C5E9F0823BC337D /* AudioThread.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = AudioThread.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/AudioThread.h; sourceTree = SOURCE_ROOT; };
-		3A3AEC79880800D8B19FA41C /* ofxDatGuiTheme.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTheme.h; path = ../../../addons/ofxDatGuiSpectacle/src/themes/ofxDatGuiTheme.h; sourceTree = SOURCE_ROOT; };
 		3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiIn.cpp; path = ../../../addons/ofxMidi/src/ofxMidiIn.cpp; sourceTree = SOURCE_ROOT; };
 		4310BEFDE24FF04FEBEE8086 /* ofxBaseMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseMidi.h; path = ../../../addons/ofxMidi/src/ofxBaseMidi.h; sourceTree = SOURCE_ROOT; };
 		435636905F1CDAC0B05976DD /* ofxDmx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDmx.cpp; path = ../../../addons/ofxDmx/src/ofxDmx.cpp; sourceTree = SOURCE_ROOT; };
-		44C16668A204CA67E0415EBD /* ofxDatGuiTimeGraph.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTimeGraph.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiTimeGraph.h; sourceTree = SOURCE_ROOT; };
-		46C2F53547FE937A2A3078D7 /* ofxDatGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDatGui.cpp; path = ../../../addons/ofxDatGuiSpectacle/src/ofxDatGui.cpp; sourceTree = SOURCE_ROOT; };
 		470CF04F1D4D1B38D5AA1797 /* ofxRtMidiOut.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRtMidiOut.h; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiOut.h; sourceTree = SOURCE_ROOT; };
-		491A299634F6DF043CE5C606 /* ofxDatGuiIntObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiIntObject.h; path = ../../../addons/ofxDatGuiSpectacle/src/core/ofxDatGuiIntObject.h; sourceTree = SOURCE_ROOT; };
 		497DDB0B7AD97CCBA7FDB133 /* ofxMidiClock.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiClock.h; path = ../../../addons/ofxMidi/src/ofxMidiClock.h; sourceTree = SOURCE_ROOT; };
 		49A19DB15C41B102F96E8AF9 /* RingBuffer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = RingBuffer.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/RingBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
@@ -143,14 +125,9 @@
 		5863B6FCCDCF6C2519A6D149 /* convertVideo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = convertVideo.h; path = src/convertVideo.h; sourceTree = SOURCE_ROOT; };
 		5FC45ABF75D4DB04EEBFB3CB /* TimeRangeSet.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = TimeRangeSet.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/TimeRangeSet.cpp; sourceTree = SOURCE_ROOT; };
 		60C11F9766136D478F92E85A /* PacketCache.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PacketCache.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/PacketCache.cpp; sourceTree = SOURCE_ROOT; };
-		61AE03F870FFAFDCDD8C2030 /* ofxSmartFont.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSmartFont.cpp; path = ../../../addons/ofxDatGuiSpectacle/src/libs/ofxSmartFont/ofxSmartFont.cpp; sourceTree = SOURCE_ROOT; };
-		6AA3DCBF949FD1A8F8BB8359 /* ofxDatGui2dPad.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGui2dPad.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGui2dPad.h; sourceTree = SOURCE_ROOT; };
 		712B183BC00EBFFB1EEA5AB8 /* ofxRtMidiOut.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRtMidiOut.cpp; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiOut.cpp; sourceTree = SOURCE_ROOT; };
-		75ED8C4FECE1E008D5E4CB13 /* ofxDatGuiColorPicker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiColorPicker.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiColorPicker.h; sourceTree = SOURCE_ROOT; };
 		780E9A0BA0692F25A4BD6CE4 /* MovieTime.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = MovieTime.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/MovieTime.cpp; sourceTree = SOURCE_ROOT; };
-		7BCA25BC4DB6ED14DC953260 /* ofxDatGuiButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiButton.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiButton.h; sourceTree = SOURCE_ROOT; };
 		7E9E7CF242BE860814498E21 /* light.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = light.h; path = src/light.h; sourceTree = SOURCE_ROOT; };
-		7FC848AF741B4CCC8E47E9CC /* ofxDatGuiMatrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiMatrix.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiMatrix.h; sourceTree = SOURCE_ROOT; };
 		81436E53CC4A77E326F659C3 /* ofxMidiOut.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiOut.h; path = ../../../addons/ofxMidi/src/ofxMidiOut.h; sourceTree = SOURCE_ROOT; };
 		81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
 		832BDC407620CDBA568B713D /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
@@ -158,11 +135,8 @@
 		8E391A896AE1799FB984B167 /* hap.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = hap.c; path = ../../../addons/ofxHapPlayerAltered/libs/hap/src/hap.c; sourceTree = SOURCE_ROOT; };
 		938214A2795AA8FED29086DB /* ofxMidiConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiConstants.h; path = ../../../addons/ofxMidi/src/ofxMidiConstants.h; sourceTree = SOURCE_ROOT; };
 		94B3C3C21F92F9310CA90986 /* ofxBaseMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxBaseMidi.cpp; path = ../../../addons/ofxMidi/src/ofxBaseMidi.cpp; sourceTree = SOURCE_ROOT; };
-		980B77AE47C042BC587AF8DA /* ofxDatGuiTextInputField.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInputField.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiTextInputField.h; sourceTree = SOURCE_ROOT; };
 		98E5B3D43CA8A9C794C6ACC2 /* ofxHapPlayer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxHapPlayer.h; path = ../../../addons/ofxHapPlayerAltered/src/ofxHapPlayer.h; sourceTree = SOURCE_ROOT; };
-		99CD0CD3933F69DACFC24854 /* ofxDatGuiLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiLabel.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiLabel.h; sourceTree = SOURCE_ROOT; };
 		9B9FF2BE52E8F04FDBA5F596 /* AudioResampler.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = AudioResampler.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/AudioResampler.cpp; sourceTree = SOURCE_ROOT; };
-		A03242EAE8A592AC37FD0B97 /* ofxDatGuiComponent.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDatGuiComponent.cpp; path = ../../../addons/ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp; sourceTree = SOURCE_ROOT; };
 		A148B3D0ACB1C63DF7874492 /* AudioDecoder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = AudioDecoder.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/AudioDecoder.h; sourceTree = SOURCE_ROOT; };
 		A8793707281FD436C34316A5 /* RtMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = RtMidi.h; path = ../../../addons/ofxMidi/libs/rtmidi/RtMidi.h; sourceTree = SOURCE_ROOT; };
 		A8CA1830EB9DEEB005E24D87 /* Clock.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Clock.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/Clock.cpp; sourceTree = SOURCE_ROOT; };
@@ -179,7 +153,6 @@
 		C421144359FF4F39E899BF67 /* ofxParagraph.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxParagraph.h; path = ../../../addons/ofxParagraph/src/ofxParagraph.h; sourceTree = SOURCE_ROOT; };
 		C7ABD42E704D5145EB43D5A9 /* PacketCache.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = PacketCache.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/PacketCache.h; sourceTree = SOURCE_ROOT; };
 		CBEFB52B9BADF58A104DB7F3 /* AudioDecoder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = AudioDecoder.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/AudioDecoder.cpp; sourceTree = SOURCE_ROOT; };
-		D7A365E85A6EF5B62E25FBBF /* ofxDatGuiFRM.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiFRM.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiFRM.h; sourceTree = SOURCE_ROOT; };
 		E16BB73D19DD0713FDCC7986 /* ofxMidiTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiTypes.h; path = ../../../addons/ofxMidi/src/ofxMidiTypes.h; sourceTree = SOURCE_ROOT; };
 		E238CCDE032640E0FEBFAD82 /* ofxMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidi.cpp; path = ../../../addons/ofxMidi/src/ofxMidi.cpp; sourceTree = SOURCE_ROOT; };
 		E42962AC2163EDD300A6A9E2 /* ofCamera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ofCamera.cpp; path = ../../../libs/openFrameworks/3d/ofCamera.cpp; sourceTree = SOURCE_ROOT; };
@@ -357,7 +330,6 @@
 		E42963712163EDD300A6A9E2 /* ofFmodSoundPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofFmodSoundPlayer.h; path = ../../../libs/openFrameworks/sound/ofFmodSoundPlayer.h; sourceTree = SOURCE_ROOT; };
 		E42963722163EDD300A6A9E2 /* ofSoundBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ofSoundBuffer.cpp; path = ../../../libs/openFrameworks/sound/ofSoundBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		E42963732163EDD300A6A9E2 /* ofSoundBaseTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofSoundBaseTypes.h; path = ../../../libs/openFrameworks/sound/ofSoundBaseTypes.h; sourceTree = SOURCE_ROOT; };
-		E48898CE2446280CEAFE77EE /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* SpectacleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpectacleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
@@ -368,7 +340,6 @@
 		F01C45E832E7F99B0B52B53B /* ofxHapPlayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxHapPlayer.cpp; path = ../../../addons/ofxHapPlayerAltered/src/ofxHapPlayer.cpp; sourceTree = SOURCE_ROOT; };
 		F46A8FAA92329F094B2D870E /* RingBuffer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = RingBuffer.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/RingBuffer.h; sourceTree = SOURCE_ROOT; };
 		F634AA6CA2E3C60F3B87B59A /* ofxRtMidiIn.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRtMidiIn.cpp; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiIn.cpp; sourceTree = SOURCE_ROOT; };
-		F6E583F27D5145473FDE9B28 /* ofxDatGuiControls.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiControls.h; path = ../../../addons/ofxDatGuiSpectacle/src/components/ofxDatGuiControls.h; sourceTree = SOURCE_ROOT; };
 		FAACB76864095EA46DF18A4F /* ErrorReceiving.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ErrorReceiving.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/ErrorReceiving.h; sourceTree = SOURCE_ROOT; };
 		FC5DA1C87211D4F6377DA719 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlparser.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
 		FFD9950F86D72C5A562DF545 /* ofxParagraph.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxParagraph.cpp; path = ../../../addons/ofxParagraph/src/ofxParagraph.cpp; sourceTree = SOURCE_ROOT; };
@@ -394,18 +365,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		10DFAA2FBFD2B4566A9EB365 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				491A299634F6DF043CE5C606 /* ofxDatGuiIntObject.h */,
-				A03242EAE8A592AC37FD0B97 /* ofxDatGuiComponent.cpp */,
-				1F5E4ADC76C3D52F6CC472FC /* ofxDatGuiConstants.h */,
-				2F44D9B44BFEDA1C089E0207 /* ofxDatGuiEvents.h */,
-				10FBC8DF494134418023EAB1 /* ofxDatGuiComponent.h */,
-			);
-			name = core;
-			sourceTree = "<group>";
-		};
 		15286CDC73EEC7D74333188F /* src */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,19 +420,6 @@
 			name = ofxHap;
 			sourceTree = "<group>";
 		};
-		283FF663C79EB7FA8C01D314 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				10DFAA2FBFD2B4566A9EB365 /* core */,
-				26C04A2B48B805E131772D95 /* ofxDatGui.h */,
-				46C2F53547FE937A2A3078D7 /* ofxDatGui.cpp */,
-				EAB0A7AF7D8664DE3E81A72D /* libs */,
-				5D7DCB626F63DD9FDE9C2A3D /* components */,
-				412D722C3A4821F8D873E6DE /* themes */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
 		2877BAA6CBC8D4E5C28F2D34 /* ofxParagraph */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,15 +436,6 @@
 			name = frameworks;
 			sourceTree = "<group>";
 		};
-		412D722C3A4821F8D873E6DE /* themes */ = {
-			isa = PBXGroup;
-			children = (
-				3A3AEC79880800D8B19FA41C /* ofxDatGuiTheme.h */,
-				33060A4813374B5B9A1018A8 /* ofxDatGuiThemes.h */,
-			);
-			name = themes;
-			sourceTree = "<group>";
-		};
 		4931C800CD1050BA143C4012 /* ofxHapPlayerAltered */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,41 +445,12 @@
 			name = ofxHapPlayerAltered;
 			sourceTree = "<group>";
 		};
-		4A2DFD83F8F97F5B165845BC /* ofxSmartFont */ = {
-			isa = PBXGroup;
-			children = (
-				61AE03F870FFAFDCDD8C2030 /* ofxSmartFont.cpp */,
-				11011EB2846EACFDE5056214 /* ofxSmartFont.h */,
-			);
-			name = ofxSmartFont;
-			sourceTree = "<group>";
-		};
 		5A08CCDC8D19E7162DE57128 /* libs */ = {
 			isa = PBXGroup;
 			children = (
 				945CEFADFB0DF400A92A507C /* rtmidi */,
 			);
 			name = libs;
-			sourceTree = "<group>";
-		};
-		5D7DCB626F63DD9FDE9C2A3D /* components */ = {
-			isa = PBXGroup;
-			children = (
-				75ED8C4FECE1E008D5E4CB13 /* ofxDatGuiColorPicker.h */,
-				33C3282BDBB3471DAA40A508 /* ofxDatGuiSlider.h */,
-				D7A365E85A6EF5B62E25FBBF /* ofxDatGuiFRM.h */,
-				44C16668A204CA67E0415EBD /* ofxDatGuiTimeGraph.h */,
-				980B77AE47C042BC587AF8DA /* ofxDatGuiTextInputField.h */,
-				7BCA25BC4DB6ED14DC953260 /* ofxDatGuiButton.h */,
-				F6E583F27D5145473FDE9B28 /* ofxDatGuiControls.h */,
-				103367A5953CCCA5C287CB34 /* ofxDatGuiGroups.h */,
-				2F4DD85A0AD49A6CF08A462B /* ofxDatGuiScrollView.h */,
-				99CD0CD3933F69DACFC24854 /* ofxDatGuiLabel.h */,
-				6AA3DCBF949FD1A8F8BB8359 /* ofxDatGui2dPad.h */,
-				E48898CE2446280CEAFE77EE /* ofxDatGuiTextInput.h */,
-				7FC848AF741B4CCC8E47E9CC /* ofxDatGuiMatrix.h */,
-			);
-			name = components;
 			sourceTree = "<group>";
 		};
 		6948EE371B920CB800B5AC1A /* local_addons */ = {
@@ -570,14 +478,6 @@
 				01DCC0911400F9ACF5B65578 /* ofxXmlSettings.h */,
 			);
 			name = src;
-			sourceTree = "<group>";
-		};
-		82CC61CAF9B4BE06A92AE057 /* ofxDatGuiSpectacle */ = {
-			isa = PBXGroup;
-			children = (
-				283FF663C79EB7FA8C01D314 /* src */,
-			);
-			name = ofxDatGuiSpectacle;
 			sourceTree = "<group>";
 		};
 		945CEFADFB0DF400A92A507C /* rtmidi */ = {
@@ -661,7 +561,6 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				82CC61CAF9B4BE06A92AE057 /* ofxDatGuiSpectacle */,
 				9C10541A7618D99B3938950F /* ofxDmx */,
 				4931C800CD1050BA143C4012 /* ofxHapPlayerAltered */,
 				2413C01760B1811BED0F502D /* ofxMidi */,
@@ -1001,6 +900,7 @@
 				E4B69B5B0A3A1756003C02F2 /* SpectacleDebug.app */,
 				207ED230245D066900811854 /* Spectacle copyDebug.app */,
 				207ED231245D066900811854 /* Spectacle copy-Info.plist */,
+				20A40C77246E2A5D00605FD8 /* Spectacle copy copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1018,14 +918,6 @@
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
-		};
-		EAB0A7AF7D8664DE3E81A72D /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				4A2DFD83F8F97F5B165845BC /* ofxSmartFont */,
-			);
-			name = libs;
-			sourceTree = "<group>";
 		};
 		F2CC4817DE889E8A9C4E3321 /* hap */ = {
 			isa = PBXGroup;
@@ -1194,11 +1086,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				207ED205245D066900811854 /* main.cpp in Sources */,
-				207ED206245D066900811854 /* ofApp.cpp in Sources */,
 				207ED207245D066900811854 /* convertVideo.cpp in Sources */,
-				207ED208245D066900811854 /* ofxDatGuiComponent.cpp in Sources */,
-				207ED209245D066900811854 /* ofxDatGui.cpp in Sources */,
-				207ED20A245D066900811854 /* ofxSmartFont.cpp in Sources */,
 				207ED20B245D066900811854 /* ofxDmx.cpp in Sources */,
 				207ED20C245D066900811854 /* ofxHapPlayer.cpp in Sources */,
 				207ED20D245D066900811854 /* hap.c in Sources */,
@@ -1220,6 +1108,7 @@
 				207ED21D245D066900811854 /* ofxMidiClock.cpp in Sources */,
 				207ED21E245D066900811854 /* ofxMidiMessage.cpp in Sources */,
 				207ED21F245D066900811854 /* ofxMidi.cpp in Sources */,
+				20A40C78246E2A7F00605FD8 /* ofApp.cpp in Sources */,
 				207ED220245D066900811854 /* ofxMidiIn.cpp in Sources */,
 				207ED221245D066900811854 /* RtMidi.cpp in Sources */,
 				207ED222245D066900811854 /* ofxParagraph.cpp in Sources */,
@@ -1235,11 +1124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
-				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				668F398209DCA5B332706268 /* convertVideo.cpp in Sources */,
-				557C4C5A2DD58DD09FBDEBEB /* ofxDatGuiComponent.cpp in Sources */,
-				0AA38188232795C60DE824B0 /* ofxDatGui.cpp in Sources */,
-				A5673C6757C450679D61A8C1 /* ofxSmartFont.cpp in Sources */,
 				8BCF02B826253856D7DCF4D1 /* ofxDmx.cpp in Sources */,
 				FC392E16B47BE405097CC630 /* ofxHapPlayer.cpp in Sources */,
 				5C425EB9C00EF2E9A088BBAE /* hap.c in Sources */,
@@ -1261,6 +1146,7 @@
 				881AF887EC2124F4105DE9E1 /* ofxMidiClock.cpp in Sources */,
 				C6FE64F74F1EA1D98C8F9847 /* ofxMidiMessage.cpp in Sources */,
 				63F9FE1D90234FA6DE6F509E /* ofxMidi.cpp in Sources */,
+				20A40C79246E2A7F00605FD8 /* ofApp.cpp in Sources */,
 				0BFC9C20FD7E3C8D5873AA97 /* ofxMidiIn.cpp in Sources */,
 				63D0FD8734D5760B8080C901 /* RtMidi.cpp in Sources */,
 				85EEBF281BD3B965FFF08547 /* ofxParagraph.cpp in Sources */,
