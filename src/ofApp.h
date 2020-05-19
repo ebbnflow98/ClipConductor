@@ -6,7 +6,6 @@
 #include "ofxDatGui.h"
 #include "convertVideo.h"
 #include "evanColor.h"
-#include "light.h"
 #include "modalDialogs.h"
 #include "ofxDmx.h"
 
@@ -197,11 +196,6 @@ public ofxMidiListener
     void onSliderEventGui3(ofxDatGuiSliderEvent e);
 //    void onButtonEventGui3(ofxDatGuiButtonEvent e);
 //    void onToggleEventGui3(ofxDatGuiToggleEvent e);
-    void editLight();
-    void addLight();
-    int getRigSize();
-    void deleteLight(light * a);
-    
 //------------------------------------------------------------------------
     ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
     ofShader shader, asciiShader, ledShader, chromaKeyShader;
@@ -322,7 +316,7 @@ public ofxMidiListener
     
     int autoCycleRed, autoCycleGreen, autoCycleBlue;
     int lightWidth;
-    vector<light> rig;
+//    vector<light> rig;
     int runningCount=0;
     
 //    ofxDatGuiButton *addLightButton;
