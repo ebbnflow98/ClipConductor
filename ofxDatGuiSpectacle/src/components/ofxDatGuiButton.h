@@ -36,6 +36,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
         void setTheme(const ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
+
             mStyle.stripe.color = theme->stripe.button;
             setWidth(theme->layout.width, theme->layout.labelWidth);
         }
@@ -75,12 +76,12 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
             ofFill();
             if (mFocused && mMouseDown) ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
             else if (mMouseOver) ofSetColor(mStyle.color.onMouseOver, mStyle.opacity);
-//            else ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
             else ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
 
             ofDrawRectangle(x, y, mStyle.width, mStyle.height);
             drawLabel();
             if (mStyle.stripe.visible) drawStripe();
+            
             ofPopStyle();
         }
     }
@@ -158,6 +159,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
                 ofPushStyle();
                 ofSetColor(mIcon.color);
                 if (mChecked == true) ofxDatGuiButton::drawTrue();
+                
 //                    radioOn->draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
 //                else ofSetColor()
 //                    radioOff->draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
@@ -193,7 +195,6 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
         bool mChecked;
         shared_ptr<ofImage> radioOn;
         shared_ptr<ofImage> radioOff;
-
 };
 
 

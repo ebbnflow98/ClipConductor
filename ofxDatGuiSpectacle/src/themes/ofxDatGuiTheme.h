@@ -70,6 +70,9 @@ class ofxDatGuiTheme{
             icon.groupOpen->load(icon.groupOpenPath);
             icon.groupClosed->load(icon.groupClosedPath);
             icon.rainbow->load(icon.rainbowPath);
+            icon.eye->load(icon.eyePath);
+            icon.film->load(icon.filmPath);
+            icon.lightbulb->load(icon.lightbulbPath);
             font.ptr = ofxSmartFont::add(font.file, font.size);
         }
     
@@ -178,13 +181,13 @@ class ofxDatGuiTheme{
             float labelWidth = 95.0f;
             float labelMargin = 12.0f;
             float breakHeight = 3.0f;
-            bool upperCaseLabels = true;
+            bool upperCaseLabels = false;
             
         // component specific rules & settings //
         
             struct {
                 int highlightPadding = 5;
-                bool forceUpperCase = true;
+                bool forceUpperCase = false;
             } textInput;
             
             struct {
@@ -223,17 +226,23 @@ class ofxDatGuiTheme{
             shared_ptr<ofxSmartFont> ptr;
         } font;
     
-        struct{
+        struct{             //to add a picture, 1st declare it.
             shared_ptr<ofImage> rainbow = make_shared<ofImage>();
             shared_ptr<ofImage> radioOn = make_shared<ofImage>();
             shared_ptr<ofImage> radioOff = make_shared<ofImage>();
             shared_ptr<ofImage> groupOpen = make_shared<ofImage>();
             shared_ptr<ofImage> groupClosed = make_shared<ofImage>();
+            shared_ptr<ofImage> eye = make_shared<ofImage>();
+            shared_ptr<ofImage> film = make_shared<ofImage>();
+            shared_ptr<ofImage> lightbulb = make_shared<ofImage>();
             string rainbowPath = AssetPath + "ofxbraitsch/ofxdatgui/picker-rainbow.png";
             string radioOnPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-radio-on.png";
             string radioOffPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-radio-off.png";
             string groupOpenPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-group-open.png";
             string groupClosedPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-group-closed.png";
+            string eyePath = AssetPath + "eye.png";
+            string filmPath = AssetPath + "film.png";
+            string lightbulbPath = AssetPath + "lightbulb.png";
         } icon;
 
         static ofColor hex(int n)

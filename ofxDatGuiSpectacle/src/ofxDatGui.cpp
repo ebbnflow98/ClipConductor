@@ -340,6 +340,7 @@ ofxDatGuiSlider* ofxDatGui::addSlider(string label, float min, float max, float 
 {
     ofxDatGuiSlider* slider = new ofxDatGuiSlider(label, min, max, val,text);
     slider->onSliderEvent(this, &ofxDatGui::onSliderEventCallback);
+    slider->onTextInputEvent(this, &ofxDatGui::onTextInputEventCallback);
     attachItem(slider);
     return slider;
 }
@@ -797,9 +798,12 @@ void ofxDatGui::onInternalEventCallback(ofxDatGuiInternalEvent e)
 
 bool ofxDatGui::hitTest(ofPoint pt)
 {
-    if (mMoving){
+    if (mMoving)
+    {
         return true;
-    }   else{
+    }
+    else
+    {
         return mGuiBounds.inside(pt);
     }
 }
@@ -874,6 +878,7 @@ void ofxDatGui::update()
         if (mThemeChanged) items[i]->setTheme(mTheme);
         if (mWidthChanged) items[i]->setWidth(mWidth, mLabelWidth);
         if (mAlignmentChanged) items[i]->setLabelAlignment(mAlignment);
+        
     }
     
     if (mThemeChanged || mWidthChanged) layoutGui();
@@ -884,7 +889,7 @@ void ofxDatGui::update()
     mThemeChanged = false;
     mAlignmentChanged = false;
     
-    // check for gui focus change //
+    // check for gui focus change //        I think to implement right click, you have to duplicate this section
     if (ofGetMousePressed() && mActiveGui->mMoving == false)
     {
         ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
@@ -896,14 +901,18 @@ void ofxDatGui::update()
                 if (mGuis[i] != mActiveGui) mGuis[i]->focus();
                 break;
             }
+            else mEnabled = false;
         }
     }
     
 
-    if (!getFocused() || !mEnabled){
+    if (!getFocused() || !mEnabled)
+    {
     // update children but ignore mouse & keyboard events //
         for (int i=0; i<items.size(); i++) items[i]->update(false);
-    }   else {
+    }
+    else
+    {
         mMoving = false;
         mMouseDown = false;
     // this gui has focus so let's see if any of its components were interacted with //

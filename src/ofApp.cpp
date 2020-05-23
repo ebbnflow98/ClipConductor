@@ -45,10 +45,9 @@ void ofApp::setup()//===========================================================
         clear=false;
         
         gui2->addLabel("Videos");
+        gui2->getLabel("Videos")->setNumberbox(false);
         gui2->getLabel("Videos")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-
-//        gui2->getLabel("Videos")->drawPicture=true;
-//        gui2->getLabel("Videos")->pictureChoice=ofxDatGuiLabel::differentPictures::FILM;
+        gui2->getLabel("Videos")->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FILM);
         
         clearToggle = gui2->addToggle("Clear");
         clearAllButton = gui2->addButton("Clear All");
@@ -56,8 +55,7 @@ void ofApp::setup()//===========================================================
         gui2->addBreak();
         gui2->addBreak();
         
-        gui3->setPosition(gui->getWidth()+gui->getPadding()+gui2->getWidth()+gui->getPadding(), 0);
-        
+    gui3->setPosition(gui->getWidth()+gui->getPadding()+gui2->getWidth()+gui->getPadding(), 0);
         
         for(int i=0;i<max_videos;i++)
         {
@@ -70,7 +68,8 @@ void ofApp::setup()//===========================================================
         
         gui3->addLabel("Lights");
         gui3->getLabel("Lights")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-
+        gui3->getLabel("Lights")->setNumberbox(false); gui3->getLabel("Lights")->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
+        
 //        serialDeviceInfo=serial.getDeviceList();
 //        for(int i=0;i<serialDeviceInfo.size();i++){serialInputs[i].push_back(serialDeviceInfo[i].getDeviceName());};
 //        gui3->addDropdown("DMX Devices", serialInputs);
@@ -83,9 +82,9 @@ void ofApp::setup()//===========================================================
         
         gui->addLabel("FX");
         gui->getLabel("FX")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+        gui->getLabel("FX")->setNumberbox(false);
+        gui->getLabel("FX")->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::EYE);
 
-//        gui->getLabel("FX")->drawPicture=true;
-//        gui->getLabel("FX")->pictureChoice=ofxDatGuiLabel::differentPictures::EYE;
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
         videoFolder=gui->addFolder("Video Controls");
@@ -186,10 +185,9 @@ void ofApp::setup()//===========================================================
         for(int i=0;i<numberOfLights;i++)
         {
             lightValues[i]=0;
-            lightValues[i].set("Ch."+ofToString(i+1),0,0,255);
-            gui3->addSlider(lightValues[i], true);
-            lightSliders[i] = new ofxDatGuiSlider(lightValues[i],true);
-            lightSliders[i]->onSliderEvent(this,&ofApp::onSliderEventGui3);
+            lightSliders[i] = gui3->addSlider("Ch."+ofToString(i+1),0,255,0, true);
+            lightSliders[i]->setNumberbox(false);
+            lightSliders[i]->bind(lightValues[i]);
         }
 
         tempoDivisionSlider->setPrecision(0);
@@ -212,7 +210,6 @@ void ofApp::setup()//===========================================================
         gui->draw();
         gui2->draw();
         gui3->draw();
-        //        ofBackground(theme->color.guiBackground);
         ofBackground(ofColor::black);
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;

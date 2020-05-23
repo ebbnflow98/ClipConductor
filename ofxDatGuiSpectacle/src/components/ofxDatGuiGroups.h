@@ -316,14 +316,6 @@ public:
         return slider;
     }
     
-    ofxDatGuiSlider* addSlider(ofParameter<int> & p, bool t){
-        ofxDatGuiSlider* slider = new ofxDatGuiSlider(p,t);
-        slider->setStripeColor(mStyle.stripe.color);
-        slider->onSliderEvent(this, &ofxDatGuiFolder::dispatchSliderEvent);
-        attachItem(slider);
-        return slider;
-    }
-    
     ofxDatGuiSlider* addSlider(ofParameter<float> & p){
         ofxDatGuiSlider* slider = new ofxDatGuiSlider(p);
         slider->setStripeColor(mStyle.stripe.color);
@@ -449,6 +441,15 @@ public:
         ofxDatGuiComponent::positionLabel();
     }
     
+    void onMouseDrag(ofPoint m)
+    {
+        mBeingDragged = true;
+        setPosition(m.x, m.y);
+        draw();
+    }
+    
+    bool mBeingDragged;
+
 };
 
 class ofxDatGuiDropdown : public ofxDatGuiGroup {
@@ -522,6 +523,37 @@ public:
     
     static ofxDatGuiDropdown* getInstance() { return new ofxDatGuiDropdown("X"); }
     
+    
+    
+    void onMouseRelease(ofPoint m)
+    {
+        for(int i=0; i<children.size(); i++)
+        {
+            if(getChildAt(i)->mBeingDragged)
+            {
+                //test to see where the component was dropped.
+                //reorder the dropdown array.
+            }
+                
+        }
+    }
+    
+    void reorder()
+    {
+        
+    }
+    
+    int releaseHitTest(ofPoint m)
+    {
+        int halfHeight = mStyle.height/2;
+        for(int i=0;i<children.size();i++)
+        {
+            if(m.y-y>halfHeight) return 0;
+//            if(m.y-y)
+        }
+        this->x;
+    }
+    
 private:
     
     void onOptionSelected(ofxDatGuiButtonEvent e)
@@ -531,7 +563,7 @@ private:
         collapse();
         dispatchEvent();
     }
-    
+
     int mOption;
     
 };

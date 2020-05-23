@@ -39,6 +39,8 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
+    mCustomIconChoice = ofxDatGuiIconType::NONE;
+    
 }
 
 ofxDatGuiComponent::~ofxDatGuiComponent()
@@ -108,8 +110,14 @@ void ofxDatGuiComponent::setComponentStyle(const ofxDatGuiTheme* theme)
     mIcon.y = mStyle.height * .33;
     mIcon.color = theme->color.icons;
     mIcon.size = theme->layout.iconSize;
+    mCustomIcon.y = mStyle.height * .15;
+    mCustomIcon.size = theme->layout.iconSize * 2;
+    eye=theme->icon.eye;
+    film=theme->icon.film;
+    lightbulb=theme->icon.lightbulb;
     mLabel.color = theme->color.label;
-    mLabel.margin = theme->layout.labelMargin;
+    if(mNumberbox) mLabel.margin = theme->layout.labelMargin + mStyle.height;
+    else mLabel.margin = theme->layout.labelMargin;
     mLabel.forceUpperCase = theme->layout.upperCaseLabels;
     setLabel(mLabel.text);
     setWidth(theme->layout.width, theme->layout.labelWidth);
@@ -127,6 +135,7 @@ void ofxDatGuiComponent::setWidth(int width, float labelWidth)
         mLabel.width = mStyle.width * labelWidth;
     }
     mIcon.x = mStyle.width - (mStyle.width * .05) - mIcon.size;
+    mCustomIcon.x = mLabel.width + mLabel.x + (mStyle.width * .1);
     mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
     for (int i=0; i<children.size(); i++) children[i]->setWidth(width, labelWidth);
     positionLabel();
@@ -345,15 +354,21 @@ void ofxDatGuiComponent::setBorderVisible(bool visible)
     mStyle.border.visible = visible;
 }
 
+void ofxDatGuiComponent::setIcon(ofxDatGuiIconType type)
+{
+    mCustomIconChoice = type;
+}
+
 /*
     draw methods
 */
 
 void ofxDatGuiComponent::update(bool acceptEvents)
 {
-    if (acceptEvents && mEnabled && mVisible){
+    ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
+    if (acceptEvents && mEnabled && mVisible)
+    {
         bool mp = ofGetMousePressed();
-        ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
         mouse.x+=scroll.x;
         mouse.y+=scroll.y;
         if (hitTest(mouse))
@@ -366,7 +381,6 @@ void ofxDatGuiComponent::update(bool acceptEvents)
             {
                 onMousePress(mouse);
                 if (!mFocused) onFocus();
-                
             }
         }
         else
@@ -391,6 +405,12 @@ void ofxDatGuiComponent::update(bool acceptEvents)
             }
         }
     }
+    else
+    {
+        if(hitTest(mouse)) onMouseEnter(mouse);
+        else onMouseLeave(mouse);
+    }
+    
 // don't update children unless they're visible //
     if (this->getIsExpanded())
     {
@@ -413,23 +433,22 @@ void ofxDatGuiComponent::draw()
         drawBackground();
         drawLabel();
         if (mStyle.stripe.visible) drawStripe();
+    
+    if(mNumberbox) drawNumberbox(mNumberboxValue);
+    
+    if(mCustomIconChoice==ofxDatGuiIconType::EYE) eye->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::LIGHTBULB) lightbulb->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::FILM) film->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     ofPopStyle();
 }
 
-//void ofxDatGuiComponent::drawSlider()
-//{
-//    ofPushStyle();
-//        if (mStyle.border.visible) drawBorder();
-//        drawBackground();
-//        ofSetColor(mLabel.color);
-//        if (mType != ofxDatGuiType::DROPDOWN_OPTION){
-//            mFont->draw(mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
-//        }  else{
-//            mFont->draw("* "+mLabel.rendered, x+mLabel.x, y+mStyle.height/2 + mLabel.rect.height/2);
-//        }
-//        if (mStyle.stripe.visible) drawStripe();
-//    ofPopStyle();
-//}
+void ofxDatGuiComponent::drawNumberbox(string s)
+{
+    ofSetColor(ofColor::red);
+    ofDrawRectangle(x + mStyle.padding, y + mStyle.padding, mStyle.height, mStyle.height - mStyle.padding*2);
+    ofSetColor(ofColor::white);
+    mFont->draw(s, (x + mStyle.padding + ((mStyle.height / 2) - (mFont->rect(s).width / 2))), (y + mStyle.height/2 + mFont->size()));
+}
 
 void ofxDatGuiComponent::gradient(ofPoint x1, ofPoint x2, ofPoint y1, ofPoint y2, ofColor color1, ofColor color2)
 {
@@ -549,27 +568,21 @@ void ofxDatGuiComponent::onWindowResized(ofResizeEventArgs &e)
     onWindowResized();
 }
 
-//void ofxDatGuiComponent::setupProgressBar()
-//{
-//    inProgress=true;
-//}
-//
-//void ofxDatGuiComponent::drawProgressBar()
-//{
-//    progressBar = ofxProgressBar((getX()+getWidth()/2), (getY()+getHeight()/5), (getWidth()/2), (getHeight()*3/5), &value, &max);
-//    progressBar.setBarColor(mStyle.color.inputArea);
-//    progressBar.setBackgroundColor(mStyle.color.background);
-//}
-//
-//void ofxDatGuiComponent::closeProgressBar()
-//{
-//    inProgress=false;
-//}
+void ofxDatGuiComponent::setNumberbox(bool t)
+{
+    mNumberbox = t;
+}
+void ofxDatGuiComponent::setNumberbox(string s)
+{
+    mNumberboxValue = s;
+}
+void ofxDatGuiComponent::setNumberbox(bool t, string s)
+{
+    mNumberbox = t;
+    mNumberboxValue = s;
+}
 
-//void dispatchRightClickEvent()
-//      {
-//          if (rightClickEventCallback == nullptr) {
-//          }   else {
-//              rightClickEventCallback(ofxDatGuiRightClickEvent(this));
-//          }
-//      }
+bool ofxDatGuiComponent::getNumberbox()
+{
+    return mNumberbox;
+}

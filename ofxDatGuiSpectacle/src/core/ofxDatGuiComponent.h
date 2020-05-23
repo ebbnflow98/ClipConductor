@@ -22,11 +22,18 @@
 
 #pragma once
 #include "ofxDatGuiIntObject.h"
-//#include "ofxProgressBar.h"
 
 class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
 {
     public:
+    
+    enum ofxDatGuiIconType
+     {
+         NONE,
+         EYE,
+         FILM,
+         LIGHTBULB,
+     };
     
         ofxDatGuiComponent(string label);
         virtual ~ofxDatGuiComponent();
@@ -98,17 +105,21 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual void onMouseRelease(ofPoint m);
         void onKeyPressed(ofKeyEventArgs &e);
         void onWindowResized(ofResizeEventArgs &e);
+        
     void gradient(ofPoint x1, ofPoint x2, ofPoint y1, ofPoint y2, ofColor color1, ofColor color2);
-//    void setupProgressBar();
-//    void drawProgressBar();
-//    void closeProgressBar();
-//    ofxProgressBar progressBar;
-//    int value;
-//    int max;
-//    bool go;
-//    bool inProgress=false;
+        void setIcon(ofxDatGuiIconType type);
+    void drawNumberbox(string s);
     
-//    void drawSlider();
+    int mCustomIconChoice;
+    
+    bool mNumberbox;
+    string mNumberboxValue;
+    void setNumberbox(bool t);
+    void setNumberbox(bool t, string s);
+    void setNumberbox(string s);
+    bool getNumberbox();
+    string setNumberboxValue();
+    
 
         static const ofxDatGuiTheme* getTheme();
     
@@ -183,18 +194,23 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
             ofColor color;
         } mIcon;
     
+        struct
+    {
+        int x,y,size;
+    } mCustomIcon;
+    
         void drawLabel();
         void drawBorder();
         void drawStripe();
         void drawBackground();
         void positionLabel();
         void setComponentStyle(const ofxDatGuiTheme* t);
-    
 
-    
     private:
     
         static unique_ptr<ofxDatGuiTheme> theme;
-    
+        shared_ptr<ofImage> eye;
+        shared_ptr<ofImage> lightbulb;
+        shared_ptr<ofImage> film;
 };
 
