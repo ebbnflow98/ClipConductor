@@ -441,12 +441,12 @@ public:
         ofxDatGuiComponent::positionLabel();
     }
     
-    void onMouseDrag(ofPoint m)
-    {
-        mBeingDragged = true;
-        setPosition(m.x, m.y);
-        draw();
-    }
+//    void onMouseDrag(ofPoint m)
+//    {
+//        mBeingDragged = true;
+//        setPosition(m.x, m.y);
+//        draw();
+//    }
     
     bool mBeingDragged;
 
@@ -525,18 +525,18 @@ public:
     
     
     
-    void onMouseRelease(ofPoint m)
-    {
-        for(int i=0; i<children.size(); i++)
-        {
-            if(getChildAt(i)->mBeingDragged)
-            {
-                //test to see where the component was dropped.
-                //reorder the dropdown array.
-            }
-                
-        }
-    }
+//    void onMouseRelease(ofPoint m)
+//    {
+//        for(int i=0; i<children.size(); i++)
+//        {
+//            if(getChildAt(i)->mBeingDragged)
+//            {
+//                //test to see where the component was dropped.
+//                //reorder the dropdown array.
+//            }
+//                
+//        }
+//    }
     
     void reorder()
     {

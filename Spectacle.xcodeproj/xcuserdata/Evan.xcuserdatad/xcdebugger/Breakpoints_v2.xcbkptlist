@@ -14,25 +14,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "ofApp::setup()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "542F91F0-C216-4519-A56F-6C27F4781D76"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/ofApp.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "ofApp::draw()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,8 +30,8 @@
             filePath = "ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
             landmarkName = "ofxDatGuiComponent::onMousePress(m)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +94,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "onMouseRelease(m)"
             landmarkType = "7">
          </BreakpointContent>
@@ -127,8 +111,8 @@
             filePath = "ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "ofxDatGuiComponent::update(acceptEvents)"
             landmarkType = "7">
          </BreakpointContent>
@@ -143,8 +127,8 @@
             filePath = "ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "371"
-            endingLineNumber = "371"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "ofxDatGuiComponent::update(acceptEvents)"
             landmarkType = "7">
          </BreakpointContent>
@@ -159,8 +143,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "358"
+            endingLineNumber = "358"
             landmarkName = "onMousePress(m)"
             landmarkType = "7">
          </BreakpointContent>
@@ -191,8 +175,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "onMouseRelease(m)"
             landmarkType = "7">
          </BreakpointContent>
@@ -207,25 +191,9 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "ofApp::windowSize()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "712CC68B-B7F7-406E-A48E-A64CDC1FB6F6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "src/ofApp.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "ofApp::setup()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -239,8 +207,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "ofApp::setup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -255,8 +223,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
             landmarkName = "ofApp::setup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -271,8 +239,8 @@
             filePath = "src/ofApp.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "ofApp::setup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -287,8 +255,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "draw()"
             landmarkType = "7">
          </BreakpointContent>
@@ -303,8 +271,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "setWidth(width, labelWidth)"
             landmarkType = "7">
          </BreakpointContent>
@@ -319,8 +287,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "onMousePress(m)"
             landmarkType = "7">
          </BreakpointContent>
@@ -335,8 +303,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "setWidth(width, labelWidth)"
             landmarkType = "7">
          </BreakpointContent>
@@ -351,8 +319,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
             landmarkName = "ofxDatGuiSlider"
             landmarkType = "3">
          </BreakpointContent>
@@ -367,8 +335,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "hitTest(m)"
             landmarkType = "7">
          </BreakpointContent>
@@ -384,8 +352,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "setWidth(width, labelWidth)"
             landmarkType = "7">
          </BreakpointContent>
@@ -400,8 +368,8 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "onMouseDrag(m)"
             landmarkType = "7">
          </BreakpointContent>
@@ -416,9 +384,121 @@
             filePath = "ofxDatGuiSpectacle/src/components/ofxDatGuiSlider.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "hitTest(m)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "04A9D625-DDA2-4D39-9F8E-6306F4DD0EF6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1346"
+            endingLineNumber = "1346"
+            landmarkName = "ofApp::midiPort(midiPortOption)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6A562A12-3DAF-461C-8950-EB59CF2E438A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "867"
+            endingLineNumber = "867"
+            landmarkName = "ofApp::onDropdownEvent(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D175A48B-FAFE-4C47-A8B5-A9106A37F3CE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/ofApp.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "ofApp::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1ED54D6E-6749-4800-8AA0-E4BC186C2A24"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "431"
+            endingLineNumber = "431"
+            landmarkName = "ofxDatGuiComponent::draw()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF698F27-5868-4860-920E-0EFBBEBEE7DC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "497"
+            endingLineNumber = "497"
+            landmarkName = "ofxDatGuiComponent::drawBorder()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BEA6333B-7E18-4032-957E-E36AE1133A01"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "473"
+            endingLineNumber = "473"
+            landmarkName = "ofxDatGuiComponent::drawBackground()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F072604F-0ACB-4002-A99C-0A0D044E8B55"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ofxDatGuiSpectacle/src/core/ofxDatGuiComponent.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "ofxDatGuiComponent::setBackgroundColor(color)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -985,7 +985,6 @@ void ofxDatGui::draw()
             for (int i=0; i<items.size(); i++)
             {
                 items[i]->draw();
-//                if(items[i]->inProgress) items[i]->drawProgressBar();
             }
             
         // color pickers overlap other components when expanded so they must be drawn last //

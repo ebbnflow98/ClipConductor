@@ -41,8 +41,8 @@ public:
         color.slider.text = palatte[1];
         color.inputAreaBackground = palatte[4];
         color.textInput.text = palatte[0];
-        color.textInput.highlight = palatte[4];
-        color.textInput.backgroundOnActive = palatte[1];
+        color.textInput.highlight = palatte[2];
+        color.textInput.backgroundOnActive = palatte[0];
         color.backgroundOnMouseOver = palatte[3];
         color.backgroundOnMouseDown = palatte[2];
         color.matrix.hover.button = palatte[3];

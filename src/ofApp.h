@@ -248,7 +248,9 @@ public ofxMidiListener
 
     ofPoint guiPosition;
     ofPoint windowSize();
-        
+    
+    ofxDatGuiLabel *fxLabel, *videosLabel, *lightsLabel;
+    
     float fxMacro=1.0;
       ofxDatGuiSlider *fxMacroSlider;
     

@@ -350,10 +350,10 @@
 			isa = PBXGroup;
 			children = (
 				1B8D25FE90B649E66AD3EB92 /* ofxDatGuiIntObject.h */,
+				E592DB307A97ED962B0ED4DE /* ofxDatGuiComponent.h */,
 				6B0DF373404177BCEC4A76F7 /* ofxDatGuiComponent.cpp */,
 				8520BC79F95A0BBDA698EA3C /* ofxDatGuiConstants.h */,
 				CDCA9DD541E7581634651F01 /* ofxDatGuiEvents.h */,
-				E592DB307A97ED962B0ED4DE /* ofxDatGuiComponent.h */,
 			);
 			name = core;
 			sourceTree = "<group>";

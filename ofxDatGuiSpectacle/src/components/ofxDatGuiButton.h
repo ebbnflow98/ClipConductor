@@ -31,20 +31,22 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
         {
             mType = ofxDatGuiType::BUTTON;
             setTheme(ofxDatGuiComponent::getTheme());
+            setNumberbox(false);
         }
     
         void setTheme(const ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
-
             mStyle.stripe.color = theme->stripe.button;
             setWidth(theme->layout.width, theme->layout.labelWidth);
         }
     
         void setWidth(int width, float labelWidth = 1)
         {
+            
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
+            if(mNumberbox) mLabel.width -= mStyle.height;
             mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
             ofxDatGuiComponent::positionLabel();
         }
@@ -55,6 +57,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
             {
             // anything that extends ofxDatGuiButton has the same rollover effect //
                 ofPushStyle();
+                
                 if (mStyle.border.visible) drawBorder();
                 ofFill();
                 if (mFocused && mMouseDown) ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
@@ -62,6 +65,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
                 else ofSetColor(mStyle.color.background, mStyle.opacity);
                 ofDrawRectangle(x, y, mStyle.width, mStyle.height);
                 drawLabel();
+                if (mNumberbox) drawNumberbox(mNumberboxValue);
                 if (mStyle.stripe.visible) drawStripe();
                 ofPopStyle();
             }

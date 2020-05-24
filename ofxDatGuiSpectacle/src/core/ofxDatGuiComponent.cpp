@@ -34,6 +34,7 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mFocused = false;
     mMouseOver = false;
     mMouseDown = false;
+    mEmphasis = false;
     mStyle.opacity = 255;
     this->x = 0; this->y = 0;
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
@@ -135,7 +136,7 @@ void ofxDatGuiComponent::setWidth(int width, float labelWidth)
         mLabel.width = mStyle.width * labelWidth;
     }
     mIcon.x = mStyle.width - (mStyle.width * .05) - mIcon.size;
-    mCustomIcon.x = mLabel.width + mLabel.x + (mStyle.width * .1);
+    mCustomIcon.x = mLabel.width/2 + mLabel.x + int(mStyle.width * .1);
     mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
     for (int i=0; i<children.size(); i++) children[i]->setWidth(width, labelWidth);
     positionLabel();
@@ -429,22 +430,21 @@ void ofxDatGuiComponent::update(bool acceptEvents)
 void ofxDatGuiComponent::draw()
 {
     ofPushStyle();
-        if (mStyle.border.visible) drawBorder();
-        drawBackground();
-        drawLabel();
-        if (mStyle.stripe.visible) drawStripe();
-    
+    if (mStyle.border.visible) drawBorder();
+    drawBackground();
+    drawLabel();
+    if (mStyle.stripe.visible) drawStripe();
     if(mNumberbox) drawNumberbox(mNumberboxValue);
-    
     if(mCustomIconChoice==ofxDatGuiIconType::EYE) eye->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::LIGHTBULB) lightbulb->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::FILM) film->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mEmphasis) drawEmphasis();
     ofPopStyle();
 }
 
 void ofxDatGuiComponent::drawNumberbox(string s)
 {
-    ofSetColor(ofColor::red);
+    ofSetColor(mStyle.color.inputArea);
     ofDrawRectangle(x + mStyle.padding, y + mStyle.padding, mStyle.height, mStyle.height - mStyle.padding*2);
     ofSetColor(ofColor::white);
     mFont->draw(s, (x + mStyle.padding + ((mStyle.height / 2) - (mFont->rect(s).width / 2))), (y + mStyle.height/2 + mFont->size()));
@@ -495,6 +495,22 @@ void ofxDatGuiComponent::drawBorder()
     int w = mStyle.border.width;
     ofSetColor(mStyle.border.color, mStyle.opacity);
     ofDrawRectangle(x-w, y-w, mStyle.width+(w*2), mStyle.height+(w*2));
+}
+
+void ofxDatGuiComponent::drawEmphasis()
+{
+    ofSetColor(mEmphasisColor);
+    ofDrawRectangle(x, y, mStyle.width, mEmphasisWidth);
+    ofDrawRectangle(x+mStyle.width-mEmphasisWidth, y, mEmphasisWidth, mStyle.height);
+    ofDrawRectangle(x, y+mStyle.height-mEmphasisWidth, mStyle.width, mEmphasisWidth);
+    ofDrawRectangle(x, y, mEmphasisWidth, mStyle.height);
+}
+
+void ofxDatGuiComponent::setEmphasis(bool draw, ofColor color, int width)
+{
+    mEmphasis = draw;
+    mEmphasisColor = color;
+    mEmphasisWidth = width;
 }
 
 void ofxDatGuiComponent::drawColorPicker() { }

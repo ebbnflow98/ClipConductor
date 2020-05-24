@@ -76,7 +76,8 @@ class ofxDatGuiTextInputField : public ofxDatGuiInteractiveObject{
                 }
                 ofDrawRectangle(mInputRect);
             // draw the highlight rectangle //
-                if (mHighlightText){
+                if (mHighlightText)
+                {
                     ofRectangle hRect;
                     hRect.x = tx - mHighlightPadding;
                     hRect.width = mTextRect.width + (mHighlightPadding * 2);

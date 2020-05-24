@@ -119,6 +119,11 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     void setNumberbox(string s);
     bool getNumberbox();
     string setNumberboxValue();
+    void drawEmphasis();
+    void setEmphasis(bool draw, ofColor color, int width);
+    bool mEmphasis;
+    int mEmphasisWidth;
+    ofColor mEmphasisColor;
     
 
         static const ofxDatGuiTheme* getTheme();

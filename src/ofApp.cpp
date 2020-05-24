@@ -43,13 +43,13 @@ void ofApp::setup()//===========================================================
         gui3 = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui3->setAutoDraw(true);
         
-        
         clear=false;
         
-        gui2->addLabel("Videos");
-        gui2->getLabel("Videos")->setNumberbox(false);
-        gui2->getLabel("Videos")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-        gui2->getLabel("Videos")->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FILM);
+        videosLabel = gui2->addLabel("VIDEOS");
+        videosLabel->setNumberbox(false);
+        videosLabel->setEmphasis(true, ofColor::black, 5);
+        videosLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+        videosLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FILM);
         
         clearToggle = gui2->addToggle("Clear");
         clearAllButton = gui2->addButton("Clear All");
@@ -62,15 +62,19 @@ void ofApp::setup()//===========================================================
         for(int i=0;i<max_videos;i++)
         {
             videoButtons[i]=(gui2->addButton(ofToString(i+1)));
+            videoButtons[i]->setNumberbox(true, noteNames[i]);
         }
         
         saveButton = gui->addButton("Save");
         loadButton = gui->addButton("Load");
         midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
         
-        gui3->addLabel("Lights");
-        gui3->getLabel("Lights")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-        gui3->getLabel("Lights")->setNumberbox(false); gui3->getLabel("Lights")->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
+        lightsLabel = gui3->addLabel("LIGHTS");
+        lightsLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+        lightsLabel->setNumberbox(false);
+        lightsLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
+        lightsLabel->setEmphasis(true, ofColor::black, 5);
+        lightsLabel->setBackgroundColor(ofColor::darkGray);
         
 //        serialDeviceInfo=serial.getDeviceList();
 //        for(int i=0;i<serialDeviceInfo.size();i++){serialInputs[i].push_back(serialDeviceInfo[i].getDeviceName());};
@@ -82,11 +86,14 @@ void ofApp::setup()//===========================================================
         tempoDivisionSlider=backgroundFolder->addSlider("Tempo Division",1,3,1);
         tripletToggle=backgroundFolder->addToggle("Triplet");
         
-        gui->addLabel("FX");
-        gui->getLabel("FX")->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-        gui->getLabel("FX")->setNumberbox(false);
-        gui->getLabel("FX")->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::EYE);
-
+        fxLabel = gui->addLabel("FX");
+        fxLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+        fxLabel->setNumberbox(false);
+        fxLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::EYE);
+        fxLabel->setEmphasis(true, ofColor::black, 5);
+        fxLabel->setBackgroundColor(ofColor::red);
+        
+        
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
         videoFolder=gui->addFolder("Video Controls");
@@ -188,9 +195,11 @@ void ofApp::setup()//===========================================================
         {
             lightValues[i]=0;
             lightSliders[i] = gui3->addSlider("Ch."+ofToString(i+1),0,255,0, true);
-            lightSliders[i]->setNumberbox(false);
-            lightSliders[i]->bind(lightValues[i]);
+            lightSliders[i]->setNumberbox(true,"Ch"+ofToString(i+1));
+            lightSliders[i]->setTextInput("Type Parameter Here");
             lightSliders[i]->setLockedLayout(true);
+            lightSliders[i]->setPrecision(0);
+            lightSliders[i]->bind(lightValues[i]);
         }
 
         tempoDivisionSlider->setPrecision(0);
@@ -262,10 +271,6 @@ void ofApp::update()//==========================================================
 
 void ofApp::draw()//============================================================
 {
-    if(gui2->mEnabled)
-    {
-//        cout<<"uh oh gui2 \n";
-    }
     drawCount=currentlyDrawing;
     chromaKeyVideo=-1;
     
