@@ -42,6 +42,8 @@ void ofApp::setup()//===========================================================
         gui2->setAutoDraw(true);
         gui3 = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui3->setAutoDraw(true);
+        
+        
         clear=false;
         
         gui2->addLabel("Videos");
@@ -55,7 +57,7 @@ void ofApp::setup()//===========================================================
         gui2->addBreak();
         gui2->addBreak();
         
-    gui3->setPosition(gui->getWidth()+gui->getPadding()+gui2->getWidth()+gui->getPadding(), 0);
+        gui3->setPosition(gui->getWidth()+gui->getPadding()+gui2->getWidth()+gui->getPadding(), 0);
         
         for(int i=0;i<max_videos;i++)
         {
@@ -214,6 +216,8 @@ void ofApp::setup()//===========================================================
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
     }
+    gui2->setWidth(800);
+    gui3->setWidth(800);
     snaves=1;
 }
 

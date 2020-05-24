@@ -111,6 +111,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             float totalWidth = mStyle.width - mLabel.width;
             mSliderWidth = totalWidth * .7;
+            if(mLockedLayout) mSliderWidth = 189;
             mSliderX = x + mLabel.width;
             mInputX = mLabel.width + mSliderWidth + mStyle.padding;
             mInputWidth = totalWidth - mSliderWidth - (mStyle.padding * 2);
@@ -119,6 +120,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             
             mTextInputX = mLabel.x;
             mTextInputWidth = int(mLabel.width * .8);
+//            if(mLockedLayout) mInput->;
             mTextInput->setWidth(mTextInputWidth);
             mTextInput->setPosition(x+mTextInputX, y + mStyle.padding);
         }
@@ -159,11 +161,15 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         void setValue(float value, bool dispatchEvent = true)
         {
             value = round(value, mPrecision);
-            if (value != mValue){
+            if (value != mValue)
+            {
                 mValue = value;
-                if (mValue > mMax){
+                if (mValue > mMax)
+                {
                     mValue = mMax;
-                }   else if (mValue < mMin){
+                }
+                else if (mValue < mMin)
+                {
                     mValue = mMin;
                 }
                 calculateScale();
@@ -249,7 +255,8 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
                 ofSetColor(mBackgroundFill);
                 ofDrawRectangle(mSliderX, y+mStyle.padding, mSliderWidth, mStyle.height-(mStyle.padding*2));
             // slider fill //
-                if (mScale > 0){
+                if (mScale > 0)
+                {
 //                    ofSetColor(mSliderFill);
 //                    ofDrawRectangle(mSliderX, y+mStyle.padding, mSliderWidth*mScale, mStyle.height-(mStyle.padding*2))
                     gradient(ofPoint(mSliderX,y+mStyle.padding),
@@ -301,6 +308,16 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         {
             return mPrecision;
         }
+    
+    void setLockedLayout(bool t)
+    {
+        mLockedLayout = t;
+    }
+    
+    bool getLockedLayout()
+    {
+        return mLockedLayout;
+    }
     
     protected:
     
@@ -379,6 +396,8 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     int mTextInputX;
     int mTextInputWidth;
     int mSliderX;
+    
+    bool mLockedLayout;
 
     private:
     
