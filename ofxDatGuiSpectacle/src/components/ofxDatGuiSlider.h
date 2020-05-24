@@ -111,18 +111,30 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             float totalWidth = mStyle.width - mLabel.width;
             mSliderWidth = totalWidth * .7;
-            if(mLockedLayout) mSliderWidth = 189;
+            if(mLockedLayout) mSliderWidth = 244;
             mSliderX = x + mLabel.width;
+            int wid = getWidth();
+            if(mLockedLayout) mSliderX = (x + getWidth()) - mStyle.padding - mInputWidth - mStyle.padding - mSliderWidth;
+            cout<<"x: "<<x<<"; width: "<< getWidth() << "InputWidth: "<<mInputWidth << "sliderWidth: "<<mSliderWidth <<"\n";
             mInputX = mLabel.width + mSliderWidth + mStyle.padding;
             mInputWidth = totalWidth - mSliderWidth - (mStyle.padding * 2);
+            if(mLockedLayout) mInputWidth = 98;
             mInput->setWidth(mInputWidth);
+            if(mLockedLayout) mInputX = mStyle.width - mStyle.padding - mInputWidth;
             mInput->setPosition(x + mInputX, y + mStyle.padding);
-            
+                        
             mTextInputX = mLabel.x;
             mTextInputWidth = int(mLabel.width * .8);
-//            if(mLockedLayout) mInput->;
             mTextInput->setWidth(mTextInputWidth);
-            mTextInput->setPosition(x+mTextInputX, y + mStyle.padding);
+            if(mLockedLayout)
+            {
+                int textInputXEnd = mSliderX - mStyle.padding;
+                mTextInputWidth = textInputXEnd - (mTextInputX + x);
+                mTextInput->setWidth(mTextInputWidth);
+                mTextInput->setPosition(mTextInputX, y + mStyle.padding);
+            }
+            else mTextInput->setPosition(x+mTextInputX, y + mStyle.padding);
+            cout<<"SliderX: "<<mSliderX <<"\n";
         }
     
         void setPosition(int x, int y)
@@ -278,8 +290,10 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         if (!mEnabled || !mVisible){
             return false;
         }
-        else if (m.x>=x+mLabel.width && m.x<= x+mLabel.width+mSliderWidth && m.y>=y+mStyle.padding && m.y<= y+mStyle.height-mStyle.padding){
+        else if (m.x>=mSliderX && m.x<= (mSliderX+mSliderWidth) && m.y>=y+mStyle.padding && m.y<= y+mStyle.height-mStyle.padding)
+        {
             return true;
+            
         }
         else if (mInput->hitTest(m)){
             return true;
@@ -323,6 +337,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
         void onMousePress(ofPoint m)
         {
+            cout<<"mouse: "<<m.x<<","<<m.y<<"; ";
             ofxDatGuiComponent::onMousePress(m);
             if (mInput->hitTest(m)){
                 mInput->onFocus();
@@ -334,12 +349,15 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }  else if (mTextInput->hasFocus()){
                 mTextInput->onFocusLost();
             }
+//            if(hitTest(m))            cout<<"slide \n";
+
         }
     
         void onMouseDrag(ofPoint m)
         {
             if (mFocused && mInput->hasFocus() == false && mTextInput->hasFocus() == false){
-                float s = (m.x-x-mLabel.width)/mSliderWidth;
+                float s = (m.x-mSliderX)/mSliderWidth;
+                cout<<"mLabel.width: " << mLabel.width << " mSliderWidth: "<<mSliderWidth <<"s: "<<s<<"\n";
                 if (s > .999) s = 1;
                 if (s < .001) s = 0;
         // don't dispatch an event if scale hasn't changed //

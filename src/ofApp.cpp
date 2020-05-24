@@ -57,7 +57,7 @@ void ofApp::setup()//===========================================================
         gui2->addBreak();
         gui2->addBreak();
         
-        gui3->setPosition(gui->getWidth()+gui->getPadding()+gui2->getWidth()+gui->getPadding(), 0);
+        gui3->setPosition(gui->getWidth()+gui->getPadding()+gui2->getWidth() + gui->getPadding(), 0);
         
         for(int i=0;i<max_videos;i++)
         {
@@ -190,6 +190,7 @@ void ofApp::setup()//===========================================================
             lightSliders[i] = gui3->addSlider("Ch."+ofToString(i+1),0,255,0, true);
             lightSliders[i]->setNumberbox(false);
             lightSliders[i]->bind(lightValues[i]);
+            lightSliders[i]->setLockedLayout(true);
         }
 
         tempoDivisionSlider->setPrecision(0);
@@ -216,7 +217,7 @@ void ofApp::setup()//===========================================================
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
     }
-    gui2->setWidth(800);
+//    gui2->setWidth(800);
     gui3->setWidth(800);
     snaves=1;
 }
