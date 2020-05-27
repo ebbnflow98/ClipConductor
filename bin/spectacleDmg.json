@@ -1,0 +1,15 @@
+{
+  "title": "Spectacle v2.0",
+  "icon": "data/spectacle.icns",
+  "background": "data/spectacleDmgBackground.png",
+  "contents" : [
+    { "x": 335, "y": 200, "type": "link", "path": "/Applications" },
+    { "x": 135, "y": 200, "type": "file", "path": "Spectacle.app" }
+  ],
+  "window": {
+      "size": {
+          "width": 480,
+          "height": 300
+        }
+}
+}

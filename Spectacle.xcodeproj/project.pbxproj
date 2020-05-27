@@ -1603,6 +1603,7 @@
 					../../../addons/ofxHapPlayerAltered/libs/ffmpeg/lib/osx/libavutil.55.34.101.dylib,
 					../../../addons/ofxHapPlayerAltered/libs/ffmpeg/lib/osx/libavformat.57.56.101.dylib,
 					../../../addons/ofxHapPlayerAltered/libs/snappy/lib/osx/libsnappy.1.dylib,
+					"-rpath",
 					"@loader_path/../../../../../../../addons/ofxHapPlayer/libs",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
