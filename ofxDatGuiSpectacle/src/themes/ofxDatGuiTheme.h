@@ -70,9 +70,14 @@ class ofxDatGuiTheme{
             icon.groupOpen->load(icon.groupOpenPath);
             icon.groupClosed->load(icon.groupClosedPath);
             icon.rainbow->load(icon.rainbowPath);
+            
             icon.eye->load(icon.eyePath);
             icon.film->load(icon.filmPath);
             icon.lightbulb->load(icon.lightbulbPath);
+            icon.folder->load(icon.folderPath);
+            icon.floppy->load(icon.floppyPath);
+            icon.trashcan->load(icon.trashcanPath);
+            
             font.ptr = ofxSmartFont::add(font.file, font.size);
         }
     
@@ -235,6 +240,10 @@ class ofxDatGuiTheme{
             shared_ptr<ofImage> eye = make_shared<ofImage>();
             shared_ptr<ofImage> film = make_shared<ofImage>();
             shared_ptr<ofImage> lightbulb = make_shared<ofImage>();
+            shared_ptr<ofImage> floppy = make_shared<ofImage>();
+            shared_ptr<ofImage> trashcan = make_shared<ofImage>();
+            shared_ptr<ofImage> folder = make_shared<ofImage>();
+            
             string rainbowPath = AssetPath + "ofxbraitsch/ofxdatgui/picker-rainbow.png";
             string radioOnPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-radio-on.png";
             string radioOffPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-radio-off.png";
@@ -243,6 +252,9 @@ class ofxDatGuiTheme{
             string eyePath = AssetPath + "eye.png";
             string filmPath = AssetPath + "film.png";
             string lightbulbPath = AssetPath + "lightbulb.png";
+            string floppyPath = AssetPath + "floppy.png";
+            string trashcanPath = AssetPath + "trashcan.png";
+            string folderPath = AssetPath + "folder.png";
         } icon;
 
         static ofColor hex(int n)

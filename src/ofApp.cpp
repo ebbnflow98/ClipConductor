@@ -53,6 +53,7 @@ void ofApp::setup()//===========================================================
         
         clearToggle = gui2->addToggle("Clear");
         clearAllButton = gui2->addButton("Clear All");
+        clearAllButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::TRASHCAN);
         gui2->setPosition(gui->getWidth()+gui->getPadding(),0);
         gui2->addBreak();
         gui2->addBreak();
@@ -66,7 +67,9 @@ void ofApp::setup()//===========================================================
         }
         
         saveButton = gui->addButton("Save");
+        saveButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FLOPPY);
         loadButton = gui->addButton("Load");
+        loadButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FOLDER);
         midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
         
         lightsLabel = gui3->addLabel("LIGHTS");
@@ -75,10 +78,6 @@ void ofApp::setup()//===========================================================
         lightsLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
         lightsLabel->setEmphasis(true, ofColor::black, 5);
         lightsLabel->setBackgroundColor(ofColor::darkGray);
-        
-//        serialDeviceInfo=serial.getDeviceList();
-//        for(int i=0;i<serialDeviceInfo.size();i++){serialInputs[i].push_back(serialDeviceInfo[i].getDeviceName());};
-//        gui3->addDropdown("DMX Devices", serialInputs);
         
         
         backgroundFolder=gui->addFolder("Background");
@@ -1114,108 +1113,6 @@ bool ofApp::loadSettings()//====================================================
         xmlSettings.loadFile(loadPath);
         if(xmlSettings.loadFile(loadPath))
         {
-//            fxMacro = xmlSettings.getValue("xmlSettings:fxWet:fxWet", 1.0);
-//            fxMacroSlider->setValue(fxMacro);
-//            videoSpeed = xmlSettings.getValue("xmlSettings:video:speed", 1.0);
-//            videoSpeedSlider->setValue(videoSpeed);
-//            videoSync = xmlSettings.getValue("xmlSettings:video:sync", 0);
-//            videoSyncToggle->setChecked(videoSync);
-//            videoDivision = xmlSettings.getValue("xmlSettings:video:division", 1);
-//            videoDivisionSlider->setValue(videoDivision);
-//            triplet = xmlSettings.getValue("xmlSettings:video:triplet", triplet);
-//            tripletToggle->setChecked(triplet);
-//
-//            tempoDivision = xmlSettings.getValue("xmlSettings:video:tempoDivision", tempoDivision);
-//            tempoDivisionSlider->setValue(tempoDivision);
-//
-//            bgColor1Red=xmlSettings.getValue("xmlSettings:color:bgColor1Red", 0);
-//            bgColor1Green=xmlSettings.getValue("xmlSettings:color:bgColor1Green", 0);
-//            bgColor1Blue=xmlSettings.getValue("xmlSettings:color:bgColor1Blue", 0);
-//            //            bgColor2Red=xmlSettings.getValue("xmlSettings:color:bgColor2Red", 0);
-//            //            bgColor2Green=xmlSettings.getValue("xmlSettings:color:bgColor2Green", 0);
-//            //            bgColor2Blue=xmlSettings.getValue("xmlSettings:color:bgColor2Blue", 0);
-//
-//            bgColor1=(ofColor::fromHsb(bgColor1Red, bgColor1Green, bgColor1Blue));
-//            bgColor1ColorPicker->setColor(bgColor1);
-//            //            bgColor2=(ofColor::fromHsb(bgColor2Red, bgColor2Green, bgColor2Blue));
-//            //            bgColor2ColorPicker->setColor(bgColor2);
-//
-//            invertMacro=xmlSettings.getValue("xmlSettings:invert:invert", 0);
-//            invertMacroSlider->setValue(invertMacro);
-//
-//            rippleMacro=xmlSettings.getValue("xmlSettings:ripple:ripple", 0);
-//            rippleMacroSlider->setValue(rippleMacro);
-//            rippleSync=xmlSettings.getValue("xmlSettings:ripple:sync", 0);
-//            rippleSyncToggle->setChecked(rippleSync);
-//            rippleX=xmlSettings.getValue("xmlSettings:ripple:x", 0.0);
-//            rippleXSlider->setValue(rippleX);
-//            rippleY=xmlSettings.getValue("xmlSettings:ripple:y", 0.0);
-//            rippleYSlider->setValue(rippleY);
-//            rippleRate=xmlSettings.getValue("xmlSettings:ripple:rate",60);
-//            rippleRateSlider->setValue(rippleRate);
-//
-//            filterMacro=xmlSettings.getValue("xmlSettings:filter:filter", 0.0);
-//            filterMacroSlider->setValue(filterMacro);
-//            filterRed=xmlSettings.getValue("xmlSettings:filter:red",0.0);
-//            filterRedSlider->setValue(filterRed);
-//            filterGreen=xmlSettings.getValue("xmlSettings:filter:green",0.0);
-//            filterGreenSlider->setValue(filterGreen);
-//            filterBlue=xmlSettings.getValue("xmlSettings:filter:blue",0.0);
-//            filterBlueSlider->setValue(filterBlue);
-//
-//            kaleidoscopeMacro=xmlSettings.getValue("xmlSettings:kaleidoscope:kaleidoscope", 0.0);
-//            kaleidoscopeMacroSlider->setValue(kaleidoscopeMacro);
-//            kaleidioscopeSectors=xmlSettings.getValue("xmlSettings:kaleidoscope:sectors", 1);
-//            kaleidoscopeSectorSlider->setValue(kaleidioscopeSectors);
-//            kaleidioscopeAngle=xmlSettings.getValue("xmlSettings:kaleidoscope:angle", 0.0);
-//            kaleidoscopeAngleSlider->setValue(kaleidioscopeAngle);
-//            kaleiodioscopeX=xmlSettings.getValue("xmlSettings:kaleidoscope:x", 0.0);
-//            kaleidoscopeXSlider->setValue(kaleiodioscopeX);
-//            kaleiodioscopeY=xmlSettings.getValue("xmlSettings:kaleidoscope:y", 0.0);
-//            kaleidoscopeYSlider->setValue(kaleiodioscopeY);
-//
-//            pixelateMacro=xmlSettings.getValue("xmlSettings:pixelate:pixelate", 0.0);
-//            pixelateMacroSlider->setValue(pixelateMacro);
-//
-//            fullhouseMacro=xmlSettings.getValue("xmlSettings:fullhouse:fullhouse", 0.0);
-//            fullhouseMacroSlider->setValue(fullhouseMacro);
-//
-//            asciiMacro=xmlSettings.getValue("xmlSettings:ascii:ascii", 0.0);
-//            asciiMacroSlider->setValue(asciiMacro);
-//            asciiImageContrast=xmlSettings.getValue("xmlSettings:ascii:imageContrast", 0.0);
-//            asciiImageContrastSlider->setValue(asciiImageContrast);
-//            asciiImageGain=xmlSettings.getValue("xmlSettings:ascii:imageGain", 0.0);
-//            asciiImageGainSlider->setValue(asciiImageGain);
-//            asciiDotDistance=xmlSettings.getValue("xmlSettings:ascii:dotDistance", 0.0);
-//            asciiDotDistanceSlider->setValue(asciiDotDistance);
-//
-//            ledMacro=xmlSettings.getValue("xmlSettings:led:led", 0.0);
-//            ledMacroSlider->setValue(ledMacro);
-//            ledDotDistance=xmlSettings.getValue("xmlSettings:led:dotDistance", 0.0);
-//            ledDotDistanceSlider->setValue(ledDotDistance);
-//
-//            rotateMacro=xmlSettings.getValue("xmlSettings:rotate:rotateMacro", 0.0);
-//            rotateMacroSlider->setValue(rotateMacro);
-//
-//            zebraMacro=xmlSettings.getValue("xmlSettings:zebra:zebraMacro", 0.0);
-//            zebraMacroSlider->setValue(zebraMacro);
-//            zebraSpeed=xmlSettings.getValue("xmlSettings:zebra:zebraSpeed", 0.0);
-//            zebraSpeedSlider->setValue(zebraSpeed);
-//            zebraLevels=xmlSettings.getValue("xmlSettings:zebra:zebraLevels", 2);
-//            zebraLevelsSlider->setValue(zebraLevels);
-//
-//            squareioscopeMacro=xmlSettings.getValue("xmlSettings:square:squareioscope", 0.0);
-//            squareioscopeMacroSlider->setValue(squareioscopeMacro);
-//            squareioscopeMacro2=xmlSettings.getValue("xmlSettings:square:squareioscope2", 0.0);
-//            squareioscopeMacro2Slider->setValue(squareioscopeMacro2);
-//
-//            vhsMacro=xmlSettings.getValue("xmlSettings:vhs:vhsMacro",0.0);
-//            vhsMacroSlider->setValue(vhsMacro);
-//            vhsSpeed=xmlSettings.getValue("xmlSettings:vhs:vhsSpeed",0.0);
-//            vhsSpeedSlider->setValue(vhsSpeed);
-//            vhsStrength=xmlSettings.getValue("xmlSettings:vhs:vhsStrength", 0.0);
-//            vhsStrengthSlider->setValue(vhsStrength);
-            
             for(int i = 0; i <max_videos; i++)
             {
                 player[i].full=(xmlSettings.getValue("xmlSettings:media:full"+ofToString(i), 0));
@@ -1239,6 +1136,11 @@ bool ofApp::loadSettings()//====================================================
                 }
             }
             
+            for(int i=0;i<numberOfLights;i++)
+            {
+                lightSliders[i]->setTextInput(xmlSettings.getValue("xmlSettings:lights:"+ofToString(i),"Type Parameter Here"));
+            }
+            
             ofSystemAlertDialog("File loaded successfully.");
             return true;
         }
@@ -1259,65 +1161,6 @@ bool ofApp::saveSettings()//====================================================
     ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
     if(result.bSuccess)
     {
-//        bgColor1Red=(bgColor1.getHue());
-//        bgColor1Green=(bgColor1.getSaturation());
-//        bgColor1Blue=(bgColor1.getBrightness());
-//
-//        xmlSettings.setValue("xmlSettings:fxWet:fxWet", fxMacro);
-//        xmlSettings.setValue("xmlSettings:video:speed", videoSpeed);
-//        xmlSettings.setValue("xmlSettings:video:sync", videoSync);
-//        xmlSettings.setValue("xmlSettings:video:division", videoDivision);
-//        xmlSettings.setValue("xmlSettings:video:triplet", triplet);
-//        xmlSettings.setValue("xmlSettings:video:tempoDivision", tempoDivision);
-//
-//        xmlSettings.setValue("xmlSettings:color:bgColor1Red", bgColor1Red);
-//        xmlSettings.setValue("xmlSettings:color:bgColor1Green", bgColor1Green);
-//        xmlSettings.setValue("xmlSettings:color:bgColor1Blue", bgColor1Blue);
-//
-//        xmlSettings.setValue("xmlSettings:invert:invert", invertMacro);
-//
-//        xmlSettings.setValue("xmlSettings:ripple:ripple", rippleMacro);
-//        xmlSettings.setValue("xmlSettings:ripple:sync", rippleSync);
-//        xmlSettings.setValue("xmlSettings:ripple:x", rippleX);
-//        xmlSettings.setValue("xmlSettings:ripple:y", rippleY);
-//        xmlSettings.setValue("xmlSettings:ripple:rate", rippleRate);
-//
-//        xmlSettings.setValue("xmlSettings:filter:filter", filterMacro);
-//        xmlSettings.setValue("xmlSettings:filter:red", filterRed);
-//        xmlSettings.setValue("xmlSettings:filter:green", filterGreen);
-//        xmlSettings.setValue("xmlSettings:filter:blue", filterBlue);
-//
-//        xmlSettings.setValue("xmlSettings:kaleidoscope:kaleidoscope",kaleidoscopeMacro);
-//        xmlSettings.setValue("xmlSettings:kaleidoscope:sectors",kaleidioscopeSectors);
-//        xmlSettings.setValue("xmlSettings:kaleidoscope:angle",kaleidioscopeAngle);
-//        xmlSettings.setValue("xmlSettings:kaleidoscope:x",kaleiodioscopeX);
-//        xmlSettings.setValue("xmlSettings:kaleidoscope:y",kaleiodioscopeY);
-//
-//        xmlSettings.setValue("xmlSettings:pixelate:pixelate", pixelateMacro);
-//
-//        xmlSettings.setValue("xmlSettings:fullhouse:fullhouse", fullhouseMacro);
-//
-//        xmlSettings.setValue("xmlSettings:ascii:ascii", asciiMacro);
-//        xmlSettings.setValue("xmlSettings:ascii:imageContrast", asciiImageContrast);
-//        xmlSettings.setValue("xmlSettings:ascii:imageGain", asciiImageGain);
-//        xmlSettings.setValue("xmlSettings:ascii:dotDistance", asciiDotDistance);
-//
-//        xmlSettings.setValue("xmlSettings:led:led", ledMacro);
-//        xmlSettings.setValue("xmlSettings:led:dotDistance", ledDotDistance);
-//
-//        xmlSettings.setValue("xmlSettings:rotate:rotateMacro",rotateMacro);
-//
-//        xmlSettings.setValue("xmlSettings:zebra:zebraMacro", zebraMacro);
-//        xmlSettings.setValue("xmlSettings:zebra:zebraLevels", zebraLevels);
-//        xmlSettings.setValue("xmlSettings:zebra:zebraSpeed", zebraSpeed);
-//
-//        xmlSettings.setValue("xmlSettings:square:squareioscope", squareioscopeMacro);
-//        xmlSettings.setValue("xmlSettings:square:squareioscope2", squareioscopeMacro2);
-//
-//        xmlSettings.setValue("xmlSettings:vhs:vhsMacro", vhsMacro);
-//        xmlSettings.setValue("xmlSettings:vhs:vhsStrength", vhsStrength);
-//        xmlSettings.setValue("xmlSettings:vhs:vhsSpeed",vhsSpeed);
-        
         for(int i = 0; i <max_videos; i++)
         {
             if(player[i].full==true)
@@ -1327,7 +1170,12 @@ bool ofApp::saveSettings()//====================================================
                 xmlSettings.setValue("xmlSettings:media:media"+ofToString(i), player[i].path);
             }
         }
-        //                                                                                        cout << "save out" << endl;
+        
+        for(int i=0;i<numberOfLights;i++)
+        {
+            xmlSettings.setValue("xmlSettings:lights:"+ofToString(i), lightSliders[i]->getTextInput());
+        }
+        
         xmlSettings.save(result.getPath());
         
         ofSystemAlertDialog("Save successful. \n");

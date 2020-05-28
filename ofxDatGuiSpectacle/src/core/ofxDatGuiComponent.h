@@ -33,6 +33,9 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
          EYE,
          FILM,
          LIGHTBULB,
+         FLOPPY,
+         FOLDER,
+         TRASHCAN
      };
     
         ofxDatGuiComponent(string label);
@@ -111,6 +114,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     void drawNumberbox(string s);
     
     int mCustomIconChoice;
+    void drawCustomIcon();
     
     bool mNumberbox;
     string mNumberboxValue;
@@ -217,5 +221,8 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         shared_ptr<ofImage> eye;
         shared_ptr<ofImage> lightbulb;
         shared_ptr<ofImage> film;
+        shared_ptr<ofImage> folder;
+        shared_ptr<ofImage> trashcan;
+        shared_ptr<ofImage> floppy;
 };
 

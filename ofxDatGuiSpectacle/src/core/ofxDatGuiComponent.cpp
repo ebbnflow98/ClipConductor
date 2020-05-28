@@ -113,9 +113,14 @@ void ofxDatGuiComponent::setComponentStyle(const ofxDatGuiTheme* theme)
     mIcon.size = theme->layout.iconSize;
     mCustomIcon.y = mStyle.height * .15;
     mCustomIcon.size = theme->layout.iconSize * 2;
+    
     eye=theme->icon.eye;
     film=theme->icon.film;
     lightbulb=theme->icon.lightbulb;
+    folder=theme->icon.folder;
+    trashcan=theme->icon.trashcan;
+    floppy=theme->icon.floppy;
+    
     mLabel.color = theme->color.label;
     if(mNumberbox) mLabel.margin = theme->layout.labelMargin + mStyle.height;
     else mLabel.margin = theme->layout.labelMargin;
@@ -435,9 +440,9 @@ void ofxDatGuiComponent::draw()
     drawLabel();
     if (mStyle.stripe.visible) drawStripe();
     if(mNumberbox) drawNumberbox(mNumberboxValue);
-    if(mCustomIconChoice==ofxDatGuiIconType::EYE) eye->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
-    if(mCustomIconChoice==ofxDatGuiIconType::LIGHTBULB) lightbulb->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
-    if(mCustomIconChoice==ofxDatGuiIconType::FILM) film->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    
+    if(mCustomIconChoice!=0) drawCustomIcon();
+    
     if(mEmphasis) drawEmphasis();
     ofPopStyle();
 }
@@ -465,6 +470,15 @@ void ofxDatGuiComponent::gradient(ofPoint x1, ofPoint x2, ofPoint y1, ofPoint y2
     temp.draw();
 }
 
+void ofxDatGuiComponent::drawCustomIcon()
+{
+    if(mCustomIconChoice==ofxDatGuiIconType::EYE) eye->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::LIGHTBULB) lightbulb->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::FILM) film->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::FOLDER) folder->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::TRASHCAN) trashcan->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::FLOPPY) floppy->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+}
 
 void ofxDatGuiComponent::drawBackground()
 {

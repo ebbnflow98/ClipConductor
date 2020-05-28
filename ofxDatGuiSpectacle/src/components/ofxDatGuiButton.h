@@ -67,6 +67,8 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
                 drawLabel();
                 if (mNumberbox) drawNumberbox(mNumberboxValue);
                 if (mStyle.stripe.visible) drawStripe();
+                drawCustomIcon();
+                
                 ofPopStyle();
             }
         }
@@ -81,11 +83,10 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
             if (mFocused && mMouseDown) ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
             else if (mMouseOver) ofSetColor(mStyle.color.onMouseOver, mStyle.opacity);
             else ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
-
+            
             ofDrawRectangle(x, y, mStyle.width, mStyle.height);
             drawLabel();
             if (mStyle.stripe.visible) drawStripe();
-            
             ofPopStyle();
         }
     }
@@ -110,6 +111,13 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
             ofxDatGuiComponent::onMouseRelease(m);
             dispatchEvent();
         }
+private:
+    shared_ptr<ofImage> eye;
+    shared_ptr<ofImage> lightbulb;
+    shared_ptr<ofImage> film;
+    shared_ptr<ofImage> folder;
+    shared_ptr<ofImage> trashcan;
+    shared_ptr<ofImage> floppy;
     
 };
 
@@ -163,6 +171,7 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
                 ofPushStyle();
                 ofSetColor(mIcon.color);
                 if (mChecked == true) ofxDatGuiButton::drawTrue();
+                
                 
 //                    radioOn->draw(x+mIcon.x, y+mIcon.y, mIcon.size, mIcon.size);
 //                else ofSetColor()

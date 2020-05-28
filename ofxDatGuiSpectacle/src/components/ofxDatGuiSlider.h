@@ -133,6 +133,9 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
                 mTextInputWidth = textInputXEnd - (mTextInputX + x);
                 mTextInput->setWidth(mTextInputWidth);
                 mTextInput->setPosition(mTextInputX, y + mStyle.padding);
+                mTextInput->setBackgroundColor(ofColor::white);
+                mTextInput->setTextInactiveColor(ofColor::black);
+                mTextInput->setTextActiveColor(ofColor::white);
             }
             else mTextInput->setPosition(x+mTextInputX, y + mStyle.padding);
 //            cout<<"SliderX: "<<mSliderX <<"\n";
@@ -209,6 +212,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         {
             return mScale;
         }
+
 
     /*
         variable binding methods
