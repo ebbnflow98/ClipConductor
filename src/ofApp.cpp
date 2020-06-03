@@ -70,7 +70,10 @@ void ofApp::setup()//===========================================================
         saveButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FLOPPY);
         loadButton = gui->addButton("Load");
         loadButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FOLDER);
-        midiDropdown= gui->addDropdown("MIDI Port:", midiIn.getInPortList());
+        refreshMidiButton = gui->addButton("Refresh MIDI Ports");
+        midiDropdown = gui->addDropdown("MIDI Port:", midiIn.getInPortList());
+        refreshUsbButton = gui->addButton("Refresh USB Ports");
+        usbDropdown = gui->addDropdown("Dmx Interface:", dmx.getDevices());
         
         lightsLabel = gui3->addLabel("LIGHTS");
         lightsLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
@@ -82,8 +85,7 @@ void ofApp::setup()//===========================================================
         
         backgroundFolder=gui->addFolder("Background");
         bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
-        tempoDivisionSlider=backgroundFolder->addSlider("Tempo Division",1,3,1);
-        tripletToggle=backgroundFolder->addToggle("Triplet");
+        bgColor1ColorPicker->setNumberbox(false);
         
         fxLabel = gui->addLabel("FX");
         fxLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
@@ -139,16 +141,6 @@ void ofApp::setup()//===========================================================
         asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
         asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
         
-        ledFolder=gui->addFolder("LED");
-        ledMacroSlider=ledFolder->addSlider("LED", 0.0, 1.0,ledMacro);
-        ledDotDistanceSlider=ledFolder->addSlider("LED Dot Distance", 0.0, 1.0,ledDotDistance);
-        //        ledOffsetRXSlider=ledFolder->addSlider("Red Offset X", 0.0 , 1.0, ledOffsetRX);
-        //        ledOffsetRYSlider=ledFolder->addSlider("Red Offset Y", 0.0 , 1.0, ledOffsetRY);
-        //        ledOffsetGXSlider=ledFolder->addSlider("Green Offset X", 0.0 , 1.0, ledOffsetGX);
-        //        ledOffsetGYSlider=ledFolder->addSlider("Green Offset Y", 0.0 , 1.0, ledOffsetGY);
-        //        ledOffsetBXSlider=ledFolder->addSlider("Blue Offset X", 0.0 , 1.0, ledOffsetBX);
-        //        ledOffsetBYSlider=ledFolder->addSlider("Blue Offset Y", 0.0 , 1.0, ledOffsetBY);
-        
         rotateFolder=gui->addFolder("Rotate");
         rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
         
@@ -162,10 +154,6 @@ void ofApp::setup()//===========================================================
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
-        
-        squareioscopeFolder=gui->addFolder("Squareioscope");
-        squareioscopeMacroSlider=squareioscopeFolder->addSlider("Squareioscope", 0.0, 1.0, squareioscopeMacro);
-        squareioscopeMacro2Slider=squareioscopeFolder->addSlider("Squareioscope2", 0.0, 1.0,squareioscopeMacro);
         
         vhsFolder=gui->addFolder("VHS");
         vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
@@ -201,18 +189,17 @@ void ofApp::setup()//===========================================================
             lightSliders[i]->bind(lightValues[i]);
         }
 
-        tempoDivisionSlider->setPrecision(0);
         videoDivisionSlider->setPrecision(0);
         kaleidoscopeSectorSlider->setPrecision(0);
         zebraLevelsSlider->setPrecision(0);
         pixelateMacroSlider->setPrecision(0);
         fullhouseMacroSlider->setPrecision(0);
-        tripletToggle->setChecked(triplet);
         clearToggle->setChecked(clear);
         videoSyncToggle->setChecked(videoSync);
         rippleSyncToggle->setChecked(rippleSync);
+        
         cout<<"here 4"<<endl;
-        ofxDatGuiThemeSpectacle *theme = new ofxDatGuiThemeSpectacle;
+        theme = new ofxDatGuiThemeSpectacle;
         ofxDatGuiThemeSpectacle *flip = new ofxDatGuiThemeSpectacle;
         
         gui->setTheme(theme);
@@ -225,7 +212,6 @@ void ofApp::setup()//===========================================================
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
     }
-//    gui2->setWidth(800);
     gui3->setWidth(800);
     snaves=1;
 }
@@ -294,7 +280,6 @@ void ofApp::draw()//============================================================
                 videoSpeed=(((player[imageToDraw].video.getDuration())/bps)*videoDivision);
                 player[i].setSpeed(videoSpeed/2);
                 player[i].play();
-                //                                                                      cout<<"image to draw"<<imageToDraw<<endl;
             }
             else
             {
@@ -395,9 +380,6 @@ void ofApp::draw()//============================================================
     shader.setUniform1f("zebraSpeed", zebraSpeed);
     shader.setUniform1i("zebraLevels", zebraLevels);
     
-    shader.setUniform1f("squareioscopeMacro", squareioscopeMacro);
-    shader.setUniform1f("squareioscopeMacro2", squareioscopeMacro2);
-    
     shader.setUniform1f("vhsMacro", vhsMacro);
     shader.setUniform1f("vhsStrength", vhsStrength);
     shader.setUniform1f("vhsSpeed", vhsSpeed);
@@ -427,16 +409,7 @@ void ofApp::draw()//============================================================
     fbo4.begin();                                       //FBO 4 begin
     ofClear(0,0,0,0);
     ledShader.begin();                                 //LED Shader begin
-    
-    ledShader.setUniform1f("fxMacro", fxMacro);
-    ledShader.setUniform1f("ledMacro", ledMacro);
-    ledShader.setUniform1f("ledDotDistance", ledDotDistance);
-    //    ledShader.setUniform2f("ledOffsetRed", ledOffsetRX, ledOffsetRY);
-    //    ledShader.setUniform2f("ledOffsetGreen", ledOffsetGX, ledOffsetGY);
-    //    ledShader.setUniform2f("ledOffsetBlue", ledOffsetBX, ledOffsetBY);
-    
-    //    ofSetColor(255, 255, 255);
-    //    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
     fbo3.draw(0,0, getWidth, getHeight);                //FBO 3 draw
     
     ledShader.end();                                    //LED Shader end
@@ -503,24 +476,10 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     videoDivision=msg.value;
                     videoDivisionSlider->setValue(videoDivision);
                     break;
-                    //            case 19:
-                    //                if(msg.value>63) backgroundSwitch=true;
-                    //                else backgroundSwitch=false;
-                    //                backgroundSwitchToggle->setChecked(backgroundSwitch);
-                    //                break;
                 case 18:
                     if(msg.value>63) videoSync=true;
                     else videoSync=false;
                     videoSyncToggle->setChecked(videoSync);
-                    break;
-                case 20:
-                    tempoDivision=msg.value;
-                    tempoDivisionSlider->setValue(tempoDivision);
-                    break;
-                case 21:
-                    if(msg.value>63)triplet=true;
-                    else triplet=false;
-                    tripletToggle->setChecked(triplet);
                     break;
                     
                     //EMPTY CASE 22
@@ -607,21 +566,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                     bgColor1ColorPicker->setColor(bgColor1);
                     break;
-                    //                case 53:
-                    //                    bgColor2Red=msg.value;
-                    //                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    //                    bgColor2ColorPicker->setColor(bgColor2);
-                    //                    break;
-                    //                case 54:
-                    //                    bgColor2Green=msg.value;
-                    //                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    //                    bgColor2ColorPicker->setColor(bgColor2);
-                    //                    break;
-                    //                case 55:
-                    //                    bgColor2Blue=msg.value;
-                    //                    bgColor2.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                    //                    bgColor2ColorPicker->setColor(bgColor2);
-                    //                    break;
+                    
+                    
                 case 56:
                     pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
                     pixelateMacroSlider->setValue(pixelateMacro);
@@ -651,38 +597,9 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     else asciiInvert=false;
                     asciiInvertToggle->setChecked(asciiInvert);
                     break;
-                case 66:
-                    ledMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    ledMacroSlider->setValue(ledMacro);
-                    break;
-                case 67:
-                    ledDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    ledDotDistanceSlider->setValue(ledDotDistance);
-                    break;
-                    //            case 68:
-                    //                ledOffsetRX=ofMap(msg.value,0,127,0.0,100.0);
-                    //                ledOffsetRXSlider->setValue(ledOffsetRX);
-                    //                break;
-                    //            case 69:
-                    //                ledOffsetRY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                    //                ledOffsetRYSlider->setValue(ledOffsetRY);
-                    //                break;
-                    //            case 70:
-                    //                ledOffsetGX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                    //                ledOffsetGXSlider->setValue(ledOffsetGX);
-                    //                break;
-                    //            case 71:
-                    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                    //                ledOffsetGYSlider->setValue(ledOffsetGY);
-                    //                break;
-                    //            case 72:
-                    //                ledOffsetBX=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                    //                ledOffsetBXSlider->setValue(ledOffsetBX);
-                    //                break;
-                    //            case 73:
-                    //                ledOffsetGY=ofMap(msg.value, 0, 127, 0.0, 100.0);
-                    //                ledOffsetGYSlider->setValue(ledOffsetGY);
-                    //                break;
+                    
+                    
+                    
                 case 74:
                     rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
                     rotateMacroSlider->setValue(rotateMacro);
@@ -720,14 +637,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
                     chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
                     break;
-                case 83:
-                    squareioscopeMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    squareioscopeMacroSlider->setValue(squareioscopeMacro);
-                    break;
-                case 84:
-                    squareioscopeMacro2=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    squareioscopeMacroSlider->setValue(squareioscopeMacro2);
-                    break;
+                    
+                    
                 case 85:
                     vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
                     vhsMacroSlider->setValue(vhsMacro);
@@ -864,7 +775,14 @@ void ofApp::keyReleased(ofKeyEventArgs & args)//================================
 }
 void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)//============================================================
 {
-    midiPort((e.target->getSelected())->getIndex());
+    if(e.target==usbDropdown) changeDevices(e.target->getSelected()->getIndex());
+    if(e.target==midiDropdown)midiPort((e.target->getSelected())->getIndex());
+}
+
+void ofApp::changeDevices(int choice)
+{
+    dmx.disconnect();
+    dmx.connect(choice, 44);
 }
 
 void ofApp::dragEvent(ofDragInfo & dragInfo)//============================================================
@@ -898,23 +816,21 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)//==================================
     }
 }
 
-//void ofApp::onRightClickEventGui3(ofxDatGuiRightClickEvent e)//============================================================
-//{
-//    if(e.target->getType()==ofxDatGuiType::FOLDER)
-//    {
-//        int l = e.target->getCount();
-//        mEditLight.show(&(rig[e.target->getCount()-1]));  //show editLight dialog according to count of the target
-//        cout<<"right click:"+e.target->getLabel()+"\n";
-//    }
-//}
-
-
-
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//============================================================
 {//--------Button event handler function for FX buttons----------------------
     
     if(e.target==saveButton) saveSettings();
     else if(e.target==loadButton) loadSettings();
+    else if(e.target==refreshUsbButton)
+    {
+        usbDropdown->changeOptions(dmx.getDevices());
+        usbDropdown->setTheme(theme);
+    }
+    else if(e.target==refreshMidiButton)
+    {
+        midiDropdown->changeOptions(midiIn.getInPortList());
+        midiDropdown->setTheme(theme);
+    }
 }
 
 void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///============================================================
@@ -944,9 +860,7 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///========================
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//============================================================
 {//--------Toggle event handler function----------------------
     
-    if (e.target==tripletToggle)triplet=!triplet;
-    //    else if (e.target->is("Background Switch"))backgroundSwitch=!backgroundSwitch;
-    else if (e.target==videoSyncToggle)videoSync=!videoSync;
+    if (e.target==videoSyncToggle)videoSync=!videoSync;
     
     else if(e.target==clearToggle) clear=!clear;
     
@@ -977,7 +891,6 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
 {
     //--------Slider event handler function----------------------
     
-    if(e.target==tempoDivisionSlider)tempoDivision=(e.target->getValue());
     if(e.target==videoDivisionSlider)videoDivision=(e.target->getValue());
     if(e.target==fxMacroSlider)fxMacro=(e.target->getValue());
     
@@ -1013,23 +926,11 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     else if(e.target==asciiImageContrastSlider)asciiImageContrast=(e.target->getValue());
     else if(e.target==asciiDotDistanceSlider)asciiDotDistance=(e.target->getValue());
     
-    else if(e.target==ledMacroSlider)ledMacro=(e.target->getValue());
-    else if(e.target==ledDotDistanceSlider)ledDotDistance=(e.target->getValue());
-    else if(e.target==ledOffsetRXSlider)ledOffsetRX=(e.target->getValue());
-    else if(e.target==ledOffsetRYSlider)ledOffsetRY=(e.target->getValue());
-    else if(e.target==ledOffsetGXSlider)ledOffsetGX=(e.target->getValue());
-    else if(e.target==ledOffsetGYSlider)ledOffsetGY=(e.target->getValue());
-    else if(e.target==ledOffsetBXSlider)ledOffsetBX=(e.target->getValue());
-    else if(e.target==ledOffsetBYSlider)ledOffsetBY=(e.target->getValue());
-    
     else if(e.target==rotateMacroSlider)rotateMacro=(e.target->getValue());
     
     else if(e.target==zebraMacroSlider)zebraMacro=(e.target->getValue());
     else if(e.target==zebraLevelsSlider)zebraLevels=(e.target->getValue());
     else if(e.target==zebraSpeedSlider)zebraSpeed=(e.target->getValue());
-    
-    else if(e.target==squareioscopeMacroSlider)squareioscopeMacro=(e.target->getValue());
-    else if(e.target==squareioscopeMacro2Slider)squareioscopeMacro2=(e.target->getValue());
     
     else if(e.target==vhsMacroSlider)vhsMacro=(e.target->getValue());
     else if(e.target==vhsStrengthSlider)vhsStrength=(e.target->getValue());
@@ -1047,7 +948,6 @@ void ofApp::onSliderEventGui3(ofxDatGuiSliderEvent e)//=========================
 
 void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//============================================================
 {    //--------Color picker event handler function----------------------
-    //                                        cout << "onColorPickerEvent: " << e.target->getLabel() << " " << e.target->getColor() << endl;
     if (e.target->is("BG Color 1"))
     {
         bgColor1=(e.color);

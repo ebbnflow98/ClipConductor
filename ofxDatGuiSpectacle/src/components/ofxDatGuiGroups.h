@@ -523,20 +523,24 @@ public:
     
     static ofxDatGuiDropdown* getInstance() { return new ofxDatGuiDropdown("X"); }
     
-    
-    
-//    void onMouseRelease(ofPoint m)
-//    {
-//        for(int i=0; i<children.size(); i++)
-//        {
-//            if(getChildAt(i)->mBeingDragged)
-//            {
-//                //test to see where the component was dropped.
-//                //reorder the dropdown array.
-//            }
-//                
-//        }
-//    }
+    void changeOptions(vector<string> newOptions)
+    {
+        int d = size();
+         for(int i=0; i<d; i++)
+         {
+             children.pop_back();
+         }
+        
+         for(int i=0; i<newOptions.size(); i++)
+         {
+             ofxDatGuiDropdownOption* opt = new ofxDatGuiDropdownOption(newOptions[i]);
+             opt->setIndex(children.size());
+             opt->onButtonEvent(this, &ofxDatGuiDropdown::onOptionSelected);
+             children.push_back(opt);
+         }
+        setTheme(ofxDatGuiComponent::getTheme());
+        setPosition(x,y);
+     }
     
     void reorder()
     {
@@ -549,7 +553,6 @@ public:
         for(int i=0;i<children.size();i++)
         {
             if(m.y-y>halfHeight) return 0;
-//            if(m.y-y)
         }
         this->x;
     }
@@ -558,7 +561,11 @@ private:
     
     void onOptionSelected(ofxDatGuiButtonEvent e)
     {
-        for(int i=0; i<children.size(); i++) if (e.target == children[i]) mOption = i;
+        int d = children.size();
+        for(int i=0; i<children.size(); i++)
+        {
+            if (e.target == children[i]) mOption = i;
+        }
         setLabel(children[mOption]->getLabel());
         collapse();
         dispatchEvent();

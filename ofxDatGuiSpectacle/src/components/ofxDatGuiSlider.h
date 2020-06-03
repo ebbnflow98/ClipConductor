@@ -47,6 +47,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mInput->setText("0");
             setTheme(ofxDatGuiComponent::getTheme());
             setValue(val, false); // don't dispatch a change event when component is constructed //
+            ofxDatGuiComponent::setNumberbox(false);
             
         }
     ofxDatGuiSlider(string label, float min, float max, float val, bool t) : ofxDatGuiComponent(label) //add with editable text box
@@ -69,6 +70,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
               mInput->setText("0");
               setTheme(ofxDatGuiComponent::getTheme());
               setValue(val, false); // don't dispatch a change event when component is constructed //
+              ofxDatGuiComponent::setNumberbox(false);
           }
     
         ofxDatGuiSlider(string label, float min, float max) : ofxDatGuiSlider(label, min, max, (max+min)/2) {}

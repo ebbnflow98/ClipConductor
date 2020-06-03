@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/data/.DS_Store</key>
 		<data>
-		QTxVk9kMkVRlJ9C8GcyjVmm4iA8=
+		59gJLD6OZ2c4C7YpPJNKg2G3fIs=
 		</data>
 		<key>Resources/data/.gitkeep</key>
 		<data>
@@ -35,6 +35,14 @@
 		<key>Resources/data/film.png</key>
 		<data>
 		/xpEH/BPRPd4jjx0EzUuErAsQKc=
+		</data>
+		<key>Resources/data/floppy.png</key>
+		<data>
+		DxBNrHuXywb/0ZLKA82hhaFrpL0=
+		</data>
+		<key>Resources/data/folder.png</key>
+		<data>
+		6JGdrMx3KOIbIQFGh75/YaJTQsE=
 		</data>
 		<key>Resources/data/font.jpg</key>
 		<data>
@@ -139,6 +147,14 @@
 		<key>Resources/data/spectacle.icns</key>
 		<data>
 		OHQ1ElDbQHGuuv0xdTer2rePEBk=
+		</data>
+		<key>Resources/data/spectacleDmgBackground.png</key>
+		<data>
+		SfvD690w7PdZpYCQGwls5iUlhtI=
+		</data>
+		<key>Resources/data/trashcan.png</key>
+		<data>
+		8zX486eHhOL19Z4ERza+PtlnDXU=
 		</data>
 		<key>Resources/spectacle.icns</key>
 		<data>
@@ -1862,6 +1878,28 @@
 			DPkYGPsjZpewXshTp5kMAwTeNJyDVXBmUT09MVDkCCs=
 			</data>
 		</dict>
+		<key>Resources/data/floppy.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DxBNrHuXywb/0ZLKA82hhaFrpL0=
+			</data>
+			<key>hash2</key>
+			<data>
+			7I+upr+bBIindoRdoUmAsARdp6TSjEajHABCsA/ANDA=
+			</data>
+		</dict>
+		<key>Resources/data/folder.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6JGdrMx3KOIbIQFGh75/YaJTQsE=
+			</data>
+			<key>hash2</key>
+			<data>
+			4bW19drhxmqXi9lkRREoMH2o8DCUO71nKFH4yeosPeQ=
+			</data>
+		</dict>
 		<key>Resources/data/font.jpg</key>
 		<dict>
 			<key>hash</key>
@@ -2113,6 +2151,28 @@
 			<key>hash2</key>
 			<data>
 			QjooezrtOMfYKDMoKU5YlMM+tPxGNYD63/+9eLYr+UA=
+			</data>
+		</dict>
+		<key>Resources/data/spectacleDmgBackground.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			SfvD690w7PdZpYCQGwls5iUlhtI=
+			</data>
+			<key>hash2</key>
+			<data>
+			6EYISVkFyBOXv0pnXEvIZAkjwrXGn/0IfWaBCIdziFA=
+			</data>
+		</dict>
+		<key>Resources/data/trashcan.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8zX486eHhOL19Z4ERza+PtlnDXU=
+			</data>
+			<key>hash2</key>
+			<data>
+			QwSV4cJ3IYVVlEFbkJgxQaICF029s4nfQkVgXoshm5Y=
 			</data>
 		</dict>
 		<key>Resources/spectacle.icns</key>

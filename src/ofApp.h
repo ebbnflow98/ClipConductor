@@ -184,6 +184,7 @@ public ofxMidiListener
     void allocateFBOs();
     void enableGuis();
     void disableGuis();
+    void changeDevices(int choice);
 
     
     
@@ -191,7 +192,6 @@ public ofxMidiListener
     void onTextInputEventGui3(ofxDatGuiTextInputEvent e);
 //    void onRightClickEventGui3(ofxDatGuiRightClickEvent e);
     void onSliderEventGui3(ofxDatGuiSliderEvent e);
-//    void onButtonEventGui3(ofxDatGuiButtonEvent e);
 //------------------------------------------------------------------------
     ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
     ofShader shader, asciiShader, ledShader, chromaKeyShader;
@@ -203,6 +203,7 @@ public ofxMidiListener
     float videoSpeed=1;
     int videoDivision=1, videoOff=0;
     ofTexture videoTexture;
+    ofxDatGuiThemeSpectacle *theme;
     
     bool sustain=false;
     bool command=false;
@@ -236,12 +237,15 @@ public ofxMidiListener
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
-    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *ledFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder, *squareioscopeFolder, *vhsFolder;
-    ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle, *tripletToggle;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder, *vhsFolder;
+    
+    ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle;
     ofxDatGuiButton *clearAllButton, *saveButton, *loadButton;
     
-    ofxDatGuiDropdown *midiDropdown;
-    ofxDatGuiSlider *tempoDivisionSlider, *videoDivisionSlider, *videoSpeedSlider;
+    ofxDatGuiDropdown *midiDropdown, *usbDropdown;
+    ofxDatGuiButton *refreshMidiButton, *refreshUsbButton;
+    
+    ofxDatGuiSlider *videoDivisionSlider, *videoSpeedSlider;
     
     ofxDatGuiFolder *videoFolder;
     ofxDatGuiButton *videoButtons[100];
@@ -252,16 +256,13 @@ public ofxMidiListener
     ofxDatGuiLabel *fxLabel, *videosLabel, *lightsLabel;
     
     float fxMacro=1.0;
-      ofxDatGuiSlider *fxMacroSlider;
+    ofxDatGuiSlider *fxMacroSlider;
     
      float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
     bool asciiInvert=false;
     ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
     ofxDatGuiToggle *asciiInvertToggle;
     ofTexture font;
-    
-    float ledMacro=0.0, ledDotDistance=0.0, ledOffsetRX=0.0, ledOffsetRY=0.0, ledOffsetGX=0.0, ledOffsetGY=0.0, ledOffsetBX=0.0, ledOffsetBY=0.0;
-    ofxDatGuiSlider *ledMacroSlider, *ledDotDistanceSlider, *ledOffsetRXSlider, *ledOffsetRYSlider, *ledOffsetGXSlider, *ledOffsetGYSlider, *ledOffsetBXSlider, *ledOffsetBYSlider;
     
     int pixelateMacro=0;
     ofxDatGuiSlider *pixelateMacroSlider;
@@ -290,9 +291,6 @@ public ofxMidiListener
     float zebraMacro=0.0, zebraSpeed=0.0;
     int zebraLevels=2;
     ofxDatGuiSlider *zebraMacroSlider, *zebraSpeedSlider, *zebraLevelsSlider;
-
-    float squareioscopeMacro=0.0, squareioscopeMacro2=0.0;
-    ofxDatGuiSlider *squareioscopeMacroSlider, *squareioscopeMacro2Slider;
     
     float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
@@ -316,14 +314,9 @@ public ofxMidiListener
     int lightWidth;
     int runningCount=0;
     
-    
     const int numberOfLights=44;
     int lightValues[44];                    //numberOfLights
     ofxDatGuiSlider *lightSliders[44];      //numberOfLights
-//    ofSerial serial;
-//    vector<ofSerialDeviceInfo> serialDeviceInfo;
-//    vector<string> serialInputs;
-//    ofxDatGuiButton *restoreDevices;
     
     string noteNames[128] = {
      "C-2","C#-2","D-2","D#-2","E-2","F-2","F#-2","G-2","G#-2","A-2","A#-2","B-2",
