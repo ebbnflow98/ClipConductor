@@ -163,6 +163,7 @@ public ofxMidiListener
     bool midiPort(int midiPortOption);
     
     void clearAllVideos();
+    void clearAllLights();
     void midiNoteOff(int pitch);
     void onButtonEvent(ofxDatGuiButtonEvent e);
     void onSliderEvent(ofxDatGuiSliderEvent e);
@@ -172,20 +173,19 @@ public ofxMidiListener
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
     void onTextInputEventGui1(ofxDatGuiTextInputEvent e);
     bool validMidiCC(int cc);
-    
-    
 
     void dragEvent(ofDragInfo & info);
     bool loadSettings();
     bool saveSettings();
     void exitGui(ofEventArgs & args);
     void onButtonEventGui2(ofxDatGuiButtonEvent e);
+    void onButtonEventGui3(ofxDatGuiButtonEvent e);
     void windowResized(ofResizeEventArgs &resize);
     void allocateFBOs();
     void enableGuis();
     void disableGuis();
     void changeDevices(int choice);
-
+    void newProject();
     
     
 //-------------------GUI 3--------------------------------
@@ -237,10 +237,11 @@ public ofxMidiListener
     ofxDatGui* gui;
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
+    
     ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder, *vhsFolder;
     
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle;
-    ofxDatGuiButton *clearAllButton, *saveButton, *loadButton;
+    ofxDatGuiButton *newProjectButton, *clearAllButton, *saveButton, *loadButton;
     
     ofxDatGuiDropdown *midiDropdown, *usbDropdown;
     ofxDatGuiButton *refreshMidiButton, *refreshUsbButton;
@@ -252,6 +253,8 @@ public ofxMidiListener
 
     ofPoint guiPosition;
     ofPoint windowSize();
+    
+    ofxDatGuiButton *clearAllLightsButton;
     
     ofxDatGuiLabel *fxLabel, *videosLabel, *lightsLabel;
     

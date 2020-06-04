@@ -354,7 +354,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
         void onMousePress(ofPoint m)
         {
-            cout<<"mouse: "<<m.x<<","<<m.y<<"; ";
+//            cout<<"mouse: "<<m.x<<","<<m.y<<"; ";
             ofxDatGuiComponent::onMousePress(m);
             if (mInput->hitTest(m)){
                 mInput->onFocus();

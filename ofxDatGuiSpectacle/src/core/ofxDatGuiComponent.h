@@ -35,7 +35,8 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
          LIGHTBULB,
          FLOPPY,
          FOLDER,
-         TRASHCAN
+         TRASHCAN,
+         PAGE
      };
     
         ofxDatGuiComponent(string label);
@@ -224,5 +225,6 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         shared_ptr<ofImage> folder;
         shared_ptr<ofImage> trashcan;
         shared_ptr<ofImage> floppy;
+        shared_ptr<ofImage> page;
 };
 

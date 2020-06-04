@@ -52,7 +52,7 @@ void ofApp::setup()//===========================================================
         videosLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FILM);
         
         clearToggle = gui2->addToggle("Clear");
-        clearAllButton = gui2->addButton("Clear All");
+        clearAllButton = gui2->addButton("Clear All Videos");
         clearAllButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::TRASHCAN);
         gui2->setPosition(gui->getWidth()+gui->getPadding(),0);
         gui2->addBreak();
@@ -66,6 +66,8 @@ void ofApp::setup()//===========================================================
             videoButtons[i]->setNumberbox(true, noteNames[i]);
         }
         
+        newProjectButton = gui->addButton("New Project");
+        newProjectButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::PAGE);
         saveButton = gui->addButton("Save");
         saveButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FLOPPY);
         loadButton = gui->addButton("Load");
@@ -75,6 +77,8 @@ void ofApp::setup()//===========================================================
         refreshUsbButton = gui->addButton("Refresh USB Ports");
         usbDropdown = gui->addDropdown("Dmx Interface:", dmx.getDevices());
         
+        clearAllLightsButton = gui3->addButton("Clear All Lights");
+//        clearAllLightsButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTOFF);
         lightsLabel = gui3->addLabel("LIGHTS");
         lightsLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         lightsLabel->setNumberbox(false);
@@ -97,59 +101,59 @@ void ofApp::setup()//===========================================================
         
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
-        videoFolder=gui->addFolder("Video Controls");
+        videoFolder=gui->addFolder("VIDEO CONTROLS");
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
         videoSyncToggle=videoFolder->addToggle("Video Sync");
         videoDivisionSlider=videoFolder->addSlider("Video Division",1,8,1);
         
-        invertFolder=gui->addFolder("Invert");
+        invertFolder=gui->addFolder("INVERT");
         invertMacroSlider=invertFolder->addSlider("Invert", 0.0, 1.0, invertMacro);
         invertMacroSlider->setPrecision(1);
         invertMacroSlider->setValue(invertMacro);
         
-        rippleFolder=gui->addFolder("Ripple");
+        rippleFolder=gui->addFolder("RIPPLE");
         rippleMacroSlider = rippleFolder->addSlider("Ripple", 0.0,1.0,rippleMacro);
         rippleSyncToggle=rippleFolder->addToggle("Sync");
         rippleXSlider=rippleFolder->addSlider("X", 0.0, 1.0,rippleX);
         rippleYSlider=rippleFolder->addSlider("Y", 0.0, 1.0,rippleY);
         rippleRateSlider=rippleFolder->addSlider("Rate",0.1, 300.00,rippleRate);
         
-        filterFolder=gui->addFolder("Filter");
+        filterFolder=gui->addFolder("FILTER");
         filterMacroSlider=filterFolder->addSlider("Filter",0.0,1.0,filterMacro);
         filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
         filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
         filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
         //        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
         
-        kaleidioscopeFolder=gui->addFolder("Kaleidioscope");
+        kaleidioscopeFolder=gui->addFolder("KALEIDIOSCOPE");
         kaleidoscopeMacroSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
         kaleidoscopeSectorSlider=kaleidioscopeFolder->addSlider("Sectors", 1.0, 100,kaleidioscopeSectors);
         kaleidoscopeAngleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
         kaleidoscopeXSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
         kaleidoscopeYSlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
         
-        pixelateFolder=gui->addFolder("Pixelate");
+        pixelateFolder=gui->addFolder("PIXELATE");
         pixelateMacroSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
         
-        fullhouseFolder=gui->addFolder("Fullhouse");
+        fullhouseFolder=gui->addFolder("FULLHOUSE");
         fullhouseMacroSlider=fullhouseFolder->addSlider("Fullhouse", 1, 50, fullhouseMacro);
         
-        asciiFolder=gui->addFolder("Ascii");
+        asciiFolder=gui->addFolder("ASCII");
         asciiMacroSlider=asciiFolder->addSlider("Ascii", 0.0,1.0,asciiMacro);
         asciiInvertToggle=asciiFolder->addToggle("Ascii Invert", asciiInvert);
         asciiImageContrastSlider=asciiFolder->addSlider("Ascii Image Contrast", 0.0, 1.0,asciiImageContrast);
         asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
         asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
         
-        rotateFolder=gui->addFolder("Rotate");
+        rotateFolder=gui->addFolder("ROTATE");
         rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
         
-        zebraFolder=gui->addFolder("Zebra");
+        zebraFolder=gui->addFolder("ZEBRA");
         zebraMacroSlider=zebraFolder->addSlider("Zebra", 0.0, 1.0,zebraMacro);
         zebraSpeedSlider=zebraFolder->addSlider("Speed",0.0,1.0,zebraSpeed);
         zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
         
-        chromaKeyFolder=gui->addFolder("ChromaKey");
+        chromaKeyFolder=gui->addFolder("CHROMAKEY");
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
@@ -168,16 +172,13 @@ void ofApp::setup()//===========================================================
         gui->onSliderEvent(this, &ofApp::onSliderEvent);
         gui->onToggleEvent(this, &ofApp::onToggleEvent);
         gui->onDropdownEvent(this, &ofApp::onDropdownEvent);
-//        gui->onNumberBoxChangedEvent(this, &ofApp::onNumberBoxChangedEventGui1);
         
         gui2->onToggleEvent(this, &ofApp::onToggleEvent);
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
         kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
-        cout<<"here 3"<<endl;
         
-//        gui3->onRightClickEvent(this, &ofApp::onRightClickEventGui3);
-        
-       gui3->onSliderEvent(this, &ofApp::onSliderEventGui3);
+        gui3->onButtonEvent(this, &ofApp::onButtonEventGui3);
+        gui3->onSliderEvent(this, &ofApp::onSliderEventGui3);
         for(int i=0;i<numberOfLights;i++)
         {
             lightValues[i]=0;
@@ -857,6 +858,23 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///========================
     }
 }
 
+void ofApp::onButtonEventGui3(ofxDatGuiButtonEvent e)
+{
+    if(e.target==clearAllLightsButton) clearAllLights();
+}
+
+void ofApp::clearAllLights()
+{
+    for(int i=0;i<numberOfLights;i++) lightSliders[i]->setTextInput("Type Parameter Here");
+}
+
+void ofApp::newProject()
+{
+//    if(ofSystemAlertDialog( ));
+    clearAllLights();
+    clearAllVideos();
+}
+
 void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//============================================================
 {//--------Toggle event handler function----------------------
     
@@ -871,9 +889,7 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//=============================
 
 void ofApp::onTextInputEventGui1(ofxDatGuiTextInputEvent e)
 {
-    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX)
-    {   cout<<"NumberBox event \n";
-    }
+//    if(e.type==ofxDatGuiNumberBoxEventType::NUMBERBOX)
 }
 
 bool ofApp::validMidiCC(int cc)

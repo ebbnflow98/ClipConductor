@@ -120,6 +120,7 @@ void ofxDatGuiComponent::setComponentStyle(const ofxDatGuiTheme* theme)
     folder=theme->icon.folder;
     trashcan=theme->icon.trashcan;
     floppy=theme->icon.floppy;
+    page=theme->icon.page;
     
     mLabel.color = theme->color.label;
     if(mNumberbox) mLabel.margin = theme->layout.labelMargin + mStyle.height;
@@ -478,6 +479,7 @@ void ofxDatGuiComponent::drawCustomIcon()
     if(mCustomIconChoice==ofxDatGuiIconType::FOLDER) folder->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::TRASHCAN) trashcan->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::FLOPPY) floppy->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::PAGE) page->draw(x+mCustomIcon.x, y+mCustomIcon.y,mCustomIcon.size);
 }
 
 void ofxDatGuiComponent::drawBackground()

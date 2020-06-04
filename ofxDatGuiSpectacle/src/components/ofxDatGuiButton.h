@@ -118,7 +118,7 @@ private:
     shared_ptr<ofImage> folder;
     shared_ptr<ofImage> trashcan;
     shared_ptr<ofImage> floppy;
-    
+    shared_ptr<ofImage> page;
 };
 
 class ofxDatGuiToggle : public ofxDatGuiButton {
