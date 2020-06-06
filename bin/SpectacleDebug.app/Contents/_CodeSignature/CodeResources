@@ -104,6 +104,10 @@
 		<data>
 		xe433g3CzTm0axZMVNlXhlT+RLE=
 		</data>
+		<key>Resources/data/page.png</key>
+		<data>
+		jSXbzmck3x3BS/vr9AOTzmOMu/c=
+		</data>
 		<key>Resources/data/snappy/.DS_Store</key>
 		<data>
 		QRzDMnTUbh14AZjktIcJqOaC1Vs=
@@ -2052,6 +2056,17 @@
 			<key>hash2</key>
 			<data>
 			udNwRcywiB1T/3+lxbxs+PSac7DZcd/x3FDZHvxEz0A=
+			</data>
+		</dict>
+		<key>Resources/data/page.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jSXbzmck3x3BS/vr9AOTzmOMu/c=
+			</data>
+			<key>hash2</key>
+			<data>
+			5AsXx6Kw3oBvAe7Dg1O2iXsX4ESj59oo6EJ5CvnKUuQ=
 			</data>
 		</dict>
 		<key>Resources/data/snappy/include/snappy-c.h</key>

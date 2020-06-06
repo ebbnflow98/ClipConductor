@@ -142,7 +142,8 @@ void ofxDatGuiComponent::setWidth(int width, float labelWidth)
         mLabel.width = mStyle.width * labelWidth;
     }
     mIcon.x = mStyle.width - (mStyle.width * .05) - mIcon.size;
-    mCustomIcon.x = mLabel.width/2 + mLabel.x + int(mStyle.width * .1);
+    mCustomIcon.x = mLabel.width/2 + mLabel.x + int(mStyle.width * .15);
+    if(mType==ofxDatGuiType::LABEL) mCustomIcon.x = mLabel.width/2 + mLabel.x + int(mStyle.width * .1);
     mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
     for (int i=0; i<children.size(); i++) children[i]->setWidth(width, labelWidth);
     positionLabel();
@@ -479,7 +480,7 @@ void ofxDatGuiComponent::drawCustomIcon()
     if(mCustomIconChoice==ofxDatGuiIconType::FOLDER) folder->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::TRASHCAN) trashcan->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::FLOPPY) floppy->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
-    if(mCustomIconChoice==ofxDatGuiIconType::PAGE) page->draw(x+mCustomIcon.x, y+mCustomIcon.y,mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::PAGE) page->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
 }
 
 void ofxDatGuiComponent::drawBackground()

@@ -8,10 +8,12 @@ int snaves=0;
 
 void ofApp::setup()//============================================================
 {
-    ofLog(OF_LOG_NOTICE, "hayyy \n");
     if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
+    
+    if(snaves==0)
+    {
     if(shader.load("fxShader.vert","fxShader.frag"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
     if(asciiShader.load("asciiShader.vert","asciiShader.frag")) cout<<"asciiShader loaded"; else cout<<"asciiShader not loaded";
     if(ledShader.load("ledShader.vert","ledShader.frag"))cout<<"ledShader loaded"; else cout<<"ledShader not loaded";
@@ -21,7 +23,7 @@ void ofApp::setup()//===========================================================
     
     ofLog()<<(char*)glGetString(GL_VERSION);
     
-    if(snaves==0)dmx.connect("/dev/tty.usbserial-ENVVVCOF",44); // use the name
+    dmx.connect(0,44);
     
     //---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
@@ -30,7 +32,7 @@ void ofApp::setup()//===========================================================
     midiIn.ignoreTypes(false, false, true); // don't ignore sysex, timing, & active sense messages, these are ignored by default
     midiIn.addListener(this);   // add ofApp as a listener
     videoCount=0;
-    
+}
     //--GUI setup--------------------------------------------------
     
     if(snaves==0)
@@ -38,7 +40,7 @@ void ofApp::setup()//===========================================================
         gui = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         
         gui->setAutoDraw(true);
-        gui2= new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
+        gui2 = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui2->setAutoDraw(true);
         gui3 = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui3->setAutoDraw(true);
@@ -47,18 +49,18 @@ void ofApp::setup()//===========================================================
         
         videosLabel = gui2->addLabel("VIDEOS");
         videosLabel->setNumberbox(false);
-        videosLabel->setEmphasis(true, ofColor::black, 5);
+//        videosLabel->setEmphasis(true, ofColor::black, 5);
         videosLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         videosLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FILM);
         
         clearToggle = gui2->addToggle("Clear");
         clearAllButton = gui2->addButton("Clear All Videos");
         clearAllButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::TRASHCAN);
-        gui2->setPosition(gui->getWidth()+gui->getPadding(),0);
+        gui2->setPosition(gui->getWidth()+gui->getPadding()*2,0);
         gui2->addBreak();
         gui2->addBreak();
         
-        gui3->setPosition(gui->getWidth()+gui->getPadding()+gui2->getWidth() + gui->getPadding(), 0);
+        gui3->setPosition(gui->getWidth()+gui->getPadding()*2+gui2->getWidth() + gui->getPadding()*2, 0);
         
         for(int i=0;i<max_videos;i++)
         {
@@ -78,13 +80,13 @@ void ofApp::setup()//===========================================================
         usbDropdown = gui->addDropdown("Dmx Interface:", dmx.getDevices());
         
         clearAllLightsButton = gui3->addButton("Clear All Lights");
-//        clearAllLightsButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTOFF);
+        clearAllLightsButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::TRASHCAN);
         lightsLabel = gui3->addLabel("LIGHTS");
         lightsLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         lightsLabel->setNumberbox(false);
         lightsLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
-        lightsLabel->setEmphasis(true, ofColor::black, 5);
-        lightsLabel->setBackgroundColor(ofColor::darkGray);
+//        lightsLabel->setEmphasis(true, ofColor::black, 5);
+//        lightsLabel->setBackgroundColor(ofColor::darkGray);
         
         
         backgroundFolder=gui->addFolder("Background");
@@ -95,9 +97,8 @@ void ofApp::setup()//===========================================================
         fxLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         fxLabel->setNumberbox(false);
         fxLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::EYE);
-        fxLabel->setEmphasis(true, ofColor::black, 5);
-        fxLabel->setBackgroundColor(ofColor::red);
-        
+//        fxLabel->setEmphasis(true, ofColor::black, 5);
+//        fxLabel->setBackgroundColor(ofColor::red);
         
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
@@ -123,7 +124,6 @@ void ofApp::setup()//===========================================================
         filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
         filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
         filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
-        //        filterAlphaSlider=filterFolder->addSlider("Alpha",0.0,1.0,filterAlpha);
         
         kaleidioscopeFolder=gui->addFolder("KALEIDIOSCOPE");
         kaleidoscopeMacroSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
@@ -159,10 +159,10 @@ void ofApp::setup()//===========================================================
         chromaKeyColorPicker->setColor(ofColor::green);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
         
-        vhsFolder=gui->addFolder("VHS");
-        vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
-        vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
-        vhsSpeedSlider=vhsFolder->addSlider("Speed",0,60,vhsSpeed);
+//        vhsFolder=gui->addFolder("VHS");
+//        vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
+//        vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
+//        vhsSpeedSlider=vhsFolder->addSlider("Speed",0,60,vhsSpeed);
         
         gui->addBreak();
         gui->addBreak();
@@ -206,13 +206,11 @@ void ofApp::setup()//===========================================================
         gui->setTheme(theme);
         gui2->setTheme(flip);
         gui3->setTheme(theme);
-        gui->draw();
-        gui2->draw();
-        gui3->draw();
         ofBackground(ofColor::black);
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
     }
+    fxLabel->setBackgroundColor(ofColor::red);
     gui3->setWidth(800);
     snaves=1;
 }
@@ -231,6 +229,13 @@ void ofApp::exitGui(ofEventArgs &args)//========================================
 
 void ofApp::update()//============================================================
 {
+    if (snaves==1)
+    {
+        fxLabel->setBackgroundColor(ofColor::red);
+        videosLabel->setBackgroundColor(ofColor::darkGray);
+        lightsLabel->setBackgroundColor(ofColor::darkGray);
+    }
+
     //---------Tempo update--------------------------------
     //                                                                          cout << "update"<< endl;
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
@@ -253,6 +258,7 @@ void ofApp::update()//==========================================================
     {
         dmx.update();
     }
+    snaves=2;
 }
 
 void ofApp::draw()//============================================================
@@ -381,9 +387,9 @@ void ofApp::draw()//============================================================
     shader.setUniform1f("zebraSpeed", zebraSpeed);
     shader.setUniform1i("zebraLevels", zebraLevels);
     
-    shader.setUniform1f("vhsMacro", vhsMacro);
-    shader.setUniform1f("vhsStrength", vhsStrength);
-    shader.setUniform1f("vhsSpeed", vhsSpeed);
+//    shader.setUniform1f("vhsMacro", vhsMacro);
+//    shader.setUniform1f("vhsStrength", vhsStrength);
+//    shader.setUniform1f("vhsSpeed", vhsSpeed);
     blendFbo.draw(0,0,getWidth, getHeight);
     shader.end();                                   //shader1 end
     fbo2.end();                                     // FBO 2 end
@@ -405,18 +411,8 @@ void ofApp::draw()//============================================================
     
     asciiShader.end();                                //ASCII Shader end
     fbo3.end();                                       //FBO 3 end
-    
-    //-------LED FBO/Shader---------------------------------------------------------
-    fbo4.begin();                                       //FBO 4 begin
-    ofClear(0,0,0,0);
-    ledShader.begin();                                 //LED Shader begin
 
     fbo3.draw(0,0, getWidth, getHeight);                //FBO 3 draw
-    
-    ledShader.end();                                    //LED Shader end
-    fbo4.end();                                         //FBO 4 end
-    
-    fbo4.draw(0,0, getWidth, getHeight);                //FBO 4 draw (final draw)
 }
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)//============================================================
@@ -436,7 +432,6 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
             {
                 playerFromMidiMessage=(msg.pitch);
                 videoCount+=1;
-                //                                                                        cout<<"videoCount: "<<videoCount<<endl;
                 player[playerFromMidiMessage].opacity=msg.velocity;
                 player[playerFromMidiMessage].drawImage=true;
                 player[playerFromMidiMessage].opacity=ofMap(player[playerFromMidiMessage].opacity, 0, 127, 0, 255);
@@ -482,176 +477,175 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     else videoSync=false;
                     videoSyncToggle->setChecked(videoSync);
                     break;
-                    
-                    //EMPTY CASE 22
-                    
-                case 24:
+                                    
+                case 19:
                     invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
                     invertMacroSlider->setValue(invertMacro);
                     break;
-                case 25:
+                    
+                case 20:
                     rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
                     rippleMacroSlider->setValue(rippleMacro);
                     break;
-                case 26:
+                case 21:
                 {
                     if(msg.value>63) rippleSync=true;
                     else rippleSync=false;
                     rippleSyncToggle->setChecked(rippleSync);
                     break;
                 }
-                case 27:
+                case 22:
                     rippleX=ofMap(msg.value,0, 127, 0.0, 1.0);
                     rippleXSlider->setValue(rippleX);
                     break;
-                case 28:
+                case 23:
                     rippleY=ofMap(msg.value,0, 127, 0.0, 1.00);
                     rippleYSlider->setValue(rippleY);
                     break;
-                case 29:
+                case 24:
                     if(rippleSync) rippleRate=bpm/60;
                     else rippleRate=ofMap(msg.value,0, 127, .1, 300);
                     rippleRateSlider->setValue(rippleRate);
                     break;
                     
-                case 30:
+                case 25:
                     filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
                     filterMacroSlider->setValue(filterMacro);
                     break;
-                case 31:
+                case 26:
                     filterRed=ofMap(msg.value,0, 127, 0, 1.0);
                     filterRedSlider->setValue(filterRed);
                     break;
-                case 33:
+                case 27:
                     filterGreen=ofMap(msg.value,0, 127, 0, 1.0);
                     filterGreenSlider->setValue(filterGreen);
                     break;
-                case 34:
+                case 28:
                     filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
                     filterBlueSlider->setValue(filterBlue);
                     break;
-                    //EMPTY CASE 35
                     
-                case 40:
+                case 29:
                     kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
                     kaleidoscopeMacroSlider->setValue(kaleidoscopeMacro);
                     break;
-                case 41:
+                case 30:
                     kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
                     kaleidoscopeAngleSlider->setValue(kaleidioscopeAngle);
                     break;
-                case 42:
+                case 31:
                     kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
                     kaleidoscopeXSlider->setValue(kaleiodioscopeX);
                     break;
-                case 43:
+                case 32:
                     kaleiodioscopeY=ofMap(msg.value,0, 127, 0.0, 1.00);
                     kaleidoscopeYSlider->setValue(kaleiodioscopeY);
                     break;
-                case 44:
+                case 33:
                     kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
                     kaleidoscopeSectorSlider->setValue(kaleidioscopeSectors);
                     break;
-                case 50:
+                    
+                case 34:
                     bgColor1Red=msg.value;
                     bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                     bgColor1ColorPicker->setColor(bgColor1);
                     break;
-                case 51:
+                case 35:
                     bgColor1Green=msg.value;
                     bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                     bgColor1ColorPicker->setColor(bgColor1);
                     break;
-                case 52:
+                case 36:
                     bgColor1Blue=msg.value;
                     bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                     bgColor1ColorPicker->setColor(bgColor1);
                     break;
                     
-                    
-                case 56:
+                case 37:
                     pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
                     pixelateMacroSlider->setValue(pixelateMacro);
                     break;
-                case 57:
+                    
+                case 39:
                     fullhouseMacro=ofMap(msg.value,0,127,1,50);
                     fullhouseMacroSlider->setValue(fullhouseMacro);
                     break;
-                case 60:
+                    
+                case 40:
                     asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
                     asciiMacroSlider->setValue(asciiMacro);
                     break;
-                case 61:
+                case 41:
                     asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
                     asciiDotDistanceSlider->setValue(asciiDotDistance);
                     break;
-                case 62:
+                case 42:
                     asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
                     asciiImageGainSlider->setValue(asciiImageGain);
                     break;
-                case 63:
+                case 43:
                     asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
                     asciiImageContrastSlider->setValue(asciiImageContrast);
                     break;
-                case 65:
+                case 44:
                     if(msg.value>63) asciiInvert=true;
                     else asciiInvert=false;
                     asciiInvertToggle->setChecked(asciiInvert);
                     break;
-                    
-                    
-                    
-                case 74:
+    
+                case 45:
                     rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
                     rotateMacroSlider->setValue(rotateMacro);
                     break;
-                case 75:
+                    
+                case 46:
                     zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
                     zebraMacroSlider->setValue(zebraMacro);
                     break;
-                case 76:
+                case 47:
                     zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
                     zebraSpeedSlider->setValue(zebraSpeed);
                     break;
-                    
-                case 77:
+                case 48:
                     zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
                     zebraLevelsSlider->setValue(zebraLevels);
                     break;
-                case 78:
+                    
+                case 49:
                     chromaKeyMacro=ofMap(msg.value,0,127,0.0,1.0);
                     chromaKeyMacroSlider->setValue(chromaKeyMacro);
                     break;
-                case 79:
+                case 50:
                     chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
                     chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                     break;
-                case 80:
+                case 51:
                     chromaKeyGreen=ofMap(msg.value,0,127,0,255);
                     chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                     break;
-                case 81:
+                case 52:
                     chromaKeyBlue=ofMap(msg.value,0,127,0,255);
                     chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                     break;
-                case 82:
+                case 53:
                     chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
                     chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
                     break;
                     
                     
-                case 85:
-                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    vhsMacroSlider->setValue(vhsMacro);
-                    break;
-                case 86:
-                    vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
-                    vhsStrengthSlider->setValue(vhsStrength);
-                    break;
-                case 87:
-                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
-                    vhsSpeedSlider->setValue(vhsSpeed);
-                    break;
+//                case 54:
+//                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
+//                    vhsMacroSlider->setValue(vhsMacro);
+//                    break;
+//                case 55:
+//                    vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
+//                    vhsStrengthSlider->setValue(vhsStrength);
+//                    break;
+//                case 56:
+//                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
+//                    vhsSpeedSlider->setValue(vhsSpeed);
+//                    break;
             }
         }
             if(msg.channel==2)lightValues[msg.control-1]=ofMap(msg.value, 0, 127, 0, 255);
@@ -719,6 +713,18 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
         case 'd': playerFromMidiMessage=22; break;
         case 'f': playerFromMidiMessage=23; break;
         case 'g': playerFromMidiMessage=24; break;
+        case 'h': playerFromMidiMessage=25; break;
+        case 'j': playerFromMidiMessage=26; break;
+        case 'k': playerFromMidiMessage=27; break;
+        case 'l': playerFromMidiMessage=28; break;
+        case 'z': playerFromMidiMessage=29; break;
+        case 'x': playerFromMidiMessage=30; break;
+        case 'c': playerFromMidiMessage=31; break;
+        case 'v': playerFromMidiMessage=32; break;
+        case 'b': playerFromMidiMessage=33; break;
+        case 'n': playerFromMidiMessage=34; break;
+        case 'm': playerFromMidiMessage=35; break;
+//        case ';': fxLabel->setBackgroundColor(ofColor::red); break;
         default: break;
     }
     
@@ -764,6 +770,17 @@ void ofApp::keyReleased(ofKeyEventArgs & args)//================================
         case 'd': videoNumber=22; break;
         case 'f': videoNumber=23; break;
         case 'g': videoNumber=24; break;
+        case 'h': videoNumber=25; break;
+        case 'j': videoNumber=26; break;
+        case 'k': videoNumber=27; break;
+        case 'l': videoNumber=28; break;
+        case 'z': videoNumber=29; break;
+        case 'x': videoNumber=30; break;
+        case 'c': videoNumber=31; break;
+        case 'v': videoNumber=32; break;
+        case 'b': videoNumber=33; break;
+        case 'n': videoNumber=34; break;
+        case 'm': videoNumber=35; break;
     }
     
     if(player[videoNumber].drawImage!=false)
@@ -832,6 +849,7 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//=============================
         midiDropdown->changeOptions(midiIn.getInPortList());
         midiDropdown->setTheme(theme);
     }
+    else if(e.target==newProjectButton)newProject();
 }
 
 void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///============================================================
@@ -948,9 +966,9 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     else if(e.target==zebraLevelsSlider)zebraLevels=(e.target->getValue());
     else if(e.target==zebraSpeedSlider)zebraSpeed=(e.target->getValue());
     
-    else if(e.target==vhsMacroSlider)vhsMacro=(e.target->getValue());
-    else if(e.target==vhsStrengthSlider)vhsStrength=(e.target->getValue());
-    else if(e.target==vhsSpeedSlider)vhsSpeed=(e.target->getValue());
+//    else if(e.target==vhsMacroSlider)vhsMacro=(e.target->getValue());
+//    else if(e.target==vhsStrengthSlider)vhsStrength=(e.target->getValue());
+//    else if(e.target==vhsSpeedSlider)vhsSpeed=(e.target->getValue());
     
     else if(e.target==chromaKeyMacroSlider)chromaKeyMacro=(e.target->getValue());
     else if(e.target==chromaKeyThresholdSlider)chromaKeyThreshold=(e.target->getValue());
@@ -958,7 +976,6 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
 
 void ofApp::onSliderEventGui3(ofxDatGuiSliderEvent e)//============================================================
 {
-//    cout<<"gui3 slider \n";
 //    lightValues[ofToInt(e.target->getLabel())-1]=(e.target->getValue());
 }
 

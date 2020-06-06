@@ -448,8 +448,6 @@ public:
 //        draw();
 //    }
     
-    bool mBeingDragged;
-
 };
 
 class ofxDatGuiDropdown : public ofxDatGuiGroup {
@@ -541,12 +539,7 @@ public:
         setTheme(ofxDatGuiComponent::getTheme());
         setPosition(x,y);
      }
-    
-    void reorder()
-    {
-        
-    }
-    
+
     int releaseHitTest(ofPoint m)
     {
         int halfHeight = mStyle.height/2;

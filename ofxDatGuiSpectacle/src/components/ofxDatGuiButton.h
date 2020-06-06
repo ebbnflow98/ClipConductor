@@ -43,7 +43,6 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
     
         void setWidth(int width, float labelWidth = 1)
         {
-            
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
             if(mNumberbox) mLabel.width -= mStyle.height;
