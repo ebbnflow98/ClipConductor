@@ -36,7 +36,8 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
          FLOPPY,
          FOLDER,
          TRASHCAN,
-         PAGE
+         PAGE,
+         REFRESH
      };
     
         ofxDatGuiComponent(string label);
@@ -125,17 +126,24 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     bool getNumberbox();
     string setNumberboxValue();
     void drawEmphasis();
-    void setEmphasis(bool draw, ofColor color, int width);
     bool mEmphasis;
+    void setEmphasis(bool draw, ofColor color, int width);
+    bool mDropdownDividers;
+    void setDropdownDividers(bool t);
+    void drawDropdownDividers();
     int mEmphasisWidth;
     ofColor mEmphasisColor;
+    ofColor getBackgroundColor();
     
 
         static const ofxDatGuiTheme* getTheme();
     
         ofPoint scroll= ofPoint(0,0);
 //    void dispatchRightClickEvent();
-
+    
+    void positionIcon();
+    void setIconAlignment(ofxDatGuiAlignment alignment);
+    
     protected:
     
         int x;
@@ -207,7 +215,10 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         struct
     {
         int x,y,size;
+        ofxDatGuiAlignment alignment;
     } mCustomIcon;
+    
+
     
         void drawLabel();
         void drawBorder();
@@ -226,5 +237,6 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         shared_ptr<ofImage> trashcan;
         shared_ptr<ofImage> floppy;
         shared_ptr<ofImage> page;
+        shared_ptr<ofImage> refresh;
 };
 

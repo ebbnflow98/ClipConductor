@@ -35,6 +35,7 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mMouseOver = false;
     mMouseDown = false;
     mEmphasis = false;
+    mDropdownDividers = true;
     mStyle.opacity = 255;
     this->x = 0; this->y = 0;
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
@@ -113,6 +114,9 @@ void ofxDatGuiComponent::setComponentStyle(const ofxDatGuiTheme* theme)
     mIcon.size = theme->layout.iconSize;
     mCustomIcon.y = mStyle.height * .15;
     mCustomIcon.size = theme->layout.iconSize * 2;
+    positionIcon();
+//    mCustomIcon.alignment = ofxDatGuiAlignment::RIGHT;
+    
     
     eye=theme->icon.eye;
     film=theme->icon.film;
@@ -121,6 +125,7 @@ void ofxDatGuiComponent::setComponentStyle(const ofxDatGuiTheme* theme)
     trashcan=theme->icon.trashcan;
     floppy=theme->icon.floppy;
     page=theme->icon.page;
+    refresh=theme->icon.refresh;
     
     mLabel.color = theme->color.label;
     if(mNumberbox) mLabel.margin = theme->layout.labelMargin + mStyle.height;
@@ -302,6 +307,23 @@ void ofxDatGuiComponent::positionLabel()
         mLabel.x = mLabel.rightAlignedXpos - mLabel.rect.width;
     }
 }
+void ofxDatGuiComponent::setIconAlignment(ofxDatGuiAlignment alignment)
+{
+    mCustomIcon.alignment = alignment;
+}
+
+void ofxDatGuiComponent::positionIcon()
+{
+    if (mCustomIcon.alignment == ofxDatGuiAlignment::LEFT){
+          mCustomIcon.x = mLabel.margin;
+      }   else if (mCustomIcon.alignment == ofxDatGuiAlignment::CENTER){
+          mCustomIcon.x = (mLabel.width / 2) - (mCustomIcon.size / 2);
+      }   else if (mCustomIcon.alignment == ofxDatGuiAlignment::RIGHT){
+          mCustomIcon.x = mLabel.width - mLabel.margin - mCustomIcon.size;
+      }
+}
+
+
 
 /*
     visual customization
@@ -310,6 +332,11 @@ void ofxDatGuiComponent::positionLabel()
 void ofxDatGuiComponent::setBackgroundColor(ofColor color)
 {
     mStyle.color.background = color;
+}
+
+ofColor ofxDatGuiComponent::getBackgroundColor()
+{
+    return mStyle.color.background;
 }
 
 void ofxDatGuiComponent::setBackgroundColorOnMouseOver(ofColor color)
@@ -446,7 +473,14 @@ void ofxDatGuiComponent::draw()
     if(mCustomIconChoice!=0) drawCustomIcon();
     
     if(mEmphasis) drawEmphasis();
+    if(!mDropdownDividers) drawDropdownDividers();
     ofPopStyle();
+}
+
+void ofxDatGuiComponent::drawDropdownDividers()
+{
+    ofSetColor(ofColor::white);
+    ofDrawRectangle(x, y-mStyle.vMargin, mStyle.width, mStyle.vMargin*2);
 }
 
 void ofxDatGuiComponent::drawNumberbox(string s)
@@ -457,23 +491,9 @@ void ofxDatGuiComponent::drawNumberbox(string s)
     mFont->draw(s, (x + mStyle.padding + ((mStyle.height / 2) - (mFont->rect(s).width / 2))), (y + mStyle.height/2 + mFont->size()));
 }
 
-void ofxDatGuiComponent::gradient(ofPoint x1, ofPoint x2, ofPoint y1, ofPoint y2, ofColor color1, ofColor color2)
-{
-    ofMesh temp;
-    temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-    temp.addVertex( x1 );
-    temp.addColor(color1);
-    temp.addVertex( x2 );
-    temp.addColor(color1);
-    temp.addVertex(y1 );
-    temp.addColor(color2);
-    temp.addVertex(y2 );
-    temp.addColor(color2);
-    temp.draw();
-}
-
 void ofxDatGuiComponent::drawCustomIcon()
 {
+    positionIcon();
     if(mCustomIconChoice==ofxDatGuiIconType::EYE) eye->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::LIGHTBULB) lightbulb->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::FILM) film->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
@@ -481,6 +501,7 @@ void ofxDatGuiComponent::drawCustomIcon()
     if(mCustomIconChoice==ofxDatGuiIconType::TRASHCAN) trashcan->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::FLOPPY) floppy->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
     if(mCustomIconChoice==ofxDatGuiIconType::PAGE) page->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
+    if(mCustomIconChoice==ofxDatGuiIconType::REFRESH) refresh->draw(x+mCustomIcon.x, y+mCustomIcon.y, mCustomIcon.size, mCustomIcon.size);
 }
 
 void ofxDatGuiComponent::drawBackground()
@@ -528,6 +549,11 @@ void ofxDatGuiComponent::setEmphasis(bool draw, ofColor color, int width)
     mEmphasis = draw;
     mEmphasisColor = color;
     mEmphasisWidth = width;
+}
+
+void ofxDatGuiComponent::setDropdownDividers(bool t)
+{
+    mDropdownDividers = t;
 }
 
 void ofxDatGuiComponent::drawColorPicker() { }
@@ -618,4 +644,19 @@ void ofxDatGuiComponent::setNumberbox(bool t, string s)
 bool ofxDatGuiComponent::getNumberbox()
 {
     return mNumberbox;
+}
+
+void ofxDatGuiComponent::gradient(ofPoint x1, ofPoint x2, ofPoint y1, ofPoint y2, ofColor color1, ofColor color2)
+{
+    ofMesh temp;
+    temp.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+    temp.addVertex( x1 );
+    temp.addColor(color1);
+    temp.addVertex( x2 );
+    temp.addColor(color1);
+    temp.addVertex(y1 );
+    temp.addColor(color2);
+    temp.addVertex(y2 );
+    temp.addColor(color2);
+    temp.draw();
 }

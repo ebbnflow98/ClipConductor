@@ -44,14 +44,20 @@ void ofApp::setup()//===========================================================
         gui2->setAutoDraw(true);
         gui3 = new ofxDatGui(ofxDatGuiAnchor::NO_ANCHOR);
         gui3->setAutoDraw(true);
+        theme = new ofxDatGuiThemeSpectacle;
+        flip = new ofxDatGuiThemeSpectacle;
+        
+        gui->setTheme(theme);
+        gui2->setTheme(flip);
+        gui3->setTheme(theme);
         
         clear=false;
         
         videosLabel = gui2->addLabel("VIDEOS");
         videosLabel->setNumberbox(false);
-//        videosLabel->setEmphasis(true, ofColor::black, 5);
         videosLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         videosLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FILM);
+        videosLabel->setIconAlignment(ofxDatGuiAlignment::RIGHT);
         
         clearToggle = gui2->addToggle("Clear");
         clearAllButton = gui2->addButton("Clear All Videos");
@@ -70,13 +76,21 @@ void ofApp::setup()//===========================================================
         
         newProjectButton = gui->addButton("New Project");
         newProjectButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::PAGE);
+        newProjectButton->setIconAlignment(ofxDatGuiAlignment::CENTER);
         saveButton = gui->addButton("Save");
         saveButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FLOPPY);
+        saveButton->setIconAlignment(ofxDatGuiAlignment::CENTER);
         loadButton = gui->addButton("Load");
         loadButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FOLDER);
+        loadButton->setIconAlignment(ofxDatGuiAlignment::CENTER);
         refreshMidiButton = gui->addButton("Refresh MIDI Ports");
+        refreshMidiButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::REFRESH);
+        refreshMidiButton->setIconAlignment(ofxDatGuiAlignment::CENTER);
         midiDropdown = gui->addDropdown("MIDI Port:", midiIn.getInPortList());
+        midiDropdown->setDropdownDividers(false);
         refreshUsbButton = gui->addButton("Refresh USB Ports");
+        refreshUsbButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::REFRESH);
+        refreshUsbButton->setIconAlignment(ofxDatGuiAlignment::CENTER);
         usbDropdown = gui->addDropdown("Dmx Interface:", dmx.getDevices());
         
         clearAllLightsButton = gui3->addButton("Clear All Lights");
@@ -85,20 +99,15 @@ void ofApp::setup()//===========================================================
         lightsLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         lightsLabel->setNumberbox(false);
         lightsLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
-//        lightsLabel->setEmphasis(true, ofColor::black, 5);
-//        lightsLabel->setBackgroundColor(ofColor::darkGray);
         
-        
-        backgroundFolder=gui->addFolder("Background");
-        bgColor1ColorPicker=backgroundFolder->addColorPicker("BG Color 1",bgColor1);
+//        backgroundFolder=gui->addFolder("Background");
+        bgColor1ColorPicker=gui->addColorPicker("BG Color 1",bgColor1);
         bgColor1ColorPicker->setNumberbox(false);
         
         fxLabel = gui->addLabel("FX");
         fxLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         fxLabel->setNumberbox(false);
         fxLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::EYE);
-//        fxLabel->setEmphasis(true, ofColor::black, 5);
-//        fxLabel->setBackgroundColor(ofColor::red);
         
         fxMacroSlider = gui->addSlider("FX Wet",0.0,1.0,fxMacro);
         
@@ -106,11 +115,13 @@ void ofApp::setup()//===========================================================
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
         videoSyncToggle=videoFolder->addToggle("Video Sync");
         videoDivisionSlider=videoFolder->addSlider("Video Division",1,8,1);
+        videoFolder->setDropdownDividers(false);
         
         invertFolder=gui->addFolder("INVERT");
         invertMacroSlider=invertFolder->addSlider("Invert", 0.0, 1.0, invertMacro);
         invertMacroSlider->setPrecision(1);
         invertMacroSlider->setValue(invertMacro);
+        invertFolder->setDropdownDividers(false);
         
         rippleFolder=gui->addFolder("RIPPLE");
         rippleMacroSlider = rippleFolder->addSlider("Ripple", 0.0,1.0,rippleMacro);
@@ -118,12 +129,14 @@ void ofApp::setup()//===========================================================
         rippleXSlider=rippleFolder->addSlider("X", 0.0, 1.0,rippleX);
         rippleYSlider=rippleFolder->addSlider("Y", 0.0, 1.0,rippleY);
         rippleRateSlider=rippleFolder->addSlider("Rate",0.1, 300.00,rippleRate);
+        rippleFolder->setDropdownDividers(false);
         
         filterFolder=gui->addFolder("FILTER");
         filterMacroSlider=filterFolder->addSlider("Filter",0.0,1.0,filterMacro);
         filterRedSlider=filterFolder->addSlider("Red", 0.0,1.0,filterRed);
         filterGreenSlider=filterFolder->addSlider("Green",0.0,1.0,filterGreen);
         filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
+        filterFolder->setDropdownDividers(false);
         
         kaleidioscopeFolder=gui->addFolder("KALEIDIOSCOPE");
         kaleidoscopeMacroSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
@@ -131,6 +144,7 @@ void ofApp::setup()//===========================================================
         kaleidoscopeAngleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
         kaleidoscopeXSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
         kaleidoscopeYSlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
+        kaleidioscopeFolder->setDropdownDividers(false);
         
         pixelateFolder=gui->addFolder("PIXELATE");
         pixelateMacroSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
@@ -144,6 +158,7 @@ void ofApp::setup()//===========================================================
         asciiImageContrastSlider=asciiFolder->addSlider("Ascii Image Contrast", 0.0, 1.0,asciiImageContrast);
         asciiImageGainSlider=asciiFolder->addSlider("Ascii Image Gain", 0.0,1.0,asciiImageGain);
         asciiDotDistanceSlider=asciiFolder->addSlider("ASCII Dot Distance", 0.0, 1.0,asciiDotDistance);
+        asciiFolder->setDropdownDividers(false);
         
         rotateFolder=gui->addFolder("ROTATE");
         rotateMacroSlider=rotateFolder->addSlider("Rotate",-1.0,1.0,rotateMacro);
@@ -152,12 +167,14 @@ void ofApp::setup()//===========================================================
         zebraMacroSlider=zebraFolder->addSlider("Zebra", 0.0, 1.0,zebraMacro);
         zebraSpeedSlider=zebraFolder->addSlider("Speed",0.0,1.0,zebraSpeed);
         zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
+        zebraFolder->setDropdownDividers(false);
         
         chromaKeyFolder=gui->addFolder("CHROMAKEY");
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0.0, 1.0,chromaKeyThreshold);
+        chromaKeyFolder->setDropdownDividers(false);
         
 //        vhsFolder=gui->addFolder("VHS");
 //        vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
@@ -200,42 +217,28 @@ void ofApp::setup()//===========================================================
         rippleSyncToggle->setChecked(rippleSync);
         
         cout<<"here 4"<<endl;
-        theme = new ofxDatGuiThemeSpectacle;
-        ofxDatGuiThemeSpectacle *flip = new ofxDatGuiThemeSpectacle;
-        
-        gui->setTheme(theme);
-        gui2->setTheme(flip);
-        gui3->setTheme(theme);
+
         ofBackground(ofColor::black);
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
     }
-    fxLabel->setBackgroundColor(ofColor::red);
+    fxLabel->setBackgroundColor(ofColor::black);
+    fxLabel->setLabelColor(ofColor::white);
+    videosLabel->setBackgroundColor(ofColor::black);
+    videosLabel->setLabelColor(ofColor::white);
+    lightsLabel->setBackgroundColor(ofColor::black);
+    lightsLabel->setLabelColor(ofColor::white);
+    
     gui3->setWidth(800);
     snaves=1;
-}
-
-ofPoint ofApp::windowSize()//============================================================
-{
-    ofPoint Windowsize(gui->getWidth()+gui2->getWidth()+gui3->getWidth()+gui->getPadding()*2,gui->getHeight());
-    ofSetWindowShape(Windowsize.x, Windowsize.y);
-    return Windowsize;
-}
-
-void ofApp::exitGui(ofEventArgs &args)//============================================================
-{
-    exit();
+    gui->update();
+    gui2->update();
+    gui3->update();
 }
 
 void ofApp::update()//============================================================
 {
-    if (snaves==1)
-    {
-        fxLabel->setBackgroundColor(ofColor::red);
-        videosLabel->setBackgroundColor(ofColor::darkGray);
-        lightsLabel->setBackgroundColor(ofColor::darkGray);
-    }
-
+     cout<<"ln 223 fx label bg Color: "<<fxLabel->getBackgroundColor().getNormalized()<<"\n";
     //---------Tempo update--------------------------------
     //                                                                          cout << "update"<< endl;
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
@@ -259,10 +262,14 @@ void ofApp::update()//==========================================================
         dmx.update();
     }
     snaves=2;
+    
 }
 
 void ofApp::draw()//============================================================
 {
+    cout<<"dropdowndividers: "<<videoSpeedSlider->mDropdownDividers<<"\n";
+    cout<<"dropdowndividers: "<<fxLabel->mDropdownDividers<<"\n";
+
     drawCount=currentlyDrawing;
     chromaKeyVideo=-1;
     
@@ -303,7 +310,8 @@ void ofApp::draw()//============================================================
             drawCount-=1;
         }
     }
-    
+    cout<<"ln 293 fx label bg Color: "<<fxLabel->getBackgroundColor().getNormalized()<<"\n";
+
     ofClearAlpha();                                         //clear alpha within the fbo itself
     ofEnableAlphaBlending();
     ofEnableSmoothing();
@@ -347,7 +355,8 @@ void ofApp::draw()//============================================================
     ofEnableSmoothing();
     blendFbo.end();
     
-    
+    cout<<"ln 338 fx label bg Color: "<<fxLabel->getBackgroundColor().getNormalized()<<"\n";
+
     //-------FX FBO/Shader---------------------------------------------------------
     
     fbo2.begin();                                           //FBO 2 begin
@@ -394,6 +403,7 @@ void ofApp::draw()//============================================================
     shader.end();                                   //shader1 end
     fbo2.end();                                     // FBO 2 end
         
+
     //------ASCII FBO/Shader---------------------------------------------------------------------------------------------
     fbo3.begin();                                   //FBO 3 begin
     ofClear(0,0,0,0);
@@ -414,6 +424,19 @@ void ofApp::draw()//============================================================
 
     fbo3.draw(0,0, getWidth, getHeight);                //FBO 3 draw
 }
+
+ofPoint ofApp::windowSize()//============================================================
+{
+    ofPoint Windowsize(gui->getWidth()+gui2->getWidth()+gui3->getWidth()+gui->getPadding()*2,gui->getHeight());
+    ofSetWindowShape(Windowsize.x, Windowsize.y);
+    return Windowsize;
+}
+
+void ofApp::exitGui(ofEventArgs &args)//============================================================
+{
+    exit();
+}
+
 
 void ofApp::newMidiMessage (ofxMidiMessage& msg)//============================================================
 {

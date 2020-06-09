@@ -204,6 +204,7 @@ public ofxMidiListener
     int videoDivision=1, videoOff=0;
     ofTexture videoTexture;
     ofxDatGuiThemeSpectacle *theme;
+    ofxDatGuiThemeSpectacle *flip;
     
     bool sustain=false;
     bool command=false;

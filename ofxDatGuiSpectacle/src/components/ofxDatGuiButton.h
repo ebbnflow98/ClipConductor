@@ -65,6 +65,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
                 ofDrawRectangle(x, y, mStyle.width, mStyle.height);
                 drawLabel();
                 if (mNumberbox) drawNumberbox(mNumberboxValue);
+                if(!mDropdownDividers) drawDropdownDividers();
                 if (mStyle.stripe.visible) drawStripe();
                 drawCustomIcon();
                 
@@ -118,6 +119,7 @@ private:
     shared_ptr<ofImage> trashcan;
     shared_ptr<ofImage> floppy;
     shared_ptr<ofImage> page;
+    shared_ptr<ofImage> refresh;
 };
 
 class ofxDatGuiToggle : public ofxDatGuiButton {

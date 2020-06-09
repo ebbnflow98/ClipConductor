@@ -30,12 +30,12 @@ int main(){
     guiWindow->setVerticalSync(false);
 
     shared_ptr<ofApp> mainApp(new ofApp);
-    cout << " NUMBER 1  "<< endl;
+//    cout << " NUMBER 1  "<< endl;
     mainApp->setup();
 
     ofPoint Windowsize=(mainApp->windowSize());
     guiWindow->setWindowShape(Windowsize.x, Windowsize.y);
-    cout << " NUMBER 2  "<< endl;
+//    cout << " NUMBER 2  "<< endl;
     ofAddListener(guiWindow->events().exit, mainApp.get(), &ofApp::exitGui);
     ofAddListener(guiWindow->events().fileDragEvent, mainApp.get(), &ofApp::dragEvent);
     ofAddListener(guiWindow->events().keyPressed, mainApp.get(), &ofApp::keyPressed);
@@ -43,29 +43,4 @@ int main(){
     ofAddListener(mainWindow->events().windowResized, mainApp.get(), &ofApp::windowResized);
     ofRunApp(mainWindow, mainApp);
     ofRunMainLoop();
-    
-//    ofGLFWWindowSettings settings;
-//    settings.setSize(1024,768);
-//    settings.setGLVersion(3, 2);
-//    settings.setPosition(ofVec2f(1856,0));
-//    settings.resizable = true;
-//    auto mainWin=ofCreateWindow(settings);
-//    mainWin->setVerticalSync(false);
-//
-//    ofGLFWWindowSettings settingsGUI;
-//    settingsGUI.numSamples=0;
-//    settings.setGLVersion(3, 2);
-//    settingsGUI.setPosition(ofVec2f(0,0));
-//    settingsGUI.resizable = true;
-//    settingsGUI.shareContextWith=mainWin;
-//    auto guiWindow=ofCreateWindow(settingsGUI);
-//
-//    auto app = make_shared<ofApp>();
-//    mainWin=dynamic_pointer_cast<ofAppGLFWWindow>(mainWin);
-//    guiWindow=dynamic_pointer_cast<ofAppGLFWWindow>(guiWindow);
-//
-////    ofAddListener(guiWindow->events().draw,app.get(),&ofApp::onRenderWindowDraw);
-//
-//    ofRunApp(mainWin,app);
-//    ofRunMainLoop();
 }

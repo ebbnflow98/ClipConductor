@@ -411,6 +411,13 @@ public:
     
     static ofxDatGuiFolder* getInstance() { return new ofxDatGuiFolder("X"); }
     
+    void setDropdownDividers(bool t)
+    {
+        int o = children.size();
+        if(!t) for(int i=0;i<o;i++) children[i]->setDropdownDividers(false);
+    }
+    
+    
 protected:
     
     vector<shared_ptr<ofxDatGuiColorPicker>> pickers;
@@ -443,7 +450,6 @@ public:
     
 //    void onMouseDrag(ofPoint m)
 //    {
-//        mBeingDragged = true;
 //        setPosition(m.x, m.y);
 //        draw();
 //    }
@@ -548,6 +554,11 @@ public:
             if(m.y-y>halfHeight) return 0;
         }
         this->x;
+    }
+    void setDropdownDividers(bool t)
+    {
+        int o = children.size();
+        if(!t) for(int i=0;i<o;i++) children[i]->setDropdownDividers(false);
     }
     
 private:

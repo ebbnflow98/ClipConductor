@@ -78,6 +78,7 @@ class ofxDatGuiTheme{
             icon.floppy->load(icon.floppyPath);
             icon.trashcan->load(icon.trashcanPath);
             icon.page->load(icon.pagePath);
+            icon.refresh->load(icon.refreshPath);
             
             font.ptr = ofxSmartFont::add(font.file, font.size);
         }
@@ -245,6 +246,7 @@ class ofxDatGuiTheme{
             shared_ptr<ofImage> trashcan = make_shared<ofImage>();
             shared_ptr<ofImage> folder = make_shared<ofImage>();
             shared_ptr<ofImage> page = make_shared<ofImage>();
+            shared_ptr<ofImage> refresh = make_shared<ofImage>();
             
             string rainbowPath = AssetPath + "ofxbraitsch/ofxdatgui/picker-rainbow.png";
             string radioOnPath = AssetPath + "ofxbraitsch/ofxdatgui/icon-radio-on.png";
@@ -258,6 +260,7 @@ class ofxDatGuiTheme{
             string trashcanPath = AssetPath + "trashcan.png";
             string folderPath = AssetPath + "folder.png";
             string pagePath = AssetPath + "page.png";
+            string refreshPath = AssetPath + "refresh.png";
         } icon;
 
         static ofColor hex(int n)

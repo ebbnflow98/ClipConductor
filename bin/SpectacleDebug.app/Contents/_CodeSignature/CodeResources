@@ -30,11 +30,11 @@
 		</data>
 		<key>Resources/data/eye.png</key>
 		<data>
-		Z6/rHr6mITnQqnca8QAoV8t0Tvc=
+		9mMlLi501kU5JOJFqFcxQsNtMm4=
 		</data>
 		<key>Resources/data/film.png</key>
 		<data>
-		/xpEH/BPRPd4jjx0EzUuErAsQKc=
+		3KiIGVZVucskBZFuTOj8lC8UioU=
 		</data>
 		<key>Resources/data/floppy.png</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/data/fxShader.frag</key>
 		<data>
-		3MLx8GMhGdI2i9jOgMLM/ShDlOg=
+		R51G0lj6Uw/V5nSkaXFzlpDcN2I=
 		</data>
 		<key>Resources/data/fxShader.vert</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Resources/data/lightbulb.png</key>
 		<data>
-		+jB/OEYg7MCks1f8eI6D9QYAgIU=
+		AcXsc1C69s4yQLkqKyWjlxUw2I4=
 		</data>
 		<key>Resources/data/ofxbraitsch/.DS_Store</key>
 		<data>
@@ -107,6 +107,10 @@
 		<key>Resources/data/page.png</key>
 		<data>
 		jSXbzmck3x3BS/vr9AOTzmOMu/c=
+		</data>
+		<key>Resources/data/refresh.png</key>
+		<data>
+		vq6YzP9kg9NJDiidfeLMQQyukEw=
 		</data>
 		<key>Resources/data/snappy/.DS_Store</key>
 		<data>
@@ -1864,22 +1868,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Z6/rHr6mITnQqnca8QAoV8t0Tvc=
+			9mMlLi501kU5JOJFqFcxQsNtMm4=
 			</data>
 			<key>hash2</key>
 			<data>
-			IZyQ6iGbrSyubpQ/hy/OndwBxqqblySLIgQ1pn3IStI=
+			2dKY9tYkW0EcdtnNadJiJO4ZM0EVqDt/lOhqirrLZGw=
 			</data>
 		</dict>
 		<key>Resources/data/film.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/xpEH/BPRPd4jjx0EzUuErAsQKc=
+			3KiIGVZVucskBZFuTOj8lC8UioU=
 			</data>
 			<key>hash2</key>
 			<data>
-			DPkYGPsjZpewXshTp5kMAwTeNJyDVXBmUT09MVDkCCs=
+			Dg8aPlbxzjXZp9YPKHoG2HYSL/6z7hXFa+RDOZdY7qI=
 			</data>
 		</dict>
 		<key>Resources/data/floppy.png</key>
@@ -1919,11 +1923,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			3MLx8GMhGdI2i9jOgMLM/ShDlOg=
+			R51G0lj6Uw/V5nSkaXFzlpDcN2I=
 			</data>
 			<key>hash2</key>
 			<data>
-			qhzt+mE7ejk4UZwgFtCrCVazKNb1sJllrLaV6DOarkk=
+			s8Z4Py4YG+oPTBddeOdZ6V6m733ovmqcjX/1LVADlAA=
 			</data>
 		</dict>
 		<key>Resources/data/fxShader.vert</key>
@@ -1963,11 +1967,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+jB/OEYg7MCks1f8eI6D9QYAgIU=
+			AcXsc1C69s4yQLkqKyWjlxUw2I4=
 			</data>
 			<key>hash2</key>
 			<data>
-			g96RLKWdtmrsHwBn9dyM4CN6mPsbie4OWEi1lKW0Vjo=
+			pmHRhRGBmSvFx+NjGjehP5lz1aOj2gVlMPTZNuTwER4=
 			</data>
 		</dict>
 		<key>Resources/data/ofxbraitsch/fonts/Merriweather.otf</key>
@@ -2067,6 +2071,17 @@
 			<key>hash2</key>
 			<data>
 			5AsXx6Kw3oBvAe7Dg1O2iXsX4ESj59oo6EJ5CvnKUuQ=
+			</data>
+		</dict>
+		<key>Resources/data/refresh.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vq6YzP9kg9NJDiidfeLMQQyukEw=
+			</data>
+			<key>hash2</key>
+			<data>
+			FHtf0tSPLcFqtK3D15n8H2ORbjqJUL4qwwIJ1oytgMY=
 			</data>
 		</dict>
 		<key>Resources/data/snappy/include/snappy-c.h</key>
