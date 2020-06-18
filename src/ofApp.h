@@ -149,7 +149,8 @@ public ofxMidiListener
         
     } player[100];
 
-
+//=========================================================
+    
     int getHeight, getWidth;
     void setup();
     void update();
@@ -186,7 +187,6 @@ public ofxMidiListener
     void disableGuis();
     void changeDevices(int choice);
     void newProject();
-    
     
 //-------------------GUI 3--------------------------------
     void onTextInputEventGui3(ofxDatGuiTextInputEvent e);

@@ -159,6 +159,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiType mType;
         ofxDatGuiAnchor mAnchor;
         shared_ptr<ofxSmartFont> mFont;
+        shared_ptr<ofxSmartFont> mFont2;
     
     struct
     {

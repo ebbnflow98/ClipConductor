@@ -45,7 +45,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
         {
             ofxDatGuiComponent::setWidth(width, labelWidth);
             mLabel.width = mStyle.width;
-            if(mNumberbox) mLabel.width -= mStyle.height;
+            if(mNumberbox) mLabel.width -= mStyle.height * 1.1;
             mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
             ofxDatGuiComponent::positionLabel();
         }

@@ -878,7 +878,6 @@ void ofxDatGui::update()
         if (mThemeChanged) items[i]->setTheme(mTheme);
         if (mWidthChanged) items[i]->setWidth(mWidth, mLabelWidth);
         if (mAlignmentChanged) items[i]->setLabelAlignment(mAlignment);
-        
     }
     
     if (mThemeChanged || mWidthChanged) layoutGui();
@@ -889,7 +888,7 @@ void ofxDatGui::update()
     mThemeChanged = false;
     mAlignmentChanged = false;
     
-    // check for gui focus change //        I think to implement right click, you have to duplicate this section
+    // check for gui focus change //        implement right click duplicating this section (?)
     if (ofGetMousePressed() && mActiveGui->mMoving == false)
     {
         ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
@@ -901,7 +900,7 @@ void ofxDatGui::update()
                 if (mGuis[i] != mActiveGui) mGuis[i]->focus();
                 break;
             }
-            else mEnabled = false;
+//           d else mEnabled = false;
         }
     }
     

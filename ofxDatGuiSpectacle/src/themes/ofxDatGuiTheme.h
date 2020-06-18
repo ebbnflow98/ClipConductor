@@ -47,6 +47,7 @@ class ofxDatGuiTheme{
         {
             if (ofxDatGuiIsHighResolution()){
                 font.size *=2;
+                font2.size*=2;
                 stripe.width *=2;
                 layout.width *=2;
                 layout.height *=2;
@@ -81,6 +82,7 @@ class ofxDatGuiTheme{
             icon.refresh->load(icon.refreshPath);
             
             font.ptr = ofxSmartFont::add(font.file, font.size);
+            font2.ptr = ofxSmartFont::add(font2.file, font2.size);
         }
     
     /*
@@ -229,9 +231,15 @@ class ofxDatGuiTheme{
     
         struct {
             int size = 8;
-            string file = AssetPath + "ofxbraitsch/fonts/Raleway.ttf";
+            string file = AssetPath + "ofxbraitsch/fonts/OpenSans.ttf";
             shared_ptr<ofxSmartFont> ptr;
         } font;
+    
+    struct {
+        int size = 10;
+        string file = AssetPath + "ofxbraitsch/fonts/Lexend.ttf";
+        shared_ptr<ofxSmartFont> ptr;
+    } font2;
     
         struct{             //to add a picture, 1st declare it.
             shared_ptr<ofImage> rainbow = make_shared<ofImage>();

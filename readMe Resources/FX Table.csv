@@ -1,38 +1,38 @@
-﻿15,FX Macro
-16,Video Speed
-17,Video Division
-18,Video Sync
-19,Invert Macro
-20,Ripple Macro
-21, Ripple Sync
-22,Ripple X amount
-23,Ripple Y Amount
-24,Ripple Rate
-25,Filter Macro
-26,Filter Red
-27,Filter Green
-28,Filter Blue
-29,Kaleidioscope Macro
-30,Kaleidioscope Angle
-31,Kaleidioscope X
-32,Kaleidioscope Y
-33,Kaleidioscope Sectors
-34,Background Color Red
-35,Background Color Green
-36,Background Color Blue
-37,Pixelate Macro
-39,Fullhouse Macro
-40,ASCII Macro
-41,ASCII Dot Distance
-42,ASCII Image Gain
-43,ASCII Image Contrast
-44,ASCII Invert
-45,Rotate Macro
-46,Zebra Macro
-47,Zebra Speed
-48,Zebra Levels
-49,Chroma Key Macro
-50,Chroma Key Color Red
-51,Chroma Key Color Green
-52,Chroma Key Color Blue
-53,Chroma Key Threshold
+﻿15,FX Macro,,,,GUI ORDER:
+16,Background Color Red,,,,FX
+17,Background Color Green,,,,BG Color
+18,Background Color Blue,,,,Video Controls
+19,Video Speed,,,,Invert
+20,Video Division,,,,Ripple
+21,Video Sync,,,,Filter
+22,Invert Macro,,,,Kaleidioscope
+23,Ripple Macro,,,,Pixelate
+24,Ripple Sync,,,,Fullhouse
+25,Ripple X amount,,,,ASCII
+26,Ripple Y Amount,,,,Rotate
+27,Ripple Rate,,,,Zebra
+28,Filter Macro,,,,Chroma-Key
+29,Filter Red,,,,
+30,Filter Green,,,,
+31,Filter Blue,,,,
+32,Kaleidioscope Macro,,,,
+33,Kaleidioscope Angle,,,,
+34,Kaleidioscope X,,,,
+35,Kaleidioscope Y,,,,
+36,Kaleidioscope Sectors,,,,
+37,Pixelate Macro,,,,
+39,Fullhouse Macro,,,,
+40,ASCII Macro,,,,
+41,ASCII Dot Distance,,,,
+42,ASCII Image Gain,,,,
+43,ASCII Image Contrast,,,,
+44,ASCII Invert,,,,
+45,Rotate Macro,,,,
+46,Zebra Macro,,,,
+47,Zebra Speed,,,,
+48,Zebra Levels,,,,
+49,Chroma Key Macro,,,,
+50,Chroma Key Color Red,,,,
+51,Chroma Key Color Green,,,,
+52,Chroma Key Color Blue,,,,
+53,Chroma Key Threshold,,,,
