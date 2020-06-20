@@ -3,13 +3,16 @@
   "icon": "data/spectacle.icns",
   "background": "data/spectacleDmgBackground.png",
   "contents" : [
-    { "x": 335, "y": 200, "type": "link", "path": "/Applications" },
-    { "x": 135, "y": 200, "type": "file", "path": "Spectacle.app" }
+    { "x": 335, "y": 185, "type": "link", "path": "/Applications" },
+    { "x": 135, "y": 185, "type": "file", "path": "Spectacle.app" },
+    { "x": 100, "y": 290, "type": "file", "path": "Spectacle M4L.amxd"},
+    { "x": 100, "y": 390, "type": "file", "path": "Spectacle DMX M4L.amxd"}
+
   ],
   "window": {
       "size": {
           "width": 480,
-          "height": 300
+          "height": 480
         }
 }
 }

@@ -471,22 +471,22 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
         {
             if(msg.channel==1)
             {
-            switch(msg.control)
-            {
-                case 123:
+                switch(msg.control)
                 {
-                    for(int i=0;i<max_videos;i++) midiNoteOff(i);
-                }
-                    break;
-                case 64: if(msg.value>63)sustain=true; else sustain=false;
-                    
-                    
-                case 15:
-                    fxMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    fxMacroSlider->setValue(fxMacro);
-                    break;
-                    
-                    
+                    case 123:
+                    {
+                        for(int i=0;i<max_videos;i++) midiNoteOff(i);
+                    }
+                        break;
+                    case 64: if(msg.value>63)sustain=true; else sustain=false;
+                        
+                        
+                    case 15:
+                        fxMacro=ofMap(msg.value,0,127,0.0,1.0);
+                        fxMacroSlider->setValue(fxMacro);
+                        break;
+                        
+                        
                     case 16:
                         bgColor1Red=msg.value;
                         bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
@@ -502,197 +502,201 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
                         bgColor1ColorPicker->setColor(bgColor1);
                         break;
-                    
-                    
-                case 19:
-                    videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
-                    videoSpeedSlider->setValue(videoSpeed2);
-                    break;
-                case 20:
-                    videoDivision=ofMap(msg.value, 0, 127, 1, 8);
-                    videoDivisionSlider->setValue(videoDivision);
-                    break;
-                case 21:
-                    if(msg.value>63) videoSync=true;
-                    else videoSync=false;
-                    videoSyncToggle->setChecked(videoSync);
-                    break;
-                      
-                    
-                case 22:
-                    invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                    invertMacroSlider->setValue(invertMacro);
-                    break;
-                    
-                    
-                case 23:
-                    rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                    rippleMacroSlider->setValue(rippleMacro);
-                    break;
-                case 24:
-                {
-                    if(msg.value>63) rippleSync=true;
-                    else rippleSync=false;
-                    rippleSyncToggle->setChecked(rippleSync);
-                    break;
+                        
+                        
+                    case 19:
+                        videoSpeed2=ofMap(msg.value, 0, 127, .1, 10.00);
+                        videoSpeedSlider->setValue(videoSpeed2);
+                        break;
+                    case 20:
+                        videoDivision=ofMap(msg.value, 0, 127, 1, 8);
+                        videoDivisionSlider->setValue(videoDivision);
+                        break;
+                    case 21:
+                        if(msg.value>63) videoSync=true;
+                        else videoSync=false;
+                        videoSyncToggle->setChecked(videoSync);
+                        break;
+                        
+                        
+                    case 22:
+                        invertMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                        invertMacroSlider->setValue(invertMacro);
+                        break;
+                        
+                        
+                    case 23:
+                        rippleMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                        rippleMacroSlider->setValue(rippleMacro);
+                        break;
+                    case 24:
+                    {
+                        if(msg.value>63) rippleSync=true;
+                        else rippleSync=false;
+                        rippleSyncToggle->setChecked(rippleSync);
+                        break;
+                    }
+                    case 25:
+                        rippleX=ofMap(msg.value,0, 127, 0.0, 1.0);
+                        rippleXSlider->setValue(rippleX);
+                        break;
+                    case 26:
+                        rippleY=ofMap(msg.value,0, 127, 0.0, 1.00);
+                        rippleYSlider->setValue(rippleY);
+                        break;
+                    case 27:
+                        if(rippleSync) rippleRate=bpm/60;
+                        else rippleRate=ofMap(msg.value,0, 127, .1, 300);
+                        rippleRateSlider->setValue(rippleRate);
+                        break;
+                        
+                        
+                    case 28:
+                        filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
+                        filterMacroSlider->setValue(filterMacro);
+                        break;
+                    case 29:
+                        filterRed=ofMap(msg.value,0, 127, 0, 1.0);
+                        filterRedSlider->setValue(filterRed);
+                        break;
+                    case 30:
+                        filterGreen=ofMap(msg.value,0, 127, 0, 1.0);
+                        filterGreenSlider->setValue(filterGreen);
+                        break;
+                    case 31:
+                        filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
+                        filterBlueSlider->setValue(filterBlue);
+                        break;
+                        
+                        
+                    case 32:
+                        kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
+                        kaleidoscopeMacroSlider->setValue(kaleidoscopeMacro);
+                        break;
+                    case 33:
+                        kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
+                        kaleidoscopeAngleSlider->setValue(kaleidioscopeAngle);
+                        break;
+                    case 34:
+                        kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
+                        kaleidoscopeXSlider->setValue(kaleiodioscopeX);
+                        break;
+                    case 35:
+                        kaleiodioscopeY=ofMap(msg.value,0, 127, 0.0, 1.00);
+                        kaleidoscopeYSlider->setValue(kaleiodioscopeY);
+                        break;
+                    case 36:
+                        kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
+                        kaleidoscopeSectorSlider->setValue(kaleidioscopeSectors);
+                        break;
+                        
+                        
+                        
+                    case 37:
+                        pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
+                        pixelateMacroSlider->setValue(pixelateMacro);
+                        break;
+                        
+                        
+                    case 39:
+                        fullhouseMacro=ofMap(msg.value,0,127,1,50);
+                        fullhouseMacroSlider->setValue(fullhouseMacro);
+                        break;
+                        
+                        
+                    case 40:
+                        asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
+                        asciiMacroSlider->setValue(asciiMacro);
+                        break;
+                    case 41:
+                        asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                        asciiDotDistanceSlider->setValue(asciiDotDistance);
+                        break;
+                    case 42:
+                        asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                        asciiImageGainSlider->setValue(asciiImageGain);
+                        break;
+                    case 43:
+                        asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
+                        asciiImageContrastSlider->setValue(asciiImageContrast);
+                        break;
+                    case 44:
+                        if(msg.value>63) asciiInvert=true;
+                        else asciiInvert=false;
+                        asciiInvertToggle->setChecked(asciiInvert);
+                        break;
+                        
+                        
+                    case 45:
+                        rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
+                        rotateMacroSlider->setValue(rotateMacro);
+                        break;
+                        
+                        
+                    case 46:
+                        zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
+                        zebraMacroSlider->setValue(zebraMacro);
+                        break;
+                    case 47:
+                        zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
+                        zebraSpeedSlider->setValue(zebraSpeed);
+                        break;
+                    case 48:
+                        zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
+                        zebraLevelsSlider->setValue(zebraLevels);
+                        break;
+                        
+                        
+                    case 49:
+                        chromaKeyMacro=ofMap(msg.value,0,127,0.0,1.0);
+                        chromaKeyMacroSlider->setValue(chromaKeyMacro);
+                        break;
+                    case 50:
+                        chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
+                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+                        break;
+                    case 51:
+                        chromaKeyGreen=ofMap(msg.value,0,127,0,255);
+                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+                        break;
+                    case 52:
+                        chromaKeyBlue=ofMap(msg.value,0,127,0,255);
+                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+                        break;
+                    case 53:
+                        chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
+                        chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
+                        break;
+                        
+                        
+                        //                case 54:
+                        //                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
+                        //                    vhsMacroSlider->setValue(vhsMacro);
+                        //                    break;
+                        //                case 55:
+                        //                    vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
+                        //                    vhsStrengthSlider->setValue(vhsStrength);
+                        //                    break;
+                        //                case 56:
+                        //                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
+                        //                    vhsSpeedSlider->setValue(vhsSpeed);
+                        //                    break;
                 }
-                case 25:
-                    rippleX=ofMap(msg.value,0, 127, 0.0, 1.0);
-                    rippleXSlider->setValue(rippleX);
-                    break;
-                case 26:
-                    rippleY=ofMap(msg.value,0, 127, 0.0, 1.00);
-                    rippleYSlider->setValue(rippleY);
-                    break;
-                case 27:
-                    if(rippleSync) rippleRate=bpm/60;
-                    else rippleRate=ofMap(msg.value,0, 127, .1, 300);
-                    rippleRateSlider->setValue(rippleRate);
-                    break;
-                    
-                    
-                case 28:
-                    filterMacro=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterMacroSlider->setValue(filterMacro);
-                    break;
-                case 29:
-                    filterRed=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterRedSlider->setValue(filterRed);
-                    break;
-                case 30:
-                    filterGreen=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterGreenSlider->setValue(filterGreen);
-                    break;
-                case 31:
-                    filterBlue=ofMap(msg.value,0, 127, 0, 1.0);
-                    filterBlueSlider->setValue(filterBlue);
-                    break;
-                    
-                    
-                case 32:
-                    kaleidoscopeMacro=ofMap(msg.value,0, 127, 0.0, 1.0);
-                    kaleidoscopeMacroSlider->setValue(kaleidoscopeMacro);
-                    break;
-                case 33:
-                    kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
-                    kaleidoscopeAngleSlider->setValue(kaleidioscopeAngle);
-                    break;
-                case 34:
-                    kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
-                    kaleidoscopeXSlider->setValue(kaleiodioscopeX);
-                    break;
-                case 35:
-                    kaleiodioscopeY=ofMap(msg.value,0, 127, 0.0, 1.00);
-                    kaleidoscopeYSlider->setValue(kaleiodioscopeY);
-                    break;
-                case 36:
-                    kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
-                    kaleidoscopeSectorSlider->setValue(kaleidioscopeSectors);
-                    break;
-                    
-                
-                    
-                case 37:
-                    pixelateMacro=ofMap(msg.value,0, 127, 0, 100);
-                    pixelateMacroSlider->setValue(pixelateMacro);
-                    break;
-                    
-                    
-                case 39:
-                    fullhouseMacro=ofMap(msg.value,0,127,1,50);
-                    fullhouseMacroSlider->setValue(fullhouseMacro);
-                    break;
-                    
-                    
-                case 40:
-                    asciiMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    asciiMacroSlider->setValue(asciiMacro);
-                    break;
-                case 41:
-                    asciiDotDistance=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    asciiDotDistanceSlider->setValue(asciiDotDistance);
-                    break;
-                case 42:
-                    asciiImageGain=ofMap(msg.value, 0, 127, 0.0, 1.0);
-                    asciiImageGainSlider->setValue(asciiImageGain);
-                    break;
-                case 43:
-                    asciiImageContrast=ofMap(msg.value,0,127,0.0,1.0);
-                    asciiImageContrastSlider->setValue(asciiImageContrast);
-                    break;
-                case 44:
-                    if(msg.value>63) asciiInvert=true;
-                    else asciiInvert=false;
-                    asciiInvertToggle->setChecked(asciiInvert);
-                    break;
-    
-                    
-                case 45:
-                    rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    rotateMacroSlider->setValue(rotateMacro);
-                    break;
-                    
-                    
-                case 46:
-                    zebraMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    zebraMacroSlider->setValue(zebraMacro);
-                    break;
-                case 47:
-                    zebraSpeed=ofMap(msg.value,0,127,0.0,1.0);
-                    zebraSpeedSlider->setValue(zebraSpeed);
-                    break;
-                case 48:
-                    zebraLevels=ofMap(msg.value, 0, 127, 2, 50);
-                    zebraLevelsSlider->setValue(zebraLevels);
-                    break;
-                    
-                    
-                case 49:
-                    chromaKeyMacro=ofMap(msg.value,0,127,0.0,1.0);
-                    chromaKeyMacroSlider->setValue(chromaKeyMacro);
-                    break;
-                case 50:
-                    chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
-                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                    break;
-                case 51:
-                    chromaKeyGreen=ofMap(msg.value,0,127,0,255);
-                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                    break;
-                case 52:
-                    chromaKeyBlue=ofMap(msg.value,0,127,0,255);
-                    chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                    break;
-                case 53:
-                    chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
-                    chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
-                    break;
-                    
-                    
-//                case 54:
-//                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
-//                    vhsMacroSlider->setValue(vhsMacro);
-//                    break;
-//                case 55:
-//                    vhsStrength=ofMap(msg.value,0,127,0.0,1.0);
-//                    vhsStrengthSlider->setValue(vhsStrength);
-//                    break;
-//                case 56:
-//                    vhsSpeed=ofMap(msg.value, 0, 127, 0.0, 60.0);
-//                    vhsSpeedSlider->setValue(vhsSpeed);
-//                    break;
             }
-        }
-            if(msg.channel==2)lightValues[msg.control-1]=ofMap(msg.value, 0, 127, 0, 255);
+            if(msg.channel==2)
+            {
+                if(msg.control>0 && msg.control<44) lightValues[msg.control-1]=ofMap(msg.value, 0, 127, 0, 255);
+                
+            }
         }
         
         if (msg.status==MIDI_TIME_CLOCK && snaves==1)
-           {
-               if (triplet==0) if(tempoCount%(tempoDivisionValues[tempoDivision])==0) (tempo=!tempo);
-               if(triplet==1) if(tempoCount%(tempoDivisionValuesTriplet[tempoDivision])==0) (tempo=!tempo);
-               tempoCount=tempoCount+1;
-               bpm+=(clock.getBpm()-bpm)/5;
-           }
+        {
+            if (triplet==0) if(tempoCount%(tempoDivisionValues[tempoDivision])==0) (tempo=!tempo);
+            if(triplet==1) if(tempoCount%(tempoDivisionValuesTriplet[tempoDivision])==0) (tempo=!tempo);
+            tempoCount=tempoCount+1;
+            bpm+=(clock.getBpm()-bpm)/5;
+        }
     }
 }
 void ofApp::midiNoteOff(int pitch)//============================================================
