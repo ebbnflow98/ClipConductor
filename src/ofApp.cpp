@@ -14,7 +14,7 @@ void ofApp::setup()//===========================================================
     
     if(snaves==0)
     {
-    if(shader.load("fxShader.vert","fxShader.frag"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
+    if(fxShader.load("fxShader.vert","fxShader.frag"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
     if(asciiShader.load("asciiShader.vert","asciiShader.frag")) cout<<"asciiShader loaded"; else cout<<"asciiShader not loaded";
     if(ledShader.load("ledShader.vert","ledShader.frag"))cout<<"ledShader loaded"; else cout<<"ledShader not loaded";
     if(chromaKeyShader.load("chromaKeyShader.vert","chromaKeyShader.frag"))cout<<"chromaKeyShader loaded"; else cout<<"chromaKeyShader not loaded";
@@ -175,6 +175,7 @@ void ofApp::setup()//===========================================================
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
+        chromaKeyColorPicker->setNumberbox(false);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0, 255,chromaKeyThreshold);
         chromaKeyFolder->setDropdownDividers(false);
         
@@ -270,8 +271,6 @@ void ofApp::draw()//============================================================
     drawCount=currentlyDrawing;
     chromaKeyVideo=-1;
     
-    ofBackground(bgColor1);                                 //set background color according to user parameter
-    
     fbo.begin();                                            //FBO 1 begin
     ofClear(0,0,0,0);
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
@@ -279,7 +278,8 @@ void ofApp::draw()//============================================================
     //----------Draw Video---------------------------------
     //                                                                          cout<<"video to draw: "<<imageToDraw<<endl;
     ofDisableSmoothing();
-    
+    ofBackground(bgColor1);                                 //set background color according to user parameter
+
     for(int i=0;i<max_videos;i++)
     {
         if(player[i].drawImage==false)player[i].stop();
@@ -329,7 +329,7 @@ void ofApp::draw()//============================================================
     
     chromaKeyShader.begin();
     
-    shader.setUniform1f("fxMacro", fxMacro);
+    fxShader.setUniform1f("fxMacro", fxMacro);
     chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
     chromaKeyShader.setUniform3f("chromaKeyColor", chromaKeyColor.getRedFloat(),chromaKeyColor.getGreenFloat(),chromaKeyColor.getBlueFloat());
     chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
@@ -357,47 +357,47 @@ void ofApp::draw()//============================================================
     
     fbo2.begin();                                           //FBO 2 begin
     ofClear(0,0,0,0);
-    shader.begin();                                         //Shader1 begin
+    fxShader.begin();                                         //Shader1 begin
     float time = ofGetElapsedTimef();
     
-    shader.setUniform1f("fxMacro", fxMacro);
+    fxShader.setUniform1f("fxMacro", fxMacro);
     
-    shader.setUniform1f("time", time);
-    shader.setUniform2f("resolution", getWidth,getHeight);
+    fxShader.setUniform1f("time", time);
+    fxShader.setUniform2f("resolution", getWidth,getHeight);
     
-    shader.setUniform1f("filterMacro", filterMacro);
-    shader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
+    fxShader.setUniform1f("filterMacro", filterMacro);
+    fxShader.setUniform4f("filterRGB",filterRed,filterGreen,filterBlue,1.0); //commented out FilterAlpha
     
-    shader.setUniform1f("invertMacro", invertMacro);
+    fxShader.setUniform1f("invertMacro", invertMacro);
     
-    shader.setUniform1f("rippleMacro", rippleMacro);
-    shader.setUniform2f("rippleXY", rippleX,rippleY);
-    shader.setUniform1f("rippleRate",rippleRate);
+    fxShader.setUniform1f("rippleMacro", rippleMacro);
+    fxShader.setUniform2f("rippleXY", rippleX,rippleY);
+    fxShader.setUniform1f("rippleRate",rippleRate);
     
-    shader.setUniform1i("ksectors", int(kaleidioscopeSectors*kaleidoscopeMacro));
-    shader.setUniform2f("kcenter", kaleiodioscopeX*kaleidoscopeMacro,kaleiodioscopeY*kaleidoscopeMacro);
-    shader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
-    shader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
-    if(kaleidoscopeMacro<.5) shader.setUniform2f("screenCenter",0,0);
-    else shader.setUniform2f("screenCenter",0.5*getWidth,0.5*getHeight);
+    fxShader.setUniform1i("ksectors", int(kaleidioscopeSectors*kaleidoscopeMacro));
+    fxShader.setUniform2f("kcenter", kaleiodioscopeX*kaleidoscopeMacro,kaleiodioscopeY*kaleidoscopeMacro);
+    fxShader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
+    fxShader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
+    if(kaleidoscopeMacro<.5) fxShader.setUniform2f("screenCenter",0,0);
+    else fxShader.setUniform2f("screenCenter",0.5*getWidth,0.5*getHeight);
     
-    shader.setUniform1i("pixelateMacro", int(pixelateMacro));
+    fxShader.setUniform1i("pixelateMacro", int(pixelateMacro));
     
-    shader.setUniform1i("fullhouseMacro", int(fullhouseMacro));
+    fxShader.setUniform1i("fullhouseMacro", int(fullhouseMacro));
     
-    shader.setUniform1f("rotateMacro", rotateMacro);
-    shader.setUniform2f("rotateScreenCenter",0.5*getWidth,0.5*getHeight);
+    fxShader.setUniform1f("rotateMacro", rotateMacro);
+    fxShader.setUniform2f("rotateScreenCenter",0.5*getWidth,0.5*getHeight);
     
-    shader.setUniform1f("zebraMacro", zebraMacro);
-    shader.setUniform1f("zebraSpeed", zebraSpeed);
-    shader.setUniform1i("zebraLevels", zebraLevels);
+    fxShader.setUniform1f("zebraMacro", zebraMacro);
+    fxShader.setUniform1f("zebraSpeed", zebraSpeed);
+    fxShader.setUniform1i("zebraLevels", zebraLevels);
     
 //    shader.setUniform1f("vhsMacro", vhsMacro);
 //    shader.setUniform1f("vhsStrength", vhsStrength);
 //    shader.setUniform1f("vhsSpeed", vhsSpeed);
     
     blendFbo.draw(0,0,getWidth, getHeight);
-    shader.end();                                   //shader1 end
+    fxShader.end();                                   //shader1 end
     fbo2.end();                                     // FBO 2 end
         
 
@@ -418,6 +418,7 @@ void ofApp::draw()//============================================================
     
     asciiShader.end();                                //ASCII Shader end
     fbo3.end();                                       //FBO 3 end
+    
 
     fbo3.draw(0,0, getWidth, getHeight);                //FBO 3 draw
 }
@@ -531,9 +532,18 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         break;
                     case 24:
                     {
-                        if(msg.value>63) rippleSync=true;
-                        else rippleSync=false;
+                        if(msg.value>63)
+                        {
+                            rippleSync=true;
+                            rippleRate=rippleRate=bpm/60;
+                        }
+                        else
+                        {
+                            rippleSync=false;
+                            rippleRate=rippleRateSlider->getValue();
+                        }
                         rippleSyncToggle->setChecked(rippleSync);
+                        
                         break;
                     }
                     case 25:

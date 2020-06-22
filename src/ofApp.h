@@ -194,7 +194,7 @@ public ofxMidiListener
     void onSliderEventGui3(ofxDatGuiSliderEvent e);
 //------------------------------------------------------------------------
     ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
-    ofShader shader, asciiShader, ledShader, chromaKeyShader;
+    ofShader fxShader, asciiShader, ledShader, chromaKeyShader;
     
     ofPoint guiWindowSize={0.0,0.0};
     bool exiting=false;
