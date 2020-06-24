@@ -8,6 +8,8 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>Spectacle</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleIconFile</key>
 	<string>spectacle.icns</string>
 	<key>CFBundleIdentifier</key>
