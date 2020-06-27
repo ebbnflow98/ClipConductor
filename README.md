@@ -9,7 +9,7 @@ With Spectacle, you can control performance visuals from inside your DAW via MID
 
 -Download the Spectacle dmg and open. Drag Spectacle into your Applications folder.
 
-(picture of dmg)
+![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/dmg.png)
 
 
 ## Setup
@@ -135,7 +135,8 @@ CC # | Spectacle FX                  | Function                                 
 
 - The "Zebra" effect was adapted from [Color Zebra](https://www.shadertoy.com/view/Xsl3z8) by gtoledo3.  
 
--Here are the fantastic addons and other software that I used to build this project.
+-Here are the fantastic addons and other software that I used to build this project.  
+
 •   [openFrameworks](https://openframeworks.cc/about/)  
 •   [ofxDatGui](https://braitsch.github.io/ofxDatGui/) by Stephen Braitsch  
 •   [ofxMidi](https://github.com/danomatika/ofxMidi) by Dan Wilcox   
