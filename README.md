@@ -110,37 +110,41 @@ CC # | Spectacle FX                  | Function                                 
 
 -The MIDI input port will be set to the first available port by default. The port can be selected through the MIDI PORT dropdown. Refresh the available ports with the REFRESH MIDI PORTS button.
 
--Like the MIDI input ports, the DMX output device will be set to the first available USB port by default. To change, select the USB Port from the DMX INTERFACE dropdown. Refresh the options with the REFRESH USB PORTS button.
+-Like the MIDI input ports, the DMX output device will be set to the first available USB port by default. To change, select the USB Port from the DMX INTERFACE dropdown. Refresh the options with the REFRESH USB PORTS button.  
 
--To change a video in the array, simply click on it. To delete a video from the array, click the CLEAR toggle and then click the video in the array. To clear the whole array, click the CLEAR ALL button.
+-To change a video in the array, simply click on it. To delete a video from the array, click the CLEAR toggle and then click the video in the array. To clear the whole array, click the CLEAR ALL button.  
 
--Dragging videos into the Spectacle window will cause Spectacle to find the first open video slot and fill it with the selected video (and do the same for any subsequent videos dragged in).
+-Dragging videos into the Spectacle window will cause Spectacle to find the first open video slot and fill it with the selected video (and do the same for any subsequent videos dragged in).  
 
--In the VIDEO dropdown, you can control the video speed (VIDEO SPEED slider). If you select the VIDEO SYNC option, then the video will be played back at a speed that coincides with the rhythmic division of the tempo you've selected, regardless of the length of the video. This tempo is read from the MIDI messages.
+-In the VIDEO dropdown, you can control the video speed (VIDEO SPEED slider). If you select the VIDEO SYNC option, then the video will be played back at a speed that coincides with the rhythmic division of the tempo you've selected, regardless of the length of the video. This tempo is read from the MIDI messages.  
 
 
 ### Tips
--Spectacle supports .PNG and JPEG image formats and .MOV (Quicktime) video format. All videos MUST be encoded using the [HAP codec](https://hap.video/using-hap.html). To convert your .mov files to HAP, I suggest using the [AVF Batch Converter](https://github.com/Vidvox/hap-in-avfoundation/releases/tag/1.5.3). 
+-Spectacle supports .PNG and JPEG image formats and .MOV (Quicktime) video format. All videos MUST be encoded using the [HAP codec](https://hap.video/using-hap.html). To convert your .mov files to HAP, I suggest using the [AVF Batch Converter](https://github.com/Vidvox/hap-in-avfoundation/releases/tag/1.5.3).   
 
--Make sure that you export your videos in a format that supports alpha channels (list of these formats and codecs [here](https://www.rocketstock.com/blog/video-codecs-and-image-sequences-with-alpha-channels/).
+-Make sure that you export your videos in a format that supports alpha channels (list of these formats and codecs [here](https://www.rocketstock.com/blog/video-codecs-and-image-sequences-with-alpha-channels/).  
 
--You'll probably notice that HAP videos are huge files. Unfortunately, that's the tradeoff for having fast, smooth, high resolution playback.	
+-You'll probably notice that HAP videos are huge files. Unfortunately, that's the tradeoff for having fast, smooth, high resolution playback.	  
 
--Make sure you set up your IAC Driver to allow you to route MIDI to Spectacle. Instructions on setting up IAC driver are [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)). 
+-Make sure you set up your IAC Driver to allow you to route MIDI to Spectacle. Instructions on setting up IAC driver are [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)).   
 
 ## Credits
--The "Kaledioscope" and "Ripple" FX were adapted from Dennis Perelov's book, [*Mastering openFrameworks*](http://b.parsons.edu/~traviss/booKs/oF/Mastering%20openFrameworks%20-%20Yanc,%20Chris_compressed.pdf).
--The "ASCII" effect was adapted from a shader I found online over a year ago that I have been unable to find once again to this point. If the ASCII code looks like yours, please come forward and claim it! :)
+-The "Kaledioscope" and "Ripple" FX were adapted from Dennis Perelov's book, [*Mastering openFrameworks*](http://b.parsons.edu/~traviss/booKs/oF/Mastering%20openFrameworks%20-%20Yanc,%20Chris_compressed.pdf).  
+
+-The "ASCII" effect was adapted from a shader I found online over a year ago that I have been unable to find once again to this point. If the ASCII code looks like yours, please come forward and claim it! :)  
+
+- The "Zebra" effect was adapted from [Color Zebra](https://www.shadertoy.com/view/Xsl3z8) by gtoledo3.  
 
 -Here are the fantastic addons and other software that I used to build this project.
-•   [openFrameworks](https://openframeworks.cc/about/)
-•   [ofxDatGui](https://braitsch.github.io/ofxDatGui/) by Stephen Braitsch
-•   [ofxMidi](https://github.com/danomatika/ofxMidi) by Dan Wilcox 
-•   [ofxHapPlayer](https://github.com/bangnoise) by Tom Butterworth 
+•   [openFrameworks](https://openframeworks.cc/about/)  
+•   [ofxDatGui](https://braitsch.github.io/ofxDatGui/) by Stephen Braitsch  
+•   [ofxMidi](https://github.com/danomatika/ofxMidi) by Dan Wilcox   
+•   [ofxHapPlayer](https://github.com/bangnoise/ofxHapPlayer) by Tom Butterworth   
+•   [ofxDmx](https://github.com/kylemcdonald/ofxDmx) by Kyle McDonald
 
-•   [Max For Live](https://www.ableton.com/en/live/max-for-live/)
-•   [Control Change 8](http://roberthenke.com/technology/m4l.html) by Robert Henke  
-•   HAP 
+•   [Max For Live](https://www.ableton.com/en/live/max-for-live/)  
+•   [Control Change 8](http://roberthenke.com/technology/m4l.html) by Robert Henke    
+•   [HAP](https://hap.video/)  
 
 
 
