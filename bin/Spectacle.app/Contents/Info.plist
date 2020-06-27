@@ -8,8 +8,6 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>Spectacle</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleIconFile</key>
 	<string>spectacle.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -43,7 +41,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>10.9</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs to access the camera</string>
+	<string>This app does not need to access the camera</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
