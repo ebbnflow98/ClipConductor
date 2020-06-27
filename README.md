@@ -78,10 +78,10 @@ CC # | Spectacle FX                  | Function                                 
 | 33   | Filter Green             | Green filter component.                                                                                            |
 | 34   | Filter Blue              | Blue filter component.                                                                                             |
 | 35   | Filter Alpha             | The opacity of the filter.                                                                                         |
-| 40   | Kaleidoscope Macro       | Shockingly it makes the image look like a kaleidoscope.                                                            |
-| 41   | Kaleidoscope Angle       | The angle of the kaleidoscope (I don't really know)                                                                |
-| 42   | Kaleidoscope Skew X      | Another fun thing to make the kaleidoscope move.                                                                   |
-| 43   | Kaleidoscope Skew Y      | Yet another fun thing to play with                                                                                 |
+| 40   | Kaleidoscope Macro       | Shockingly, it makes the image look like a kaleidoscope.                                                            |
+| 41   | Kaleidoscope Angle       | The angle of the kaleidoscope                                                            |
+| 42   | Kaleidoscope Skew X      | Another fun thing to make the kaleidoscope move.                                                         |
+| 43   | Kaleidoscope Skew Y      | Yet, another fun thing to play with                                                                                 |
 | 44   | Kaleidoscope Sectors     | The amount of divisions in a half of the kaleidoscope.                                                             |
 | 50   | Background Color 1 Red   | The red component of BG Color #1                                                                                   |
 | 51   | Background Color 1 Green | The green component of BG Color #1                                                                                 |
@@ -91,7 +91,7 @@ CC # | Spectacle FX                  | Function                                 
 | 55   | Background Color 2 Blue  | The blue component of BG Color #2                                                                                  |
 
 -For Ableton Live Suite users, there is a Max for Live controller device that accompanies the Spectacle download. This device simply takes the MIDI parameters used by Spectacle and labels them (so that the user doesn't have to worry about matching CC values to cooresponding FX using the table above). To install the device, move the Spectacle.amxd device to your Ableton User Library (for me, that was located at ~/Music/Ableton/User Library/Presets/MIDI Effects).
-![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/download/m4l%20gui.png)
+![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/m4l%20gui.png)
 
 –The dropdown boxes below the knobs on the M4L device allow users to change the input MIDI CC that the FX are looking for. This only applies to users with hardware controllers that don't allow for CC re-assignment via MIDI mapping; so most users shouldn't change these values. 
 
@@ -104,7 +104,7 @@ CC # | Spectacle FX                  | Function                                 
 
 
 ## Using the Spectacle GUI
--NEW will clear the video array and any custom names of the DMX sliders that have been typed in.
+-NEW PROJECT will clear the video array and any custom names of the DMX sliders that have been typed in.
 
 -SAVE will save the paths of the videos in the array, as well as the custom names typed in to the DMX sliders (FX values are not saved, because those should be saved in your session in automation). LOAD loads these values.
 
@@ -118,31 +118,28 @@ CC # | Spectacle FX                  | Function                                 
 
 -In the VIDEO dropdown, you can control the video speed (VIDEO SPEED slider). If you select the VIDEO SYNC option, then the video will be played back at a speed that coincides with the rhythmic division of the tempo you've selected, regardless of the length of the video. This tempo is read from the MIDI messages.
 
-TIPS
--Spectacle supports .PNG and JPEG image formats and .MOV (Quicktime) video format. All videos MUST be encoded using the HAP codec (https://hap.video/using-hap.html). To convert your .mov files to HAP, I suggest using the AVF Batch Converter (https://github.com/Vidvox/hap-in-avfoundation/releases/tag/1.5.3). 
 
--Make sure that you export your videos in a format that supports alpha channels (list of these formats/codecs here: https://www.rocketstock.com/blog/video-codecs-and-image-sequences-with-alpha-channels/). 
+### Tips
+-Spectacle supports .PNG and JPEG image formats and .MOV (Quicktime) video format. All videos MUST be encoded using the [HAP codec](https://hap.video/using-hap.html). To convert your .mov files to HAP, I suggest using the [AVF Batch Converter](https://github.com/Vidvox/hap-in-avfoundation/releases/tag/1.5.3). 
 
--For Adobe Premiere users, here's an encoder you can install that will allow you to export your videos to the HAP codec directly from Adobe Premiere: (https://github.com/disguise-one/hap-encoder-adobe-cc/releases/tag/1.0.8-rc4).
-
--I included a bunch of royalty-free videos in the download folder that you are free to use. Some of them are transparent, so, that's pretty cool. I got all of them on pixabay.com. Go crazy.
+-Make sure that you export your videos in a format that supports alpha channels (list of these formats and codecs [here](https://www.rocketstock.com/blog/video-codecs-and-image-sequences-with-alpha-channels/).
 
 -You'll probably notice that HAP videos are huge files. Unfortunately, that's the tradeoff for having fast, smooth, high resolution playback.	
 
--Make sure you set up your IAC Driver to allow you to route MIDI to Spectacle   (https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus).
+-Make sure you set up your IAC Driver to allow you to route MIDI to Spectacle. Instructions on setting up IAC driver are [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)). 
 
 ## Credits
--The "Kaledioscope" and "Ripple" FX were adapted from Dennis Perelov's book, *Mastering openFrameworks*.
+-The "Kaledioscope" and "Ripple" FX were adapted from Dennis Perelov's book, [*Mastering openFrameworks*](http://b.parsons.edu/~traviss/booKs/oF/Mastering%20openFrameworks%20-%20Yanc,%20Chris_compressed.pdf).
 -The "ASCII" effect was adapted from a shader I found online over a year ago that I have been unable to find once again to this point. If the ASCII code looks like yours, please come forward and claim it! :)
 
 -Here are the fantastic addons and other software that I used to build this project.
-•   openFrameworks (https://openframeworks.cc/about/)
-•   ofxDatGui by Stephen Braitsch (https://braitsch.github.io/ofxDatGui/)
-•   ofxMidi by Dan Wilcox (https://github.com/danomatika/ofxMidi)
-•   ofxHapPlayer by Tom Butterworth (https://github.com/bangnoise)
+•   [openFrameworks](https://openframeworks.cc/about/)
+•   [ofxDatGui](https://braitsch.github.io/ofxDatGui/) by Stephen Braitsch
+•   [ofxMidi](https://github.com/danomatika/ofxMidi) by Dan Wilcox 
+•   [ofxHapPlayer](https://github.com/bangnoise) by Tom Butterworth 
 
-•   Max For Live (https://www.ableton.com/en/live/max-for-live/)
-•   Control Change 8 by Robert Henke  (http://roberthenke.com/technology/m4l.html)
+•   [Max For Live](https://www.ableton.com/en/live/max-for-live/)
+•   [Control Change 8](http://roberthenke.com/technology/m4l.html) by Robert Henke  
 •   HAP 
 
 
