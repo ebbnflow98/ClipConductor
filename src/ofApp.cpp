@@ -638,7 +638,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         
                         
                     case 45:
-                        rotateMacro=ofMap(msg.value,0,127,0.0,1.0);
+                        rotateMacro=ofMap(msg.value,0,127,-1.0,1.0);
                         rotateMacroSlider->setValue(rotateMacro);
                         break;
                         

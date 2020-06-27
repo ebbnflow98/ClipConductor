@@ -46,9 +46,6 @@ uniform float asciiDotDistance;
 uniform float asciiImageGain;
 uniform float asciiImageContrast;
 
-uniform float ledMacro;
-uniform float ledDotDistance;
-
 uniform float rotateMacro;
 uniform vec2 rotateScreenCenter;
 
@@ -88,7 +85,7 @@ vec2 Ripple(vec2 pos, vec2 rippleXY, float rippleRate, float rippleMacro)
 
 vec2 Kaleidoscope(vec2 pos, vec2 kcenter, vec2 screenCenter, float ksectors, float kangleRad, float kaleidioscopeMacro)
 {
-    vec2 v = pos - screenCenter;//    kaleidoscope (openFrameworks Essentials book)
+    vec2 v = pos - screenCenter;
     float r = length(v);
     float a = atan(v.y,v.x);
     float A = TWO_PI / float(ksectors);
@@ -146,81 +143,6 @@ vec4 Zebra(vec4 dryColor, float zebraMacro, int zebraLevels, float zebraSpeed)
     return color;
 }
 
-//float rand(vec2 co){
-//       return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-//   }
-//
-//vec4 Vhs(vec4 dryColor, float vhsMacro, float vhsStrength, float vhsSpeed)
-//{
-////        vec2 uv = fragCoord.xy / iResolution.xy;
-//    vec2 uv = gl_TexCoord[0].xy;
-////    uv *= resolution.y/resolution.x;
-////    uv += 1.0;
-////    uv /= 2.0;
-////    uv *= resolution.xy;
-////
-////    uv.y = resolution.y - uv.y;
-////    uv = mod(uv, resolution);
-////    uv *= texResolution/resolution;
-//
-//        vec2 uv_org = vec2(uv);
-//
-//        float t = mod(time, 360.0);
-//        float t2 = floor(t*0.6);
-//
-//        float x,y,yt,xt;
-//
-//            yt= abs(cos(t)) * rand(vec2(t,t)) * 100.0;
-//            xt=sin(360.0*rand(vec2(t,t)))*0.25;
-//            if (xt < 0.0) {
-//                xt=0.125;
-//                    }
-//            x=uv.x-xt*exp(-pow(uv.y*100.0-yt,2.0)/24.0);
-//            y=uv.y;
-//
-//
-//        uv.x=x;
-//        uv.y=y;
-//
-//       yt=0.5*cos((yt/100.0)/100.0*360.0);
-//       float yr=0.1*cos((yt/100.0)/100.0*360.0);
-//        if (uv_org.y > yt && uv_org.y < yt+rand(vec2(t2,t))*0.25)
-//        {
-//            float md = mod(x*100.0,10.0);
-//            if (md*sin(t) > sin(yr*360.0) || rand(vec2(md,md))>0.4)
-//            {
-//                vec4 org_c = texture2DRect(texture0, uv);
-//                float colx = rand(vec2(t2,t2)) * 0.75;
-//                float coly = rand(vec2(uv.x+t,t));// * 0.5;
-//                float colz = rand(vec2(t2,t2));// * 0.5;
-//                vec4 fxColor = vec4(org_c.x+colx,org_c.y+colx,org_c.z+colx,0.0);
-//                vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
-//                return color;
-//            }
-//        }
-//        else if (y<cos(t) && mod(x*40.0,2.0)>rand(vec2(y*t,t*t))*1.0 ||  mod(y*12.0,2.0)<rand(vec2(x,t))*1.0)
-//        {
-//            if (rand(vec2(x+t,y+t))>0.8)
-//            {
-//               vec4 fxColor = vec4(rand(vec2(x*t,y*t)),rand(vec2(x*t,y*t)),rand(vec2(x*t,y*t)),0.0);
-//                vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
-//                return color;
-//            }
-//            else
-//            {
-//            vec4 fxColor = texture2DRect(texture0, uv);
-//            vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
-//            return color;
-//            }
-//        }
-//        else
-//        {
-//            uv.x = uv.x + rand(vec2(t,uv.y)) * 0.0087 * sin(y*2.0);
-//            vec4 fxColor = texture2DRect(texture0, uv);
-//            vec4 color = (1.0 - vhsMacro) * dryColor + vhsMacro * fxColor;
-//            return color;
-//        }
-//}
 
 void main()
 {
@@ -245,8 +167,6 @@ void main()
     if(invertMacro!=0.0)fxColor=Invert(fxColor,invertMacro);
     
     if(zebraMacro!=0.0)fxColor = Zebra(fxColor, zebraMacro, zebraLevels, zebraSpeed);
-    
-//    if(vhsMacro!=0.0) fxColor = Vhs(fxColor, vhsMacro, vhsSpeed, vhsStrength);
     
     vec4 color = (1.0 - fxMacro) * dryColor + fxMacro * fxColor;
     
