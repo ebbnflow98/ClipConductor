@@ -16,7 +16,8 @@ With Spectacle, you can control performance visuals from inside your DAW via MID
 
 ### Triggering videos via the IAC Driver
 
--Create a blank MIDI track and route the output to your IAC driver (tips on setting up your IAC driver [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)). 
+-Create a blank MIDI track and route the output to your IAC driver (tips on setting up your IAC driver [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)).  
+
 ![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/readMe%20Resources/io.png)
 
 -Open Spectacle, and load videos into the array by clicking on one of the slots in the scroll menu. You can also drag and drop your videos into Spectacle to add them. Make sure that you've converted your videos to HAP .mov files (see TIPS section below).
