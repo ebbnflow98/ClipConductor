@@ -20,8 +20,6 @@ With Spectacle, you can control performance visuals from inside your DAW via MID
 
 ![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/readMe%20Resources/io.png)
 
--If you want to control lights via DMX, add a second MIDI track and route the output to your IAC driver on Channel 2.
-
 -Open Spectacle, and load videos into the array by clicking on one of the slots in the scroll menu. You can also drag and drop your videos into Spectacle to add them. Make sure that you've converted your videos to HAP .mov files (see TIPS section below).
 ![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/readMe%20Resources/gui.png)
 
