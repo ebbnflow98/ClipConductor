@@ -1,13 +1,13 @@
 # Spectacle
 A MIDI-triggered performance visuals app for DIY musicians.
 
-Spectacle (v1.0) by Evan Douglas Peters
+Spectacle (v2.0) by Evan Douglas Peters
 
 With Spectacle, you can control performance visuals from inside your DAW via MIDI messages. 
 
 ## Installation
 
--Download the Spectacle dmg and open. Drag Spectacle into your Applications folder.
+-Download the Spectacle dmg and open. Drag Spectacle into your Applications folder. If you'd like to install the Max for Live devices, drag them and drop them on an Ableton Live window.
 
 ![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/dmg.png)
 
@@ -16,9 +16,11 @@ With Spectacle, you can control performance visuals from inside your DAW via MID
 
 ### Triggering videos via the IAC Driver
 
--Create a blank MIDI track and route the output to your IAC driver (tips on setting up your IAC driver [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)).  
+-Create a blank MIDI track and route the output to your IAC driver on Channel 1 (tips on setting up your IAC driver [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)). For Ableton Live users, drop the Spectacle Max for Live device on this channel. This track will control your videos.
 
 ![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/readMe%20Resources/io.png)
+
+-If you want to control lights via DMX, add a second MIDI track and route the output to your IAC driver on Channel 2.
 
 -Open Spectacle, and load videos into the array by clicking on one of the slots in the scroll menu. You can also drag and drop your videos into Spectacle to add them. Make sure that you've converted your videos to HAP .mov files (see TIPS section below).
 ![alt text](https://github.com/ebbnflow98/ClipConductor/blob/master/readMe%20Resources/gui.png)
@@ -27,33 +29,21 @@ With Spectacle, you can control performance visuals from inside your DAW via MID
 
 -You can also trigger the videos with the number keys on your keyboard: 
 
-| Key | Video |
-|-----|-------|
-| 1   | 1     |
-| 2   | 2     |
-| 3   | 3     |
-| 4   | 4     |
-| 5   | 5     |
-| 6   | 6     |
-| 7   | 7     |
-| 8   | 8     |
-| 9   | 9     |
-| 0   | 10    |
-| Q   | 11    |
-| W   | 12    |
+| Key | Video |  | Key | Video |
+|-----|-------| -- |-----|-------|
+| 1   | 1     |    | R   | 14    |
+| 2   | 2     |    | T   | 15    |
+| 3   | 3     |    | Y   | 16    |
+| 4   | 4     |    | U   | 17    |
+| 5   | 5     |    | I   | 18    |
+| 6   | 6     |    | O   | 19    |
+| 7   | 7     |    | P   | 20    |
+| 8   | 8     |    | A   | 21    |
+| 9   | 9     |    | S   | 22    |
+| 0   | 10    |    | D   | 23    |
+| Q   | 11    |    | F   | 24    |
+| W   | 12    |    | G   | 25    |
 | E   | 13    |
-| R   | 14    |
-| T   | 15    |
-| Y   | 16    |
-| U   | 17    |
-| I   | 18    |
-| O   | 19    |
-| P   | 20    |
-| A   | 21    |
-| S   | 22    |
-| D   | 23    |
-| F   | 24    |
-| G   | 25    |
  
  ## Triggering video FX via the IAC Driver
  
@@ -91,17 +81,20 @@ CC # | Spectacle FX                  | Function                                 
 | 54   | Background Color 2 Green | The green component of BG Color #2                                                                                 |
 | 55   | Background Color 2 Blue  | The blue component of BG Color #2                                                                                  |
 
--For Ableton Live Suite users, there is a Max for Live controller device that accompanies the Spectacle download. This device simply takes the MIDI parameters used by Spectacle and labels them (so that the user doesn't have to worry about matching CC values to cooresponding FX using the table above). To install the device, move the Spectacle.amxd device to your Ableton User Library (for me, that was located at ~/Music/Ableton/User Library/Presets/MIDI Effects).
+-For Ableton Live Suite users, there is a Max for Live controller device that accompanies the Spectacle download. This device simply takes the MIDI parameters used by Spectacle and labels them (so that the user doesn't have to worry about matching CC values to cooresponding FX using the table above). To install the device, drag the Spectacle.amxd device and drop it on your Ableton window. Put this on the track routed to channel 1.
 ![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/m4l%20gui.png)
 
 –The dropdown boxes below the knobs on the M4L device allow users to change the input MIDI CC that the FX are looking for. This only applies to users with hardware controllers that don't allow for CC re-assignment via MIDI mapping; so most users shouldn't change these values. 
 
--You can also control the FX values with the sliders in the GUI, however, these changes won't be reflected in your DAW automation or the Spectacle Max for Live Controller device.
+-You can also control the FX values with the sliders in the GUI, however, these changes won't be reflected in your DAW automation or the Spectacle Max for Live device.
 
 ## Triggering Lights via the IAC Driver and interface
 -Row 3 has sliders that indicate the DMX value being sent to each light.
 
 -To label any of those sliders with a custom label, simply click where it says "Type Parameter Here" and type in the your label. These labels can be saved and recalled later via the SAVE and then the LOAD buttoms.
+
+-Ableton Live users need to put the Spectacle DMX Max for Live device on a second MIDI track, with its output routed to Channel 2.
+![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/dmx%20m4l.png)
 
 
 ## Using the Spectacle GUI
@@ -130,13 +123,11 @@ CC # | Spectacle FX                  | Function                                 
 -Make sure you set up your IAC Driver to allow you to route MIDI to Spectacle. Instructions on setting up IAC driver are [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)).   
 
 ## Credits
--The "Kaledioscope" and "Ripple" FX were adapted from Dennis Perelov's book, [*Mastering openFrameworks*](http://b.parsons.edu/~traviss/booKs/oF/Mastering%20openFrameworks%20-%20Yanc,%20Chris_compressed.pdf).  
+•   The "Kaledioscope" and "Ripple" FX were adapted from Dennis Perelov's book, [*Mastering openFrameworks*](http://b.parsons.edu/~traviss/booKs/oF/Mastering%20openFrameworks%20-%20Yanc,%20Chris_compressed.pdf).  
+•   The "ASCII" effect was adapted from a shader I found online over a year ago that I have been unable to find once again to this point. If the ASCII code looks like yours, please come forward and claim it! :)  
+•   The "Zebra" effect was adapted from [Color Zebra](https://www.shadertoy.com/view/Xsl3z8) by gtoledo3.  
 
--The "ASCII" effect was adapted from a shader I found online over a year ago that I have been unable to find once again to this point. If the ASCII code looks like yours, please come forward and claim it! :)  
-
-- The "Zebra" effect was adapted from [Color Zebra](https://www.shadertoy.com/view/Xsl3z8) by gtoledo3.  
-
--Here are the fantastic addons and other software that I used to build this project.  
+-Here are the addons and other software that I used to build this project!  
 
 •   [openFrameworks](https://openframeworks.cc/about/)  
 •   [ofxDatGui](https://braitsch.github.io/ofxDatGui/) by Stephen Braitsch  
