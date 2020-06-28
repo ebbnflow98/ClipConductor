@@ -49,37 +49,46 @@ With Spectacle, you can control performance visuals from inside your DAW via MID
  
  -FX are manipulated with control messages. With the above track setup, automate the MIDI CC's that coorespond to the desired FX from the table below (for all toggle-type controls, MIDI values >63 set the toggle to ON, and MIDI values <=63 set the toggle to OFF) :
 
-CC # | Spectacle FX                  | Function                                                                                                           |
-|------|--------------------------|--------------------------------------------------------------------------------------------------------------------|
-| 15   | FX Dry/Wet               | Controls opacity of all FX                                                                                         |
-| 16   | Video Playback Speed     | Changes speed of playback (unless Video Sync is toggled)                                                           |
-| 17   | Video Division           | Changes duration of synced playback when Video Sync is toggled.                                                    |
-| 18   | Video Sync               | Changes video playback to sync with tempo of your session rather than the Video Playback Speed slider.             |
-| 19   | Background Switch        | When nothing is drawn, the background will alternate (with your session tempo) between BG Color #1 and BG Color #2 |
-| 20   | Tempo Division           | Changes the note value duration by which the background switches.                                                  |
-| 21   | Triplet                  | Tempo Division becomes a triplet of whatever note duration is selected.                                            |
-| 24   | Invert Dry/Wet           | Changes colors to their inverse.                                                                                   |
-| 25   | Ripple Dry/Wet           | Sends ripples through the image/video.                                                                             |
-| 26   | Ripple Sync              | The rate of the ripples will correspond to the tempo of the session.                                               |
-| 27   | Horizontal Ripple Amount | The amplitude of the horizontal ripples!                                                                           |
-| 28   | Vertical Ripple Amount   | The amplitude of the vertical ripples!                                                                             |
-| 29   | Ripple Rate              | The frequency by which the image ripples!                                                                          |
-| 30   | Filter Dry/Wet           | Puts a filter with a custom color on the image.                                                                    |
-| 31   | Filter Red               | Red filter component.                                                                                              |
-| 33   | Filter Green             | Green filter component.                                                                                            |
-| 34   | Filter Blue              | Blue filter component.                                                                                             |
-| 35   | Filter Alpha             | The opacity of the filter.                                                                                         |
-| 40   | Kaleidoscope Macro       | Shockingly, it makes the image look like a kaleidoscope.                                                            |
-| 41   | Kaleidoscope Angle       | The angle of the kaleidoscope                                                            |
-| 42   | Kaleidoscope Skew X      | Another fun thing to make the kaleidoscope move.                                                         |
-| 43   | Kaleidoscope Skew Y      | Yet, another fun thing to play with                                                                                 |
-| 44   | Kaleidoscope Sectors     | The amount of divisions in a half of the kaleidoscope.                                                             |
-| 50   | Background Color 1 Red   | The red component of BG Color #1                                                                                   |
-| 51   | Background Color 1 Green | The green component of BG Color #1                                                                                 |
-| 52   | Background Color 1 Blue  | The blue component of BG Color #1                                                                                  |
-| 53   | Background Color 2 Red   | The red component of BG Color #2                                                                                   |
-| 54   | Background Color 2 Green | The green component of BG Color #2                                                                                 |
-| 55   | Background Color 2 Blue  | The blue component of BG Color #2                                                                                  |
+CC # | Spectacle FX           |
+|--- |------------------------|
+| 15 | FX Macro               |
+| 16 | Background Color Red   |
+| 17 | Background Color Green |
+| 18 | Background Color Blue  |
+| 19 | Video Speed            |
+| 20 | Video Division         |
+| 21 | Video Sync             |
+| 22 | Invert Macro           |
+| 23 | Ripple Macro           |
+| 24 | Ripple Sync            |
+| 25 | Ripple X amount        |
+| 26 | Ripple Y Amount        |
+| 27 | Ripple Rate            |
+| 28 | Filter Macro           |
+| 29 | Filter Red             |
+| 30 | Filter Green           |
+| 31 | Filter Blue            |
+| 32 | Kaleidioscope Macro    |
+| 33 | Kaleidioscope Angle    |
+| 34 | Kaleidioscope X        |
+| 35 | Kaleidioscope Y        |
+| 36 | Kaleidioscope Sectors  |
+| 37 | Pixelate Macro         |
+| 39 | Fullhouse Macro        |
+| 40 | ASCII Macro            |
+| 41 | ASCII Dot Distance     |
+| 42 | ASCII Image Gain       |
+| 43 | ASCII Image Contrast   |
+| 44 | ASCII Invert           |
+| 45 | Rotate Macro           |
+| 46 | Zebra Macro            |
+| 47 | Zebra Speed            |
+| 48 | Zebra Levels           |
+| 49 | Chroma Key Macro       |
+| 50 | Chroma Key Color Red   |
+| 51 | Chroma Key Color Green |
+| 52 | Chroma Key Color Blue  |
+| 53 | Chroma Key Threshold   |
 
 -For Ableton Live Suite users, there is a Max for Live controller device that accompanies the Spectacle download. This device simply takes the MIDI parameters used by Spectacle and labels them (so that the user doesn't have to worry about matching CC values to cooresponding FX using the table above). To install the device, drag the Spectacle.amxd device and drop it on your Ableton window. Put this on the track routed to channel 1.
 ![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/m4l%20gui.png)
