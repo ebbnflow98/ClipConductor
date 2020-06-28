@@ -102,7 +102,8 @@ CC # | Spectacle FX           |
 
 -To label any of those sliders with a custom label, simply click where it says "Type Parameter Here" and type in the your label. These labels can be saved and recalled later via the SAVE and then the LOAD buttoms.
 
--Ableton Live users need to put the Spectacle DMX Max for Live device on a second MIDI track, with its output routed to Channel 2.
+-Ableton Live users need to put the Spectacle DMX Max for Live device on a second MIDI track, with its output routed to Channel 2.  
+
 ![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/dmx%20m4l.png)
 
 
