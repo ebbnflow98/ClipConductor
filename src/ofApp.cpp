@@ -910,7 +910,7 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//=============================
         midiDropdown->changeOptions(midiIn.getInPortList());
         midiDropdown->setTheme(theme);
     }
-    else if(e.target==newProjectButton)newProject();
+    else if(e.target==newProjectButton) if(ofSystemYesNoDialog("This will clear your video and text box fields. Continue?"))newProject();
 }
 
 
@@ -1146,7 +1146,7 @@ bool ofApp::loadSettings()//====================================================
             
             for(int i=0;i<numberOfLights;i++)
             {
-                lightSliders[i]->setTextInput(xmlSettings.getValue("xmlSettings:lights:"+ofToString(i),"Type Parameter Here"));
+                lightSliders[i]->setTextInput(xmlSettings.getValue("xmlSettings:lights:light"+ofToString(i),"Type Parameter Here"));
             }
             
             ofSystemAlertDialog("File loaded successfully.");
@@ -1182,7 +1182,7 @@ bool ofApp::saveSettings()//====================================================
         
         for(int i=0;i<numberOfLights;i++)
         {
-            xmlSettings.setValue("xmlSettings:lights:"+ofToString(i), lightSliders[i]->getTextInput());
+            xmlSettings.setValue("xmlSettings:lights:light"+ofToString(i), lightSliders[i]->getTextInput());
         }
         
         xmlSettings.save(result.getPath());
