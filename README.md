@@ -128,13 +128,15 @@ CC # | Spectacle FX           |
 
 -You'll probably notice that HAP videos are huge files. Unfortunately, that's the tradeoff for having fast, smooth, high resolution playback.	  
 
--Make sure you set up your IAC Driver to allow you to route MIDI to Spectacle. Instructions on setting up IAC driver are [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)).   
+-Make sure you set up your IAC Driver to allow you to route MIDI to Spectacle. Instructions on setting up IAC driver are [here](https://help.ableton.com/hc/en-us/articles/209774225-How-to-setup-a-virtual-MIDI-bus)).
+
+-Some good sites for getting free, royalty-free stock videos are [Pixabay](https://pixabay.com/), [Pexels](https://www.pexels.com/), and [Vidsplay](https://www.vidsplay.com/).
 
 ## Credits
+•   The Kaleidoscope and Ripple FX were adapted from Denis Perevalov's books, [*openFrameworks Essentials*](https://www.packtpub.com/application-development/openframeworks-essentials) and [*Mastering openFrameworks*](https://www.packtpub.com/application-development/mastering-openframeworks-creative-coding-demystified), respectively. Thanks to Denis for allowing me to use them!
 
 
 -Here are the addons and other software that I used to build this project!  
-
 •   [openFrameworks](https://openframeworks.cc/about/)  
 •   [ofxDatGui](https://braitsch.github.io/ofxDatGui/) by Stephen Braitsch  
 •   [ofxMidi](https://github.com/danomatika/ofxMidi) by Dan Wilcox   
@@ -142,7 +144,6 @@ CC # | Spectacle FX           |
 •   [ofxDmx](https://github.com/kylemcdonald/ofxDmx) by Kyle McDonald
 
 •   [Max For Live](https://www.ableton.com/en/live/max-for-live/)  
-•   [Control Change 8](http://roberthenke.com/technology/m4l.html) by Robert Henke    
 •   [HAP](https://hap.video/)  
 
 
