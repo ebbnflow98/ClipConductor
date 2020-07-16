@@ -112,11 +112,10 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         void onWindowResized(ofResizeEventArgs &e);
         
     void gradient(ofPoint x1, ofPoint x2, ofPoint y1, ofPoint y2, ofColor color1, ofColor color2);
-        void setIcon(ofxDatGuiIconType type);
+    void setIcon(ofxDatGuiIconType type);
     void drawNumberbox(string s);
     
-    int mCustomIconChoice;
-    void drawCustomIcon();
+
     
     bool mNumberbox;
     string mNumberboxValue;
@@ -136,9 +135,10 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
     ofColor getBackgroundColor();
     
 
-        static const ofxDatGuiTheme* getTheme();
+    static const ofxDatGuiTheme* getTheme();
     
-        ofPoint scroll= ofPoint(0,0);
+    ofPoint scroll= ofPoint(0,0);
+    
 //    void dispatchRightClickEvent();
     
     void positionIcon();
@@ -219,7 +219,8 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiAlignment alignment;
     } mCustomIcon;
     
-
+    int mCustomIconChoice;
+    void drawCustomIcon();
     
         void drawLabel();
         void drawBorder();
@@ -227,6 +228,8 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         void drawBackground();
         void positionLabel();
         void setComponentStyle(const ofxDatGuiTheme* t);
+    
+
 
     private:
     

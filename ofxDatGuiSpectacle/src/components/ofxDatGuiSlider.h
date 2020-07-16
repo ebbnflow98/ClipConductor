@@ -300,7 +300,6 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         else if (m.x>=mSliderX && m.x<= (mSliderX+mSliderWidth) && m.y>=y+mStyle.padding && m.y<= y+mStyle.height-mStyle.padding)
         {
             return true;
-            
         }
         else if (mInput->hitTest(m)){
             return true;
@@ -354,7 +353,6 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
         void onMousePress(ofPoint m)
         {
-//            cout<<"mouse: "<<m.x<<","<<m.y<<"; ";
             ofxDatGuiComponent::onMousePress(m);
             if (mInput->hitTest(m)){
                 mInput->onFocus();
@@ -366,13 +364,12 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             }  else if (mTextInput->hasFocus()){
                 mTextInput->onFocusLost();
             }
-//            if(hitTest(m))            cout<<"slide \n";
-
         }
     
         void onMouseDrag(ofPoint m)
         {
-            if (mFocused && mInput->hasFocus() == false && mTextInput->hasFocus() == false){
+            if (mFocused && mInput->hasFocus() == false)// && mTextInput->hasFocus() == false)
+            {
                 float s = (m.x-mSliderX)/mSliderWidth;
 //                cout<<"mLabel.width: " << mLabel.width << " mSliderWidth: "<<mSliderWidth <<"s: "<<s<<"\n";
                 if (s > .999) s = 1;

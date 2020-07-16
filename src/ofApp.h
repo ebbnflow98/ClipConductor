@@ -318,9 +318,9 @@ public ofxMidiListener
     int lightWidth;
     int runningCount=0;
     
-    const int numberOfLights=44;
-    int lightValues[44];                    //numberOfLights
-    ofxDatGuiSlider *lightSliders[44];      //numberOfLights
+    const int numberOfLights=100;
+    int lightValues[100];                    //numberOfLights
+    ofxDatGuiSlider *lightSliders[100];      //numberOfLights
     
     string noteNames[128] = {
      "C-2","C#-2","D-2","D#-2","E-2","F-2","F#-2","G-2","G#-2","A-2","A#-2","B-2",

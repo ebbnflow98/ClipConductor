@@ -23,7 +23,7 @@ void ofApp::setup()//===========================================================
     
     ofLog()<<(char*)glGetString(GL_VERSION);
     
-    dmx.connect(0,44);
+    dmx.connect(0,numberOfLights);
     
     //---MIDI Setup-----------------------------------------------------
     ofSetVerticalSync(true);
@@ -63,6 +63,7 @@ void ofApp::setup()//===========================================================
         clearToggle = gui2->addToggle("Clear");
         clearAllButton = gui2->addButton("Clear All Videos");
         clearAllButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::TRASHCAN);
+        
         gui2->setPosition(gui->getWidth()+gui->getPadding()*2,0);
         gui2->addBreak();
         gui2->addBreak();
@@ -425,7 +426,7 @@ void ofApp::draw()//============================================================
 
 ofPoint ofApp::windowSize()//============================================================
 {
-    ofPoint Windowsize(gui->getWidth()+gui2->getWidth()+gui3->getWidth()+gui->getPadding()*2,gui->getHeight());
+    ofPoint Windowsize(gui->getWidth()+gui->getPadding()*2+gui2->getWidth()+gui3->getWidth()+gui->getPadding()*2,gui->getHeight());
     ofSetWindowShape(Windowsize.x, Windowsize.y);
     return Windowsize;
 }
@@ -695,8 +696,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
             }
             if(msg.channel==2)
             {
-                if(msg.control>0 && msg.control<44) lightValues[msg.control-1]=ofMap(msg.value, 0, 127, 0, 255);
-                
+                if(msg.control>0 && msg.control<88) lightValues[msg.control-1]=ofMap(msg.value, 0, 127, 0, 255);
             }
         }
         
@@ -859,7 +859,7 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)//=========================
 void ofApp::changeDevices(int choice)
 {
     dmx.disconnect();
-    dmx.connect(choice, 44);
+    dmx.connect(choice, numberOfLights);
 }
 
 

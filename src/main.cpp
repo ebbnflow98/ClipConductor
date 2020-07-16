@@ -28,14 +28,13 @@ int main(){
     settings.shareContextWith = mainWindow;
     shared_ptr<ofAppBaseWindow> guiWindow = ofCreateWindow(settings);
     guiWindow->setVerticalSync(false);
+    guiWindow->setWindowTitle("Spectacle v2.0.1");
 
     shared_ptr<ofApp> mainApp(new ofApp);
-//    cout << " NUMBER 1  "<< endl;
     mainApp->setup();
 
     ofPoint Windowsize=(mainApp->windowSize());
     guiWindow->setWindowShape(Windowsize.x, Windowsize.y);
-//    cout << " NUMBER 2  "<< endl;
     ofAddListener(guiWindow->events().exit, mainApp.get(), &ofApp::exitGui);
     ofAddListener(guiWindow->events().fileDragEvent, mainApp.get(), &ofApp::dragEvent);
     ofAddListener(guiWindow->events().keyPressed, mainApp.get(), &ofApp::keyPressed);
