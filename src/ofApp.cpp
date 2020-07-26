@@ -103,16 +103,16 @@ void ofApp::setup()//===========================================================
         lightsLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
         
 //        backgroundFolder=gui->addFolder("Background");
-        bgColor1ColorPicker=gui->addColorPicker("BG Color 1",bgColor1);
-        bgColor1ColorPicker->setNumberbox(false);
-        
+//        bgColor1ColorPicker=gui->addColorPicker("BG Color 1",bgColor1);
+//        bgColor1ColorPicker->setNumberbox(false);
+//
         fxLabel = gui->addLabel("FX");
         fxLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         fxLabel->setNumberbox(false);
         fxLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::EYE);
         
         
-        fxMacroSlider = gui->addSlider("FX DRY/WET",0.0,1.0,fxMacro);
+        fxMacroSlider = gui->addSlider("FX DRY/WET",0.0,1.0,fxMacro,false);
         
         videoFolder=gui->addFolder("VIDEO CONTROLS");
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
@@ -174,9 +174,9 @@ void ofApp::setup()//===========================================================
         
         chromaKeyFolder=gui->addFolder("CHROMAKEY");
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
-        chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
-        chromaKeyColorPicker->setColor(ofColor::green);
-        chromaKeyColorPicker->setNumberbox(false);
+//        chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
+//        chromaKeyColorPicker->setColor(ofColor::green);
+//        chromaKeyColorPicker->setNumberbox(false);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0, 255,chromaKeyThreshold);
         chromaKeyFolder->setDropdownDividers(false);
         
@@ -256,7 +256,7 @@ void ofApp::update()//==========================================================
     //dmx update:
     for(int i=0;i<numberOfLights;i++)
     {
-        lightSliders[i]->update();
+//        lightSliders[i]->update();
         dmx.setLevel(i+1, lightValues[i]);
     }
     
@@ -492,17 +492,17 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                     case 16:
                         bgColor1Red=msg.value;
                         bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                        bgColor1ColorPicker->setColor(bgColor1);
+//                        bgColor1ColorPicker->setColor(bgColor1);
                         break;
                     case 17:
                         bgColor1Green=msg.value;
                         bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                        bgColor1ColorPicker->setColor(bgColor1);
+//                        bgColor1ColorPicker->setColor(bgColor1);
                         break;
                     case 18:
                         bgColor1Blue=msg.value;
                         bgColor1.set(bgColor1Red,bgColor1Green,bgColor1Blue);
-                        bgColor1ColorPicker->setColor(bgColor1);
+//                        bgColor1ColorPicker->setColor(bgColor1);
                         break;
                         
                         
@@ -664,15 +664,15 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         break;
                     case 50:
                         chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
-                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+//                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                         break;
                     case 51:
                         chromaKeyGreen=ofMap(msg.value,0,127,0,255);
-                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+//                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                         break;
                     case 52:
                         chromaKeyBlue=ofMap(msg.value,0,127,0,255);
-                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
+//                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
                         break;
                     case 53:
                         chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);

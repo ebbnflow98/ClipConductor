@@ -227,7 +227,7 @@ public ofxMidiListener
     int tempoDivision=1;
     
 //-----Background------------------------------------------------
-    ofxDatGuiColorPicker *bgColor1ColorPicker;
+//    ofxDatGuiColorPicker *bgColor1ColorPicker;
     ofColor bgColor1=ofColor::black;
 
     int bgColor1Red=0, bgColor1Green=0, bgColor1Blue=0, bgColor2Red=0, bgColor2Green=0, bgColor2Blue=0;
@@ -284,7 +284,6 @@ public ofxMidiListener
     ofxDatGuiSlider *rippleMacroSlider ,*rippleXSlider, *rippleYSlider, *rippleRateSlider;
     bool rippleSync=false;
     ofxDatGuiToggle *rippleSyncToggle;
-    ofxDatGuiWaveMonitor *rippleWaveMonitor;
     
     float invertMacro=0.0;
     ofxDatGuiSlider *invertMacroSlider;
@@ -300,7 +299,7 @@ public ofxMidiListener
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
     evanColor chromaKeyColor= evanColor();
     int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
-    ofxDatGuiColorPicker *chromaKeyColorPicker;
+//    ofxDatGuiColorPicker *chromaKeyColorPicker;
     
     float vhsMacro, vhsStrength, vhsSpeed;
     ofxDatGuiSlider *vhsMacroSlider, *vhsStrengthSlider, *vhsSpeedSlider;

@@ -64,7 +64,6 @@
 		04F77E5C73A62E2E77C78EC6 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiOut.cpp; path = ../../../addons/ofxMidi/src/ofxMidiOut.cpp; sourceTree = SOURCE_ROOT; };
 		05F6CF127D4A621113D4A62F /* ofxMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidi.h; path = ../../../addons/ofxMidi/src/ofxMidi.h; sourceTree = SOURCE_ROOT; };
 		0616E2E62D4C4B9FF49E9FA7 /* MovieTime.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MovieTime.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/MovieTime.h; sourceTree = SOURCE_ROOT; };
-		07FA00613AF16B20C9EED8B5 /* ofxDatGuiMatrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiMatrix.h; path = ofxDatGuiSpectacle/src/components/ofxDatGuiMatrix.h; sourceTree = SOURCE_ROOT; };
 		10BC398F406B9E1B109002FF /* ofxModalWindow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxModalWindow.h; path = ../../../addons/ofxModal/src/ofxModalWindow.h; sourceTree = SOURCE_ROOT; };
 		10E2C891AAA166534B1F3B4E /* ofxMidiTimecode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiTimecode.cpp; path = ../../../addons/ofxMidi/src/ofxMidiTimecode.cpp; sourceTree = SOURCE_ROOT; };
 		131B6A8BA17B4EF73D18B9FA /* ofxModalTheme.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxModalTheme.h; path = ../../../addons/ofxModal/src/ofxModalTheme.h; sourceTree = SOURCE_ROOT; };
@@ -72,6 +71,7 @@
 		1B70F4B78DF3102C0278A701 /* evanColor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = evanColor.h; path = src/evanColor.h; sourceTree = SOURCE_ROOT; };
 		1B8D25FE90B649E66AD3EB92 /* ofxDatGuiIntObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiIntObject.h; path = ofxDatGuiSpectacle/src/core/ofxDatGuiIntObject.h; sourceTree = SOURCE_ROOT; };
 		1CD0FCD17CF81253541710C9 /* AudioResampler.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = AudioResampler.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/AudioResampler.h; sourceTree = SOURCE_ROOT; };
+		206DCBCB24CE26530047BA52 /* ofxDatGuiEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxDatGuiEvents.h; sourceTree = "<group>"; };
 		208298154B11456DCD0BE131 /* ofxRtMidiIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRtMidiIn.h; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiIn.h; sourceTree = SOURCE_ROOT; };
 		20E9773924B5150F00E2ADC8 /* moreSystemDialogs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = moreSystemDialogs.cpp; sourceTree = "<group>"; };
 		20E9773A24B5150F00E2ADC8 /* moreSystemDialogs.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = moreSystemDialogs.hpp; sourceTree = "<group>"; };
@@ -88,13 +88,11 @@
 		49A19DB15C41B102F96E8AF9 /* RingBuffer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = RingBuffer.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/RingBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		4EDF8487B10B41409EF2DE7F /* ofxDatGuiTheme.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTheme.h; path = ofxDatGuiSpectacle/src/themes/ofxDatGuiTheme.h; sourceTree = SOURCE_ROOT; };
 		50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
-		51A0721569BCE90908CE1863 /* ofxDatGuiTimeGraph.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTimeGraph.h; path = ofxDatGuiSpectacle/src/components/ofxDatGuiTimeGraph.h; sourceTree = SOURCE_ROOT; };
 		54DC82C20E63BAC0F0F926FA /* ofxMidiTimecode.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiTimecode.h; path = ../../../addons/ofxMidi/src/ofxMidiTimecode.h; sourceTree = SOURCE_ROOT; };
 		564C2068F56408FC72812BC2 /* hap.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = hap.h; path = ../../../addons/ofxHapPlayerAltered/libs/hap/src/hap.h; sourceTree = SOURCE_ROOT; };
 		568E78A1577223A7D056D4D8 /* TimeRangeSet.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = TimeRangeSet.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/TimeRangeSet.h; sourceTree = SOURCE_ROOT; };
 		5863B6FCCDCF6C2519A6D149 /* convertVideo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = convertVideo.h; path = src/convertVideo.h; sourceTree = SOURCE_ROOT; };
 		5A18693ACA447E11B2831AAB /* ofxDatGuiScrollView.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiScrollView.h; path = ofxDatGuiSpectacle/src/components/ofxDatGuiScrollView.h; sourceTree = SOURCE_ROOT; };
-		5B17EBA61FB586FAD6A79759 /* ofxDatGui2dPad.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGui2dPad.h; path = ofxDatGuiSpectacle/src/components/ofxDatGui2dPad.h; sourceTree = SOURCE_ROOT; };
 		5FC45ABF75D4DB04EEBFB3CB /* TimeRangeSet.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = TimeRangeSet.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/TimeRangeSet.cpp; sourceTree = SOURCE_ROOT; };
 		60C11F9766136D478F92E85A /* PacketCache.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = PacketCache.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/PacketCache.cpp; sourceTree = SOURCE_ROOT; };
 		6A056D9624D5C139BD5F2AA8 /* ofxDatGuiLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiLabel.h; path = ofxDatGuiSpectacle/src/components/ofxDatGuiLabel.h; sourceTree = SOURCE_ROOT; };
@@ -107,7 +105,6 @@
 		81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
 		832BDC407620CDBA568B713D /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
 		8520BC79F95A0BBDA698EA3C /* ofxDatGuiConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiConstants.h; path = ofxDatGuiSpectacle/src/core/ofxDatGuiConstants.h; sourceTree = SOURCE_ROOT; };
-		87B052BB82215F2940FDC4B2 /* ofxDatGuiFRM.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiFRM.h; path = ofxDatGuiSpectacle/src/components/ofxDatGuiFRM.h; sourceTree = SOURCE_ROOT; };
 		8AD528699E152B5E75CFC588 /* modalDialogs.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = modalDialogs.h; path = src/modalDialogs.h; sourceTree = SOURCE_ROOT; };
 		8E391A896AE1799FB984B167 /* hap.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = hap.c; path = ../../../addons/ofxHapPlayerAltered/libs/hap/src/hap.c; sourceTree = SOURCE_ROOT; };
 		938214A2795AA8FED29086DB /* ofxMidiConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiConstants.h; path = ../../../addons/ofxMidi/src/ofxMidiConstants.h; sourceTree = SOURCE_ROOT; };
@@ -140,7 +137,6 @@
 		C7ABD42E704D5145EB43D5A9 /* PacketCache.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = PacketCache.h; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/include/ofxHap/PacketCache.h; sourceTree = SOURCE_ROOT; };
 		CBEFB52B9BADF58A104DB7F3 /* AudioDecoder.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = AudioDecoder.cpp; path = ../../../addons/ofxHapPlayerAltered/libs/ofxHap/src/AudioDecoder.cpp; sourceTree = SOURCE_ROOT; };
 		CDCA9DD541E7581634651F01 /* ofxDatGuiEvents.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiEvents.h; path = ofxDatGuiSpectacle/src/core/ofxDatGuiEvents.h; sourceTree = SOURCE_ROOT; };
-		CF378163DD897719A7FA5385 /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = ofxDatGuiSpectacle/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
 		E16BB73D19DD0713FDCC7986 /* ofxMidiTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiTypes.h; path = ../../../addons/ofxMidi/src/ofxMidiTypes.h; sourceTree = SOURCE_ROOT; };
 		E238CCDE032640E0FEBFAD82 /* ofxMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidi.cpp; path = ../../../addons/ofxMidi/src/ofxMidi.cpp; sourceTree = SOURCE_ROOT; };
 		E42962AC2163EDD300A6A9E2 /* ofCamera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ofCamera.cpp; path = ../../../libs/openFrameworks/3d/ofCamera.cpp; sourceTree = SOURCE_ROOT; };
@@ -352,6 +348,7 @@
 		10A4219D0E4CB986BD403C64 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				206DCBCB24CE26530047BA52 /* ofxDatGuiEvents.h */,
 				1B8D25FE90B649E66AD3EB92 /* ofxDatGuiIntObject.h */,
 				E592DB307A97ED962B0ED4DE /* ofxDatGuiComponent.h */,
 				6B0DF373404177BCEC4A76F7 /* ofxDatGuiComponent.cpp */,
@@ -996,17 +993,12 @@
 			children = (
 				981199EC2F730BCE7AA3A4BF /* ofxDatGuiColorPicker.h */,
 				6D9569A03A11899560ED6014 /* ofxDatGuiSlider.h */,
-				87B052BB82215F2940FDC4B2 /* ofxDatGuiFRM.h */,
-				51A0721569BCE90908CE1863 /* ofxDatGuiTimeGraph.h */,
 				A5D798CFEE89A76940CDC5CF /* ofxDatGuiTextInputField.h */,
 				B23A6136F9264C1CF6CAD0D8 /* ofxDatGuiButton.h */,
 				F5388EEA37796EF5A6F27C43 /* ofxDatGuiControls.h */,
 				98C605E6C2F67F3EBA9614C9 /* ofxDatGuiGroups.h */,
 				5A18693ACA447E11B2831AAB /* ofxDatGuiScrollView.h */,
 				6A056D9624D5C139BD5F2AA8 /* ofxDatGuiLabel.h */,
-				5B17EBA61FB586FAD6A79759 /* ofxDatGui2dPad.h */,
-				CF378163DD897719A7FA5385 /* ofxDatGuiTextInput.h */,
-				07FA00613AF16B20C9EED8B5 /* ofxDatGuiMatrix.h */,
 			);
 			name = components;
 			sourceTree = "<group>";
