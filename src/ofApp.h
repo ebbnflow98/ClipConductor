@@ -151,7 +151,7 @@ public ofxMidiListener
 
 //=========================================================
     
-    int getHeight, getWidth;
+
     void setup();
     void update();
     void draw();
@@ -181,7 +181,7 @@ public ofxMidiListener
     void exitGui(ofEventArgs & args);
     void onButtonEventGui2(ofxDatGuiButtonEvent e);
     void onButtonEventGui3(ofxDatGuiButtonEvent e);
-    void windowResized(ofResizeEventArgs &resize);
+    void windowResized(ofResizeEventArgs &e);
     void allocateFBOs();
     void enableGuis();
     void disableGuis();
@@ -196,7 +196,6 @@ public ofxMidiListener
     ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
     ofShader fxShader, asciiShader, ledShader, chromaKeyShader;
     
-    ofPoint guiWindowSize={0.0,0.0};
     bool exiting=false;
     float guiHeight=0.0;
     bool videoSync=false;
@@ -227,7 +226,7 @@ public ofxMidiListener
     int tempoDivision=1;
     
 //-----Background------------------------------------------------
-//    ofxDatGuiColorPicker *bgColor1ColorPicker;
+    ofxDatGuiColorPicker *bgColor1ColorPicker;
     ofColor bgColor1=ofColor::black;
 
     int bgColor1Red=0, bgColor1Green=0, bgColor1Blue=0, bgColor2Red=0, bgColor2Green=0, bgColor2Blue=0;
@@ -252,7 +251,7 @@ public ofxMidiListener
     ofxDatGuiFolder *videoFolder;
     ofxDatGuiButton *videoButtons[100];
 
-    ofPoint guiPosition;
+    int getHeight, getWidth;
     ofPoint windowSize();
     
     ofxDatGuiButton *clearAllLightsButton;
@@ -299,14 +298,13 @@ public ofxMidiListener
     ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
     evanColor chromaKeyColor= evanColor();
     int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
-//    ofxDatGuiColorPicker *chromaKeyColorPicker;
+    ofxDatGuiColorPicker *chromaKeyColorPicker;
     
     float vhsMacro, vhsStrength, vhsSpeed;
     ofxDatGuiSlider *vhsMacroSlider, *vhsStrengthSlider, *vhsSpeedSlider;
     
 //Loading/Saving----------------------------------------
     const int max_videos=100;
-    
     ofxXmlSettings xmlSettings;
     
 //---------------------------------------

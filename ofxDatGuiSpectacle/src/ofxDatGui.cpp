@@ -870,6 +870,12 @@ void ofxDatGui::positionGui()
 
 void ofxDatGui::update()
 {
+    mWindowMoved=false;
+    oldWindowPosition=windowPosition;
+    windowPosition.set(ofGetWindowPositionX(),ofGetWindowPositionY());
+    
+    if(oldWindowPosition!=windowPosition) mWindowMoved=true;
+    
     if (!mVisible) return;
 
     // check if we need to update components //
@@ -880,7 +886,7 @@ void ofxDatGui::update()
         if (mAlignmentChanged) items[i]->setLabelAlignment(mAlignment);
     }
     
-    if (mThemeChanged || mWidthChanged) layoutGui();
+    if (mThemeChanged || mWidthChanged || mWindowMoved) layoutGui();
 
     mTheme = nullptr;
     mAlphaChanged = false;
@@ -888,9 +894,13 @@ void ofxDatGui::update()
     mThemeChanged = false;
     mAlignmentChanged = false;
     
+    
+    if (ofGetMousePressed() && mActiveGui->mMoving == false && mMouseDown==true) cout<<"got em \n";
+
     // check for gui focus change //        implement right click duplicating this section (?)
-    if (ofGetMousePressed() && mActiveGui->mMoving == false)
+    if (ofGetMousePressed() && mActiveGui->mMoving == false && mMouseDown==false)
     {
+
         ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
         for (int i=mGuis.size()-1; i>-1; i--)
         {
@@ -900,7 +910,7 @@ void ofxDatGui::update()
                 if (mGuis[i] != mActiveGui) mGuis[i]->focus();
                 break;
             }
-//           d else mEnabled = false;
+           else mEnabled = false;
         }
     }
     
@@ -1029,4 +1039,3 @@ void ofxDatGui::onMouseScrolled(ofMouseEventArgs &e)
     scrollxy.x=s.x;
     moveGui(scrollxy);
 }
-

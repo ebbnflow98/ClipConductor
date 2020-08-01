@@ -29,6 +29,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
 {
     
     public:
+        ofPoint windowPosition, oldWindowPosition;
     
         ofxDatGui(int x, int y);
         ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT);
@@ -125,6 +126,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool mThemeChanged;
         bool mAlignmentChanged;
         ofColor mGuiBackground;
+    bool mWindowMoved;
     
         ofPoint mPosition;
         ofRectangle mGuiBounds;
