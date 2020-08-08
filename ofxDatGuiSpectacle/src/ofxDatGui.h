@@ -105,8 +105,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     vector<ofxDatGuiComponent*> items;
     int getPadding();
     bool mEnabled;
-
-
+    
     
     private:
     

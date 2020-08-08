@@ -243,7 +243,7 @@ void ofApp::update()//==========================================================
 {
     cout<<"gui1:focused"<<gui->getFocused()<<"\n";
     cout<<"gui2:focused"<<gui2->getFocused()<<"\n";
-    cout<<"gui3:focused"<<gui3->getFocused()<<"\n";
+    cout<<"gui3:focused"<<gui3->getFocused()<<"\n \n";
     //---------Tempo update--------------------------------
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
     {

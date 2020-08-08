@@ -60,7 +60,7 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
                 if (mStyle.border.visible) drawBorder();
                 ofFill();
                 if (mFocused && mMouseDown) ofSetColor(mStyle.color.onMouseDown, mStyle.opacity);
-                else if (mMouseOver) ofSetColor(mStyle.color.onMouseOver, mStyle.opacity);
+                else if (mMouseOver && !ofGetMousePressed()) ofSetColor(mStyle.color.onMouseOver, mStyle.opacity); //not super clean...trying to keep options from reacting when mouse is down on slider.
                 else ofSetColor(mStyle.color.background, mStyle.opacity);
                 ofDrawRectangle(x, y, mStyle.width, mStyle.height);
                 drawLabel();

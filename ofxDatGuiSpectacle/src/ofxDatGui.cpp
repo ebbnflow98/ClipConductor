@@ -67,6 +67,8 @@ void ofxDatGui::init()
     mRowSpacing = ofxDatGuiComponent::getTheme()->layout.vMargin;
     mGuiBackground = ofxDatGuiComponent::getTheme()->color.guiBackground;
     
+    mMouseDown = false;
+    
 // enable autodraw by default //
     setAutoDraw(true, mGuis.size());
     
@@ -870,10 +872,11 @@ void ofxDatGui::positionGui()
 
 void ofxDatGui::update()
 {
+    cout<<"UPDATE"<<this->getPosition().x<<"\n";
+    cout<<"mMousedown: "<<mMouseDown<<"\n";
     mWindowMoved=false;
     oldWindowPosition=windowPosition;
     windowPosition.set(ofGetWindowPositionX(),ofGetWindowPositionY());
-    
     if(oldWindowPosition!=windowPosition) mWindowMoved=true;
     
     if (!mVisible) return;
@@ -895,12 +898,34 @@ void ofxDatGui::update()
     mAlignmentChanged = false;
     
     
-    if (ofGetMousePressed() && mActiveGui->mMoving == false && mMouseDown==true) cout<<"got em \n";
-
-    // check for gui focus change //        implement right click duplicating this section (?)
-    if (ofGetMousePressed() && mActiveGui->mMoving == false && mMouseDown==false)
+//    if (ofGetMousePressed() && mActiveGui->mMoving == false && mMouseDown==true) cout<<this->getPosition().x<<":got em \n";
+//    else
+//    {
+//        cout<<"don't because ";
+//        if(!ofGetMousePressed())cout<<"ofGetMousePressed is false \n";
+//        if(mActiveGui->mMoving) cout<<"mActiveGui->mMoving is true \n";
+//        if(!mMouseDown) cout<<"mMouseDown is false \n";
+//    }
+    
+    //see if any other guis have mMouseDown (check for drag)
+    bool otherMouseDown=false;
+    int otherMouseDownIndex=0;
+    for (int i=mGuis.size()-1; i>-1; i--)
     {
-
+        if(mGuis[i]->mMouseDown)
+        {
+            otherMouseDown=true;
+            otherMouseDownIndex=i;
+        }
+    }
+    
+    if(otherMouseDown) for(int i=mGuis.size()-1;i>-1;i--) if(i!=otherMouseDownIndex)mGuis[i]->mEnabled=false; //disable other guis if there is a drag
+    
+    // check for gui focus change //        implement right click duplicating this section (?)
+    if (ofGetMousePressed() && mActiveGui->mMoving == false && otherMouseDown==false)
+    {
+//        cout<<"this should only run when gui focus is changed \n";
+        
         ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
         for (int i=mGuis.size()-1; i>-1; i--)
         {
@@ -914,56 +939,84 @@ void ofxDatGui::update()
         }
     }
     
-
+    
+    
     if (!getFocused() || !mEnabled)
     {
+//        cout<<"line 929 and focus: "<< getFocused()<<"\n";
     // update children but ignore mouse & keyboard events //
         for (int i=0; i<items.size(); i++) items[i]->update(false);
+    }
+    else if(mMouseDown)
+    {
+        mMouseDown=ofGetMousePressed();
+        cout<<"your new thing: "<<mMouseDown<<"\n";
+        for(int i=0;i<items.size();i++)
+        {
+            if(items[i]->getFocused())
+            {
+                items[i]->update(true);
+//                mMouseDown = items[i]->getMouseDown();
+                cout<<"your new thing"<<items[i]->getName()<<"\n";
+            }
+            else if (items[i]->getIsExpanded())
+            {
+                // check if one of its children has focus //
+                for (int j=0; j<items[i]->children.size(); j++)
+                {
+                    if (items[i]->children[j]->getFocused())
+                    {
+                        items[i]->children[j]->update(true);
+//                        mMouseDown = items[i]->children[j]->getMouseDown();
+                        break;
+                    }
+                }
+            }
+            else items[i]->update(false);
+        }
     }
     else
     {
         mMoving = false;
         mMouseDown = false;
-    // this gui has focus so let's see if any of its components were interacted with //
-        if (mExpanded == false)
-        {
-            mGuiFooter->update();
-            mMouseDown = mGuiFooter->getMouseDown();
-        }
-        else
         {
             bool hitComponent = false;
+            
             for (int i=0; i<items.size(); i++)
             {
-                if (hitComponent == false)
+                if (hitComponent == false && mMouseDown==false)
                 {
+//                    cout<<"line 949"<<items[i]->getName()<<items[i]->getFocused()<<" \n";
                     items[i]->update(true);
+                    
                     if (items[i]->getFocused())
                     {
                         hitComponent = true;
+//                        cout<<"line 951"<<items[i]->getName()<<" \n";
                         mMouseDown = items[i]->getMouseDown();
-                        if (mGuiHeader != nullptr && mGuiHeader->getDraggable() && mGuiHeader->getFocused())
-                        {
-                    // track that we're moving to force preserve focus //
-                            mMoving = true;
-                            ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
-                            moveGui(mouse - mGuiHeader->getDragOffset());
-                        }
                     }
                     else if (items[i]->getIsExpanded())
                     {
                     // check if one of its children has focus //
                         for (int j=0; j<items[i]->children.size(); j++)
                         {
+                            
                             if (items[i]->children[j]->getFocused())
                             {
                                 hitComponent = true;
+//                                cout<<"line 971 \n";
                                 mMouseDown = items[i]->children[j]->getMouseDown();
                                 break;
                             }
-                        }
-                    }
-                }
+                         }
+                     }
+                 }
+//                else if(hitComponent==false && mMouseDown==true)
+//                {
+//                    cout<<"line 990 \n";
+//                    items[i]->getFocused();
+//
+//                }
                 else
                 {
             // update component but ignore mouse & keyboard events //
