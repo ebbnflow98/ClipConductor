@@ -47,14 +47,17 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             mInput->setText("0");
             setTheme(ofxDatGuiComponent::getTheme());
             setValue(val, false); // don't dispatch a change event when component is constructed //
-            ofxDatGuiComponent::setNumberbox(false);
+//            ofxDatGuiComponent::setNumberbox(false);
             
         }
-    ofxDatGuiSlider(string label, float min, float max, float val, bool t) : ofxDatGuiComponent(label) //add with editable text box
+    ofxDatGuiSlider(string label, float min, float max, float val, bool t, bool n) : ofxDatGuiComponent(label) //add with editable text box
           {
               textInput=t;
               mTextInputX=0;
               mTextInputWidth=0;
+              mNumberbox=n;
+              mNumberboxX=0;
+              mNumberboxWidth=0;
               setName(label);
               mMin = min;
               mMax = max;
@@ -70,7 +73,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
               mInput->setText("0");
               setTheme(ofxDatGuiComponent::getTheme());
               setValue(val, false); // don't dispatch a change event when component is constructed //
-              ofxDatGuiComponent::setNumberbox(false);
+//              ofxDatGuiComponent::setNumberbox(false);
           }
     
         ofxDatGuiSlider(string label, float min, float max) : ofxDatGuiSlider(label, min, max, (max+min)/2) {}
@@ -113,33 +116,31 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         void setWidth(int width, float labelWidth)
         {
             ofxDatGuiComponent::setWidth(width, labelWidth);
-            float totalWidth = mStyle.width - mLabel.width;
-            mSliderWidth = totalWidth * .7;
-            if(mLockedLayout) mSliderWidth = 244;
-            mSliderX = x + mLabel.width;
-            int wid = getWidth();
-            if(mLockedLayout) mSliderX = (x + getWidth()) - mStyle.padding - mInputWidth - mStyle.padding - mSliderWidth;
+//            float totalWidth = mStyle.width - mLabel.width;
+
+//            if(mLockedLayout) mSliderX = (x + getWidth()) - mStyle.padding - mInputWidth - mStyle.padding - mSliderWidth;
 //            cout<<"x: "<<x<<"; width: "<< getWidth() << "InputWidth: "<<mInputWidth << "sliderWidth: "<<mSliderWidth <<"\n";
-            mInputX = mLabel.width + mSliderWidth + mStyle.padding;
-            mInputWidth = totalWidth - mSliderWidth - (mStyle.padding * 2);
-            if(mLockedLayout) mInputWidth = 98;
-            mInput->setWidth(mInputWidth);
-            if(mLockedLayout) mInputX = mStyle.width - mStyle.padding - mInputWidth;
-            mInput->setPosition(x + mInputX, y + mStyle.padding);
-            mTextInputX = mLabel.x;
-            mTextInputWidth = int(mLabel.width * .8);
+            
+            mTextInputX = mNumberboxWidth + mNumberboxX + (mStyle.padding * 2);
+            mTextInputWidth = int(mStyle.width * .30);
             mTextInput->setWidth(mTextInputWidth);
-            if(mLockedLayout)
-            {
-                int textInputXEnd = mSliderX - mStyle.padding;
-                mTextInputWidth = textInputXEnd - (mTextInputX + x);
-                mTextInput->setWidth(mTextInputWidth);
-                mTextInput->setPosition(mTextInputX, y + mStyle.padding);
+            mTextInput->setPosition(x+mTextInputX, y + (mStyle.padding*2));
+            mSliderWidth = int(mStyle.width * .35);
+//            mSliderX = mTextInputWidth + mTextInputX + (mStyle.padding * 2);
+            mInputWidth = int(mStyle.width * .15);
+//            mInputX = mSliderX + mSliderWidth + (mStyle.padding * 2);
+            mInputX = mStyle.width - mStyle.padding - mInputWidth;
+            mSliderX = mInputX - mStyle.padding - mSliderWidth;
+            mInput->setWidth(mInputWidth);
+            mInput->setPosition(x + mInputX, y + mStyle.padding);
+
+
+//                mTextInput->setPosition(mTextInputX, y + mStyle.padding);
                 mTextInput->setBackgroundColor(ofColor::white);
                 mTextInput->setTextInactiveColor(ofColor::black);
                 mTextInput->setTextActiveColor(ofColor::white);
-            }
-            else mTextInput->setPosition(x+mTextInputX, y + mStyle.padding);
+//            }
+//            else
 //            cout<<"SliderX: "<<mSliderX <<"\n";
         }
     
@@ -272,14 +273,14 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         
             // slider bkgd //
                 ofSetColor(mBackgroundFill);
-                ofDrawRectangle(mSliderX, y+mStyle.padding, mSliderWidth, mStyle.height-(mStyle.padding*2));
+                ofDrawRectangle(x+mSliderX, y+mStyle.padding, mSliderWidth, mStyle.height-(mStyle.padding*2));
             // slider fill //
                 if (mScale > 0)
                 {
 //                    ofSetColor(mSliderFill);
 //                    ofDrawRectangle(mSliderX, y+mStyle.padding, mSliderWidth*mScale, mStyle.height-(mStyle.padding*2))
-                    gradient(ofPoint(mSliderX,y+mStyle.padding),
-                             ofPoint(mSliderX,y+mStyle.padding+ mStyle.height-(mStyle.padding*2)),ofPoint(mSliderX+mSliderWidth*mScale,y+mStyle.padding),ofPoint(mSliderX+mSliderWidth*mScale,y+mStyle.padding+mStyle.height-(mStyle.padding*2)),
+                    gradient(ofPoint(x+mSliderX,y+mStyle.padding),
+                             ofPoint(x+mSliderX,y+mStyle.padding+ mStyle.height-(mStyle.padding*2)),ofPoint(x+mSliderX+mSliderWidth*mScale,y+mStyle.padding),ofPoint(x+mSliderX+mSliderWidth*mScale,y+mStyle.padding+mStyle.height-(mStyle.padding*2)),
                              mSliderFill, ofColor::darkGray);
                 }
             // numeric input field //
@@ -297,8 +298,10 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         if (!mEnabled || !mVisible){
             return false;
         }
-        else if (m.x>=mSliderX && m.x<= (mSliderX+mSliderWidth) && m.y>=y+mStyle.padding && m.y<= y+mStyle.height-mStyle.padding)
+        else if (m.x>=x+mSliderX && m.x<= (x+mSliderX+mSliderWidth) && m.y>=y+mStyle.padding && m.y<= y+mStyle.height-mStyle.padding)
         {
+            cout<<m.x<<" needs to be between "<<x+mSliderX<<" and "<<x+mSliderX+mSliderWidth<<"\n";
+
             return true;
         }
         else if (mInput->hitTest(m)){
@@ -306,7 +309,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         }
         else if (mTextInput->hitTest(m)){
                 return true;
-            }
+        }
         else {
             return false;
         }
@@ -368,10 +371,10 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
     
         void onMouseDrag(ofPoint m)
         {
-            if (mFocused && mInput->hasFocus() == false)// && mTextInput->hasFocus() == false)
+            if (mFocused && mInput->hasFocus() == false && mTextInput->hasFocus() == false)
             {
-                float s = (m.x-mSliderX)/mSliderWidth;
-//                cout<<"mLabel.width: " << mLabel.width << " mSliderWidth: "<<mSliderWidth <<"s: "<<s<<"\n";
+                float s = (m.x-(mSliderX+x))/mSliderWidth;
+                cout<<"mLabel.width: " << mLabel.width << " mSliderWidth: "<<mSliderWidth <<"s: "<<s<<"\n";
                 if (s > .999) s = 1;
                 if (s < .001) s = 0;
         // don't dispatch an event if scale hasn't changed //

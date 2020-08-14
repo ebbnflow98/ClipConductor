@@ -31,8 +31,14 @@ class ofxDatGuiButton : public ofxDatGuiComponent {
         {
             mType = ofxDatGuiType::BUTTON;
             setTheme(ofxDatGuiComponent::getTheme());
-            setNumberbox(false);
+            mNumberbox=false;
         }
+    ofxDatGuiButton(string label, bool numberbox) : ofxDatGuiComponent(label)
+    {
+        mType = ofxDatGuiType::BUTTON;
+        setTheme(ofxDatGuiComponent::getTheme());
+        mNumberbox=true;
+    }
     
         void setTheme(const ofxDatGuiTheme* theme)
         {

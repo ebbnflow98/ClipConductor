@@ -68,6 +68,7 @@ void ofxDatGui::init()
     mGuiBackground = ofxDatGuiComponent::getTheme()->color.guiBackground;
     
     mMouseDown = false;
+    highResolution = ofxDatGuiIsHighResolution();
     
 // enable autodraw by default //
     setAutoDraw(true, mGuis.size());
@@ -290,6 +291,13 @@ ofxDatGuiButton* ofxDatGui::addButton(string label)
     attachItem(button);
     return button;
 }
+ofxDatGuiButton* ofxDatGui::addButton(string label, bool numberbox)
+{
+    ofxDatGuiButton* button = new ofxDatGuiButton(label,numberbox);
+    button->onButtonEvent(this, &ofxDatGui::onButtonEventCallback);
+    attachItem(button);
+    return button;
+}
 
 ofxDatGuiToggle* ofxDatGui::addToggle(string label, bool enabled)
 {
@@ -338,9 +346,9 @@ ofxDatGuiSlider* ofxDatGui::addSlider(string label, float min, float max, float 
     return slider;
 }
 
-ofxDatGuiSlider* ofxDatGui::addSlider(string label, float min, float max, float val, bool text)
+ofxDatGuiSlider* ofxDatGui::addSlider(string label, float min, float max, float val, bool text, bool numberbox)
 {
-    ofxDatGuiSlider* slider = new ofxDatGuiSlider(label, min, max, val,text);
+    ofxDatGuiSlider* slider = new ofxDatGuiSlider(label, min, max, val,text,numberbox);
     slider->onSliderEvent(this, &ofxDatGui::onSliderEventCallback);
     slider->onTextInputEvent(this, &ofxDatGui::onTextInputEventCallback);
     attachItem(slider);
@@ -872,8 +880,6 @@ void ofxDatGui::positionGui()
 
 void ofxDatGui::update()
 {
-    cout<<"UPDATE"<<this->getPosition().x<<"\n";
-    cout<<"mMousedown: "<<mMouseDown<<"\n";
     mWindowMoved=false;
     oldWindowPosition=windowPosition;
     windowPosition.set(ofGetWindowPositionX(),ofGetWindowPositionY());
@@ -889,23 +895,15 @@ void ofxDatGui::update()
         if (mAlignmentChanged) items[i]->setLabelAlignment(mAlignment);
     }
     
-    if (mThemeChanged || mWidthChanged || mWindowMoved) layoutGui();
+    if (mThemeChanged || mWidthChanged) layoutGui();
+    
+    if(mWindowMoved) checkResolutionChange();
 
     mTheme = nullptr;
     mAlphaChanged = false;
     mWidthChanged = false;
     mThemeChanged = false;
     mAlignmentChanged = false;
-    
-    
-//    if (ofGetMousePressed() && mActiveGui->mMoving == false && mMouseDown==true) cout<<this->getPosition().x<<":got em \n";
-//    else
-//    {
-//        cout<<"don't because ";
-//        if(!ofGetMousePressed())cout<<"ofGetMousePressed is false \n";
-//        if(mActiveGui->mMoving) cout<<"mActiveGui->mMoving is true \n";
-//        if(!mMouseDown) cout<<"mMouseDown is false \n";
-//    }
     
     //see if any other guis have mMouseDown (check for drag)
     bool otherMouseDown=false;
@@ -924,8 +922,6 @@ void ofxDatGui::update()
     // check for gui focus change //        implement right click duplicating this section (?)
     if (ofGetMousePressed() && mActiveGui->mMoving == false && otherMouseDown==false)
     {
-//        cout<<"this should only run when gui focus is changed \n";
-        
         ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());
         for (int i=mGuis.size()-1; i>-1; i--)
         {
@@ -940,24 +936,19 @@ void ofxDatGui::update()
     }
     
     
-    
     if (!getFocused() || !mEnabled)
     {
-//        cout<<"line 929 and focus: "<< getFocused()<<"\n";
     // update children but ignore mouse & keyboard events //
         for (int i=0; i<items.size(); i++) items[i]->update(false);
     }
     else if(mMouseDown)
     {
         mMouseDown=ofGetMousePressed();
-        cout<<"your new thing: "<<mMouseDown<<"\n";
         for(int i=0;i<items.size();i++)
         {
             if(items[i]->getFocused())
             {
                 items[i]->update(true);
-//                mMouseDown = items[i]->getMouseDown();
-                cout<<"your new thing"<<items[i]->getName()<<"\n";
             }
             else if (items[i]->getIsExpanded())
             {
@@ -967,7 +958,6 @@ void ofxDatGui::update()
                     if (items[i]->children[j]->getFocused())
                     {
                         items[i]->children[j]->update(true);
-//                        mMouseDown = items[i]->children[j]->getMouseDown();
                         break;
                     }
                 }
@@ -986,41 +976,28 @@ void ofxDatGui::update()
             {
                 if (hitComponent == false && mMouseDown==false)
                 {
-//                    cout<<"line 949"<<items[i]->getName()<<items[i]->getFocused()<<" \n";
                     items[i]->update(true);
-                    
                     if (items[i]->getFocused())
                     {
                         hitComponent = true;
-//                        cout<<"line 951"<<items[i]->getName()<<" \n";
                         mMouseDown = items[i]->getMouseDown();
                     }
                     else if (items[i]->getIsExpanded())
                     {
-                    // check if one of its children has focus //
-                        for (int j=0; j<items[i]->children.size(); j++)
+                        for (int j=0; j<items[i]->children.size(); j++)     // check if one of its children has focus //
                         {
-                            
                             if (items[i]->children[j]->getFocused())
                             {
                                 hitComponent = true;
-//                                cout<<"line 971 \n";
                                 mMouseDown = items[i]->children[j]->getMouseDown();
                                 break;
                             }
                          }
                      }
                  }
-//                else if(hitComponent==false && mMouseDown==true)
-//                {
-//                    cout<<"line 990 \n";
-//                    items[i]->getFocused();
-//
-//                }
                 else
                 {
-            // update component but ignore mouse & keyboard events //
-                    items[i]->update(false);
+                    items[i]->update(false);            // update component but ignore mouse & keyboard events //
                     if (items[i]->getFocused()) items[i]->setFocused(false);
                 }
             }
@@ -1048,11 +1025,9 @@ void ofxDatGui::draw()
             {
                 items[i]->draw();
             }
-            
         // color pickers overlap other components when expanded so they must be drawn last //
             for (int i=0; i<items.size(); i++) items[i]->drawColorPicker();
         }
-    
     ofPopStyle();
 }
 
@@ -1091,4 +1066,24 @@ void ofxDatGui::onMouseScrolled(ofMouseEventArgs &e)
     ofPoint s = getPosition();
     scrollxy.x=s.x;
     moveGui(scrollxy);
+}
+
+void ofxDatGui::checkResolutionChange()
+{
+    if(ofxDatGuiIsHighResolution() && !highResolution)
+    {
+        ofxDatGuiTheme *t=new ofxDatGuiThemeSpectacle;
+        t->layout.width = int(this->getWidth()*2);
+        setTheme(t, true);
+        highResolution=true;
+        setPosition(this->getPosition().x*2,0);
+    }
+    if(!ofxDatGuiIsHighResolution() && highResolution)
+    {
+        ofxDatGuiTheme *t=new ofxDatGuiThemeSpectacle;
+        t->layout.width = int(this->getWidth()/2);
+        setTheme(t, true);
+        highResolution=false;
+        setPosition(this->getPosition().x/2,0);
+    }
 }

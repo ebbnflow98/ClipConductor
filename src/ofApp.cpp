@@ -55,7 +55,7 @@ void ofApp::setup()//===========================================================
         command=false;
         
         videosLabel = gui2->addLabel("VIDEOS");
-        videosLabel->setNumberbox(false);
+//        videosLabel->setNumberbox(false);
         videosLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
         videosLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::FILM);
         videosLabel->setIconAlignment(ofxDatGuiAlignment::RIGHT);
@@ -72,8 +72,8 @@ void ofApp::setup()//===========================================================
         
         for(int i=0;i<max_videos;i++)
         {
-            videoButtons[i]=(gui2->addButton(ofToString(i+1)));
-            videoButtons[i]->setNumberbox(true, noteNames[i]);
+            videoButtons[i]=(gui2->addButton(ofToString(i+1), true));
+            videoButtons[i]->setNumberbox(noteNames[i]);
         }
         
         newProjectButton = gui->addButton("New Project");
@@ -100,18 +100,18 @@ void ofApp::setup()//===========================================================
         clearAllLightsButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::TRASHCAN);
         lightsLabel = gui3->addLabel("LIGHTS");
         lightsLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-        lightsLabel->setNumberbox(false);
+//        lightsLabel->setNumberbox(false);
         lightsLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::LIGHTBULB);
         
         bgColor1ColorPicker=gui->addColorPicker("BG Color 1",bgColor1);
-        bgColor1ColorPicker->setNumberbox(false);
+//        bgColor1ColorPicker->setNumberbox(false);
 
         fxLabel = gui->addLabel("FX");
         fxLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
-        fxLabel->setNumberbox(false);
+//        fxLabel->setNumberbox(false);
         fxLabel->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::EYE);
         
-        fxMacroSlider = gui->addSlider("FX DRY/WET",0.0,1.0,fxMacro,false);
+        fxMacroSlider = gui->addSlider("FX DRY/WET",0.0,1.0,fxMacro,false,false);
         
         videoFolder=gui->addFolder("VIDEO CONTROLS");
         videoSpeedSlider=videoFolder->addSlider("Video Speed",0.1,10.0,videoSpeed2);
@@ -175,7 +175,7 @@ void ofApp::setup()//===========================================================
         chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
         chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
         chromaKeyColorPicker->setColor(ofColor::green);
-        chromaKeyColorPicker->setNumberbox(false);
+//        chromaKeyColorPicker->setNumberbox(false);
         chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0, 255,chromaKeyThreshold);
         chromaKeyFolder->setDropdownDividers(false);
         
@@ -202,10 +202,10 @@ void ofApp::setup()//===========================================================
         for(int i=0;i<numberOfLights;i++)
         {
             lightValues[i]=0;
-            lightSliders[i] = gui3->addSlider("Ch."+ofToString(i+1),0,255,0, true);
-            lightSliders[i]->setNumberbox(true,"Ch"+ofToString(i+1));
+            lightSliders[i] = gui3->addSlider("Ch."+ofToString(i+1),0,255,0, true,true);
+            lightSliders[i]->setNumberbox("Ch"+ofToString(i+1));
             lightSliders[i]->setTextInput("Type Parameter Here");
-            lightSliders[i]->setLockedLayout(true);
+//            lightSliders[i]->setLockedLayout(true);
             lightSliders[i]->setPrecision(0);
             lightSliders[i]->bind(lightValues[i]);
         }
@@ -232,7 +232,7 @@ void ofApp::setup()//===========================================================
     lightsLabel->setBackgroundColor(ofColor::black);
     lightsLabel->setLabelColor(ofColor::white);
     
-    gui3->setWidth(800);
+    gui3->setWidth(gui2->getWidth()*2);
     snaves=1;
     gui->update();
     gui2->update();

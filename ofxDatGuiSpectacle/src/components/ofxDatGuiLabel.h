@@ -74,6 +74,8 @@ class ofxDatGuiLabel : public ofxDatGuiComponent{
         {
             setComponentStyle(theme);
             mStyle.stripe.color = theme->stripe.label;
+            setBackgroundColor(ofColor::black);             //hard-coded for spectacle
+            setLabelColor(ofColor::white);                  //hard-coded for spectacle
         }
     
         void setWidth(int width, float labelWidth = 1)

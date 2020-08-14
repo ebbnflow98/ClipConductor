@@ -42,6 +42,7 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
     mCustomIconChoice = ofxDatGuiIconType::NONE;
+    mNumberbox = false;
     
 }
 
@@ -146,9 +147,20 @@ void ofxDatGuiComponent::setWidth(int width, float labelWidth)
 // we received a percentage //
         mLabel.width = mStyle.width * labelWidth;
     }
+    if(mNumberbox)
+    {
+        mNumberboxX = mStyle.padding * 2;
+        mNumberboxWidth = mStyle.width * .1;
+    }
+    else
+    {
+        mNumberboxX=0;
+        mNumberboxWidth=0;
+    }
+    
     mIcon.x = mStyle.width - (mStyle.width * .05) - mIcon.size;
     mCustomIcon.x = mLabel.width/2 + mLabel.x + int(mStyle.width * .15);
-    if(mType==ofxDatGuiType::LABEL) mCustomIcon.x = mLabel.width/2 + mLabel.x + int(mStyle.width * .1);
+    if(mType==ofxDatGuiType::LABEL) mCustomIcon.x = int(mLabel.width/2) + int(mStyle.width * .1);
     mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
     for (int i=0; i<children.size(); i++) children[i]->setWidth(width, labelWidth);
     positionLabel();
@@ -299,7 +311,8 @@ void ofxDatGuiComponent::setLabelAlignment(ofxDatGuiAlignment align)
 
 void ofxDatGuiComponent::positionLabel()
 {
-    if (mLabel.alignment == ofxDatGuiAlignment::LEFT){
+    if(mNumberbox) mLabel.x = mNumberboxX + mNumberboxWidth + (mStyle.padding * 2);
+    else if (mLabel.alignment == ofxDatGuiAlignment::LEFT){
         mLabel.x = mLabel.margin;
     }   else if (mLabel.alignment == ofxDatGuiAlignment::CENTER){
         mLabel.x = (mLabel.width / 2) - (mLabel.rect.width / 2);
@@ -485,10 +498,11 @@ void ofxDatGuiComponent::drawDropdownDividers()
 
 void ofxDatGuiComponent::drawNumberbox(string s)
 {
-    ofSetColor(mStyle.color.inputArea);
-    ofDrawRectangle(x + mStyle.padding, y + mStyle.padding, mStyle.height, mStyle.height - mStyle.padding*2);
+//    ofSetColor(mStyle.color.inputArea);
+    ofSetColor(ofColor::black);
+    ofDrawRectangle(x + mNumberboxX, y + mStyle.padding, mStyle.height, mStyle.height - mStyle.padding*2);
     ofSetColor(ofColor::white);
-    mFont->draw(s, (x + mStyle.padding + ((mStyle.height / 2) - (mFont->rect(s).width / 2))), (y + mStyle.height/2 + mFont->size()));
+    mFont->draw(s, (x + mNumberboxX + ((mStyle.height / 2) - (mFont->rect(s).width / 2))), (y + mStyle.height/2 + mFont->size()));
 }
 
 void ofxDatGuiComponent::drawCustomIcon()
@@ -627,19 +641,26 @@ void ofxDatGuiComponent::onWindowResized(ofResizeEventArgs &e)
     onWindowResized();
 }
 
-void ofxDatGuiComponent::setNumberbox(bool t)
-{
-    mNumberbox = t;
-}
+//void ofxDatGuiComponent::setNumberbox(bool t)
+//{
+//    mNumberbox = t;
+//    mNumberboxX = mStyle.padding;
+//    mNumberboxWidth = int(mStyle.width*.1);
+//    setWidth(mWidth, mLabel)
+//}
 void ofxDatGuiComponent::setNumberbox(string s)
 {
     mNumberboxValue = s;
+    mNumberboxX = mStyle.padding;
+    mNumberboxWidth = int(mStyle.width*.15);
 }
-void ofxDatGuiComponent::setNumberbox(bool t, string s)
-{
-    mNumberbox = t;
-    mNumberboxValue = s;
-}
+//void ofxDatGuiComponent::setNumberbox(bool t, string s)
+//{
+//    mNumberbox = t;
+//    mNumberboxValue = s;
+//    mNumberboxX = mStyle.padding;
+//    mNumberboxWidth = int(mStyle.width*.1);
+//}
 
 bool ofxDatGuiComponent::getNumberbox()
 {

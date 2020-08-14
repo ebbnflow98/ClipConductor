@@ -24,7 +24,7 @@ int main(){
     shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
 
     settings.setPosition(ofVec2f(0,0));
-    settings.resizable = true;
+    settings.resizable = false;
     settings.shareContextWith = mainWindow;
     shared_ptr<ofAppBaseWindow> guiWindow = ofCreateWindow(settings);
     guiWindow->setVerticalSync(false);

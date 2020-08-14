@@ -61,16 +61,17 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool getAutoDraw();
         bool getMouseDown();
         ofPoint getPosition();
-    
+        void checkResolutionChange();
     
         ofxDatGuiHeader* addHeader(string label = "", bool draggable = true);
         ofxDatGuiFooter* addFooter();
         ofxDatGuiLabel* addLabel(string label);
         ofxDatGuiButton* addButton(string label);
+        ofxDatGuiButton* addButton(string label, bool numberbox);
         ofxDatGuiToggle* addToggle(string label, bool state = false);
         ofxDatGuiSlider* addSlider(string label, float min, float max);
         ofxDatGuiSlider* addSlider(string label, float min, float max, float val);
-        ofxDatGuiSlider* addSlider(string label, float min, float max, float val, bool text);
+        ofxDatGuiSlider* addSlider(string label, float min, float max, float val, bool text, bool numberbox);
         ofxDatGuiSlider* addSlider(ofParameter<int> & p);
         ofxDatGuiSlider* addSlider(ofParameter<int> & p, bool t);
         ofxDatGuiSlider* addSlider(ofParameter<float> & p);
@@ -105,6 +106,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
     vector<ofxDatGuiComponent*> items;
     int getPadding();
     bool mEnabled;
+    bool highResolution;
     
     
     private:
@@ -125,7 +127,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool mThemeChanged;
         bool mAlignmentChanged;
         ofColor mGuiBackground;
-    bool mWindowMoved;
+        bool mWindowMoved;
     
         ofPoint mPosition;
         ofRectangle mGuiBounds;

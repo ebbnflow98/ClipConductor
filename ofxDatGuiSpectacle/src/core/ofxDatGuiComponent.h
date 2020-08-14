@@ -118,9 +118,11 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
 
     
     bool mNumberbox;
+    int mNumberboxX;
+    int mNumberboxWidth;
     string mNumberboxValue;
-    void setNumberbox(bool t);
-    void setNumberbox(bool t, string s);
+//    void setNumberbox(bool t);
+//    void setNumberbox(bool t, string s);
     void setNumberbox(string s);
     bool getNumberbox();
     string setNumberboxValue();
