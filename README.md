@@ -7,7 +7,7 @@ With Spectacle, you can control performance visuals from inside your DAW via MID
 
 ## Installation
 
--Download the Spectacle dmg and open. Drag Spectacle into your Applications folder. If you'd like to install the Max for Live devices, drag them and drop them on an Ableton Live window.
+-Download the Spectacle dmg and open. Drag Spectacle into your Applications folder. If you'd like to install the Max for Live devices, drag them and drop them on your Max for Live devices folder. To find this folder, go to your Ableton User Library, then Presets/MIDI Effects/Max MIDI Effect (unless you've changed your M4L device directory).
 
 ![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/dmg.png)
 
@@ -88,7 +88,7 @@ CC # | Spectacle FX           |
 | 52 | Chroma Key Color Blue  |
 | 53 | Chroma Key Threshold   |
 
--For Ableton Live Suite users, there is a Max for Live controller device that accompanies the Spectacle download. This device simply takes the MIDI parameters used by Spectacle and labels them (so that the user doesn't have to worry about matching CC values to cooresponding FX using the table above). To install the device, drag the Spectacle.amxd device and drop it on your Ableton window. Put this on the track routed to channel 1.
+-For Ableton Live Suite users, there is a Max for Live controller device that accompanies the Spectacle download. This device simply takes the MIDI parameters used by Spectacle and labels them (so that the user doesn't have to worry about matching CC values to cooresponding FX using the table above). To install the device, drag the Spectacle.amxd device and drop it on your Max For Live device folder. Then drop it on the track routed to channel 1.
 ![alt text](https://github.com/ebbnflow98/Spectacle/blob/master/readMe%20Resources/m4l%20gui.png)
 
 –The dropdown boxes below the knobs on the M4L device allow users to change the input MIDI CC that the FX are looking for. This only applies to users with hardware controllers that don't allow for CC re-assignment via MIDI mapping; so most users shouldn't change these values. 
