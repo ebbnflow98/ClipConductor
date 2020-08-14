@@ -3,18 +3,18 @@
   "icon": "data/spectacle.icns",
   "background": "data/spectacleDmgBackground.png",
   "contents" : [
-    { "x": 335, "y": 165, "type": "link", "path": "/Applications" },
-    { "x": 135, "y": 165, "type": "file", "path": "Spectacle.app" },
-    { "x": 100, "y": 280, "type": "file", "path": "Spectacle (v2.0).amxd"},
-    { "x": 100, "y": 380, "type": "file", "path": "Spectacle DMX (v2.0).amxd"},
-    { "x": 320, "y": 405, "type": "file", "path": "../README.md"},
-    { "x": 420, "y": 405, "type": "file", "path": "../license.md"}
+    { "x": 455, "y": 235, "type": "link", "path": "/Applications" },
+    { "x": 245, "y": 235, "type": "file", "path": "Spectacle.app" },
+    { "x": 150, "y": 380, "type": "file", "path": "Spectacle (v2.0).amxd"},
+    { "x": 150, "y": 480, "type": "file", "path": "Spectacle DMX (v2.0).amxd"},
+    { "x": 420, "y": 605, "type": "file", "path": "../README.md"},
+    { "x": 520, "y": 605, "type": "file", "path": "../license.md"}
 
   ],
   "window": {
       "size": {
-          "width": 480,
-          "height": 480
+          "width": 700,
+          "height": 700
         }
 }
 }
