@@ -51,37 +51,48 @@ public ofxMidiListener
             { which=false;}
             else
             {
-                cout<<"load failed; which=NULL \n";
-                ofSystemAlertDialog("Load failed. File type not supported.");
+//                ofSystemAlertDialog("Load failed. File type not supported.");
                 close();
                 return false;
             }
-            
+//            if(which)
+//            {
+//                video.videoIsntHap=false;
+//                cout<<"load up those videos \n";
+//                video.load(loadPath);
+//                while(!video.isLoaded()) if(video.videoIsntHap==true) break;
+//                bool balls=(video.isLoaded());
+//                if (video.videoIsntHap)
+//                {
+//
+//                    ofFile input;
+//                    input.open(loadPath);
+//                    string convertedVideoPath = convert(loadPath);
+//                    if(convertedVideoPath!="")
+//                    {
+//                        close();
+//                        load(convertedVideoPath);
+//
+//                        return true;
+//                    }
+//                    else
+//                    {
+//                        ofSystemAlertDialog("Load failed. Video file is not HAP encoded and video conversion failed");
+//                        return false;
+//                    }
+//                }
+//            }
             if(which)
             {
                 video.videoIsntHap=false;
-                cout<<"load up those videos \n";
+//                cout<<"load up those videos \n";
                 video.load(loadPath);
                 while(!video.isLoaded()) if(video.videoIsntHap==true) break;
                 bool balls=(video.isLoaded());
                 if (video.videoIsntHap)
                 {
-                    
-                    ofFile input;
-                    input.open(loadPath);
-                    string convertedVideoPath = convert(loadPath);
-                    if(convertedVideoPath!="")
-                    {
-                        close();
-                        load(convertedVideoPath);
-                        
-                        return true;
-                    }
-                    else
-                    {
-                        ofSystemAlertDialog("Load failed. Video file is not HAP encoded and video conversion failed");
-                        return false;
-                    }
+                    ofSystemAlertDialog("Load failed. Video file is not HAP encoded");
+                    return false;
                 }
             }
             else if(!which)

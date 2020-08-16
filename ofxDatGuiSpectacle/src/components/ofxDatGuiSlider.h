@@ -298,17 +298,14 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
         if (!mEnabled || !mVisible){
             return false;
         }
-        else if (m.x>=x+mSliderX && m.x<= (x+mSliderX+mSliderWidth) && m.y>=y+mStyle.padding && m.y<= y+mStyle.height-mStyle.padding)
-        {
-            cout<<m.x<<" needs to be between "<<x+mSliderX<<" and "<<x+mSliderX+mSliderWidth<<"\n";
-
+        else if (m.x>=x+mSliderX && m.x<= (x+mSliderX+mSliderWidth) && m.y>=y+mStyle.padding && m.y<= y+mStyle.height-mStyle.padding){
             return true;
         }
         else if (mInput->hitTest(m)){
             return true;
         }
         else if (mTextInput->hitTest(m)){
-                return true;
+            return true;
         }
         else {
             return false;

@@ -219,8 +219,6 @@ void ofApp::setup()//===========================================================
         videoSyncToggle->setChecked(videoSync);
         rippleSyncToggle->setChecked(rippleSync);
         
-        cout<<"here 4"<<endl;
-
         ofBackground(ofColor::black);
         if(ofLoadImage( font, "font.jpg" ))cout<<"font loaded"<<endl;
         else cout<<"font not loaded"<<endl;
@@ -241,9 +239,6 @@ void ofApp::setup()//===========================================================
 
 void ofApp::update()//============================================================
 {
-    cout<<"gui1:focused"<<gui->getFocused()<<"\n";
-    cout<<"gui2:focused"<<gui2->getFocused()<<"\n";
-    cout<<"gui3:focused"<<gui3->getFocused()<<"\n \n";
     //---------Tempo update--------------------------------
     if(timecodeRunning && ofGetElapsedTimeMillis() - timecodeTimestamp > 100)
     {
@@ -1117,8 +1112,10 @@ bool ofApp::loadSettings()//====================================================
         xmlSettings.loadFile(loadPath);
         if(xmlSettings.loadFile(loadPath))
         {
+            bool fail = false;
             for(int i = 0; i <max_videos; i++)
             {
+                
                 player[i].full=(xmlSettings.getValue("xmlSettings:media:full"+ofToString(i), 0));
                 if(player[i].full==true)
                 {
@@ -1129,7 +1126,8 @@ bool ofApp::loadSettings()//====================================================
                     mediaFile.open(media);
                     if(!mediaFile.isFile())
                     {
-                        ofSystemAlertDialog("Media file " + ofToString(i) + " has been moved or renamed. Failed to locate.");
+                        ofSystemAlertDialog("Media file " + ofToString(i+1) + " has been moved or renamed. Failed to locate.");
+                        fail=true;
                     }
                     else
                     {
@@ -1145,7 +1143,8 @@ bool ofApp::loadSettings()//====================================================
                 lightSliders[i]->setTextInput(xmlSettings.getValue("xmlSettings:lights:light"+ofToString(i),"Type Parameter Here"));
             }
             
-            ofSystemAlertDialog("File loaded successfully.");
+            if(!fail)ofSystemAlertDialog("File done loading. It loaded successfully.");
+            else ofSystemAlertDialog("File done loading. It was unsuccessful.");
             return true;
         }
         else
