@@ -145,7 +145,7 @@ void ofApp::setup()//===========================================================
         kaleidoscopeAngleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
         kaleidoscopeXSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
         kaleidoscopeYSlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
-        kaleidoscopeSectorSlider=kaleidioscopeFolder->addSlider("Sectors", 1.0, 100,kaleidioscopeSectors);
+        kaleidoscopeSectorSlider=kaleidioscopeFolder->addSlider("Sectors", 1, 100,kaleidioscopeSectors);
         kaleidioscopeFolder->setDropdownDividers(false);
         
         pixelateFolder=gui->addFolder("PIXELATE");
@@ -369,12 +369,26 @@ void ofApp::draw()//============================================================
     fxShader.setUniform2f("rippleXY", rippleX,rippleY);
     fxShader.setUniform1f("rippleRate",rippleRate);
     
-    fxShader.setUniform1i("ksectors", int(kaleidioscopeSectors*kaleidoscopeMacro));
+    int ksec=int(kaleidioscopeSectors*kaleidoscopeMacro);
+    if(ksec<1)ksec=1;
+    fxShader.setUniform1i("ksectors",ksec);
     fxShader.setUniform2f("kcenter", kaleiodioscopeX*kaleidoscopeMacro,kaleiodioscopeY*kaleidoscopeMacro);
     fxShader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
     fxShader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
-    if(kaleidoscopeMacro<.5) fxShader.setUniform2f("screenCenter",0,0);
-    else fxShader.setUniform2f("screenCenter",0.5*getWidth,0.5*getHeight);
+//    cout<<"ksectors: "<<ksec<< "\n"<<"kcenter: "<<kaleiodioscopeX*kaleidoscopeMacro<<","<< kaleiodioscopeY*kaleidoscopeMacro<<"\n"<< "kaleidoscopeMacro: "<<kaleidoscopeMacro <<"\n";
+    if(kaleidoscopeMacro<.5)
+    {
+        fxShader.setUniform2f("screenCenter",0,0);
+//        cout<<"screenCenter: 0,0 \n";
+    }
+    else
+    {
+        fxShader.setUniform2f("screenCenter",int(0.5*getWidth),int(0.5*getHeight));
+//        int t =int(0.5*getWidth);
+//        int o =int(0.5*getHeight);
+//        cout<<"screenCenter: "<<t <<","<<o<<"\n";
+    }
+//    cout<<"--------------------------\n";
     
     fxShader.setUniform1i("pixelateMacro", int(pixelateMacro));
     

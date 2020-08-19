@@ -371,7 +371,7 @@ class ofxDatGuiSlider : public ofxDatGuiComponent {
             if (mFocused && mInput->hasFocus() == false && mTextInput->hasFocus() == false)
             {
                 float s = (m.x-(mSliderX+x))/mSliderWidth;
-                cout<<"mLabel.width: " << mLabel.width << " mSliderWidth: "<<mSliderWidth <<"s: "<<s<<"\n";
+//                cout<<"mLabel.width: " << mLabel.width << " mSliderWidth: "<<mSliderWidth <<"s: "<<s<<"\n";
                 if (s > .999) s = 1;
                 if (s < .001) s = 0;
         // don't dispatch an event if scale hasn't changed //
