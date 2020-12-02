@@ -23,6 +23,11 @@ uniform float time;
 uniform vec2 resolution;
 uniform vec2 fontResolution;
 
+float map(float value, float istart, float istop, float ostart, float ostop)
+{
+    return (ostart + (ostop - ostart) * ((value - istart) / (istop - istart)));
+}
+
 void main()
 {
     vec4 dryColor = texture2DRect(tex0,gl_TexCoord[0].xy);
@@ -31,7 +36,8 @@ void main()
     float dotdistance=asciiDotDistance;
     
     float imagegain=asciiImageGain*2.-1.;
-    float contrast = ( imagecontrast * 2. )* ( imagecontrast * 2. ) * ( imagecontrast * 2. ) * ( imagecontrast * 2. );
+    
+    float contrast = ( imagecontrast * 2. ) * ( imagecontrast * 2. ) * ( imagecontrast * 2. ) * ( imagecontrast * 2. );
     float gain = imagegain - (imagecontrast -0.5) ;
     
     vec2 texcoord0=gl_TexCoord[0].xy;

@@ -71,7 +71,6 @@ vec4 Filter(vec4 color, float filterMacro, vec4 filterRGB)
     color.g*=filterRGB.g*filterMacro;
     color.b*=filterRGB.b*filterMacro;
 //    color.a*=filterRGB.a*filterMacro;
-    
     return color;
 }
 
@@ -103,6 +102,7 @@ vec2 Pixelate(vec2 pos, int pixelateMacro)
     vec2 pixelationSection = (resolution/float(pixelation));
     vec2 difference= floor(mod(pos, pixelationSection));
     pos-=difference;
+    
     return pos;
 }
 

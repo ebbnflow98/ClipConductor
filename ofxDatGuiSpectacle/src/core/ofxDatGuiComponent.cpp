@@ -159,7 +159,7 @@ void ofxDatGuiComponent::setWidth(int width, float labelWidth)
     }
     
     mIcon.x = mStyle.width - (mStyle.width * .05) - mIcon.size;
-    mCustomIcon.x = mLabel.width/2 + mLabel.x + int(mStyle.width * .15);
+    mCustomIcon.x = int(mLabel.width/2 + mLabel.x + (mStyle.width * .15));
     if(mType==ofxDatGuiType::LABEL) mCustomIcon.x = int(mLabel.width/2) + int(mStyle.width * .1);
     mLabel.rightAlignedXpos = mLabel.width - mLabel.margin;
     for (int i=0; i<children.size(); i++) children[i]->setWidth(width, labelWidth);
@@ -328,7 +328,7 @@ void ofxDatGuiComponent::setIconAlignment(ofxDatGuiAlignment alignment)
 void ofxDatGuiComponent::positionIcon()
 {
     if (mCustomIcon.alignment == ofxDatGuiAlignment::LEFT){
-          mCustomIcon.x = mLabel.margin;
+//          mCustomIcon.x = mLabel.margin;
       }   else if (mCustomIcon.alignment == ofxDatGuiAlignment::CENTER){
           mCustomIcon.x = (mLabel.width / 2) - (mCustomIcon.size / 2);
       }   else if (mCustomIcon.alignment == ofxDatGuiAlignment::RIGHT){

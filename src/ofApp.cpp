@@ -11,6 +11,7 @@ void ofApp::setup()//===========================================================
     if(snaves==0)ofSetDataPathRoot(ofFilePath::getCurrentExeDir()+"../Resources/data/");
     ofSetFrameRate(60);
     ofBackground(ofColor::black);
+    ofSetEscapeQuitsApp(false);
     
     if(snaves==0)
     {
@@ -50,6 +51,9 @@ void ofApp::setup()//===========================================================
         gui->setTheme(theme);
         gui2->setTheme(flip);
         gui3->setTheme(theme);
+        
+        savePath = "";
+        saveName = "default.xml";
         
         clear=false;
         command=false;
@@ -98,6 +102,7 @@ void ofApp::setup()//===========================================================
         
         clearAllLightsButton = gui3->addButton("Clear All Lights");
         clearAllLightsButton->setIcon(ofxDatGuiComponent::ofxDatGuiIconType::TRASHCAN);
+//        clearAllLightsButton->setIconAlignment(ofxDatGuiAlignment::RIGHT);
         lightsLabel = gui3->addLabel("LIGHTS");
         lightsLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
 //        lightsLabel->setNumberbox(false);
@@ -140,13 +145,13 @@ void ofApp::setup()//===========================================================
         filterBlueSlider=filterFolder->addSlider("Blue",0.0,1.0,filterBlue);
         filterFolder->setDropdownDividers(false);
         
-        kaleidioscopeFolder=gui->addFolder("KALEIDIOSCOPE");
-        kaleidoscopeMacroSlider=kaleidioscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
-        kaleidoscopeAngleSlider=kaleidioscopeFolder->addSlider("Angle",-180,180,kaleidioscopeAngle);
-        kaleidoscopeXSlider=kaleidioscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
-        kaleidoscopeYSlider=kaleidioscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
-        kaleidoscopeSectorSlider=kaleidioscopeFolder->addSlider("Sectors", 1, 100,kaleidioscopeSectors);
-        kaleidioscopeFolder->setDropdownDividers(false);
+        kaleidoscopeFolder=gui->addFolder("KALEIDOSCOPE");
+        kaleidoscopeMacroSlider=kaleidoscopeFolder->addSlider("Kaleidoscope",0.0,1.0,kaleidoscopeMacro);
+        kaleidoscopeAngleSlider=kaleidoscopeFolder->addSlider("Angle",-180,180,kaleidoscopeAngle);
+        kaleidoscopeXSlider=kaleidoscopeFolder->addSlider("X",0.0,1.0,kaleiodioscopeX);
+        kaleidoscopeYSlider=kaleidoscopeFolder->addSlider("Y",0.0,1.0,kaleiodioscopeY);
+        kaleidoscopeSectorSlider=kaleidoscopeFolder->addSlider("Sectors", 1, 100,kaleidoscopeSectors);
+        kaleidoscopeFolder->setDropdownDividers(false);
         
         pixelateFolder=gui->addFolder("PIXELATE");
         pixelateMacroSlider=pixelateFolder->addSlider("Pixelate", 0, 100, pixelateMacro);
@@ -195,7 +200,7 @@ void ofApp::setup()//===========================================================
         
         gui2->onToggleEvent(this, &ofApp::onToggleEvent);
         gui2->onButtonEvent(this, &ofApp::onButtonEventGui2);
-        kaleidioscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
+        kaleidoscopeFolder->onSliderEvent(this, &ofApp::onSliderEvent);
         
         gui3->onButtonEvent(this, &ofApp::onButtonEventGui3);
         gui3->onSliderEvent(this, &ofApp::onSliderEventGui3);
@@ -369,12 +374,12 @@ void ofApp::draw()//============================================================
     fxShader.setUniform2f("rippleXY", rippleX,rippleY);
     fxShader.setUniform1f("rippleRate",rippleRate);
     
-    int ksec=int(kaleidioscopeSectors*kaleidoscopeMacro);
+    int ksec=int(kaleidoscopeSectors*kaleidoscopeMacro);
     if(ksec<1)ksec=1;
     fxShader.setUniform1i("ksectors",ksec);
     fxShader.setUniform2f("kcenter", kaleiodioscopeX*kaleidoscopeMacro,kaleiodioscopeY*kaleidoscopeMacro);
     fxShader.setUniform1f("kaleidoscopeMacro", kaleidoscopeMacro);
-    fxShader.setUniform1f("kangleRad", (ofDegToRad(kaleidioscopeAngle))*kaleidoscopeMacro);
+    fxShader.setUniform1f("kangleRad", (ofDegToRad(kaleidoscopeAngle))*kaleidoscopeMacro);
 //    cout<<"ksectors: "<<ksec<< "\n"<<"kcenter: "<<kaleiodioscopeX*kaleidoscopeMacro<<","<< kaleiodioscopeY*kaleidoscopeMacro<<"\n"<< "kaleidoscopeMacro: "<<kaleidoscopeMacro <<"\n";
     if(kaleidoscopeMacro<.5)
     {
@@ -441,6 +446,7 @@ ofPoint ofApp::windowSize()//===================================================
 
 void ofApp::exitGui(ofEventArgs &args)//============================================================
 {
+    if(ofSystemYesNoDialog("Any unsaved progress will be lost. Do you want to save before exiting?"))saveSettings();
     exit();
 }
 
@@ -591,8 +597,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         kaleidoscopeMacroSlider->setValue(kaleidoscopeMacro);
                         break;
                     case 33:
-                        kaleidioscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
-                        kaleidoscopeAngleSlider->setValue(kaleidioscopeAngle);
+                        kaleidoscopeAngle=ofMap(msg.value,0, 127, -180.0, 180.0);
+                        kaleidoscopeAngleSlider->setValue(kaleidoscopeAngle);
                         break;
                     case 34:
                         kaleiodioscopeX=ofMap(msg.value,0, 127, 0.0, 1.00);
@@ -603,8 +609,8 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         kaleidoscopeYSlider->setValue(kaleiodioscopeY);
                         break;
                     case 36:
-                        kaleidioscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
-                        kaleidoscopeSectorSlider->setValue(kaleidioscopeSectors);
+                        kaleidoscopeSectors=ofMap(msg.value, 0, 127, 1.0, 100.0);
+                        kaleidoscopeSectorSlider->setValue(kaleidoscopeSectors);
                         break;
                         
                         
@@ -737,66 +743,68 @@ void ofApp::exit()//============================================================
 void ofApp::keyPressed(ofKeyEventArgs & args)//============================================================
 {
     //------------Ability to preview via QWERTY keyboard presses------------------
-    //                                                                    cout<<"key pressed\n"<<endl;
+    bool def = false;
     int key = args.key;
     if(key==OF_KEY_COMMAND) command=true;
     
+
     if(command)
     {
         if(key=='s') saveSettings();
-        if(key=='l') loadSettings();
-        if(key=='n') newProject();
+        else if(key=='l') loadSettings();
+        else if(key=='n') if(ofSystemYesNoDialog("This will clear your video and text box fields. Continue?"))newProject();
     }
-    
-    switch (key)
+    else
     {
-        case '1': playerFromMidiMessage=0; break;
-        case '2': playerFromMidiMessage=1; break;
-        case '3': playerFromMidiMessage=2; break;
-        case '4': playerFromMidiMessage=3; break;
-        case '5': playerFromMidiMessage=4; break;
-        case '6': playerFromMidiMessage=5; break;
-        case '7': playerFromMidiMessage=6; break;
-        case '8': playerFromMidiMessage=7; break;
-        case '9': playerFromMidiMessage=8; break;
-        case '0': playerFromMidiMessage=9; break;
-        case 'q': playerFromMidiMessage=10; break;
-        case 'w': playerFromMidiMessage=11; break;
-        case 'e': playerFromMidiMessage=12; break;
-        case 'r': playerFromMidiMessage=13; break;
-        case 't': playerFromMidiMessage=14; break;
-        case 'y': playerFromMidiMessage=15; break;
-        case 'u': playerFromMidiMessage=16; break;
-        case 'i': playerFromMidiMessage=17; break;
-        case 'o': playerFromMidiMessage=18; break;
-        case 'p': playerFromMidiMessage=19; break;
-        case 'a': playerFromMidiMessage=20; break;
-        case 's': playerFromMidiMessage=21; break;
-        case 'd': playerFromMidiMessage=22; break;
-        case 'f': playerFromMidiMessage=23; break;
-        case 'g': playerFromMidiMessage=24; break;
-        case 'h': playerFromMidiMessage=25; break;
-        case 'j': playerFromMidiMessage=26; break;
-        case 'k': playerFromMidiMessage=27; break;
-        case 'l': playerFromMidiMessage=28; break;
-        case 'z': playerFromMidiMessage=29; break;
-        case 'x': playerFromMidiMessage=30; break;
-        case 'c': playerFromMidiMessage=31; break;
-        case 'v': playerFromMidiMessage=32; break;
-        case 'b': playerFromMidiMessage=33; break;
-        case 'n': playerFromMidiMessage=34; break;
-        case 'm': playerFromMidiMessage=35; break;
-        default: break;
-    }
+        switch (key)
+        {
+            case '1': playerFromMidiMessage=0; break;
+            case '2': playerFromMidiMessage=1; break;
+            case '3': playerFromMidiMessage=2; break;
+            case '4': playerFromMidiMessage=3; break;
+            case '5': playerFromMidiMessage=4; break;
+            case '6': playerFromMidiMessage=5; break;
+            case '7': playerFromMidiMessage=6; break;
+            case '8': playerFromMidiMessage=7; break;
+            case '9': playerFromMidiMessage=8; break;
+            case '0': playerFromMidiMessage=9; break;
+            case 'q': playerFromMidiMessage=10; break;
+            case 'w': playerFromMidiMessage=11; break;
+            case 'e': playerFromMidiMessage=12; break;
+            case 'r': playerFromMidiMessage=13; break;
+            case 't': playerFromMidiMessage=14; break;
+            case 'y': playerFromMidiMessage=15; break;
+            case 'u': playerFromMidiMessage=16; break;
+            case 'i': playerFromMidiMessage=17; break;
+            case 'o': playerFromMidiMessage=18; break;
+            case 'p': playerFromMidiMessage=19; break;
+            case 'a': playerFromMidiMessage=20; break;
+            case 's': playerFromMidiMessage=21; break;
+            case 'd': playerFromMidiMessage=22; break;
+            case 'f': playerFromMidiMessage=23; break;
+            case 'g': playerFromMidiMessage=24; break;
+            case 'h': playerFromMidiMessage=25; break;
+            case 'j': playerFromMidiMessage=26; break;
+            case 'k': playerFromMidiMessage=27; break;
+            case 'l': playerFromMidiMessage=28; break;
+            case 'z': playerFromMidiMessage=29; break;
+            case 'x': playerFromMidiMessage=30; break;
+            case 'c': playerFromMidiMessage=31; break;
+            case 'v': playerFromMidiMessage=32; break;
+            case 'b': playerFromMidiMessage=33; break;
+            case 'n': playerFromMidiMessage=34; break;
+            case 'm': playerFromMidiMessage=35; break;
+            default: def = true; break;
+        }
     
-    if(player[playerFromMidiMessage].drawImage!=true)
-    {
-        player[playerFromMidiMessage].drawImage=true;
-        player[playerFromMidiMessage].size=127;
-        player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
-        currentlyDrawing+=1;
+        if(def!=true && player[playerFromMidiMessage].drawImage!=true)
+        {
+            player[playerFromMidiMessage].drawImage=true;
+            player[playerFromMidiMessage].size=127;
+            player[playerFromMidiMessage].size=ofMap(player[playerFromMidiMessage].size, 0, 127, 0.0, 2.0);
+            currentlyDrawing+=1;
+        }
     }
-    
 }
 //--------------------------------------------------------------
 void ofApp::keyReleased(ofKeyEventArgs & args)//============================================================
@@ -932,9 +940,10 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///========================
         {
             if(player[iLabel].isLoaded()) player[iLabel].close();
             clear=false;
-            clearToggle->setBackgroundColor(ofColor::black);
-            clearToggle->setLabelColor(ofColor::white);
-            e.target->setLabel(ofToString(iLabel));
+            clearToggle->setChecked(clear);
+//            clearToggle->setBackgroundColor(ofColor::white);
+//            clearToggle->setLabelColor(ofColor::black);
+            e.target->setLabel(ofToString(iLabel+1));
         }
         else
         {
@@ -958,6 +967,8 @@ void ofApp::clearAllLights()
 
 void ofApp::newProject()
 {
+    saveName = "default.xml";
+    savePath = "";
 //    if(ofSystemAlertDialog( ));
     clearAllLights();
     clearAllVideos();
@@ -969,7 +980,11 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//=============================
     
     if (e.target==videoSyncToggle)videoSync=!videoSync;
     
-    else if(e.target==clearToggle) clear=!clear;
+    else if(e.target==clearToggle)
+    {
+        clear=!clear;
+        clearToggle->setChecked(clear);
+    }
     
     else if(e.target==rippleSyncToggle)rippleRate=bpm*60;
     
@@ -1002,10 +1017,10 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
     if(e.target==fxMacroSlider)fxMacro=(e.target->getValue());
     
     else if(e.target==kaleidoscopeMacroSlider)kaleidoscopeMacro = (e.target->getValue());
-    else if(e.target==kaleidoscopeAngleSlider)kaleidioscopeAngle=(e.target->getValue());
+    else if(e.target==kaleidoscopeAngleSlider)kaleidoscopeAngle=(e.target->getValue());
     else if(e.target==kaleidoscopeXSlider)kaleiodioscopeX=(e.target->getValue());
     else if(e.target==kaleidoscopeYSlider)kaleiodioscopeY=(e.target->getValue());
-    else if(e.target==kaleidoscopeSectorSlider)kaleidioscopeSectors=(e.target->getValue());
+    else if(e.target==kaleidoscopeSectorSlider)kaleidoscopeSectors=(e.target->getValue());
     
     else if(e.target==filterMacroSlider)filterMacro=(e.target->getValue());
     else if(e.target==filterRedSlider)filterRed=(e.target->getValue());
@@ -1175,10 +1190,41 @@ bool ofApp::loadSettings()//====================================================
 bool ofApp::saveSettings()//============================================================
 {//--------Save video array---------------------
     
-    //                                                                          cout << "save settings" << endl;
-    ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
-    if(result.bSuccess)
+    if(saveName=="default.xml")
     {
+        //                                                                          cout << "save settings" << endl;
+        ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
+        if(result.bSuccess)
+        {
+            for(int i = 0; i <max_videos; i++)
+            {
+                if(player[i].full==true)
+                {
+                    xmlSettings.setValue("xmlSettings:media:full"+ofToString(i), player[i].full);
+                    xmlSettings.setValue("xmlSettings:media:which"+ofToString(i), player[i].which);
+                    xmlSettings.setValue("xmlSettings:media:media"+ofToString(i), player[i].path);
+                }
+            }
+            
+            for(int i=0;i<numberOfLights;i++)
+            {
+                xmlSettings.setValue("xmlSettings:lights:light"+ofToString(i), lightSliders[i]->getTextInput());
+            }
+            
+            savePath = result.getPath();
+            xmlSettings.save(result.getPath());
+            
+            ofSystemAlertDialog("Save successful. \n");
+            return true;
+        }
+        else
+        {
+            //                                                                                    cout<<"save failed"<<endl;
+            ofSystemAlertDialog("Save failed. \n");
+            return false;
+        }
+    }
+        else
         for(int i = 0; i <max_videos; i++)
         {
             if(player[i].full==true)
@@ -1194,18 +1240,8 @@ bool ofApp::saveSettings()//====================================================
             xmlSettings.setValue("xmlSettings:lights:light"+ofToString(i), lightSliders[i]->getTextInput());
         }
         
-        xmlSettings.save(result.getPath());
-        
-        ofSystemAlertDialog("Save successful. \n");
+        xmlSettings.save(savePath);
         return true;
-    }
-    else
-    {
-        //                                                                                    cout<<"save failed"<<endl;
-        ofSystemAlertDialog("Save failed. \n");
-        return false;
-    }
-    return false;
 }
 
 

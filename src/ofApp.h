@@ -207,6 +207,8 @@ public ofxMidiListener
     ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
     ofShader fxShader, asciiShader, ledShader, chromaKeyShader;
     
+    string saveName;
+    string savePath;
     bool exiting=false;
     float guiHeight=0.0;
     bool videoSync=false;
@@ -249,7 +251,7 @@ public ofxMidiListener
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
     
-    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidioscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder, *vhsFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidoscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder, *vhsFolder;
     
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle;
     ofxDatGuiButton *newProjectButton, *clearAllButton, *saveButton, *loadButton;
@@ -272,7 +274,7 @@ public ofxMidiListener
     float fxMacro=1.0;
     ofxDatGuiSlider *fxMacroSlider;
     
-     float asciiMacro=0.0, asciiDotDistance=0.0, asciiImageGain=0.0, asciiImageContrast=0.0;
+     float asciiMacro=0.0, asciiDotDistance=1.0, asciiImageGain=0.5, asciiImageContrast=0.5;
     bool asciiInvert=false;
     ofxDatGuiSlider *asciiMacroSlider, *asciiDotDistanceSlider, *asciiImageGainSlider, *asciiImageContrastSlider;
     ofxDatGuiToggle *asciiInvertToggle;
@@ -284,7 +286,7 @@ public ofxMidiListener
     int fullhouseMacro=0;
     ofxDatGuiSlider *fullhouseMacroSlider;
     
-    float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidioscopeAngle=0.0, kaleidioscopeSectors=1;
+    float kaleidoscopeMacro=0.0, kaleiodioscopeX=0.0, kaleiodioscopeY=0.0, kaleidoscopeAngle=0.0, kaleidoscopeSectors=1;
     ofxDatGuiSlider *kaleidoscopeMacroSlider, *kaleidoscopeAngleSlider, *kaleidoscopeXSlider, *kaleidoscopeYSlider, *kaleidoscopeSectorSlider;
     
     float filterMacro=1.0, filterRed=1.0, filterGreen=1, filterBlue=1.0, filterAlpha=1.0;
@@ -343,7 +345,7 @@ public ofxMidiListener
      "C7","C#7","D7","D#7","E7","F7","F#7","G7","G#7","A7","A#7","B7",
      "C8","C#8","D8","D#8","E8","F8","F#8","G8"
      };
-    
+        
 private:
     ofxMidiIn midiIn;
     std::vector<ofxMidiMessage> midiMessages;
