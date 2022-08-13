@@ -18,7 +18,6 @@ string convert(string input)////////////////////////////////////////////////////
     ofFileDialogResult result = ofSystemSaveDialog("hap_"+name,"Save Hap video as:");
     if(!result.bSuccess) return "";
     ofFile resultFile;
-//    resultFile.open(path);
     string output = result.getPath();
     string command = "export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin && cd data/data; ffmpeg -y -i "+path+" -c:v hap_"+output+";";
     string outputTerminal = ofSystem(command.c_str());

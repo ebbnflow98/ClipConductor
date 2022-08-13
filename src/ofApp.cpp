@@ -18,7 +18,6 @@ void ofApp::setup()//===========================================================
     if(fxShader.load("fxShader.vert","fxShader.frag"))cout<<"mainShader loaded"; else cout<<"mainShader not loaded";
     if(asciiShader.load("asciiShader.vert","asciiShader.frag")) cout<<"asciiShader loaded"; else cout<<"asciiShader not loaded";
     if(ledShader.load("ledShader.vert","ledShader.frag"))cout<<"ledShader loaded"; else cout<<"ledShader not loaded";
-    if(chromaKeyShader.load("chromaKeyShader.vert","chromaKeyShader.frag"))cout<<"chromaKeyShader loaded"; else cout<<"chromaKeyShader not loaded";
     
     if(snaves==0) allocateFBOs();
     
@@ -176,14 +175,6 @@ void ofApp::setup()//===========================================================
         zebraLevelsSlider=zebraFolder->addSlider("Levels",2,50,zebraLevels);
         zebraFolder->setDropdownDividers(false);
         
-        chromaKeyFolder=gui->addFolder("CHROMAKEY");
-        chromaKeyMacroSlider=chromaKeyFolder->addSlider("ChromaKey", 0.0, 1.0,chromaKeyMacro);
-        chromaKeyColorPicker=chromaKeyFolder->addColorPicker("Key");
-        chromaKeyColorPicker->setColor(ofColor::green);
-//        chromaKeyColorPicker->setNumberbox(false);
-        chromaKeyThresholdSlider=chromaKeyFolder->addSlider("Threshold", 0, 255,chromaKeyThreshold);
-        chromaKeyFolder->setDropdownDividers(false);
-        
 //        vhsFolder=gui->addFolder("VHS");
 //        vhsMacroSlider=vhsFolder->addSlider("VHS",0.0, 1.0, vhsMacro);
 //        vhsStrengthSlider=vhsFolder->addSlider("Strength",0.0,1.0,vhsStrength);
@@ -271,7 +262,6 @@ void ofApp::update()//==========================================================
 void ofApp::draw()//============================================================
 {
     drawCount=currentlyDrawing;
-    chromaKeyVideo=-1;
     
     fbo.begin();                                            //FBO 1 begin
     ofClear(0,0,0,0);
@@ -285,7 +275,7 @@ void ofApp::draw()//============================================================
     for(int i=0;i<max_videos;i++)
     {
         if(player[i].drawImage==false)player[i].stop();
-        if(player[i].drawImage && videoCount<4)
+        if(player[i].drawImage)// && videoCount<4)
         {
             if (videoSync==true)
             {
@@ -300,12 +290,12 @@ void ofApp::draw()//============================================================
                 if(player[i].isPlaying()==false)player[i].play();
             }
             
-            if(videoCount>4) break;
+//            if(videoCount>4) break;
             
             player[i].setLoopState(OF_LOOP_NORMAL);
             ofSetColor(255,255,255,player[i].opacity);      //set color in order to draw video according to its opacity value
-            if(drawCount!=0)player[i].draw(0,0,getWidth,getHeight);         //draw video
-            else(chromaKeyVideo=i);
+//            if(drawCount!=0)
+            player[i].draw(0,0,getWidth,getHeight);         //draw video
             drawCount-=1;
         }
     }
@@ -315,44 +305,7 @@ void ofApp::draw()//============================================================
     ofEnableSmoothing();
     fbo.end();                                              //FBO end
     
-    //-----Chroma Key Video FBO--------------------------------------------------
     
-    chromaKeyVideoFbo.begin();
-    ofClear(0,0,0,0);
-    
-    if(chromaKeyVideo!= -1)player[chromaKeyVideo].draw(0, 0, getWidth, getHeight);
-    
-    chromaKeyVideoFbo.end();
-    
-    //-----Chroma Key FX FBO/Shader--------------------------------------------------
-    
-    chromaKeyFxFbo.begin();
-    ofClear(0,0,0,0);
-    
-    chromaKeyShader.begin();
-    
-    fxShader.setUniform1f("fxMacro", fxMacro);
-    chromaKeyShader.setUniform1f("chromaKeyMacro", chromaKeyMacro);
-    chromaKeyShader.setUniform3f("chromaKeyColor", chromaKeyColor.getRedFloat(),chromaKeyColor.getGreenFloat(),chromaKeyColor.getBlueFloat());
-    chromaKeyShader.setUniform1f("chromaKeyThreshold",chromaKeyThreshold);
-    
-    chromaKeyVideoFbo.draw(0,0,getWidth,getHeight);
-    
-    chromaKeyShader.end();
-    chromaKeyFxFbo.end();
-    
-    //-------Blend FBO---------------------------------------------------------
-    
-    blendFbo.begin();
-    ofClear(0,0,0,0);
-    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    ofDisableSmoothing();
-    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
-    chromaKeyFxFbo.draw(0,0,getWidth,getHeight);
-    ofEnableAlphaBlending();
-    ofEnableSmoothing();
-    blendFbo.end();
-
     //-------FX FBO/Shader---------------------------------------------------------
     
     fbo2.begin();                                           //FBO 2 begin
@@ -409,8 +362,8 @@ void ofApp::draw()//============================================================
 //    shader.setUniform1f("vhsMacro", vhsMacro);
 //    shader.setUniform1f("vhsStrength", vhsStrength);
 //    shader.setUniform1f("vhsSpeed", vhsSpeed);
-    
-    blendFbo.draw(0,0,getWidth, getHeight);
+    fbo.draw(0,0, getWidth, getHeight);             //first FBO draw
+//    blendFbo.draw(0,0,getWidth, getHeight);
     fxShader.end();                                   //shader1 end
     fbo2.end();                                     // FBO 2 end
         
@@ -670,28 +623,6 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
                         break;
                         
                         
-                    case 49:
-                        chromaKeyMacro=ofMap(msg.value,0,127,0.0,1.0);
-                        chromaKeyMacroSlider->setValue(chromaKeyMacro);
-                        break;
-                    case 50:
-                        chromaKeyColor.setRed(ofMap(msg.value,0,127,0,255));
-                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                        break;
-                    case 51:
-                        chromaKeyGreen=ofMap(msg.value,0,127,0,255);
-                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                        break;
-                    case 52:
-                        chromaKeyBlue=ofMap(msg.value,0,127,0,255);
-                        chromaKeyColorPicker->setColor(ofColor(chromaKeyColor.getRedInt(),chromaKeyColor.getGreenInt(),chromaKeyColor.getBlueInt()));
-                        break;
-                    case 53:
-                        chromaKeyThreshold=ofMap(msg.value, 0, 127, 0, 255);
-                        chromaKeyThresholdSlider->setValue(chromaKeyThreshold);
-                        break;
-                        
-                        
                         //                case 54:
                         //                    vhsMacro=ofMap(msg.value, 0, 127, 0.0, 1.0);
                         //                    vhsMacroSlider->setValue(vhsMacro);
@@ -750,7 +681,11 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
 
     if(command)
     {
-        if(key=='s') saveSettings();
+        if(key=='s')
+        {
+            saveButton->drawTrue();
+            saveSettings();
+        }
         else if(key=='l') loadSettings();
         else if(key=='n') if(ofSystemYesNoDialog("This will clear your video and text box fields. Continue?"))newProject();
     }
@@ -1057,9 +992,7 @@ void ofApp::onSliderEvent(ofxDatGuiSliderEvent e)//=============================
 //    else if(e.target==vhsMacroSlider)vhsMacro=(e.target->getValue());
 //    else if(e.target==vhsStrengthSlider)vhsStrength=(e.target->getValue());
 //    else if(e.target==vhsSpeedSlider)vhsSpeed=(e.target->getValue());
-    
-    else if(e.target==chromaKeyMacroSlider)chromaKeyMacro=(e.target->getValue());
-    else if(e.target==chromaKeyThresholdSlider)chromaKeyThreshold=(e.target->getValue());
+//
 }
 
 
@@ -1077,10 +1010,6 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)//===================
         bgColor1Red=e.color.r;
         bgColor1Green=e.color.g;
         bgColor1Blue=e.color.b;
-    }
-    if(e.target->is("Key"))
-    {
-        chromaKeyColor.setColor((e.target->getColor()).r,e.target->getColor().g,e.target->getColor().b);
     }
 }
 
@@ -1138,13 +1067,15 @@ bool ofApp::loadSettings()//====================================================
     if(result.bSuccess)
     {
         string loadPath = result.getPath();
+        savePath = loadPath;
+        saveName = result.getName();
+        
         xmlSettings.loadFile(loadPath);
         if(xmlSettings.loadFile(loadPath))
         {
             bool fail = false;
             for(int i = 0; i <max_videos; i++)
             {
-                
                 player[i].full=(xmlSettings.getValue("xmlSettings:media:full"+ofToString(i), 0));
                 if(player[i].full==true)
                 {
@@ -1192,7 +1123,6 @@ bool ofApp::saveSettings()//====================================================
     
     if(saveName=="default.xml")
     {
-        //                                                                          cout << "save settings" << endl;
         ofFileDialogResult result = ofSystemSaveDialog("default.xml", "Save");
         if(result.bSuccess)
         {
@@ -1212,6 +1142,7 @@ bool ofApp::saveSettings()//====================================================
             }
             
             savePath = result.getPath();
+            saveName = result.getName();
             xmlSettings.save(result.getPath());
             
             ofSystemAlertDialog("Save successful. \n");
@@ -1219,12 +1150,12 @@ bool ofApp::saveSettings()//====================================================
         }
         else
         {
-            //                                                                                    cout<<"save failed"<<endl;
             ofSystemAlertDialog("Save failed. \n");
             return false;
         }
     }
-        else
+    
+    else
         for(int i = 0; i <max_videos; i++)
         {
             if(player[i].full==true)
@@ -1263,9 +1194,6 @@ void ofApp::allocateFBOs()//====================================================
     int h = ofGetHeight();
     int w = ofGetWidth();
     fbo.allocate(w,h);
-    chromaKeyVideoFbo.allocate(w,h);
-    chromaKeyFxFbo.allocate(w,h);
-    blendFbo.allocate(w, h);
     fbo2.allocate(w,h);
     fbo3.allocate(w,h);
     fbo4.allocate(w,h);

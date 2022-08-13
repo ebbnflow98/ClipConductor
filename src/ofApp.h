@@ -204,8 +204,8 @@ public ofxMidiListener
 //    void onRightClickEventGui3(ofxDatGuiRightClickEvent e);
     void onSliderEventGui3(ofxDatGuiSliderEvent e);
 //------------------------------------------------------------------------
-    ofFbo fbo,fbo2,fbo3,fbo4,chromaKeyVideoFbo,chromaKeyFxFbo, blendFbo;
-    ofShader fxShader, asciiShader, ledShader, chromaKeyShader;
+    ofFbo fbo,fbo2,fbo3,fbo4;
+    ofShader fxShader, asciiShader, ledShader;
     
     string saveName;
     string savePath;
@@ -223,7 +223,6 @@ public ofxMidiListener
     int playerFromMidiMessage=0;
     
     int currentlyDrawing=-1;
-    int chromaKeyVideo=-1;
     int drawCount=0;
     
     int videoNumber=0;
@@ -251,7 +250,7 @@ public ofxMidiListener
     ofxDatGui* gui2;
     bool clear=false, clearAll=false, invertColors=false;
     
-    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidoscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *asciiFolder, *rotateFolder, *zebraFolder, *chromaKeyFolder, *vhsFolder;
+    ofxDatGuiFolder *fullhouseFolder, *pixelateFolder, *kaleidoscopeFolder, *filterFolder, *rippleFolder, *invertFolder, *backgroundFolder, *asciiFolder, *rotateFolder, *zebraFolder, *vhsFolder;
     
     ofxDatGuiToggle *clearToggle, *backgroundSwitchToggle, *videoSyncToggle;
     ofxDatGuiButton *newProjectButton, *clearAllButton, *saveButton, *loadButton;
@@ -306,12 +305,6 @@ public ofxMidiListener
     float zebraMacro=0.0, zebraSpeed=0.0;
     int zebraLevels=2;
     ofxDatGuiSlider *zebraMacroSlider, *zebraSpeedSlider, *zebraLevelsSlider;
-    
-    float chromaKeyMacro=0.0, chromaKeyThreshold=0.0;
-    ofxDatGuiSlider *chromaKeyMacroSlider, *chromaKeyThresholdSlider;
-    evanColor chromaKeyColor= evanColor();
-    int chromaKeyRed=0, chromaKeyGreen=255, chromaKeyBlue=0;
-    ofxDatGuiColorPicker *chromaKeyColorPicker;
     
     float vhsMacro, vhsStrength, vhsSpeed;
     ofxDatGuiSlider *vhsMacroSlider, *vhsStrengthSlider, *vhsSpeedSlider;

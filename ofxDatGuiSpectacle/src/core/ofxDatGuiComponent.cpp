@@ -648,12 +648,14 @@ void ofxDatGuiComponent::onWindowResized(ofResizeEventArgs &e)
 //    mNumberboxWidth = int(mStyle.width*.1);
 //    setWidth(mWidth, mLabel)
 //}
+
 void ofxDatGuiComponent::setNumberbox(string s)
 {
     mNumberboxValue = s;
     mNumberboxX = mStyle.padding;
     mNumberboxWidth = int(mStyle.width*.15);
 }
+
 //void ofxDatGuiComponent::setNumberbox(bool t, string s)
 //{
 //    mNumberbox = t;
