@@ -252,10 +252,10 @@ void ofApp::update()//==========================================================
         dmx.setLevel(i+1, lightValues[i]);
     }
     
-    if(dmx.isConnected())
-    {
+//    if(dmx.isConnected())
+//    {
   //      dmx.update();
-    }
+//    }
     
 }
 
