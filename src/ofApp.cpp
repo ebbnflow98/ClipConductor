@@ -254,7 +254,7 @@ void ofApp::update()//==========================================================
     
     if(dmx.isConnected())
     {
-        dmx.update();
+  //      dmx.update();
     }
     
 }
@@ -392,6 +392,7 @@ void ofApp::draw()//============================================================
 
 ofPoint ofApp::windowSize()//============================================================
 {
+    cout<<"windowSize \n";
     ofPoint Windowsize(gui->getWidth()+gui->getPadding()*2+gui2->getWidth()+gui3->getWidth()+gui->getPadding()*2,gui->getHeight());
     ofSetWindowShape(Windowsize.x, Windowsize.y);
     return Windowsize;
@@ -399,7 +400,8 @@ ofPoint ofApp::windowSize()//===================================================
 
 void ofApp::exitGui(ofEventArgs &args)//============================================================
 {
-    if(ofSystemYesNoDialog("Any unsaved progress will be lost. Do you want to save before exiting?"))saveSettings();
+    cout<<"exitGui \n";
+   // if(ofSystemYesNoDialog("Any unsaved progress will be lost. Do you want to save before exiting?"))saveSettings();
     exit();
 }
 
@@ -654,6 +656,7 @@ void ofApp::newMidiMessage (ofxMidiMessage& msg)//==============================
 }
 void ofApp::midiNoteOff(int pitch)//============================================================
 {
+    cout<<"midiNoteOff \n";
     player[pitch].drawImage=false;
     player[pitch].stop();
     player[pitch].firstFrame();
@@ -661,6 +664,7 @@ void ofApp::midiNoteOff(int pitch)//============================================
 
 void ofApp::exit()//============================================================
 {
+    cout<<"exit \n";
     midiIn.closePort();
     midiIn.removeListener(this);
     
@@ -673,6 +677,7 @@ void ofApp::exit()//============================================================
 
 void ofApp::keyPressed(ofKeyEventArgs & args)//============================================================
 {
+    cout<<"keyPressed \n";
     //------------Ability to preview via QWERTY keyboard presses------------------
     bool def = false;
     int key = args.key;
@@ -687,7 +692,7 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
             saveSettings();
         }
         else if(key=='l') loadSettings();
-        else if(key=='n') if(ofSystemYesNoDialog("This will clear your video and text box fields. Continue?"))newProject();
+//        else if(key=='n') if(ofSystemYesNoDialog("This will clear your video and text box fields. Continue?"))newProject();
     }
     else
     {
@@ -744,6 +749,7 @@ void ofApp::keyPressed(ofKeyEventArgs & args)//=================================
 //--------------------------------------------------------------
 void ofApp::keyReleased(ofKeyEventArgs & args)//============================================================
 {
+    cout<<"keyReleased \n";
     int key=args.key;
     if(key==OF_KEY_COMMAND) command=false;
     
@@ -799,6 +805,7 @@ void ofApp::keyReleased(ofKeyEventArgs & args)//================================
 
 void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)//============================================================
 {
+    cout<<"onDropdownEvent \n";
     if(e.target==usbDropdown) changeDevices(e.target->getSelected()->getIndex());
     if(e.target==midiDropdown)midiPort((e.target->getSelected())->getIndex());
 }
@@ -806,6 +813,7 @@ void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)//=========================
 
 void ofApp::changeDevices(int choice)
 {
+    cout<<"changeDevices \n";
     dmx.disconnect();
     dmx.connect(choice, numberOfLights);
 }
@@ -813,7 +821,7 @@ void ofApp::changeDevices(int choice)
 
 void ofApp::dragEvent(ofDragInfo & dragInfo)//============================================================
 {//--------event handler function for when a file is dragged into Spectacle window----------------------
-    
+    cout<<"dragEvent \n";
     if(dragInfo.files.size() > 0)
     {
         for(int m=0;m<dragInfo.files.size();m++)
@@ -845,7 +853,7 @@ void ofApp::dragEvent(ofDragInfo & dragInfo)//==================================
 
 void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//============================================================
 {//--------Button event handler function for FX buttons----------------------
-    
+    cout<<"onButtonEvent \n";
     if(e.target==saveButton) saveSettings();
     else if(e.target==loadButton) loadSettings();
     else if(e.target==refreshUsbButton)
@@ -858,16 +866,16 @@ void ofApp::onButtonEvent(ofxDatGuiButtonEvent e)//=============================
         midiDropdown->changeOptions(midiIn.getInPortList());
         midiDropdown->setTheme(theme);
     }
-    else if(e.target==newProjectButton) if(ofSystemYesNoDialog("This will clear your video and text box fields. Continue?"))newProject();
+   // else if(e.target==newProjectButton) if(ofSystemYesNoDialog("This will clear your video and text box fields. Continue?"))newProject();
 }
 
 
 void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///============================================================
 {//--------Button event handler function for video array part of GUI----------------------
-    //                                                            cout << "onButtonEvent: " << e.target->getLabel() << endl;
+                                                                cout << "onButtonEvent: " << e.target->getLabel() << endl;
     if(e.target==clearAllButton) clearAllVideos();
     
-    else
+    else 
     {
         int iLabel=stoi(e.target->getName());
         iLabel-=1;
@@ -890,6 +898,7 @@ void ofApp::onButtonEventGui2(ofxDatGuiButtonEvent e)///========================
 
 void ofApp::onButtonEventGui3(ofxDatGuiButtonEvent e)
 {
+    cout<<"onButtonEventGui3 \n";
     if(e.target==clearAllLightsButton) clearAllLights();
 }
 
@@ -928,7 +937,7 @@ void ofApp::onToggleEvent(ofxDatGuiToggleEvent e)//=============================
 
 void ofApp::onTextInputEventGui1(ofxDatGuiTextInputEvent e)
 {
-
+    cout<<"onTextInputEventGui1 \n";
 }
 
 
