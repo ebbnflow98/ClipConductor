@@ -1165,7 +1165,7 @@
 					../../../addons/ofxXmlSettings/libs,
 					../../../addons/ofxXmlSettings/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
@@ -1194,8 +1194,8 @@
 					ofxDatGuiSpectacle/src,
 					ofxDatGuiSpectacle/src/components,
 					ofxDatGuiSpectacle/src/core,
-					ofxDatGuiSpectacle/src/libs,
 					ofxDatGuiSpectacle/src/libs/ofxSmartFont,
+					ofxDatGuiSpectacle/src/libs,
 					ofxDatGuiSpectacle/src/themes,
 					../../../addons/ofxDmx/src,
 					../../../addons/ofxHapPlayerAltered/libs,
@@ -1324,7 +1324,7 @@
 					../../../addons/ofxXmlSettings/libs,
 					../../../addons/ofxXmlSettings/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -1401,7 +1401,7 @@
 					../../../addons/ofxXmlSettings/libs,
 					../../../addons/ofxXmlSettings/src,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
@@ -1430,8 +1430,8 @@
 					ofxDatGuiSpectacle/src,
 					ofxDatGuiSpectacle/src/components,
 					ofxDatGuiSpectacle/src/core,
-					ofxDatGuiSpectacle/src/libs,
 					ofxDatGuiSpectacle/src/libs/ofxSmartFont,
+					ofxDatGuiSpectacle/src/libs,
 					ofxDatGuiSpectacle/src/themes,
 					../../../addons/ofxDmx/src,
 					../../../addons/ofxHapPlayerAltered/libs,
@@ -1512,8 +1512,8 @@
 					ofxDatGuiSpectacle/src,
 					ofxDatGuiSpectacle/src/components,
 					ofxDatGuiSpectacle/src/core,
-					ofxDatGuiSpectacle/src/libs,
 					ofxDatGuiSpectacle/src/libs/ofxSmartFont,
+					ofxDatGuiSpectacle/src/libs,
 					ofxDatGuiSpectacle/src/themes,
 					../../../addons/ofxDmx/src,
 					../../../addons/ofxHapPlayerAltered/libs,
